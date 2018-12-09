@@ -8,13 +8,13 @@ import java.sql.Date;
 import java.util.List;
 
 public class ActivityJDBCDAO implements ActivityDAO_interface {
-	private static String DRIVER;
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "system";
-	String pwd = "oracle";
+	private static final String DRIVER= "oracle.jdbc.driver.OracleDriver";
+	 
+	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
+	private static final String USER = "system";
+	private static final String PWD = "oracle";
 
-	private static final String INSERT_STMT = "INSERT INTO Activity (actID,actName,actStart,actEnd)"
+	private static final String INSERT_SQL = "INSERT INTO Activity (actID,actName,actStart,actEnd)"
 			+ "VALUES('A'||LPAD(to_char(act_seq.nextval),4,'0'),?,?,?)";
 
 	private static final String UPDATE = "UPDATE Activity set actName=?,actStart=?,actEnd=? where actID=?";
@@ -41,8 +41,8 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		
 		try {
 			
-			con = DriverManager.getConnection(url, userid, pwd);
-			pstmt =con.prepareStatement(INSERT_STMT);
+			con = DriverManager.getConnection(URL, USER, PWD);
+			pstmt =con.prepareStatement(INSERT_SQL);
 			
 			pstmt.setString(1, activityVO.getActName());
 			pstmt.setDate(2,activityVO.getActStart());
@@ -77,7 +77,17 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 	@Override
 	public void update(ActivityVO activityVO) {
-
+			Connection con =null;
+			PreparedStatement pstmt =null;
+		
+			try {
+				con=DriverManager.getConnection(URL,USER, PWD);
+				pstmt=con.prepareStatement(UPDATE);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+		
 	}
 
 	@Override
@@ -98,16 +108,18 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		return null;
 	}
 	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
+		
 		ActivityVO actVO =new ActivityVO();
 		Date d1 =  Date.valueOf("2018-12-25");
 		Date d2 =  Date.valueOf("2018-12-31");
-		actVO.setActName("聖誕大公公");
+		actVO.setActName("聖誕老公公");
 		actVO.setActStart(d1);
 		actVO.setActEnd(d2);
 		
 		ActivityJDBCDAO actJDAO= new ActivityJDBCDAO();
 		actJDAO.insert(actVO);
+		System.out.println("新增成功");
 		
 	}
 	
