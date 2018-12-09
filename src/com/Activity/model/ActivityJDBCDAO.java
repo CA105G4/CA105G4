@@ -4,6 +4,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 public class ActivityJDBCDAO implements ActivityDAO_interface {
@@ -97,6 +98,17 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		return null;
 	}
 	
-	
+	public static void main(String args[]) {
+		ActivityVO actVO =new ActivityVO();
+		Date d1 =  Date.valueOf("2018-12-25");
+		Date d2 =  Date.valueOf("2018-12-31");
+		actVO.setActName("聖誕大公公");
+		actVO.setActStart(d1);
+		actVO.setActEnd(d2);
+		
+		ActivityJDBCDAO actJDAO= new ActivityJDBCDAO();
+		actJDAO.insert(actVO);
+		
+	}
 	
 }
