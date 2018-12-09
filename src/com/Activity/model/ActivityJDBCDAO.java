@@ -20,11 +20,11 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 	private static final String UPDATE = "UPDATE Activity set actName=?,actStart=?,actEnd=? where actID=?";
 
-	private static final String GET_ALL_STMT = "SELECT * FROM Activity ORDER by actID";
+	private static final String FIND_ALL_STMT = "SELECT * FROM Activity ORDER by actID";
 
-	private static final String GET_BY_PK = "SELECT * FROM Activity where actID=?";
+	private static final String FIND_BY_PK = "SELECT * FROM Activity where actID=?";
 
-	private static final String GET_BY_NAME = "SELECT * FROM Activity where actName=?";
+	private static final String FIND_BY_NAME = "SELECT * FROM Activity where actName=?";
 
 	static {
 		try {
@@ -121,6 +121,17 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		PreparedStatement pstmt =null;
 		ResultSet rs =null;
 		
+		
+		try {
+			con=DriverManager.getConnection(URL,USER,PWD);
+			pstmt =con.prepareStatement(FIND_BY_PK);
+			
+			pstmt.setString(1, actID);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		
 		
