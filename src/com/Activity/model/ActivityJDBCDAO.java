@@ -83,9 +83,32 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			try {
 				con=DriverManager.getConnection(URL,USER, PWD);
 				pstmt=con.prepareStatement(UPDATE);
+				
+				pstmt.setString(1, activityVO.getActName());
+				pstmt.setDate(2,activityVO.getActStart());
+				pstmt.setDate(3, activityVO.getActEnd());
+				
+				pstmt.executeUpdate();
+
 			} catch (SQLException e) {
 				e.printStackTrace();
+			}finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
 			}
+			
 			
 		
 	}
