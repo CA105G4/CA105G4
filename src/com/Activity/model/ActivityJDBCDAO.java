@@ -127,7 +127,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			pstmt =con.prepareStatement(FIND_BY_PK);
 			
 			pstmt.setString(1, actID);
-			
+			rs = pstmt.executeQuery();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
