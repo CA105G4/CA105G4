@@ -106,7 +106,6 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	@Override
 	public CouponVO findByPK(String cpnID) {
 		CouponVO couponVO = null;
-		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -162,7 +161,6 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	public List<CouponVO> getAll() {
 		List<CouponVO> list = new ArrayList<CouponVO>();
 		CouponVO couponVO = null;
-		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -217,7 +215,7 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	public static void main(String[] args) {
 		CouponJDBCDAO dao = new CouponJDBCDAO();
 		
-		// 新增測試
+		// 新增
 		CouponVO couponVO1 = new CouponVO();
 		couponVO1.setCpnPic(new TestWriteBLOB().writeBLOB("logo5.png"));
 		couponVO1.setDiscount(500);

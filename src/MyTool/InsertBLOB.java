@@ -70,7 +70,7 @@ public class InsertBLOB {
             } 
         }
         catch(ClassNotFoundException e) { 
-            System.out.println("§ä¤£¨ìÅX°Ê"); 
+            System.out.println("æ‰¾ä¸åˆ°ç…§ç‰‡"); 
             e.printStackTrace(); 
         } 
     } 
