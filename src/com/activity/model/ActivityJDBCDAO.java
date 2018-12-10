@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ActivityJDBCDAO implements ActivityDAO_interface {
@@ -17,13 +18,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 	private static final String INSERT_SQL = "INSERT INTO Activity (actID,actName,actStart,actEnd)"
 			+ "VALUES('A'||LPAD(to_char(act_seq.nextval),4,'0'),?,?,?)";
-
 	private static final String UPDATE = "UPDATE Activity set actName=?,actStart=?,actEnd=? where actID=?";
-
+	private static final String FIND_BY_PK = "SELECT * FROM Activity where actID=?";
 	private static final String FIND_ALL_STMT = "SELECT * FROM Activity ORDER by actID";
-
-	private static final String FIND_BY_PK = "SELECT actName,actStart,actEnd FROM Activity where actID=?";
-
 	private static final String FIND_BY_NAME = "SELECT actID,actStart,actEnd FROM Activity where actName=?";
 
 	static {
@@ -128,12 +125,14 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			pstmt.setString(1, actID);
 			rs = pstmt.executeQuery();
 			
-			while(rs!=null) {
+			while(rs.next()) {
 				actVO =new ActivityVO();
-				actVO.setActName(rs.getString("actName"));
-				actVO.setActStart(rs.getDate("actStart"));
-				actVO.setActEnd(rs.getDate("actEnd"));
+				actVO.setActID(rs.getString("ACTID"));
+				actVO.setActName(rs.getString("ACTName"));
+				actVO.setActStart(rs.getDate("ACTStart"));
+				actVO.setActEnd(rs.getDate("ACTEnd"));
 			}
+			System.out.println();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -179,7 +178,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		try {
 			con=DriverManager.getConnection(URL, USER, PWD);
 			pstmt =con.prepareStatement(FIND_BY_NAME);
-			pstmt.setString(2,actName);
+			pstmt.setString(1,actName);
 			rs= pstmt.executeQuery();
 			
 			while(rs !=null) {
@@ -220,8 +219,56 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 	@Override
 	public List<ActivityVO> getAll() {
-				
-		return null;
+		List<ActivityVO> list = new ArrayList<ActivityVO>();
+		ActivityVO actVO =null;
+		
+		Connection con =null;
+		PreparedStatement pstmt =null;
+		ResultSet rs =null;
+		
+		try {
+			
+			con=DriverManager.getConnection(URL, USER, PWD);
+			pstmt =con.prepareStatement(FIND_ALL_STMT);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				actVO =new ActivityVO();
+				actVO.setActID(rs.getString("actID"));
+				actVO.setActName(rs.getString("actName"));
+				actVO.setActStart(rs.getDate("actStart"));
+				actVO.setActEnd(rs.getDate("actEnd"));
+				list.add(actVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+		
+		
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.activity.model;
 
 import java.sql.Date;
+import java.util.List;
 
 public class ActivityVOJDBC {
 
@@ -29,6 +30,27 @@ public class ActivityVOJDBC {
 		actVO2.setActEnd(d4);
 		dao.update(actVO2);
 		System.out.println("修改成功");
+		
+		//透過主鍵尋找全部
+		ActivityVO actVO3 =dao.findByPK("A0003");
+		System.out.print(actVO3.getActID()+" ");
+		System.out.print(actVO3.getActName()+" ");
+		System.out.print(actVO3.getActStart()+" ");
+		System.out.println(actVO3.getActEnd());
+		
+		//找全部
+		
+		List<ActivityVO>list =dao.getAll();
+		
+		for(ActivityVO actVO4:list) {
+			System.out.print(actVO4.getActID()+" ");
+			System.out.print(actVO4.getActName()+" ");
+			System.out.print(actVO4.getActStart()+" ");
+			System.out.print(actVO4.getActEnd()+" ");
+			System.out.println();
+		}
+		
+		
 	}
 
 }
