@@ -22,9 +22,9 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 
 	private static final String FIND_ALL_STMT = "SELECT * FROM Activity ORDER by actID";
 
-	private static final String FIND_BY_PK = "SELECT * FROM Activity where actID=?";
+	private static final String FIND_BY_PK = "SELECT actName,actStart,actEnd FROM Activity where actID=?";
 
-	private static final String FIND_BY_NAME = "SELECT * FROM Activity where actName=?";
+	private static final String FIND_BY_NAME = "SELECT actID,actStart,actEnd FROM Activity where actName=?";
 
 	static {
 		try {
@@ -125,44 +125,104 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		try {
 			con=DriverManager.getConnection(URL,USER,PWD);
 			pstmt =con.prepareStatement(FIND_BY_PK);
-			
 			pstmt.setString(1, actID);
 			rs = pstmt.executeQuery();
 			
+			while(rs!=null) {
+				actVO =new ActivityVO();
+				actVO.setActName(rs.getString("actName"));
+				actVO.setActStart(rs.getDate("actStart"));
+				actVO.setActEnd(rs.getDate("actEnd"));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			
+			if(rs!=null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(pstmt!=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con!=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
 		}
-		
-		
-		
-		return null;
+			
+		return actVO;
 	}
 
 	@Override
 	public ActivityVO findByName(String actName) {
-
-		return null;
+		ActivityVO actVO =null;
+		Connection con =null;
+		PreparedStatement pstmt =null;
+		
+		ResultSet rs =null;
+		
+		try {
+			con=DriverManager.getConnection(URL, USER, PWD);
+			pstmt =con.prepareStatement(FIND_BY_NAME);
+			pstmt.setString(2,actName);
+			rs= pstmt.executeQuery();
+			
+			while(rs !=null) {
+				actVO = new ActivityVO();
+				actVO.setActID(rs.getString("actID"));
+				actVO.setActStart(rs.getDate("actStart"));
+				actVO.setActEnd(rs.getDate("actEnd"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			} 	
+		}
+		return actVO;
 	}
 
 	@Override
 	public List<ActivityVO> getAll() {
-
+				
 		return null;
 	}
 	
-	public static void main(String[] args) {
-		
-		ActivityVO actVO =new ActivityVO();
-		Date d1 =  Date.valueOf("2018-12-25");
-		Date d2 =  Date.valueOf("2018-12-31");
-		actVO.setActName("聖誕老公公");
-		actVO.setActStart(d1);
-		actVO.setActEnd(d2);
-		
-		ActivityJDBCDAO actJDAO= new ActivityJDBCDAO();
-		actJDAO.insert(actVO);
-		System.out.println("新增成功");
-		
-	}
 	
 }
