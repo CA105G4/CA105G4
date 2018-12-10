@@ -1,9 +1,12 @@
-package com.WorkExchange.model;
+package com.workExchange.model;
 
 import java.io.Serializable;
 import java.sql.Date;
 
 public class WorkExchangeVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private Integer weID;
 	private String memID;
 	private String empID;

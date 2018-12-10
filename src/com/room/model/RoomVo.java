@@ -1,8 +1,11 @@
-package com.Room.model;
+package com.room.model;
 
 import java.io.Serializable;
 
 public class RoomVo implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	
 	private String roomID;
 	private String roomTypeID;
 	private String braID;

@@ -1,8 +1,11 @@
-package com.WorkExchangeRecord.model;
+package com.workExchangeRecord.model;
 
 import java.io.Serializable;
 
 public class WorkExchangeRecordVO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private Integer werID;
 	private String memID;
 	private Integer werState;
