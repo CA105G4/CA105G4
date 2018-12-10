@@ -1,4 +1,4 @@
-package com.branch.model;
+package com.coupon.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,20 +10,19 @@ import java.util.List;
 
 import MyTool.TestWriteBLOB;
 
-public class BranchJDBCDAO implements BranchDAO_interface{
+public class CouponJDBCDAO implements CouponDAO_interface{
 
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "Test_Project"; 
 	private static final String PASSWORD = "123456"; 
-
-    private static final String INSERT_SQL = 
-    		"INSERT INTO branch (braID, braName, braIntro, braPic, braTel, braVideo, braAddr, braLng, braLat) "
-    		+ "VALUES ('B'||LPAD(to_char(bra_seq.NEXTVAL), 2, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String UPDATE_SQL = "UPDATE branch set braName = ? where braID = ?";
-    private static final String GET_ALL_SQL = "SELECT * from branch";
-    private static final String GET_ONE_SQL = "SELECT braID, braName, braIntro, braTel, braAddr, braLng, braLat, braState from branch where braID = ?";
+	
+    private static final String INSERT_SQL = "INSERT INTO coupon VALUES ('C'||LPAD(to_char(cpn_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?)";
+    private static final String UPDATE_SQL = "UPDATE coupon set appQuantity = ? where cpnID = ?";
+    private static final String GET_ALL_SQL = "SELECT * from coupon";
+    private static final String GET_ONE_SQL = "SELECT * from coupon where cpnID = ?";
     
+	
     static {
     	try {
 			Class.forName(DRIVER);
@@ -31,9 +30,9 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 			e.printStackTrace();
 		}    	
     }
-    
+	
 	@Override
-	public void insert(BranchVO branchVO) {
+	public void insert(CouponVO couponVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -41,14 +40,10 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(INSERT_SQL);
 			
-			pstmt.setString(1, branchVO.getBraName());
-			pstmt.setString(2, branchVO.getBraIntro());
-			pstmt.setBytes(3, branchVO.getBraPic());
-			pstmt.setString(4, branchVO.getBraTel());
-			pstmt.setBytes(5, branchVO.getBraVideo());
-			pstmt.setString(6, branchVO.getBraAddr());
-			pstmt.setDouble(7, branchVO.getBraLng());
-			pstmt.setDouble(8, branchVO.getBraLat());
+			pstmt.setBytes(1, couponVO.getCpnPic());
+			pstmt.setInt(2, couponVO.getDiscount());
+			pstmt.setInt(3, couponVO.getQuantity());
+			pstmt.setInt(4, couponVO.getAppQuantity());
 			
 			pstmt.executeUpdate();
 			
@@ -74,7 +69,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 	}
 
 	@Override
-	public void update(BranchVO branchVO) {
+	public void update(CouponVO couponVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -82,8 +77,8 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
-			pstmt.setString(1, branchVO.getBraName());
-			pstmt.setString(2, branchVO.getBraID());
+			pstmt.setInt(1, couponVO.getAppQuantity());
+			pstmt.setString(2, couponVO.getCpnID());
 			
 			pstmt.executeUpdate();
 			
@@ -109,8 +104,8 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 	}
 
 	@Override
-	public BranchVO findByPK(String braID) {
-		BranchVO branchVO = null;
+	public CouponVO findByPK(String cpnID) {
+		CouponVO couponVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -120,21 +115,17 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 			
-			pstmt.setString(1, braID);
+			pstmt.setString(1, cpnID);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				branchVO = new BranchVO();
+				couponVO = new CouponVO();
 				
-				branchVO.setBraID(rs.getString("braID"));
-				branchVO.setBraName(rs.getString("braName"));
-				branchVO.setBraIntro(rs.getString("braIntro"));
-				branchVO.setBraTel(rs.getString("braTel"));
-				branchVO.setBraAddr(rs.getString("braAddr"));
-				branchVO.setBraLng(rs.getDouble("braLng"));
-				branchVO.setBraLat(rs.getDouble("braLat"));
-				branchVO.setBraState(rs.getInt("braState"));
+				couponVO.setCpnID(rs.getString("cpnID"));
+				couponVO.setDiscount(rs.getInt("discount"));
+				couponVO.setQuantity(rs.getInt("quantity"));
+				couponVO.setAppQuantity(rs.getInt("appQuantity"));
 			}
 			
 		} catch (SQLException e) {
@@ -164,13 +155,13 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 				}
 			}
 		}	
-		return branchVO;
+		return couponVO;
 	}
 
 	@Override
-	public List<BranchVO> getAll() {
-		List<BranchVO> list = new ArrayList<BranchVO>();
-		BranchVO branchVO = null;
+	public List<CouponVO> getAll() {
+		List<CouponVO> list = new ArrayList<CouponVO>();
+		CouponVO couponVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -182,18 +173,14 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				branchVO = new BranchVO();
+				couponVO = new CouponVO();
 				
-				branchVO.setBraID(rs.getString("braID"));
-				branchVO.setBraName(rs.getString("braName"));
-				branchVO.setBraIntro(rs.getString("braIntro"));
-				branchVO.setBraTel(rs.getString("braTel"));
-				branchVO.setBraAddr(rs.getString("braAddr"));
-				branchVO.setBraLng(rs.getDouble("braLng"));
-				branchVO.setBraLat(rs.getDouble("braLat"));
-				branchVO.setBraState(rs.getInt("braState"));
+				couponVO.setCpnID(rs.getString("cpnID"));
+				couponVO.setDiscount(rs.getInt("discount"));
+				couponVO.setQuantity(rs.getInt("quantity"));
+				couponVO.setAppQuantity(rs.getInt("appQuantity"));
 				
-				list.add(branchVO);
+				list.add(couponVO);
 			}
 			
 			
@@ -228,61 +215,47 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 	}
 
 	public static void main(String[] args) {
-		BranchJDBCDAO dao = new BranchJDBCDAO();
+		CouponJDBCDAO dao = new CouponJDBCDAO();
 		
 		// 新增測試
-		BranchVO branchVO1 = new BranchVO();
-		branchVO1.setBraName("翔翔");
-		branchVO1.setBraIntro("test");
+		CouponVO couponVO1 = new CouponVO();
+		couponVO1.setCpnPic(new TestWriteBLOB().writeBLOB("logo5.png"));
+		couponVO1.setDiscount(500);
+		couponVO1.setQuantity(20);
+		couponVO1.setAppQuantity(20);
 		
-		branchVO1.setBraPic(new TestWriteBLOB().writeBLOB("logo5.png"));
-		
-		branchVO1.setBraTel("0946987321");
-		branchVO1.setBraVideo(null);
-		branchVO1.setBraAddr("桃園中壢區資策會");
-		branchVO1.setBraLng(121.555);
-		branchVO1.setBraLat(20.456);
-		
-		dao.insert(branchVO1);
+		dao.insert(couponVO1);
 		System.out.println("新增成功");
 		System.out.println("------------------");
 		
 		// 修改
-		BranchVO branchVO2 = new BranchVO();
+		CouponVO couponVO2 = new CouponVO();
 		
-		branchVO2.setBraID("B10");
-		branchVO2.setBraName("鈺翔");
-		dao.update(branchVO2);
+		couponVO2.setAppQuantity(10);
+		couponVO2.setCpnID("C0002");
+		dao.update(couponVO2);
 		
 		System.out.println("修改成功");
 		System.out.println("--------------------");		
 		
 		// 查詢單筆
-		BranchVO branchVO3 = dao.findByPK("B02");
+		CouponVO couponVO3 = dao.findByPK("C0003");
 		
-		System.out.println(branchVO3.getBraID());
-		System.out.println(branchVO3.getBraName());
-		System.out.println(branchVO3.getBraIntro());
-		System.out.println(branchVO3.getBraTel());
-		System.out.println(branchVO3.getBraAddr());
-		System.out.println(branchVO3.getBraLng());
-		System.out.println(branchVO3.getBraLat());
-		System.out.println(branchVO3.getBraState());
+		System.out.println(couponVO3.getCpnID());
+		System.out.println(couponVO3.getDiscount());
+		System.out.println(couponVO3.getQuantity());
+		System.out.println(couponVO3.getAppQuantity());
 		
 		System.out.println("查詢單筆成功");
 		System.out.println("------------------");
 		
 		// 查詢全部
-		List<BranchVO> list = dao.getAll();
-		for(BranchVO aBranch : list) {
-			System.out.println(aBranch.getBraID());
-			System.out.println(aBranch.getBraName());
-			System.out.println(aBranch.getBraIntro());
-			System.out.println(aBranch.getBraTel());
-			System.out.println(aBranch.getBraAddr());
-			System.out.println(aBranch.getBraLng());
-			System.out.println(aBranch.getBraLat());
-			System.out.println(aBranch.getBraState());
+		List<CouponVO> list = dao.getAll();
+		for(CouponVO aCouponVO : list) {
+			System.out.println(aCouponVO.getCpnID());
+			System.out.println(aCouponVO.getDiscount());
+			System.out.println(aCouponVO.getQuantity());
+			System.out.println(aCouponVO.getAppQuantity());
 			System.out.println();
 		}
 		System.out.println("查詢全部成功");
