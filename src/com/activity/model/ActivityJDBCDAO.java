@@ -1,4 +1,4 @@
-package com.Activity.model;
+package com.activity.model;
 
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
