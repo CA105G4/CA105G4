@@ -88,7 +88,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 				pstmt.setString(1, activityVO.getActName());
 				pstmt.setDate(2,activityVO.getActStart());
 				pstmt.setDate(3, activityVO.getActEnd());
-				
+				pstmt.setString(4, activityVO.getActID());
 				pstmt.executeUpdate();
 
 			} catch (SQLException e) {
