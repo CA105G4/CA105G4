@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import MyTool.TestWriteBLOB;
+import tool.BLOBJDBC;
 
 public class BranchJDBCDAO implements BranchDAO_interface{
 
@@ -235,7 +235,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 		branchVO1.setBraName("翔翔");
 		branchVO1.setBraIntro("test");
 		
-		branchVO1.setBraPic(new TestWriteBLOB().writeBLOB("logo5.png"));
+		branchVO1.setBraPic(new BLOBJDBC().writePicture("logo5.png"));
 		
 		branchVO1.setBraTel("0946987321");
 		branchVO1.setBraVideo(null);
