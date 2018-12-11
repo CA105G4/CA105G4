@@ -16,7 +16,7 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 	private static final String PASSWORD="123456";
 
 	private static final String INSERT_SQL ="INSERT INTO ActivityDetail(actID,rtID,Discount) VALUES(?,?,?)";
-	private static final String UPDATE_SQL="UPDATE ActivityDetail set Discount=? where actID=?";
+	private static final String UPDATE_SQL="UPDATE ActivityDetail set Discount=? where actID=? and rtID=?";
 	private static final String DELETE_SQL="DELETE FROM ActivityDetail where actID=?";
 	private static final String GET_ALL_SQL="SELECT * FROM ActivityDetail ORDER BY actID";
 
@@ -78,6 +78,7 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 			
 			pstmt.setFloat(1, activityDetailVO.getDiscount());
 			pstmt.setString(2,activityDetailVO.getActID());
+			pstmt.setString(3, activityDetailVO.getRtID());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -205,8 +206,8 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 			//新增
 			ActivityDetailVO vo =new ActivityDetailVO();
 			
-			vo.setActID("A0004");
-			vo.setRtID("rt04");
+			vo.setActID("A0001");
+			vo.setRtID("RT02");
 			vo.setDiscount(0.99f);
 			dao.insert(vo);
 			System.out.println("Insert Succesfully!");
@@ -215,9 +216,9 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 			
 			ActivityDetailVO vo2 =new ActivityDetailVO();
 			
-			vo2.setDiscount(0.75f);
+			vo2.setDiscount(0.55f);
 			vo2.setActID("A0001");
-			
+			vo2.setRtID("RT01");
 			dao.update(vo2);
 			System.out.println("Update Succesfully!");
 			System.out.println("===========");
