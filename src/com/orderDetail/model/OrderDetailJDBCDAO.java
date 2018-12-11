@@ -1,0 +1,314 @@
+package com.orderDetail.model;
+
+import java.util.*;
+import java.sql.*;
+import java.sql.Date;
+
+public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	String userid = "CA105G4";
+	String passwd = "123456";
+	
+	private static final String INSERT_STMT = "INSERT INTO ORDERDETAIL(ODID, ORDID, RTID, CHECKIN, CHECKOUT, rtName) VALUES (od_seq.NEXTVAL, ?, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT * FROM OrderDetail";
+	private static final String GET_ONE_STMT = "SELECT * FROM OrderDetail WHERE ODID = ?";
+	
+	private static final String DELETE = "DELETE FROM OrderDetail where ODID = ?";
+	private static final String UPDATE = "UPDATE OrderDetail SET EVALUATES=? WHERE ODID = ?";
+
+	@Override
+	public void insert(OrderDetailVO orderDetailVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_STMT);
+			
+			pstmt.setString(1, orderDetailVO.getOrdID());
+			pstmt.setString(2, orderDetailVO.getRtID());
+			pstmt.setDate(3, orderDetailVO.getCheckIn());
+			pstmt.setDate(4, orderDetailVO.getCheckOut());
+			pstmt.setString(5, orderDetailVO.getRtName());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void update(OrderDetailVO orderDetailVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);	//UPDATE OrderDetail SET EVALUATES=? WHERE ODID = ?
+			
+			pstmt.setDouble(1, orderDetailVO.getEvaluates());
+			pstmt.setInt(2, orderDetailVO.getOdID());
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void delete(Integer odID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);	//DELETE FROM OrderDetail where ODID = ?
+			
+			pstmt.setInt(1, odID);
+			System.out.println(odID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public OrderDetailVO findByPrimaryKey(Integer odID) {
+		OrderDetailVO orderDetailVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT);	//SELECT * FROM OrderDetail WHERE ODID = ?
+			
+			pstmt.setInt(1, odID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setOdID(rs.getInt("ODID"));
+				orderDetailVO.setRoomID(rs.getString("ROOMID"));
+				orderDetailVO.setOrdID(rs.getString("ORDID"));
+				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
+				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
+				orderDetailVO.setRtName(rs.getString("RTNAME"));
+				orderDetailVO.setEvaluates(rs.getDouble("EVALUATES"));
+				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return orderDetailVO;
+	}
+
+	@Override
+	public List<OrderDetailVO> getALL() {
+		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
+		OrderDetailVO orderDetailVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);	//SELECT * FROM OrderDetail
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setOdID(rs.getInt("ODID"));
+				orderDetailVO.setRoomID(rs.getString("ROOMID"));
+				orderDetailVO.setOrdID(rs.getString("ORDID"));
+				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
+				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
+				orderDetailVO.setRtName(rs.getString("RTNAME"));
+				orderDetailVO.setEvaluates(rs.getDouble("EVALUATES"));
+				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
+				list.add(orderDetailVO);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	
+	public static void main(String[] args) {
+		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
+		
+		
+		//新增
+//		Date checkin = Date.valueOf("2019-01-15");
+//		Date checkout = Date.valueOf("2019-01-16");
+		
+//		OrderDetailVO od01 = new OrderDetailVO();
+//		od01.setOrdID("20181209-000011");
+//		od01.setRtID("RT02");
+//		od01.setCheckIn(checkin);
+//		od01.setCheckOut(checkout);
+//		od01.setRtName("豪華二人房");
+//		
+//		dao.insert(od01);
+//		System.out.println("新增成功!!");
+		
+		//修改
+//		OrderDetailVO od02 = new OrderDetailVO();
+//		od02.setEvaluates(8.0);
+//		od02.setOdID(1005);
+//		
+//		dao.update(od02);
+//		System.out.println("修改成功!!!");
+		
+		//刪除	!!!! 記得要commit;	!!!	
+//		dao.delete(1012);
+//		System.out.println("成功刪除!!");
+		
+		//查詢一筆
+//		OrderDetailVO od03 = dao.findByPrimaryKey(1009);
+//		System.out.println(od03.getOdID());
+//		System.out.println(od03.getRoomID());
+//		System.out.println(od03.getOrdID());
+//		System.out.println(od03.getRtID());
+//		System.out.println(od03.getCheckIn());
+//		System.out.println(od03.getCheckOut());
+//		System.out.println(od03.getRtName());
+//		System.out.println(od03.getEvaluates());
+//		System.out.println(od03.getSpecial());
+//		System.out.println("========================");
+		
+		//查詢多筆
+		List<OrderDetailVO> list = dao.getALL();
+		for(OrderDetailVO od : list) {
+			System.out.println(od.getOdID());
+			System.out.println(od.getRoomID());
+			System.out.println(od.getOrdID());
+			System.out.println(od.getRtID());
+			System.out.println(od.getCheckIn());
+			System.out.println(od.getCheckOut());
+			System.out.println(od.getRtName());
+			System.out.println(od.getEvaluates());
+			System.out.println(od.getSpecial());
+			System.out.println("---------------------------");
+		}
+		
+	}
+}
