@@ -1,28 +1,27 @@
-package com.messagereport.model;
+package com.question.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class MessageRepDAO implements MessageRepDAO_interface{
+public class QuestionJDBCDAO implements QuestionDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
 	String passwd = "1234";
-
-	private static final String INSERT_STMT = 
-		"INSERT INTO messagereport (mrid,artid,msgid,mrreason,mrstate) VALUES (msgrep_seq.NEXTVAL, ?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = 
-		"SELECT mrid,artid,msgid,mrreason,mrstate FROM messagereport order by mrid";
-	private static final String GET_ONE_STMT = 
-		"SELECT mrid,artid,msgid,mrreason,mrstate FROM messagereport where mrid = ?";
-	private static final String DELETE = 
-		"DELETE FROM messagereport where mrid = ?";
-	private static final String UPDATE = 
-		"UPDATE messagereport set artid=?, msgid=?, mrreason=?, mrstate=? where mrid = ?";
 	
+	private static final String INSERT_STMT = 
+			"INSERT INTO question (quesid,memid,empid,quescontent) VALUES (ques_seq.NEXTVAL, ?, ?, ?)";
+		private static final String GET_ALL_STMT = 
+			"SELECT quesid,memid,empid,quescontent FROM question order by quesid";
+		private static final String GET_ONE_STMT = 
+			"SELECT quesid,memid,empid,quescontent FROM question where quesid = ?";
+		private static final String DELETE = 
+			"DELETE FROM question where quesid = ?";
+		private static final String UPDATE = 
+			"UPDATE question set memid=?, empid=?, quescontent=? where quesid = ?";
 	@Override
-	public void insert(MessageRepVO messageRepVO) {
+	public void insert(QuestionVO questionVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -32,10 +31,9 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, messageRepVO.getArtid());
-			pstmt.setInt(2, messageRepVO.getMsgid());
-			pstmt.setString(3, messageRepVO.getMrreason());
-			pstmt.setInt(4, messageRepVO.getMrstate());
+			pstmt.setString(1, questionVO.getMemid());
+			pstmt.setString(2, questionVO.getEmpid());
+			pstmt.setString(3, questionVO.getQuescontent());
 
 			pstmt.executeUpdate();
 
@@ -68,7 +66,7 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public void update(MessageRepVO messageRepVO) {
+	public void update(QuestionVO questionVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,11 +76,10 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, messageRepVO.getArtid());
-			pstmt.setInt(2, messageRepVO.getMsgid());
-			pstmt.setString(3, messageRepVO.getMrreason());
-			pstmt.setInt(4, messageRepVO.getMrstate());
-			pstmt.setInt(5, messageRepVO.getMrid());
+			pstmt.setString(1, questionVO.getMemid());
+			pstmt.setString(2, questionVO.getEmpid());
+			pstmt.setString(3, questionVO.getQuescontent());
+			pstmt.setInt(4, questionVO.getQuesid());
 
 			pstmt.executeUpdate();
 
@@ -114,7 +111,7 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public void delete(Integer mrid) {
+	public void delete(Integer quesid) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -124,7 +121,7 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, mrid);
+			pstmt.setInt(1, quesid);
 
 			pstmt.executeUpdate();
 
@@ -156,28 +153,29 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public MessageRepVO findByPrimaryKey(Integer mrid) {
-		MessageRepVO msgreVO = null;
+	public QuestionVO findByPrimaryKey(Integer quesid) {
+		QuestionVO questionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, mrid);
+			pstmt.setInt(1, quesid);
 
-			rs =pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				msgreVO = new MessageRepVO();
-				msgreVO.setMrid(rs.getInt("mrid"));
-				msgreVO.setArtid(rs.getInt("artid"));
-				msgreVO.setMsgid(rs.getInt("msgid"));
-				msgreVO.setMrreason(rs.getString("mrreason"));
-				msgreVO.setMrstate(rs.getInt("mrstate"));
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				questionVO = new QuestionVO();
+				questionVO.setQuesid(rs.getInt("quesid"));
+				questionVO.setMemid(rs.getString("memid"));
+				questionVO.setEmpid(rs.getString("empid"));
+				questionVO.setQuescontent(rs.getString("quescontent"));
 			}
 
 			// Handle any driver errors
@@ -205,17 +203,17 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 				}
 			}
 		}
-		
-		return msgreVO;
+		return questionVO;
 	}
 
 	@Override
-	public List<MessageRepVO> getAll() {
-		List<MessageRepVO> list = new ArrayList<MessageRepVO>();
-		MessageRepVO msgreVO = null;
+	public List<QuestionVO> getAll() {
+		List<QuestionVO> list = new ArrayList<QuestionVO>();
+		QuestionVO questionVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		
 		try {
 
@@ -223,16 +221,16 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
-			rs =pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				msgreVO = new MessageRepVO();
-				msgreVO.setMrid(rs.getInt("mrid"));
-				msgreVO.setArtid(rs.getInt("artid"));
-				msgreVO.setMsgid(rs.getInt("msgid"));
-				msgreVO.setMrreason(rs.getString("mrreason"));
-				msgreVO.setMrstate(rs.getInt("mrstate"));
-				list.add(msgreVO);
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				questionVO = new QuestionVO();
+				questionVO.setQuesid(rs.getInt("quesid"));
+				questionVO.setMemid(rs.getString("memid"));
+				questionVO.setEmpid(rs.getString("empid"));
+				questionVO.setQuescontent(rs.getString("quescontent"));
+				list.add(questionVO);
 			}
 
 			// Handle any driver errors
@@ -265,26 +263,23 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 
 	
 	public static void main(String[] args) {
-		MessageRepDAO dao = new MessageRepDAO();
-		
+		QuestionJDBCDAO dao = new QuestionJDBCDAO();
 		
 		//insert
-//		MessageRepVO msgreVO1 = new MessageRepVO();
-//		msgreVO1.setArtid(1003);
-//		msgreVO1.setMsgid(1004);
-//		msgreVO1.setMrreason("測試123ABC");
-//		msgreVO1.setMrstate(0);
-//		dao.insert(msgreVO1);
+//		QuestionVO questionVO1 = new QuestionVO();
+//		questionVO1.setMemid("M0002");
+//		questionVO1.setEmpid("E0002");
+//		questionVO1.setQuescontent("TEST測試123");
+//		dao.insert(questionVO1);
 //		System.out.println("insert success");
 		
 		//update
-//		MessageRepVO msgreVO2 = new MessageRepVO();
-//		msgreVO2.setMrid(1006);
-//		msgreVO2.setArtid(1003);
-//		msgreVO2.setMsgid(1004);
-//		msgreVO2.setMrreason("測試456ABC");
-//		msgreVO2.setMrstate(0);
-//		dao.update(msgreVO2);
+//		QuestionVO questionVO2 = new QuestionVO();
+//		questionVO2.setQuesid(1006);
+//		questionVO2.setMemid("M0002");
+//		questionVO2.setEmpid("E0002");
+//		questionVO2.setQuescontent("TEST測試456");
+//		dao.update(questionVO2);
 //		System.out.println("update success");
 		
 		//delete
@@ -292,23 +287,21 @@ public class MessageRepDAO implements MessageRepDAO_interface{
 //		System.out.println("delete success");
 		
 		//select one
-//		MessageRepVO msgreVO3 = dao.findByPrimaryKey(1001);
-//		System.out.print(msgreVO3.getMrid() + ",");
-//		System.out.print(msgreVO3.getArtid() + ",");
-//		System.out.print(msgreVO3.getMsgid() + ",");
-//		System.out.print(msgreVO3.getMrreason() + ",");
-//		System.out.println(msgreVO3.getMrstate());
+//		QuestionVO questionVO3 = dao.findByPrimaryKey(1005);
+//		System.out.print(questionVO3.getQuesid()+ ",");
+//		System.out.print(questionVO3.getMemid() + ",");
+//		System.out.print(questionVO3.getEmpid() + ",");
+//		System.out.print(questionVO3.getQuescontent());
 //		System.out.println("---------------------");
-		
-		//select all
-//		List<MessageRepVO> list = dao.getAll();
-//		for(MessageRepVO msgre : list) {
-//			System.out.print(msgre.getMrid() + ",");
-//			System.out.print(msgre.getArtid() + ",");
-//			System.out.print(msgre.getMsgid() + ",");
-//			System.out.print(msgre.getMrreason() + ",");
-//			System.out.print(msgre.getMrstate());
-//			System.out.println();
+
+		//select one
+//		List<QuestionVO> list = dao.getAll();
+//		for(QuestionVO ques : list) {
+//		System.out.print(ques.getQuesid()+ ",");
+//		System.out.print(ques.getMemid() + ",");
+//		System.out.print(ques.getEmpid() + ",");
+//		System.out.print(ques.getQuescontent());
+//		System.out.println("---------------------");
 //		}
 	}
 }

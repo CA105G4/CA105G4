@@ -3,7 +3,7 @@ package com.article.model;
 import java.util.*;
 import java.sql.*;
 
-public class ArtDAO implements ArtDAO_interface {
+public class ArtJDBCDAO implements ArtDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
@@ -265,7 +265,7 @@ public class ArtDAO implements ArtDAO_interface {
 	}
 	
 	public static void main(String[] args) {
-		 ArtDAO dao = new ArtDAO();
+		 ArtJDBCDAO dao = new ArtJDBCDAO();
 		 
 		 
 		 //insert

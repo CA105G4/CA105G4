@@ -1,44 +1,41 @@
-package com.report.model;
+package com.messagereport.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class ReportDAO implements ReportDAO_interface{
+public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "ca105g4";
+	String userid = "CA105G4";
 	String passwd = "1234";
 
+	private static final String INSERT_STMT = 
+		"INSERT INTO messagereport (mrid,artid,msgid,mrreason,mrstate) VALUES (msgrep_seq.NEXTVAL, ?, ?, ?, ?)";
+	private static final String GET_ALL_STMT = 
+		"SELECT mrid,artid,msgid,mrreason,mrstate FROM messagereport order by mrid";
+	private static final String GET_ONE_STMT = 
+		"SELECT mrid,artid,msgid,mrreason,mrstate FROM messagereport where mrid = ?";
+	private static final String DELETE = 
+		"DELETE FROM messagereport where mrid = ?";
+	private static final String UPDATE = 
+		"UPDATE messagereport set artid=?, msgid=?, mrreason=?, mrstate=? where mrid = ?";
 	
-	
-		private static final String INSERT_STMT = 
-			"INSERT INTO report (repid,artid,artreason,repmemid,repdate,repstate) VALUES (ARTREP_seq.nextval, ?, ?, ?, ?, ?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT repid,artid,artreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report order by repid";
-		private static final String GET_ONE_STMT = 
-			"SELECT repid,artid,artreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report where repid = ?";
-		private static final String DELETE = 
-			"DELETE FROM report where repid = ?";
-		private static final String UPDATE = 
-			"UPDATE report set artid=?, artreason=?, repmemid=?, repdate=?, repstate=? where repid = ?";
-		
 	@Override
-	public void insert(ReportVO reportVO) {
+	public void insert(MessageRepVO messageRepVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1,reportVO.getArtid());
-			pstmt.setString(2,reportVO.getArtreason() );
-			pstmt.setString(3,reportVO.getRepmemid() );
-			pstmt.setDate(4,reportVO.getRepdate() );
-			pstmt.setInt(5,reportVO.getRepstate() );
+			pstmt.setInt(1, messageRepVO.getArtid());
+			pstmt.setInt(2, messageRepVO.getMsgid());
+			pstmt.setString(3, messageRepVO.getMrreason());
+			pstmt.setInt(4, messageRepVO.getMrstate());
 
 			pstmt.executeUpdate();
 
@@ -67,26 +64,25 @@ public class ReportDAO implements ReportDAO_interface{
 				}
 			}
 		}
-		
+
 	}
 
 	@Override
-	public void update(ReportVO reportVO) {
+	public void update(MessageRepVO messageRepVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1,reportVO.getArtid());
-			pstmt.setString(2,reportVO.getArtreason() );
-			pstmt.setString(3,reportVO.getRepmemid() );
-			pstmt.setDate(4,reportVO.getRepdate() );
-			pstmt.setInt(5,reportVO.getRepstate() );
-			pstmt.setInt(6,reportVO.getRepid() );
+			pstmt.setInt(1, messageRepVO.getArtid());
+			pstmt.setInt(2, messageRepVO.getMsgid());
+			pstmt.setString(3, messageRepVO.getMrreason());
+			pstmt.setInt(4, messageRepVO.getMrstate());
+			pstmt.setInt(5, messageRepVO.getMrid());
 
 			pstmt.executeUpdate();
 
@@ -115,21 +111,20 @@ public class ReportDAO implements ReportDAO_interface{
 				}
 			}
 		}
-		
 	}
 
 	@Override
-	public void delete(Integer repid) {
+	public void delete(Integer mrid) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		
+
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1,repid);
+			pstmt.setInt(1, mrid);
 
 			pstmt.executeUpdate();
 
@@ -161,31 +156,30 @@ public class ReportDAO implements ReportDAO_interface{
 	}
 
 	@Override
-	public ReportVO findByPrimaryKey(Integer repid) {
-		ReportVO reportVO = null;
+	public MessageRepVO findByPrimaryKey(Integer mrid) {
+		MessageRepVO msgreVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		try {
 
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1,repid);
+			pstmt.setInt(1, mrid);
 
 			rs =pstmt.executeQuery();
-
+			
 			while(rs.next()) {
-				reportVO = new ReportVO();
-				reportVO.setRepid(rs.getInt("repid"));;
-				reportVO.setArtid(rs.getInt("artid"));
-				reportVO.setArtreason(rs.getString("artreason"));
-				reportVO.setRepmemid(rs.getString("repmemid"));
-				reportVO.setRepdate(rs.getDate("repdate"));
-				reportVO.setRepstate(rs.getInt("repstate"));
+				msgreVO = new MessageRepVO();
+				msgreVO.setMrid(rs.getInt("mrid"));
+				msgreVO.setArtid(rs.getInt("artid"));
+				msgreVO.setMsgid(rs.getInt("msgid"));
+				msgreVO.setMrreason(rs.getString("mrreason"));
+				msgreVO.setMrstate(rs.getInt("mrstate"));
 			}
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -211,13 +205,14 @@ public class ReportDAO implements ReportDAO_interface{
 				}
 			}
 		}
-		return reportVO;
+		
+		return msgreVO;
 	}
 
 	@Override
-	public List<ReportVO> getAll() {
-		List<ReportVO> list = new ArrayList<ReportVO>();
-		ReportVO reportVO = null;
+	public List<MessageRepVO> getAll() {
+		List<MessageRepVO> list = new ArrayList<MessageRepVO>();
+		MessageRepVO msgreVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -229,17 +224,17 @@ public class ReportDAO implements ReportDAO_interface{
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 
 			rs =pstmt.executeQuery();
-
+			
 			while(rs.next()) {
-				reportVO = new ReportVO();
-				reportVO.setRepid(rs.getInt("repid"));;
-				reportVO.setArtid(rs.getInt("artid"));
-				reportVO.setArtreason(rs.getString("artreason"));
-				reportVO.setRepmemid(rs.getString("repmemid"));
-				reportVO.setRepdate(rs.getDate("repdate"));
-				reportVO.setRepstate(rs.getInt("repstate"));
-				list.add(reportVO);
+				msgreVO = new MessageRepVO();
+				msgreVO.setMrid(rs.getInt("mrid"));
+				msgreVO.setArtid(rs.getInt("artid"));
+				msgreVO.setMsgid(rs.getInt("msgid"));
+				msgreVO.setMrreason(rs.getString("mrreason"));
+				msgreVO.setMrstate(rs.getInt("mrstate"));
+				list.add(msgreVO);
 			}
+
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. "
@@ -267,57 +262,53 @@ public class ReportDAO implements ReportDAO_interface{
 		}
 		return list;
 	}
+
 	
-		public static void main(String[] args) {
-			ReportDAO dao = new ReportDAO();
-			
-			//insert
-//			ReportVO reportVO1 = new ReportVO();
-//			reportVO1.setArtid(1001);
-//			reportVO1.setArtreason("測試ABC123");
-//			reportVO1.setRepmemid("M0001");
-//			reportVO1.setRepdate(java.sql.Date.valueOf("2018-12-09"));
-//			reportVO1.setRepstate(0);
-//			dao.insert(reportVO1);
-//			System.out.println("insert success");
-			
-			
-			//update
-//			ReportVO reportVO2 = new ReportVO();
-//			reportVO2.setRepid(1006);
-//			reportVO2.setArtid(1001);
-//			reportVO2.setArtreason("測試ABC456");
-//			reportVO2.setRepmemid("M0001");
-//			reportVO2.setRepdate(java.sql.Date.valueOf("2018-12-09"));
-//			reportVO2.setRepstate(0);
-//			dao.update(reportVO2);
-//			System.out.println("update success");
-			
-			//delete
-//			dao.delete(1006);
-//			System.out.println("delete success");
-			
-			//select pk
-//			ReportVO reportVO3 = dao.findByPrimaryKey(1001);
-//			System.out.print(reportVO3.getRepid() + ",");
-//			System.out.print(reportVO3.getArtid()+ ",");
-//			System.out.print(reportVO3.getArtreason()+ ",");
-//			System.out.print(reportVO3.getRepmemid()+ ",");
-//			System.out.print(reportVO3.getRepdate()+ ",");
-//			System.out.println(reportVO3.getRepstate());
-//			System.out.println("----------------");
-			
-			
-			//select all
-//			List<ReportVO> list = dao.getAll();
-//			for(ReportVO rep : list) {
-//				System.out.print(rep.getRepid() + ",");
-//				System.out.print(rep.getArtid()+ ",");
-//				System.out.print(rep.getArtreason()+ ",");
-//				System.out.print(rep.getRepmemid()+ ",");
-//				System.out.print(rep.getRepdate()+ ",");
-//				System.out.print(rep.getRepstate());
-//				System.out.println();
-//			}
-		}
+	public static void main(String[] args) {
+		MessageRepJDBCDAO dao = new MessageRepJDBCDAO();
+		
+		
+		//insert
+//		MessageRepVO msgreVO1 = new MessageRepVO();
+//		msgreVO1.setArtid(1003);
+//		msgreVO1.setMsgid(1004);
+//		msgreVO1.setMrreason("測試123ABC");
+//		msgreVO1.setMrstate(0);
+//		dao.insert(msgreVO1);
+//		System.out.println("insert success");
+		
+		//update
+//		MessageRepVO msgreVO2 = new MessageRepVO();
+//		msgreVO2.setMrid(1006);
+//		msgreVO2.setArtid(1003);
+//		msgreVO2.setMsgid(1004);
+//		msgreVO2.setMrreason("測試456ABC");
+//		msgreVO2.setMrstate(0);
+//		dao.update(msgreVO2);
+//		System.out.println("update success");
+		
+		//delete
+//		dao.delete(1006);
+//		System.out.println("delete success");
+		
+		//select one
+//		MessageRepVO msgreVO3 = dao.findByPrimaryKey(1001);
+//		System.out.print(msgreVO3.getMrid() + ",");
+//		System.out.print(msgreVO3.getArtid() + ",");
+//		System.out.print(msgreVO3.getMsgid() + ",");
+//		System.out.print(msgreVO3.getMrreason() + ",");
+//		System.out.println(msgreVO3.getMrstate());
+//		System.out.println("---------------------");
+		
+		//select all
+//		List<MessageRepVO> list = dao.getAll();
+//		for(MessageRepVO msgre : list) {
+//			System.out.print(msgre.getMrid() + ",");
+//			System.out.print(msgre.getArtid() + ",");
+//			System.out.print(msgre.getMsgid() + ",");
+//			System.out.print(msgre.getMrreason() + ",");
+//			System.out.print(msgre.getMrstate());
+//			System.out.println();
+//		}
+	}
 }
