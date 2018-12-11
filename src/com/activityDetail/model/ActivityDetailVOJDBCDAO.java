@@ -206,8 +206,8 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 			//新增
 			ActivityDetailVO vo =new ActivityDetailVO();
 			
-			vo.setActID("A0001");
-			vo.setRtID("RT02");
+			vo.setActID("A0003");
+			vo.setRtID("RT04");
 			vo.setDiscount(0.99f);
 			dao.insert(vo);
 			System.out.println("Insert Succesfully!");
