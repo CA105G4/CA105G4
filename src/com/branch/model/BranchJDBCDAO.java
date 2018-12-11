@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import MyTool.TestWriteBLOB;
+import tool.BLOB;
 
 public class BranchJDBCDAO implements BranchDAO_interface{
 
@@ -22,7 +22,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
     		+ "VALUES ('B'||LPAD(to_char(bra_seq.NEXTVAL), 2, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE branch set braName = ? where braID = ?";
     private static final String GET_ALL_SQL = "SELECT * from branch";
-    private static final String GET_ONE_SQL = "SELECT braID, braName, braIntro, braTel, braAddr, braLng, braLat, braState from branch where braID = ?";
+    private static final String GET_ONE_SQL = "SELECT braID, braName, braIntro, braPic, braTel, braAddr, braLng, braLat, braState from branch where braID = ?";
     
     static {
     	try {
@@ -130,6 +130,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 				branchVO.setBraID(rs.getString("braID"));
 				branchVO.setBraName(rs.getString("braName"));
 				branchVO.setBraIntro(rs.getString("braIntro"));
+				branchVO.setBraPic(rs.getBytes("braPic"));
 				branchVO.setBraTel(rs.getString("braTel"));
 				branchVO.setBraAddr(rs.getString("braAddr"));
 				branchVO.setBraLng(rs.getDouble("braLng"));
@@ -231,38 +232,38 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 		BranchJDBCDAO dao = new BranchJDBCDAO();
 		
 		// 新增測試
-		BranchVO branchVO1 = new BranchVO();
-		branchVO1.setBraName("翔翔");
-		branchVO1.setBraIntro("test");
-		
-		branchVO1.setBraPic(new TestWriteBLOB().writeBLOB("logo5.png"));
-		
-		branchVO1.setBraTel("0946987321");
-		branchVO1.setBraVideo(null);
-		branchVO1.setBraAddr("桃園中壢區資策會");
-		branchVO1.setBraLng(121.555);
-		branchVO1.setBraLat(20.456);
-		
-		dao.insert(branchVO1);
-		System.out.println("新增成功");
-		System.out.println("------------------");
+//		BranchVO branchVO1 = new BranchVO();
+//		branchVO1.setBraName("翔翔");
+//		branchVO1.setBraIntro("test");
+//		
+//		branchVO1.setBraPic(new BLOB().writeBlob("images/logo5.png"));
+//		
+//		branchVO1.setBraTel("0946987321");
+//		branchVO1.setBraVideo(null);
+//		branchVO1.setBraAddr("桃園中壢區資策會");
+//		branchVO1.setBraLng(121.555);
+//		branchVO1.setBraLat(20.456);
+//		
+//		dao.insert(branchVO1);
+//		System.out.println("新增成功");
+//		System.out.println("------------------");
 		
 		// 修改
-		BranchVO branchVO2 = new BranchVO();
-		
-		branchVO2.setBraID("B10");
-		branchVO2.setBraName("鈺翔");
-		dao.update(branchVO2);
-		
-		System.out.println("修改成功");
-		System.out.println("--------------------");		
+//		BranchVO branchVO2 = new BranchVO();
+//		branchVO2.setBraID("B10");
+//		branchVO2.setBraName("鈺翔");
+//		dao.update(branchVO2);
+//		System.out.println("修改成功");
+//		System.out.println("--------------------");		
 		
 		// 查詢單筆
-		BranchVO branchVO3 = dao.findByPK("B02");
+		BranchVO branchVO3 = dao.findByPK("B03");
 		
 		System.out.println(branchVO3.getBraID());
 		System.out.println(branchVO3.getBraName());
 		System.out.println(branchVO3.getBraIntro());
+		System.out.println("圖片已輸出");
+		new BLOB().readBlob(branchVO3.getBraPic(), "output/logo5.png");  // 輸出至output 資料夾  
 		System.out.println(branchVO3.getBraTel());
 		System.out.println(branchVO3.getBraAddr());
 		System.out.println(branchVO3.getBraLng());
@@ -273,19 +274,19 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 		System.out.println("------------------");
 		
 		// 查詢全部
-		List<BranchVO> list = dao.getAll();
-		for(BranchVO aBranch : list) {
-			System.out.println(aBranch.getBraID());
-			System.out.println(aBranch.getBraName());
-			System.out.println(aBranch.getBraIntro());
-			System.out.println(aBranch.getBraTel());
-			System.out.println(aBranch.getBraAddr());
-			System.out.println(aBranch.getBraLng());
-			System.out.println(aBranch.getBraLat());
-			System.out.println(aBranch.getBraState());
-			System.out.println();
-		}
-		System.out.println("查詢全部成功");
-		System.out.println("-------------------");
+//		List<BranchVO> list = dao.getAll();
+//		for(BranchVO aBranch : list) {
+//			System.out.println(aBranch.getBraID());
+//			System.out.println(aBranch.getBraName());
+//			System.out.println(aBranch.getBraIntro());
+//			System.out.println(aBranch.getBraTel());
+//			System.out.println(aBranch.getBraAddr());
+//			System.out.println(aBranch.getBraLng());
+//			System.out.println(aBranch.getBraLat());
+//			System.out.println(aBranch.getBraState());
+//			System.out.println();
+//		}
+//		System.out.println("查詢全部成功");
+//		System.out.println("-------------------");
 	}
 }

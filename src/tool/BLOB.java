@@ -1,13 +1,14 @@
-package MyTool;
+package tool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class TestWriteBLOB {
-	public byte[] writeBLOB(String path){
+public class BLOB {
+	public byte[] writeBlob(String path){
 		
 		ByteArrayOutputStream baos = null;
 		try {
@@ -26,7 +27,19 @@ public class TestWriteBLOB {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return baos.toByteArray();
+	}
+	
+	public void readBlob(byte[] bytes, String fileName) {
+		try {
+			FileOutputStream fos = new FileOutputStream(fileName);
+			fos.write(bytes);
+			fos.flush();
+			fos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

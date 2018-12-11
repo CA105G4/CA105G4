@@ -1,4 +1,4 @@
-package MyTool;
+package tool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
