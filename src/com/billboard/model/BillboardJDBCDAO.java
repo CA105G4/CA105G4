@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import MyTool.TestWriteBLOB;
+import tool.BLOB;
 
 public class BillboardJDBCDAO implements BillboardDAO_interface{
 	private static final String DRIVER="oracle.jdbc.driver.OracleDriver";
@@ -282,7 +282,7 @@ BillboardJDBCDAO dao =new BillboardJDBCDAO();
 		Date d1 =Date.valueOf("2018-12-01");
 		Date d2 =Date.valueOf("2018-12-25");
 		
-		vo.setPic(new TestWriteBLOB().writeBLOB("room_sales.png"));
+		vo.setPic(new BLOB().writeBlob("room_sales.png"));
 		vo.setBbStart(d1);
 		vo.setBbEnd(d2);
 		
