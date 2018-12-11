@@ -263,7 +263,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 		System.out.println(branchVO3.getBraName());
 		System.out.println(branchVO3.getBraIntro());
 		System.out.println("圖片已輸出");
-		new BLOB().readBlob(branchVO3.getBraPic(), "output/logo5.png");  // 輸出至output 資料夾  
+		new BLOB().readBlob(branchVO3.getBraPic(), "input/logo5.png");  // 輸出至input 資料夾  
 		System.out.println(branchVO3.getBraTel());
 		System.out.println(branchVO3.getBraAddr());
 		System.out.println(branchVO3.getBraLng());
