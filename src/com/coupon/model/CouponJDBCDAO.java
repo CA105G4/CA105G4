@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.BLOBJDBC;
+import tool.BLOB;
 
 public class CouponJDBCDAO implements CouponDAO_interface{
 
@@ -217,7 +217,7 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 		
 		// 新增
 		CouponVO couponVO1 = new CouponVO();
-		couponVO1.setCpnPic(new BLOBJDBC().writePicture("images/logo5.png"));
+		couponVO1.setCpnPic(new BLOB().writeBlob("images/logo5.png"));
 		couponVO1.setDiscount(500);
 		couponVO1.setQuantity(20);
 		couponVO1.setAppQuantity(20);

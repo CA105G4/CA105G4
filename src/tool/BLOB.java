@@ -7,8 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class BLOBJDBC {
-	public byte[] writePicture(String path){
+public class BLOB {
+	public byte[] writeBlob(String path){
 		
 		ByteArrayOutputStream baos = null;
 		try {
@@ -30,9 +30,9 @@ public class BLOBJDBC {
 		return baos.toByteArray();
 	}
 	
-	public void readPicture(byte[] bytes, String fileName) {
+	public void readBlob(byte[] bytes, String fileName) {
 		try {
-			FileOutputStream fos = new FileOutputStream(fileName + ".jpg");
+			FileOutputStream fos = new FileOutputStream(fileName);
 			fos.write(bytes);
 			fos.flush();
 			fos.close();
