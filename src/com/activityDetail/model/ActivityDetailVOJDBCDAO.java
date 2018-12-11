@@ -139,14 +139,6 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 	}
 	
 	@Override
-	public ActivityDetailVO findByPK(String actID) {
-		
-		
-		
-		return null;
-	}
-
-	@Override
 	public List<ActivityDetailVO> getAll() {
 		List<ActivityDetailVO>list =new ArrayList<>();
 		ActivityDetailVO adVO =null;
