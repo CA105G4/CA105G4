@@ -10,10 +10,10 @@ public class RoomTypeVO implements Serializable{
 	private String rtIntro;			//房型介紹
 	private Integer rtMinimum;		//人數
 	private Integer rtLimit;		//上限人數
-	private Integer WeeklyPrice;	//平日價格
+	private Integer weeklyPrice;	//平日價格
 	private Integer holidayPrice;	//假日價格
-	private String Balance;			//剩餘房間數
-	private Integer Total;			//總房間數
+	private String balance;			//剩餘房間數
+	private Integer total;			//總房間數
 	
 	
 	
@@ -31,10 +31,10 @@ public class RoomTypeVO implements Serializable{
 		this.rtIntro = rtIntro;
 		this.rtMinimum = rtMinimum;
 		this.rtLimit = rtLimit;
-		WeeklyPrice = weeklyPrice;
+		this.weeklyPrice = weeklyPrice;
 		this.holidayPrice = holidayPrice;
-		Balance = balance;
-		Total = total;
+		this.balance = balance;
+		this.total = total;
 	}
 
 	public String getRtID() {
@@ -94,11 +94,11 @@ public class RoomTypeVO implements Serializable{
 	}
 
 	public Integer getWeeklyPrice() {
-		return WeeklyPrice;
+		return weeklyPrice;
 	}
 
 	public void setWeeklyPrice(Integer weeklyPrice) {
-		WeeklyPrice = weeklyPrice;
+		this.weeklyPrice = weeklyPrice;
 	}
 
 	public Integer getHolidayPrice() {
@@ -110,19 +110,19 @@ public class RoomTypeVO implements Serializable{
 	}
 
 	public String getBalance() {
-		return Balance;
+		return balance;
 	}
 
 	public void setBalance(String balance) {
-		Balance = balance;
+		this.balance = balance;
 	}
 
 	public Integer getTotal() {
-		return Total;
+		return total;
 	}
 
 	public void setTotal(Integer total) {
-		Total = total;
+		this.total = total;
 	}
 
 }

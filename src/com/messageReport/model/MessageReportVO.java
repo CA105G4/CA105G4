@@ -1,6 +1,6 @@
-package com.messagereport.model;
+package com.messageReport.model;
 
-public class MessageRepVO implements java.io.Serializable{
+public class MessageReportVO implements java.io.Serializable{
 	
 		private Integer mrid;
 		private Integer artid;

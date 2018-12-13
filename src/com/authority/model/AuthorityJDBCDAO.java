@@ -1,4 +1,4 @@
-package com.coupon.model;
+package com.authority.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,20 +8,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.BLOB;
 
-public class CouponJDBCDAO implements CouponDAO_interface{
 
+
+
+
+
+public class AuthorityJDBCDAO implements AuthorityDAO_interdace {
+	
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static final String USER = "CA105G4"; 
 	private static final String PASSWORD = "123456"; 
 	
-    private static final String INSERT_SQL = "INSERT INTO coupon VALUES ('C'||LPAD(to_char(cpn_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?)";
-    private static final String UPDATE_SQL = "UPDATE coupon set appQuantity = ? where cpnID = ?";
-    private static final String GET_ALL_SQL = "SELECT * from coupon";
-    private static final String GET_ONE_SQL = "SELECT * from coupon where cpnID = ?";
-    
+	private static final String INSERT_SQL = 
+    		"INSERT INTO Authority (authid, authName)VALUES(auth_seq.NEXTVAL,?)";
+    private static final String UPDATE_SQL = "UPDATE Authority set authName = ? where authID = ?";
+   //權限要更新???
+    private static final String GET_ALL_SQL = "SELECT * from Authority";
+    private static final String GET_ONE_SQL = "SELECT authID,authName from Authority where authID = ?";
 	
     static {
     	try {
@@ -31,8 +36,9 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 		}    	
     }
 	
-	@Override
-	public void insert(CouponVO couponVO) {
+    @Override
+	public void insert(AuthorityVO authorityVO) {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -40,10 +46,10 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(INSERT_SQL);
 			
-			pstmt.setBytes(1, couponVO.getCpnPic());
-			pstmt.setInt(2, couponVO.getDiscount());
-			pstmt.setInt(3, couponVO.getQuantity());
-			pstmt.setInt(4, couponVO.getAppQuantity());
+			
+			pstmt.setString(1, authorityVO.getAuthName());
+			
+			
 			
 			pstmt.executeUpdate();
 			
@@ -69,7 +75,7 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	}
 
 	@Override
-	public void update(CouponVO couponVO) {
+	public void update(AuthorityVO authorityVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -77,8 +83,10 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
-			pstmt.setInt(1, couponVO.getAppQuantity());
-			pstmt.setString(2, couponVO.getCpnID());
+			pstmt.setString(1, authorityVO.getAuthName());
+			pstmt.setInt(2, authorityVO.getAuthID());
+			
+			
 			
 			pstmt.executeUpdate();
 			
@@ -104,8 +112,9 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	}
 
 	@Override
-	public CouponVO findByPK(String cpnID) {
-		CouponVO couponVO = null;
+	public AuthorityVO findByPK(Integer authID) {
+		 AuthorityVO authorityVO = null;
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -114,17 +123,16 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 			
-			pstmt.setString(1, cpnID);
+			pstmt.setInt(1, authID);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				couponVO = new CouponVO();
+				authorityVO = new AuthorityVO();
 				
-				couponVO.setCpnID(rs.getString("cpnID"));
-				couponVO.setDiscount(rs.getInt("discount"));
-				couponVO.setQuantity(rs.getInt("quantity"));
-				couponVO.setAppQuantity(rs.getInt("appQuantity"));
+				authorityVO.setAuthID(rs.getInt("authID"));
+				authorityVO.setAuthName(rs.getString("authName"));
+				
 			}
 			
 		} catch (SQLException e) {
@@ -154,13 +162,14 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 				}
 			}
 		}	
-		return couponVO;
+		return authorityVO;
 	}
 
 	@Override
-	public List<CouponVO> getAll() {
-		List<CouponVO> list = new ArrayList<CouponVO>();
-		CouponVO couponVO = null;
+	public List<AuthorityVO> getAll() {
+		List<AuthorityVO> list = new ArrayList<AuthorityVO>();
+		AuthorityVO authorityVO = null;
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -171,14 +180,13 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				couponVO = new CouponVO();
+				authorityVO = new AuthorityVO();
 				
-				couponVO.setCpnID(rs.getString("cpnID"));
-				couponVO.setDiscount(rs.getInt("discount"));
-				couponVO.setQuantity(rs.getInt("quantity"));
-				couponVO.setAppQuantity(rs.getInt("appQuantity"));
+				authorityVO.setAuthID(rs.getInt("authID"));
+				authorityVO.setAuthName(rs.getString("authName"));
 				
-				list.add(couponVO);
+				
+				list.add(authorityVO);
 			}
 			
 			
@@ -211,52 +219,39 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 		}	
 		return list;
 	}
-
+	
 	public static void main(String[] args) {
-		CouponJDBCDAO dao = new CouponJDBCDAO();
-		
-		// 新增
-		CouponVO couponVO1 = new CouponVO();
-		couponVO1.setCpnPic(new BLOB().writeBlob("images/logo5.png"));
-		couponVO1.setDiscount(500);
-		couponVO1.setQuantity(20);
-		couponVO1.setAppQuantity(20);
-		
-		dao.insert(couponVO1);
-		System.out.println("新增成功");
-		System.out.println("------------------");
-		
-		// 修改
-		CouponVO couponVO2 = new CouponVO();
-		
-		couponVO2.setAppQuantity(10);
-		couponVO2.setCpnID("C0002");
-		dao.update(couponVO2);
-		
-		System.out.println("修改成功");
-		System.out.println("--------------------");		
-		
-		// 查詢單筆
-		CouponVO couponVO3 = dao.findByPK("C0003");
-		
-		System.out.println(couponVO3.getCpnID());
-		System.out.println(couponVO3.getDiscount());
-		System.out.println(couponVO3.getQuantity());
-		System.out.println(couponVO3.getAppQuantity());
-		
-		System.out.println("查詢單筆成功");
-		System.out.println("------------------");
-		
-		// 查詢全部
-		List<CouponVO> list = dao.getAll();
-		for(CouponVO aCouponVO : list) {
-			System.out.println(aCouponVO.getCpnID());
-			System.out.println(aCouponVO.getDiscount());
-			System.out.println(aCouponVO.getQuantity());
-			System.out.println(aCouponVO.getAppQuantity());
-			System.out.println();
-		}
-		System.out.println("查詢全部成功");
-		System.out.println("-------------------");
+		AuthorityJDBCDAO dao = new AuthorityJDBCDAO();
+	//new
+//		AuthorityVO authorityVO= new AuthorityVO();
+//			authorityVO.setAuthName("廁所管理");
+//			dao.insert(authorityVO);
+//			System.out.println("新增成功!!");
+//	
+//		//修改	
+//			AuthorityVO authorityVO02= new AuthorityVO();	
+//			authorityVO02.setAuthName("客房服務");
+//			authorityVO02.setAuthID(1015);
+//			
+//			dao.update(authorityVO02);
+//			System.out.println("修改成功!!");
+//			
+//		//查詢1筆
+//			AuthorityVO authorityVO03= dao.findByPK(1001);	
+//			System.out.println(authorityVO03.getAuthID());
+//			System.out.println(authorityVO03.getAuthName());
+//			
+//			
+//			//查詢多筆
+			List<AuthorityVO> list = dao.getAll();
+			for(AuthorityVO rt : list) {
+				System.out.println(rt.getAuthID());
+				System.out.println(rt.getAuthName());
+				System.out.println("=========================");
+				
+				
+			}	
 	}
+	
 }
+	

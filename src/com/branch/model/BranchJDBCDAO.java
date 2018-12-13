@@ -14,7 +14,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "Test_Project"; 
+	private static final String USER = "CA105G4"; 
 	private static final String PASSWORD = "123456"; 
 
     private static final String INSERT_SQL = 
@@ -232,21 +232,21 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 		BranchJDBCDAO dao = new BranchJDBCDAO();
 		
 		// 新增測試
-//		BranchVO branchVO1 = new BranchVO();
-//		branchVO1.setBraName("翔翔");
-//		branchVO1.setBraIntro("test");
-//		
-//		branchVO1.setBraPic(new BLOB().writeBlob("images/logo5.png"));
-//		
-//		branchVO1.setBraTel("0946987321");
-//		branchVO1.setBraVideo(null);
-//		branchVO1.setBraAddr("桃園中壢區資策會");
-//		branchVO1.setBraLng(121.555);
-//		branchVO1.setBraLat(20.456);
-//		
-//		dao.insert(branchVO1);
-//		System.out.println("新增成功");
-//		System.out.println("------------------");
+		BranchVO branchVO1 = new BranchVO();
+		branchVO1.setBraName("翔翔");
+		branchVO1.setBraIntro("test");
+		
+		branchVO1.setBraPic(new BLOB().writeBlob("images/logo5.png"));
+		
+		branchVO1.setBraTel("0946987321");
+		branchVO1.setBraVideo(null);
+		branchVO1.setBraAddr("桃園中壢區資策會");
+		branchVO1.setBraLng(121.555);
+		branchVO1.setBraLat(20.456);
+		
+		dao.insert(branchVO1);
+		System.out.println("新增成功");
+		System.out.println("------------------");
 		
 		// 修改
 //		BranchVO branchVO2 = new BranchVO();
@@ -257,21 +257,21 @@ public class BranchJDBCDAO implements BranchDAO_interface{
 //		System.out.println("--------------------");		
 		
 		// 查詢單筆
-		BranchVO branchVO3 = dao.findByPK("B03");
-		
-		System.out.println(branchVO3.getBraID());
-		System.out.println(branchVO3.getBraName());
-		System.out.println(branchVO3.getBraIntro());
-		System.out.println("圖片已輸出");
-		new BLOB().readBlob(branchVO3.getBraPic(), "input/logo5.png");  // 輸出至input 資料夾  
-		System.out.println(branchVO3.getBraTel());
-		System.out.println(branchVO3.getBraAddr());
-		System.out.println(branchVO3.getBraLng());
-		System.out.println(branchVO3.getBraLat());
-		System.out.println(branchVO3.getBraState());
-		
-		System.out.println("查詢單筆成功");
-		System.out.println("------------------");
+//		BranchVO branchVO3 = dao.findByPK("B03");
+//		
+//		System.out.println(branchVO3.getBraID());
+//		System.out.println(branchVO3.getBraName());
+//		System.out.println(branchVO3.getBraIntro());
+//		System.out.println("圖片已輸出");
+//		new BLOB().readBlob(branchVO3.getBraPic(), "input/logo5.png");  // 輸出至input 資料夾  
+//		System.out.println(branchVO3.getBraTel());
+//		System.out.println(branchVO3.getBraAddr());
+//		System.out.println(branchVO3.getBraLng());
+//		System.out.println(branchVO3.getBraLat());
+//		System.out.println(branchVO3.getBraState());
+//		
+//		System.out.println("查詢單筆成功");
+//		System.out.println("------------------");
 		
 		// 查詢全部
 //		List<BranchVO> list = dao.getAll();

@@ -8,7 +8,7 @@ public class QuestionJDBCDAO implements QuestionDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
-	String passwd = "1234";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO question (quesid,memid,empid,quescontent) VALUES (ques_seq.NEXTVAL, ?, ?, ?)";

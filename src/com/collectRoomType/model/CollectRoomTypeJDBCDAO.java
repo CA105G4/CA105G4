@@ -12,7 +12,7 @@ public class CollectRoomTypeJDBCDAO implements CollectRoomType_interface{
 
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "Test_Project"; 
+	private static final String USER = "CA105G4"; 
 	private static final String PASSWORD = "123456"; 
 	
     private static final String INSERT_SQL = "INSERT INTO CollectRoomType VALUES (?, ?)";

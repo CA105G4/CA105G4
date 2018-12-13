@@ -14,8 +14,8 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 	private static final String DRIVER= "oracle.jdbc.driver.OracleDriver";
 	 
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "system";
-	private static final String PWD = "oracle";
+	private static final String USER = "CA105G4";
+	private static final String PWD = "123456";
 
 	private static final String INSERT_SQL = "INSERT INTO Activity (actID,actName,actStart,actEnd)"
 			+ "VALUES('A'||LPAD(to_char(act_seq.nextval),4,'0'),?,?,?)";

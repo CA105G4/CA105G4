@@ -1,14 +1,14 @@
-package com.messagereport.model;
+package com.messageReport.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class MessageRepJDBCDAO implements MessageRepDAO_interface{
+public class MessageReportJDBCDAO implements MessageReportDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
-	String passwd = "1234";
+	String passwd = "123456";
 
 	private static final String INSERT_STMT = 
 		"INSERT INTO messagereport (mrid,artid,msgid,mrreason,mrstate) VALUES (msgrep_seq.NEXTVAL, ?, ?, ?, ?)";
@@ -22,7 +22,7 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 		"UPDATE messagereport set artid=?, msgid=?, mrreason=?, mrstate=? where mrid = ?";
 	
 	@Override
-	public void insert(MessageRepVO messageRepVO) {
+	public void insert(MessageReportVO messageReportVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -32,10 +32,10 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, messageRepVO.getArtid());
-			pstmt.setInt(2, messageRepVO.getMsgid());
-			pstmt.setString(3, messageRepVO.getMrreason());
-			pstmt.setInt(4, messageRepVO.getMrstate());
+			pstmt.setInt(1, messageReportVO.getArtid());
+			pstmt.setInt(2, messageReportVO.getMsgid());
+			pstmt.setString(3, messageReportVO.getMrreason());
+			pstmt.setInt(4, messageReportVO.getMrstate());
 
 			pstmt.executeUpdate();
 
@@ -68,7 +68,7 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public void update(MessageRepVO messageRepVO) {
+	public void update(MessageReportVO messageReportVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,11 +78,11 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, messageRepVO.getArtid());
-			pstmt.setInt(2, messageRepVO.getMsgid());
-			pstmt.setString(3, messageRepVO.getMrreason());
-			pstmt.setInt(4, messageRepVO.getMrstate());
-			pstmt.setInt(5, messageRepVO.getMrid());
+			pstmt.setInt(1, messageReportVO.getArtid());
+			pstmt.setInt(2, messageReportVO.getMsgid());
+			pstmt.setString(3, messageReportVO.getMrreason());
+			pstmt.setInt(4, messageReportVO.getMrstate());
+			pstmt.setInt(5, messageReportVO.getMrid());
 
 			pstmt.executeUpdate();
 
@@ -156,8 +156,8 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public MessageRepVO findByPrimaryKey(Integer mrid) {
-		MessageRepVO msgreVO = null;
+	public MessageReportVO findByPrimaryKey(Integer mrid) {
+		MessageReportVO msgreVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -172,7 +172,7 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 			rs =pstmt.executeQuery();
 			
 			while(rs.next()) {
-				msgreVO = new MessageRepVO();
+				msgreVO = new MessageReportVO();
 				msgreVO.setMrid(rs.getInt("mrid"));
 				msgreVO.setArtid(rs.getInt("artid"));
 				msgreVO.setMsgid(rs.getInt("msgid"));
@@ -210,9 +210,9 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 	}
 
 	@Override
-	public List<MessageRepVO> getAll() {
-		List<MessageRepVO> list = new ArrayList<MessageRepVO>();
-		MessageRepVO msgreVO = null;
+	public List<MessageReportVO> getAll() {
+		List<MessageReportVO> list = new ArrayList<MessageReportVO>();
+		MessageReportVO messageReportVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -226,13 +226,13 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 			rs =pstmt.executeQuery();
 			
 			while(rs.next()) {
-				msgreVO = new MessageRepVO();
-				msgreVO.setMrid(rs.getInt("mrid"));
-				msgreVO.setArtid(rs.getInt("artid"));
-				msgreVO.setMsgid(rs.getInt("msgid"));
-				msgreVO.setMrreason(rs.getString("mrreason"));
-				msgreVO.setMrstate(rs.getInt("mrstate"));
-				list.add(msgreVO);
+				messageReportVO = new MessageReportVO();
+				messageReportVO.setMrid(rs.getInt("mrid"));
+				messageReportVO.setArtid(rs.getInt("artid"));
+				messageReportVO.setMsgid(rs.getInt("msgid"));
+				messageReportVO.setMrreason(rs.getString("mrreason"));
+				messageReportVO.setMrstate(rs.getInt("mrstate"));
+				list.add(messageReportVO);
 			}
 
 			// Handle any driver errors
@@ -265,26 +265,26 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 
 	
 	public static void main(String[] args) {
-		MessageRepJDBCDAO dao = new MessageRepJDBCDAO();
+		MessageReportJDBCDAO dao = new MessageReportJDBCDAO();
 		
 		
 		//insert
-//		MessageRepVO msgreVO1 = new MessageRepVO();
-//		msgreVO1.setArtid(1003);
-//		msgreVO1.setMsgid(1004);
-//		msgreVO1.setMrreason("測試123ABC");
-//		msgreVO1.setMrstate(0);
-//		dao.insert(msgreVO1);
+//		MessageReportVO messageReportVO1 = new MessageReportVO();
+//		messageReportVO1.setArtid(1003);
+//		messageReportVO1.setMsgid(1004);
+//		messageReportVO1.setMrreason("測試123ABC");
+//		messageReportVO1.setMrstate(0);
+//		dao.insert(messageReportVO1);
 //		System.out.println("insert success");
 		
 		//update
-//		MessageRepVO msgreVO2 = new MessageRepVO();
-//		msgreVO2.setMrid(1006);
-//		msgreVO2.setArtid(1003);
-//		msgreVO2.setMsgid(1004);
-//		msgreVO2.setMrreason("測試456ABC");
-//		msgreVO2.setMrstate(0);
-//		dao.update(msgreVO2);
+//		MessageReportVO messageReportVO2 = new MessageReportVO();
+//		messageReportVO2.setMrid(1006);
+//		messageReportVO2.setArtid(1003);
+//		messageReportVO2.setMsgid(1004);
+//		messageReportVO2.setMrreason("測試456ABC");
+//		messageReportVO2.setMrstate(0);
+//		dao.update(messageReportVO2);
 //		System.out.println("update success");
 		
 		//delete
@@ -292,23 +292,23 @@ public class MessageRepJDBCDAO implements MessageRepDAO_interface{
 //		System.out.println("delete success");
 		
 		//select one
-//		MessageRepVO msgreVO3 = dao.findByPrimaryKey(1001);
-//		System.out.print(msgreVO3.getMrid() + ",");
-//		System.out.print(msgreVO3.getArtid() + ",");
-//		System.out.print(msgreVO3.getMsgid() + ",");
-//		System.out.print(msgreVO3.getMrreason() + ",");
-//		System.out.println(msgreVO3.getMrstate());
+//		MessageReportVO messageReportVO3 = dao.findByPrimaryKey(1001);
+//		System.out.print(messageReportVO3.getMrid() + ",");
+//		System.out.print(messageReportVO3.getArtid() + ",");
+//		System.out.print(messageReportVO3.getMsgid() + ",");
+//		System.out.print(messageReportVO3.getMrreason() + ",");
+//		System.out.println(messageReportVO3.getMrstate());
 //		System.out.println("---------------------");
 		
 		//select all
-//		List<MessageRepVO> list = dao.getAll();
-//		for(MessageRepVO msgre : list) {
-//			System.out.print(msgre.getMrid() + ",");
-//			System.out.print(msgre.getArtid() + ",");
-//			System.out.print(msgre.getMsgid() + ",");
-//			System.out.print(msgre.getMrreason() + ",");
-//			System.out.print(msgre.getMrstate());
-//			System.out.println();
-//		}
+		List<MessageReportVO> list = dao.getAll();
+		for(MessageReportVO messageReportVO : list) {
+			System.out.print(messageReportVO.getMrid() + ",");
+			System.out.print(messageReportVO.getArtid() + ",");
+			System.out.print(messageReportVO.getMsgid() + ",");
+			System.out.print(messageReportVO.getMrreason() + ",");
+			System.out.print(messageReportVO.getMrstate());
+			System.out.println();
+		}
 	}
 }

@@ -11,10 +11,10 @@ public class OrdersVO implements Serializable{
 	private Integer ordType;	//訂單種類
 	private Integer numOfGuest;	//入住人數
 	private Integer amount;		//總金額
-	private Integer Bond;		//訂金
-	private Integer Payment;	//付款方式
+	private Integer bond;		//訂金
+	private Integer payment;	//付款方式
 	private Integer ordState; 	//訂單狀態
-	private Date OrdTime;		//訂單成立時間
+	private Date ordTime;		//訂單成立時間
 	
 	
 	public OrdersVO() {
@@ -31,10 +31,10 @@ public class OrdersVO implements Serializable{
 		this.ordType = ordType;
 		this.numOfGuest = numOfGuest;
 		this.amount = amount;
-		Bond = bond;
-		Payment = payment;
+		this.bond = bond;
+		this.payment = payment;
 		this.ordState = ordState;
-		OrdTime = ordTime;
+		this.ordTime = ordTime;
 	}
 	
 	public String getOrdID() {
@@ -80,16 +80,16 @@ public class OrdersVO implements Serializable{
 		this.amount = amount;
 	}
 	public Integer getBond() {
-		return Bond;
+		return bond;
 	}
 	public void setBond(Integer bond) {
-		Bond = bond;
+		this.bond = bond;
 	}
 	public Integer getPayment() {
-		return Payment;
+		return payment;
 	}
 	public void setPayment(Integer payment) {
-		Payment = payment;
+		this.payment = payment;
 	}
 	public Integer getOrdState() {
 		return ordState;
@@ -98,10 +98,10 @@ public class OrdersVO implements Serializable{
 		this.ordState = ordState;
 	}
 	public Date getOrdTime() {
-		return OrdTime;
+		return ordTime;
 	}
 	public void setOrdTime(Date ordTime) {
-		OrdTime = ordTime;
+		this.ordTime = ordTime;
 	}
 	
 	

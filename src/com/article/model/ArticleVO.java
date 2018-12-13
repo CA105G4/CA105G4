@@ -2,7 +2,7 @@ package com.article.model;
 
 import java.sql.Date;
 
-public class ArtVO implements java.io.Serializable{
+public class ArticleVO implements java.io.Serializable{
 	
 	
 	private Integer artid;

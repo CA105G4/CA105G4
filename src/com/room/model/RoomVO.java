@@ -2,7 +2,7 @@ package com.room.model;
 
 import java.io.Serializable;
 
-public class RoomVo implements Serializable{
+public class RoomVO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -13,7 +13,7 @@ public class RoomVo implements Serializable{
 	private Integer roomState;
 	private String memName;
 	
-	public RoomVo() {}
+	public RoomVO() {}
 
 	public String getRoomID() {
 		return roomID;
