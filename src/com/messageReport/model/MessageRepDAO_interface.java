@@ -1,4 +1,4 @@
-package com.messagereport.model;
+package com.messageReport.model;
 
 import java.util.List;
 

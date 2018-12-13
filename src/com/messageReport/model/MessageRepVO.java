@@ -1,4 +1,4 @@
-package com.messagereport.model;
+package com.messageReport.model;
 
 public class MessageRepVO implements java.io.Serializable{
 	
