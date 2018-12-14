@@ -7,7 +7,7 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
-	String passwd = "1234";
+	String passwd = "123456";
 	
 	private static final String INSERT_STMT = 
 			"INSERT INTO article (artid,memid,artpic,artexp,artstate,artdate) VALUES (art_seq.NEXTVAL, ?, ?, ?,?,?)";

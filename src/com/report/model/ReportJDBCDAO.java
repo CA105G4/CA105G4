@@ -7,8 +7,8 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 	
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "ca105g4";
-	String passwd = "1234";
+	String userid = "CA105G4";
+	String passwd = "123456";
 
 	
 	

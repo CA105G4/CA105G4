@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
+public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 	
 	private static final String DRIVER="oracle.jdbc.driver.OracleDriver";
 	private static final String URL="jdbc:oracle:thin:@localhost:1521:xe";
@@ -193,7 +193,7 @@ public class ActivityDetailVOJDBCDAO implements ActivityDetailDAO_interface{
 	}
 
 	public static void main(String[] args) {
-			ActivityDetailVOJDBCDAO  dao =new ActivityDetailVOJDBCDAO();
+			ActivityDetailJDBCDAO  dao =new ActivityDetailJDBCDAO();
 			
 			//新增
 			ActivityDetailVO vo =new ActivityDetailVO();
