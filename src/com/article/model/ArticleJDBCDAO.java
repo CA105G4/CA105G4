@@ -3,7 +3,7 @@ package com.article.model;
 import java.util.*;
 import java.sql.*;
 
-public class ArtJDBCDAO implements ArtDAO_interface {
+public class ArticleJDBCDAO implements ArticleDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	String userid = "CA105G4";
@@ -21,7 +21,7 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 			"UPDATE article set memid=?, artpic=?, artexp=?, artstate=?,artdate=? where artid = ?";
 		
 	@Override
-	public void insert(ArtVO artVO) {
+	public void insert(ArticleVO articleVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -31,11 +31,11 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, artVO.getMemid());
-			pstmt.setBytes(2, artVO.getArtpic());
-			pstmt.setString(3, artVO.getArtexp());
-			pstmt.setInt(4, artVO.getArtstate());
-			pstmt.setDate(5, artVO.getArtdate());
+			pstmt.setString(1, articleVO.getMemid());
+			pstmt.setBytes(2, articleVO.getArtpic());
+			pstmt.setString(3, articleVO.getArtexp());
+			pstmt.setInt(4, articleVO.getArtstate());
+			pstmt.setDate(5, articleVO.getArtdate());
 
 			pstmt.executeUpdate();
 
@@ -68,7 +68,7 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 	}
 
 	@Override
-	public void update(ArtVO artVO) {
+	public void update(ArticleVO articleVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -78,12 +78,12 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setString(1, artVO.getMemid());
-			pstmt.setBytes(2, artVO.getArtpic());
-			pstmt.setString(3, artVO.getArtexp());
-			pstmt.setInt(4, artVO.getArtstate());
-			pstmt.setDate(5, artVO.getArtdate());
-			pstmt.setInt(6, artVO.getArtid());
+			pstmt.setString(1, articleVO.getMemid());
+			pstmt.setBytes(2, articleVO.getArtpic());
+			pstmt.setString(3, articleVO.getArtexp());
+			pstmt.setInt(4, articleVO.getArtstate());
+			pstmt.setDate(5, articleVO.getArtdate());
+			pstmt.setInt(6, articleVO.getArtid());
 
 			pstmt.executeUpdate();
 
@@ -157,8 +157,8 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 	}
 
 	@Override
-	public ArtVO findByPrimaryKey(Integer artid) {
-		ArtVO artVO = null;
+	public ArticleVO findByPrimaryKey(Integer artid) {
+		ArticleVO artVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -173,7 +173,7 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				artVO = new ArtVO();
+				artVO = new ArticleVO();
 				artVO.setArtid(rs.getInt("artid"));
 				artVO.setMemid(rs.getString("memid"));
 				artVO.setArtpic(rs.getBytes("artpic"));
@@ -211,9 +211,9 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 	}
 
 	@Override
-	public List<ArtVO> getAll() {
-		List<ArtVO> list = new ArrayList<ArtVO>();
-		ArtVO artVO = null;
+	public List<ArticleVO> getAll() {
+		List<ArticleVO> list = new ArrayList<ArticleVO>();
+		ArticleVO artVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -226,7 +226,7 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				artVO = new ArtVO();
+				artVO = new ArticleVO();
 				artVO.setArtid(rs.getInt("artid"));
 				artVO.setMemid(rs.getString("memid"));
 				artVO.setArtpic(rs.getBytes("artpic"));
@@ -265,47 +265,47 @@ public class ArtJDBCDAO implements ArtDAO_interface {
 	}
 	
 	public static void main(String[] args) {
-		 ArtJDBCDAO dao = new ArtJDBCDAO();
+		 ArticleJDBCDAO dao = new ArticleJDBCDAO();
 		 
 		 
 		 //insert
-//		 ArtVO artVO1 = new ArtVO();
-//		 artVO1.setMemid("M0001");
-//		 artVO1.setArtpic(null);
-//		 artVO1.setArtexp("測試ABC123");
-//		 artVO1.setArtstate(0);
-//		 artVO1.setArtdate(java.sql.Date.valueOf("2018-12-09"));
-//		 dao.insert(artVO1);
+//		 ArticleVO articleVO1 = new ArticleVO();
+//		 articleVO1.setMemid("M0001");
+//		 articleVO1.setArtpic(null);
+//		 articleVO1.setArtexp("測試ABC123");
+//		 articleVO1.setArtstate(0);
+//		 articleVO1.setArtdate(java.sql.Date.valueOf("2018-12-09"));
+//		 dao.insert(articleVO1);
 //		 System.out.println("insert success");
 		 
 		 //update
-//		 ArtVO artVO2 = new ArtVO();
-//		 artVO2.setArtid(1006);
-//		 artVO2.setMemid("M0001");
-//		 artVO2.setArtpic(null);
-//		 artVO2.setArtexp("測試ABC456");
-//		 artVO2.setArtstate(0);
-//		 artVO2.setArtdate(java.sql.Date.valueOf("2018-12-09"));
-//		 dao.update(artVO2);
+//		 ArticleVO articleVO2 = new ArticleVO();
+//		 articleVO2.setArtid(1006);
+//		 articleVO2.setMemid("M0001");
+//		 articleVO2.setArtpic(null);
+//		 articleVO2.setArtexp("測試ABC456");
+//		 articleVO2.setArtstate(0);
+//		 articleVO2.setArtdate(java.sql.Date.valueOf("2018-12-09"));
+//		 dao.update(articleVO2);
 //		 System.out.println("update success");
 		 
 		 //delete
 //		 dao.delete(1006);
 //		 System.out.println("delete success");
 		 
-		 //select one
-//		 ArtVO artVO3 = dao.findByPrimaryKey(1001);
-//		 System.out.print( artVO3.getArtid()+ ",");
-//		 System.out.print( artVO3.getMemid()+ ",");
-//		 System.out.print( artVO3.getArtpic()+ ",");
-//		 System.out.print( artVO3.getArtexp()+ ",");
-//		 System.out.print( artVO3.getArtstate()+ ",");
-//		 System.out.println( artVO3.getArtdate());
+//		 //select one
+//		 ArticleVO articleVO3 = dao.findByPrimaryKey(1001);
+//		 System.out.print( articleVO3.getArtid()+ ",");
+//		 System.out.print( articleVO3.getMemid()+ ",");
+//		 System.out.print( articleVO3.getArtpic()+ ",");
+//		 System.out.print( articleVO3.getArtexp()+ ",");
+//		 System.out.print( articleVO3.getArtstate()+ ",");
+//		 System.out.println( articleVO3.getArtdate());
 //		 System.out.println("---------------------");
 		 
 		 //select all
-//		 List<ArtVO> list = dao.getAll();
-//		 for (ArtVO art : list) {
+//		 List<ArticleVO> list = dao.getAll();
+//		 for (ArticleVO art : list) {
 //			System.out.print( art.getArtid()+ ",");
 //			System.out.print( art.getMemid()+ ",");
 //			System.out.print( art.getArtpic()+ ",");
