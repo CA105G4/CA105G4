@@ -52,7 +52,6 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(6, employeeVO.getEmPsw());
 			pstmt.setBytes(7, employeeVO.getEmpPic());
 			
-			
 			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
