@@ -6,7 +6,7 @@ public class WorkExchangeRecordVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer werID;
+	private Integer weID;
 	private String memID;
 	private Integer werState;
 	private String orderID;
@@ -14,12 +14,12 @@ public class WorkExchangeRecordVO implements Serializable{
 	
 	public WorkExchangeRecordVO(){}
 
-	public Integer getWerID() {
-		return werID;
+	public Integer getWeID() {
+		return weID;
 	}
 
-	public void setWerID(Integer werID) {
-		this.werID = werID;
+	public void setWeID(Integer werID) {
+		this.weID = werID;
 	}
 
 	public String getMemID() {
