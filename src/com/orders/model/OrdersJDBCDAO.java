@@ -241,19 +241,19 @@ public class OrdersJDBCDAO implements OrdersDAO_interface {
 //		System.out.println("修改成功!!");
 		
 		//查詢一筆
-		OrdersVO ordersVO03 = dao.findByPrimaryKey("20181209-000003");
-		System.out.println(ordersVO03.getOrdID());
-		System.out.println(ordersVO03.getMemID());
-		System.out.println(ordersVO03.getBraID());
-		System.out.println(ordersVO03.getNumOfRoom());
-		System.out.println(ordersVO03.getOrdType());
-		System.out.println(ordersVO03.getNumOfGuest());
-		System.out.println(ordersVO03.getAmount());
-		System.out.println(ordersVO03.getBond());
-		System.out.println(ordersVO03.getPayment());
-		System.out.println(ordersVO03.getOrdState());
-		System.out.println(ordersVO03.getOrdTime());
-		System.out.println("=====================================");
+//		OrdersVO ordersVO03 = dao.findByPrimaryKey("20181220-000001");
+//		System.out.println(ordersVO03.getOrdID());
+//		System.out.println(ordersVO03.getMemID());
+//		System.out.println(ordersVO03.getBraID());
+//		System.out.println(ordersVO03.getNumOfRoom());
+//		System.out.println(ordersVO03.getOrdType());
+//		System.out.println(ordersVO03.getNumOfGuest());
+//		System.out.println(ordersVO03.getAmount());
+//		System.out.println(ordersVO03.getBond());
+//		System.out.println(ordersVO03.getPayment());
+//		System.out.println(ordersVO03.getOrdState());
+//		System.out.println(ordersVO03.getOrdTime());
+//		System.out.println("=====================================");
 		
 		//查詢全部
 		List<OrdersVO> list = dao.getAll();

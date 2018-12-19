@@ -8,11 +8,11 @@ public class OrderDetailVO implements Serializable{
 	private String roomID;		//房間編號
 	private String ordID;		//訂單編號
 	private String rtID;		//房型編號
-	private Date CheckIn;		//住房日期
-	private Date CheckOut;		//退房日期
+	private Date checkIn;		//住房日期
+	private Date checkOut;		//退房日期
 	private String rtName;		//房型名稱
-	private Double Evaluates;	//評價
-	private Integer Special;	//特殊需求(加床)
+	private Double evaluates;	//評價
+	private Integer special;	//特殊需求(加床)
 	
 	
 	public OrderDetailVO() {
@@ -26,11 +26,11 @@ public class OrderDetailVO implements Serializable{
 		this.roomID = roomID;
 		this.ordID = ordID;
 		this.rtID = rtID;
-		CheckIn = checkIn;
-		CheckOut = checkOut;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
 		this.rtName = rtName;
-		Evaluates = evaluates;
-		Special = special;
+		this.evaluates = evaluates;
+		this.special = special;
 	}
 	
 	public Integer getOdID() {
@@ -58,16 +58,16 @@ public class OrderDetailVO implements Serializable{
 		this.rtID = rtID;
 	}
 	public Date getCheckIn() {
-		return CheckIn;
+		return checkIn;
 	}
 	public void setCheckIn(Date checkIn) {
-		CheckIn = checkIn;
+		this.checkIn = checkIn;
 	}
 	public Date getCheckOut() {
-		return CheckOut;
+		return checkOut;
 	}
 	public void setCheckOut(Date checkOut) {
-		CheckOut = checkOut;
+		this.checkOut = checkOut;
 	}
 	public String getRtName() {
 		return rtName;
@@ -76,15 +76,15 @@ public class OrderDetailVO implements Serializable{
 		this.rtName = rtName;
 	}
 	public Double getEvaluates() {
-		return Evaluates;
+		return evaluates;
 	}
 	public void setEvaluates(Double evaluates) {
-		Evaluates = evaluates;
+		this.evaluates = evaluates;
 	}
 	public Integer getSpecial() {
-		return Special;
+		return special;
 	}
 	public void setSpecial(Integer special) {
-		Special = special;
+		this.special = special;
 	}
 }
