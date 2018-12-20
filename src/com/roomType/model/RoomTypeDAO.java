@@ -1,15 +1,26 @@
 package com.roomType.model;
 
 import java.util.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import tool.BLOB;
 import java.io.IOException;
 import java.sql.*;
 
-public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G4";
-	String passwd = "123456";
+public class RoomTypeDAO implements RoomTypeDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/CA105G4DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO RoomType(rtID,braID,rtName,rtPic,rtIntro,rtMinimum,rtLimit,weeklyprice,holidayprice,total) values('RT'||LPAD(to_char(rt_seq.NEXTVAL),2,'0'),?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM RoomType";
@@ -25,8 +36,7 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, roomTypeVO.getBraID());
@@ -41,9 +51,6 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -72,12 +79,12 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			/*UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, 
 			 * WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?
 			*/
+			
 			pstmt.setString(1, roomTypeVO.getBraID());
 			pstmt.setString(2, roomTypeVO.getRtName());
 			pstmt.setBytes(3, roomTypeVO.getRtPic());
@@ -93,9 +100,6 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -124,17 +128,13 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
 			pstmt.setString(1, rtID);
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -165,10 +165,8 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ONE_STMT);	
-			//SELECT * FROM RoomType WHERE RTID = ?
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
 			
 			pstmt.setString(1, rtID);
 			
@@ -182,18 +180,16 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 				
 				roomTypeVO.setRtPic(rs.getBytes("RTPIC"));
 				
+				
 				roomTypeVO.setRtIntro(rs.getString("RTINTRO"));
 				roomTypeVO.setRtMinimum(rs.getInt("RtMinimum"));
 				roomTypeVO.setRtLimit(rs.getInt("RtLimit"));
 				roomTypeVO.setWeeklyPrice(rs.getInt("WeeklyPrice"));
 				roomTypeVO.setHolidayPrice(rs.getInt("HolidayPrice"));
 				roomTypeVO.setBalance(rs.getString("Balance"));
-				roomTypeVO.setTotal(rs.getInt("Total"));				
+				roomTypeVO.setTotal(rs.getInt("Total"));	
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -227,8 +223,7 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			
 			rs = pstmt.executeQuery();
@@ -250,9 +245,6 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 				list.add(roomTypeVO);
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -277,8 +269,8 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 	}
 	
 	
-	public static void main(String[] args) {
-		RoomTypeJDBCDAO dao = new RoomTypeJDBCDAO();
+//	public static void main(String[] args) {
+//		RoomTypeDAO dao = new RoomTypeDAO();
 		
 		//新增
 //		RoomTypeVO roomTypeVO = new RoomTypeVO();
@@ -302,40 +294,29 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 //		System.out.println("新增成功!!");
 		
 		//修改
-		RoomTypeVO roomTypeVO02 = new RoomTypeVO();
-		roomTypeVO02.setRtID("RT10");
-		roomTypeVO02.setBraID("B02");
-		roomTypeVO02.setRtName("頂級總統套房");
-		
-		try {
-			roomTypeVO02.setRtPic(new BLOB().writeBlob("images/IMG05.jpg"));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		roomTypeVO02.setRtIntro("山莊最頂級的總統級套房");
-		roomTypeVO02.setRtMinimum(2);
-		roomTypeVO02.setRtLimit(3);
-		roomTypeVO02.setWeeklyPrice(5000);
-		roomTypeVO02.setHolidayPrice(6500);
-		roomTypeVO02.setBalance("3");
-		roomTypeVO02.setTotal(3);
-		
-		dao.update(roomTypeVO02);
-		
-		System.out.println("修改成功!!");
+//		RoomTypeVO roomTypeVO02 = new RoomTypeVO();
+//		
+//		try {
+//			roomTypeVO02.setRtPic(new BLOB().writeBlob("images/IMG01.jpg"));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		roomTypeVO02.setRtID("RT01");
+//		dao.update(roomTypeVO02);
+//		System.out.println("修改成功!!");
 		
 		//刪除
 //		dao.delete("RT12");
 //		System.out.println("刪除成功!!");
 		
 		//查詢一筆
-//		RoomTypeVO roomTypeVO03 = dao.findByPrimaryKey("RT01");
+//		RoomTypeVO roomTypeVO03 = dao.findByPrimaryKey("RT13");
 //		System.out.println(roomTypeVO03.getRtID());
 //		System.out.println(roomTypeVO03.getBraID());
 //		System.out.println(roomTypeVO03.getRtName());
 //		
-//		new BLOB().readBlob(roomTypeVO03.getRtPic(),"input/IMG01.jpg");
+//		new BLOB().readBlob(roomTypeVO03.getRtPic(),"input/cat2.jpg");
 //
 //		System.out.println(roomTypeVO03.getRtIntro());
 //		System.out.println(roomTypeVO03.getRtMinimum());
@@ -364,5 +345,5 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 //			System.out.println(rt.getTotal());
 //			System.out.println("=========================");
 //		}	
-	}
+//	}
 }
