@@ -5,7 +5,7 @@ import java.sql.Date;
 public class ReportVO implements java.io.Serializable{
 	private Integer repid;
 	private Integer artid;
-	private String artreason;
+	private String repreason;
 	private String repmemid;
 	private Date repdate;
 	private Integer repstate;
@@ -21,11 +21,11 @@ public class ReportVO implements java.io.Serializable{
 	public void setArtid(Integer artid) {
 		this.artid = artid;
 	}
-	public String getArtreason() {
-		return artreason;
+	public String getRepreason() {
+		return repreason;
 	}
-	public void setArtreason(String artreason) {
-		this.artreason = artreason;
+	public void setRepreason(String repreason) {
+		this.repreason = repreason;
 	}
 	public String getRepmemid() {
 		return repmemid;
