@@ -15,8 +15,10 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	private static final String GET_ONE_STMT = "SELECT * FROM OrderDetail WHERE ODID = ?";
 	
 	private static final String DELETE = "DELETE FROM OrderDetail where ODID = ?";
-	private static final String UPDATE = "UPDATE OrderDetail SET EVALUATES=? WHERE ODID = ?";
-
+	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
+	
+	private static final String GET_ORDERDETAIL_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=?";
+	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
 		Connection con = null;
@@ -68,10 +70,19 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE);	//UPDATE OrderDetail SET EVALUATES=? WHERE ODID = ?
+			pstmt = con.prepareStatement(UPDATE);	
+			/*"UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, 
+			checkOut=?, rtName=?, EVALUATES=?, special=? WHERE ODID = ?" */
 			
-			pstmt.setDouble(1, orderDetailVO.getEvaluates());
-			pstmt.setInt(2, orderDetailVO.getOdID());
+			pstmt.setString(1, orderDetailVO.getRoomID());
+			pstmt.setString(2, orderDetailVO.getOrdID());
+			pstmt.setString(3, orderDetailVO.getRtID());
+			pstmt.setDate(4, orderDetailVO.getCheckIn());
+			pstmt.setDate(5, orderDetailVO.getCheckOut());
+			pstmt.setDouble(6, orderDetailVO.getEvaluates());
+			pstmt.setInt(7, orderDetailVO.getSpecial());
+			
+			pstmt.setInt(8, orderDetailVO.getOdID());
 			
 			pstmt.executeUpdate();
 			
@@ -251,6 +262,65 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public List<OrderDetailVO> findByOrders(String ordID) {
+		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
+		OrderDetailVO orderDetailVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ORDERDETAIL_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
+			
+			pstmt.setString(1, ordID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				orderDetailVO = new OrderDetailVO();
+				orderDetailVO.setOdID(rs.getInt("ODID"));
+				orderDetailVO.setRoomID(rs.getString("ROOMID"));
+				orderDetailVO.setOrdID(rs.getString("ORDID"));
+				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
+				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
+				orderDetailVO.setRtName(rs.getString("RTNAME"));
+				orderDetailVO.setEvaluates(rs.getDouble("EVALUATES"));
+				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
+				list.add(orderDetailVO);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
@@ -272,7 +342,15 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		//修改
 //		OrderDetailVO od02 = new OrderDetailVO();
+//		od02.setRoomID("R00002");
+//		od02.setOrdID("20181223-000010");
+//		od02.setRtID("RT02");
+//		
+//		od02.setCheckIn(Date.valueOf("2018-11-10"));
+//		od02.setCheckOut(Date.valueOf("2018-11-12"));	
+//		
 //		od02.setEvaluates(8.0);
+//		od02.setSpecial(1);
 //		od02.setOdID(1005);
 //		
 //		dao.update(od02);
@@ -296,19 +374,34 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 //		System.out.println("========================");
 		
 		//查詢多筆
-		List<OrderDetailVO> list = dao.getALL();
-		for(OrderDetailVO od : list) {
-			System.out.println(od.getOdID());
-			System.out.println(od.getRoomID());
-			System.out.println(od.getOrdID());
-			System.out.println(od.getRtID());
-			System.out.println(od.getCheckIn());
-			System.out.println(od.getCheckOut());
-			System.out.println(od.getRtName());
-			System.out.println(od.getEvaluates());
-			System.out.println(od.getSpecial());
-			System.out.println("---------------------------");
-		}
+//		List<OrderDetailVO> list = dao.getALL();
+//		for(OrderDetailVO od : list) {
+//			System.out.println(od.getOdID());
+//			System.out.println(od.getRoomID());
+//			System.out.println(od.getOrdID());
+//			System.out.println(od.getRtID());
+//			System.out.println(od.getCheckIn());
+//			System.out.println(od.getCheckOut());
+//			System.out.println(od.getRtName());
+//			System.out.println(od.getEvaluates());
+//			System.out.println(od.getSpecial());
+//			System.out.println("---------------------------");
+//		}
 		
+		//查找單筆訂單的明細
+		List<OrderDetailVO> list = dao.findByOrders("20181223-000002");
+		for(OrderDetailVO od : list) {
+		System.out.println(od.getOdID());
+		System.out.println(od.getRoomID());
+		System.out.println(od.getOrdID());
+		System.out.println(od.getRtID());
+		System.out.println(od.getCheckIn());
+		System.out.println(od.getCheckOut());
+		System.out.println(od.getRtName());
+		System.out.println(od.getEvaluates());
+		System.out.println(od.getSpecial());
+		System.out.println("---------------------------");
+		}
 	}
+
 }
