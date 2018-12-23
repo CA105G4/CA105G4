@@ -10,7 +10,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	String userid = "CA105G4";
 	String passwd = "123456";
 	
-	private static final String INSERT_STMT = "INSERT INTO ORDERDETAIL(ODID, ORDID, RTID, CHECKIN, CHECKOUT, rtName) VALUES (od_seq.NEXTVAL, ?, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO ORDERDETAIL(ODID, ORDID, RTID, CHECKIN, CHECKOUT, SPECIAL) VALUES (od_seq.NEXTVAL, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM OrderDetail";
 	private static final String GET_ONE_STMT = "SELECT * FROM OrderDetail WHERE ODID = ?";
 	
@@ -33,7 +33,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			pstmt.setString(2, orderDetailVO.getRtID());
 			pstmt.setDate(3, orderDetailVO.getCheckIn());
 			pstmt.setDate(4, orderDetailVO.getCheckOut());
-			pstmt.setString(5, orderDetailVO.getRtName());
+			pstmt.setInt(5, orderDetailVO.getSpecial());
 			
 			pstmt.executeUpdate();
 			
@@ -327,18 +327,18 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 		//新增
-//		Date checkin = Date.valueOf("2019-01-15");
-//		Date checkout = Date.valueOf("2019-01-16");
+		Date checkin = Date.valueOf("2019-01-15");
+		Date checkout = Date.valueOf("2019-01-16");
 		
-//		OrderDetailVO od01 = new OrderDetailVO();
-//		od01.setOrdID("20181209-000011");
-//		od01.setRtID("RT02");
-//		od01.setCheckIn(checkin);
-//		od01.setCheckOut(checkout);
-//		od01.setRtName("豪華二人房");
-//		
-//		dao.insert(od01);
-//		System.out.println("新增成功!!");
+		OrderDetailVO od01 = new OrderDetailVO();
+		od01.setOrdID("20181223-000008");
+		od01.setRtID("RT02");
+		od01.setCheckIn(checkin);
+		od01.setCheckOut(checkout);
+		od01.setSpecial(1);;
+		
+		dao.insert(od01);
+		System.out.println("新增成功!!");
 		
 		//修改
 //		OrderDetailVO od02 = new OrderDetailVO();
@@ -389,19 +389,19 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 //		}
 		
 		//查找單筆訂單的明細
-		List<OrderDetailVO> list = dao.findByOrders("20181223-000002");
-		for(OrderDetailVO od : list) {
-		System.out.println(od.getOdID());
-		System.out.println(od.getRoomID());
-		System.out.println(od.getOrdID());
-		System.out.println(od.getRtID());
-		System.out.println(od.getCheckIn());
-		System.out.println(od.getCheckOut());
-		System.out.println(od.getRtName());
-		System.out.println(od.getEvaluates());
-		System.out.println(od.getSpecial());
-		System.out.println("---------------------------");
-		}
+//		List<OrderDetailVO> list = dao.findByOrders("20181223-000002");
+//		for(OrderDetailVO od : list) {
+//		System.out.println(od.getOdID());
+//		System.out.println(od.getRoomID());
+//		System.out.println(od.getOrdID());
+//		System.out.println(od.getRtID());
+//		System.out.println(od.getCheckIn());
+//		System.out.println(od.getCheckOut());
+//		System.out.println(od.getRtName());
+//		System.out.println(od.getEvaluates());
+//		System.out.println(od.getSpecial());
+//		System.out.println("---------------------------");
+//		}
 	}
 
 }
