@@ -14,6 +14,7 @@ public class OrderDetailService {
 	}
 	
 	public OrderDetailVO addOrderDetail(String roomID, String ordID, String rtID, Date checkIn, Date checkOut, Double evaluates, Integer special) {
+		
 		OrderDetailVO odVO = new OrderDetailVO();
 		odVO.setRoomID(roomID);
 		odVO.setOrdID(ordID);
@@ -28,8 +29,11 @@ public class OrderDetailService {
 	}
 	
 	public OrderDetailVO updateOrderDetail(Integer odID, String roomID, String ordID, String rtID, Date checkIn, Date checkOut, Double evaluates, Integer special) {
+		
 		OrderDetailVO odVO = new OrderDetailVO();
+		
 		odVO.setOdID(odID);
+		
 		odVO.setRoomID(roomID);
 		odVO.setOrdID(ordID);
 		odVO.setRtID(rtID);
