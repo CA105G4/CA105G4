@@ -28,7 +28,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String DELETE = "DELETE FROM OrderDetail where ODID = ?";
 	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
 
-	private static final String GET_ORDERDETAIL_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=?";
+	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -254,8 +254,8 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	}
 	
 	@Override
-	public List<OrderDetailVO> findByOrders(String ordID) {
-		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
+	public Set<OrderDetailVO> findByOrders(String ordID) {
+		Set<OrderDetailVO> set = new LinkedHashSet<OrderDetailVO>();
 		OrderDetailVO orderDetailVO = null;
 		
 		Connection con = null;
@@ -264,7 +264,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ORDERDETAIL_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
+			pstmt = con.prepareStatement(GET_OrderDetail_ByOrders_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
 			
 			pstmt.setString(1, ordID);
 			
@@ -281,7 +281,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
 				orderDetailVO.setEvaluates(rs.getDouble("EVALUATES"));
 				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
-				list.add(orderDetailVO);
+				set.add(orderDetailVO);
 			}
 			
 		} catch (SQLException e) {
@@ -304,7 +304,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			}
 		}
 		
-		return list;
+		return set;
 	}
 	
 }

@@ -2,6 +2,7 @@ package com.orderDetail.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.orders.model.OrdersVO;
 
@@ -45,7 +46,7 @@ public class OrderDetailService {
 		return dao.findByPrimaryKey(odID);
 	}
 	
-	public List<OrderDetailVO> getbyOrder(String ordID){
+	public Set<OrderDetailVO> getOrderDetailByOrders(String ordID){
 		return dao.findByOrders(ordID);
 	}
 	

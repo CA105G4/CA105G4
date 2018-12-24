@@ -17,7 +17,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	private static final String DELETE = "DELETE FROM OrderDetail where ODID = ?";
 	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
 	
-	private static final String GET_ORDERDETAIL_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=?";
+	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -263,8 +263,8 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	}
 	
 	@Override
-	public List<OrderDetailVO> findByOrders(String ordID) {
-		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>();
+	public Set<OrderDetailVO> findByOrders(String ordID) {
+		Set<OrderDetailVO> set = new LinkedHashSet<OrderDetailVO>();
 		OrderDetailVO orderDetailVO = null;
 		
 		Connection con = null;
@@ -274,7 +274,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(GET_ORDERDETAIL_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
+			pstmt = con.prepareStatement(GET_OrderDetail_ByOrders_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
 			
 			pstmt.setString(1, ordID);
 			
@@ -291,7 +291,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
 				orderDetailVO.setEvaluates(rs.getDouble("EVALUATES"));
 				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
-				list.add(orderDetailVO);
+				set.add(orderDetailVO);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -317,7 +317,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			}
 		}
 		
-		return list;
+		return set;
 	}
 	
 	
@@ -326,19 +326,19 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
 		
 		
-		//新增
-		Date checkin = Date.valueOf("2019-01-15");
-		Date checkout = Date.valueOf("2019-01-16");
-		
-		OrderDetailVO od01 = new OrderDetailVO();
-		od01.setOrdID("20181223-000008");
-		od01.setRtID("RT02");
-		od01.setCheckIn(checkin);
-		od01.setCheckOut(checkout);
-		od01.setSpecial(1);;
-		
-		dao.insert(od01);
-		System.out.println("新增成功!!");
+//		//新增
+//		Date checkin = Date.valueOf("2019-01-15");
+//		Date checkout = Date.valueOf("2019-01-16");
+//		
+//		OrderDetailVO od01 = new OrderDetailVO();
+//		od01.setOrdID("20181223-000008");
+//		od01.setRtID("RT02");
+//		od01.setCheckIn(checkin);
+//		od01.setCheckOut(checkout);
+//		od01.setSpecial(1);;
+//		
+//		dao.insert(od01);
+//		System.out.println("新增成功!!");
 		
 		//修改
 //		OrderDetailVO od02 = new OrderDetailVO();
@@ -389,19 +389,22 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 //		}
 		
 		//查找單筆訂單的明細
-//		List<OrderDetailVO> list = dao.findByOrders("20181223-000002");
-//		for(OrderDetailVO od : list) {
-//		System.out.println(od.getOdID());
-//		System.out.println(od.getRoomID());
-//		System.out.println(od.getOrdID());
-//		System.out.println(od.getRtID());
-//		System.out.println(od.getCheckIn());
-//		System.out.println(od.getCheckOut());
-//		System.out.println(od.getRtName());
-//		System.out.println(od.getEvaluates());
-//		System.out.println(od.getSpecial());
-//		System.out.println("---------------------------");
-//		}
+		Set<OrderDetailVO> set = dao.findByOrders("20181223-000002");
+		
+		for(OrderDetailVO od : set) {
+		System.out.println(od.getOdID());
+		System.out.println(od.getRoomID());
+		System.out.println(od.getOrdID());
+		System.out.println(od.getRtID());
+		System.out.println(od.getCheckIn());
+		System.out.println(od.getCheckOut());
+		System.out.println(od.getRtName());
+		System.out.println(od.getEvaluates());
+		System.out.println(od.getSpecial());
+		System.out.println("---------------------------");
+		}
+		
+		
 	}
 
 }
