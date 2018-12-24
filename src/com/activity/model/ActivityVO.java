@@ -3,6 +3,7 @@ package com.activity.model;
 import java.sql.Date;
 
 public class ActivityVO implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	private String actID;
 	private String actName;
 	private Date actStart;
