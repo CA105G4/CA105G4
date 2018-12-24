@@ -229,4 +229,9 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			
 			
 	}
+
+	@Override
+	public ActivityDetailVO findByPK(String actID) {
+		return null;
+	}
 }
