@@ -7,6 +7,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.room.model.RoomVO;
+
 import tool.BLOB;
 import java.io.IOException;
 import java.sql.*;
@@ -22,13 +24,14 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		}
 	}
 	
-	private static final String INSERT_STMT = "INSERT INTO RoomType(rtID,braID,rtName,rtPic,rtIntro,rtMinimum,rtLimit,weeklyprice,holidayprice,total) values('RT'||LPAD(to_char(rt_seq.NEXTVAL),2,'0'),?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_STMT = "INSERT INTO RoomType(rtID,braID,rtName,rtPic,rtIntro,rtMinimum,rtLimit,weeklyprice,holidayprice,total) values('RT'||LPAD(to_char(rt_seq.NEXTVAL),2,'0'),?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM RoomType";
 	private static final String GET_ONE_STMT = "SELECT * FROM RoomType WHERE RTID = ?";
 	
 	private static final String DELETE = "DELETE FROM RoomType where RTID = ?";
 	private static final String UPDATE = "UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?";
-	
+
+	private static final String UPDATE_ROOMBALANCE ="UPDATE RoomType SET BALANCE=? WHERE RTID=?"; 
 	
 	@Override
 	public void insert(RoomTypeVO roomTypeVO) {
@@ -47,7 +50,30 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			pstmt.setInt(6, roomTypeVO.getRtLimit());
 			pstmt.setInt(7, roomTypeVO.getWeeklyPrice());
 			pstmt.setInt(8, roomTypeVO.getHolidayPrice());
-			pstmt.setInt(9, roomTypeVO.getTotal());
+			
+			int roomnumber = new Integer(roomTypeVO.getTotal());
+			System.out.println(roomnumber);
+			if(roomnumber>=10) {
+				StringBuffer roomnum = new StringBuffer(roomTypeVO.getTotal());
+				for(int i=0; i<31; i++) {
+					roomnum.append(roomTypeVO.getTotal());
+					System.out.println(roomnum);
+				}
+				String balance = roomnum.toString();
+				System.out.println(balance);
+				pstmt.setString(9, balance);
+			}else {
+				StringBuffer roomnum = new StringBuffer(roomTypeVO.getTotal());
+				for(int i=0; i<31; i++) {
+					roomnum.append("0"+roomTypeVO.getTotal());
+					System.out.println(roomnum);
+				}
+				String balance = roomnum.toString();
+				System.out.println(balance);
+				pstmt.setString(9, balance);
+			}
+			
+			pstmt.setInt(10, roomTypeVO.getTotal());
 			
 			pstmt.executeUpdate();
 			
@@ -84,7 +110,6 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			/*UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, 
 			 * WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?
 			*/
-			
 			pstmt.setString(1, roomTypeVO.getBraID());
 			pstmt.setString(2, roomTypeVO.getRtName());
 			pstmt.setBytes(3, roomTypeVO.getRtPic());
@@ -93,7 +118,29 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			pstmt.setInt(6, roomTypeVO.getRtLimit());
 			pstmt.setInt(7, roomTypeVO.getWeeklyPrice());
 			pstmt.setInt(8, roomTypeVO.getHolidayPrice());
-			pstmt.setString(9, roomTypeVO.getBalance());
+			
+			int roomnumber = new Integer(roomTypeVO.getTotal());
+			System.out.println(roomnumber);
+			if(roomnumber>=10) {
+				StringBuffer roomnum = new StringBuffer(roomTypeVO.getTotal());
+				for(int i=0; i<31; i++) {
+					roomnum.append(roomTypeVO.getTotal());
+					System.out.println(roomnum);
+				}
+				String balance = roomnum.toString();
+				System.out.println(balance);
+				pstmt.setString(9, balance);
+			}else {
+				StringBuffer roomnum = new StringBuffer(roomTypeVO.getTotal());
+				for(int i=0; i<31; i++) {
+					roomnum.append("0"+roomTypeVO.getTotal());
+					System.out.println(roomnum);
+				}
+				String balance = roomnum.toString();
+				System.out.println(balance);
+				pstmt.setString(9, balance);
+			}
+			
 			pstmt.setInt(10, roomTypeVO.getTotal());
 			
 			pstmt.setString(11, roomTypeVO.getRtID());
@@ -268,6 +315,44 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public void updateRoomBalance(String balance, String rtID) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_ROOMBALANCE);
+			//UPDATE RoomType SET BALANCE=? WHERE RTID=?
+
+			pstmt.setString(1, balance);
+			pstmt.setString(2, rtID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+				
+		
+	}
 	
 //	public static void main(String[] args) {
 //		RoomTypeDAO dao = new RoomTypeDAO();
@@ -278,7 +363,7 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 //		roomTypeVO.setRtName("超級二人房");
 //		
 //		try {
-//			roomTypeVO.setRtPic(new BLOB().writeBlob("images/cat.jpg"));
+//			roomTypeVO.setRtPic(new BLOB().writeBlob("images/IMG01.jpg"));
 //		} catch (IOException e) {
 //			System.out.println("上傳失敗!!");
 //			e.printStackTrace();
