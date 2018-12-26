@@ -1,36 +1,37 @@
 package com.room.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomJDBCDAO implements RoomDAO_interface{
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class RoomDAO implements RoomDAO_interface{
 	
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "CA105G4";
-	private static final String PASSWORD = "123456";
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA105G4DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_SQL = 
 			 "Insert into Room (roomID, roomTypeID, braID, roomNo, roomState, memName)" 
 			+ "values ('R'||LPAD(to_char(room_seq.nextVal),5,'0'), ?, ?, ?, ? ,?)";
-	private static final String UPDATE_SQL = "Update Room set roomState = ? where roomID = ?";
+	private static final String UPDATE_SQL = "Update Room set roomTypeID = ?, braID = ?, roomNo = ?, roomState = ?, memName =? where roomID = ?";
 	private static final String GET_ONE_SQL = "Select roomID, roomTypeID, braID, roomNo, roomState, memName from Room where roomID = ?";
 	private static final String GET_ALL_SQL = "Select * from Room";
 	private static final String Find_By_Branch_SQL = "select * from Room where braID = ? ";
 	private static final String Find_Room_ForAssign_SQL = "select * from Room where braID = ? and roomTypeID = ? and roomState = ?";
-	
-	static {
-		try {
-			Class.forName(DRIVER);
-		} catch(ClassNotFoundException ce) {
-			ce.printStackTrace();
-		}
-	}
 	
 	
 	@Override
@@ -39,7 +40,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
 			
 			pstmt.setString(1, roomVO.getRoomTypeID());
@@ -77,11 +78,15 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
-			pstmt.setInt(1, roomVO.getRoomState());
-			pstmt.setString(2, roomVO.getRoomID());
+			pstmt.setString(1, roomVO.getRoomTypeID());
+			pstmt.setString(2, roomVO.getBraID());
+			pstmt.setInt(3, roomVO.getRoomNo());
+			pstmt.setInt(4, roomVO.getRoomState());
+			pstmt.setString(5, roomVO.getMemName());
+			pstmt.setString(6, roomVO.getRoomID());
 			
 			pstmt.executeUpdate();
 			
@@ -115,7 +120,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 			
 			pstmt.setString(1, roomID);
@@ -168,7 +173,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_SQL);
 			rs = pstmt.executeQuery();
 			
@@ -211,6 +216,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		return list;
 	}
 	
+	@Override
 	public List<RoomVO> findRoomByBranch(String braID){
 		List<RoomVO> list = new ArrayList<RoomVO>();
 		RoomVO roomVO = null;
@@ -219,7 +225,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(Find_By_Branch_SQL);
 			
 			pstmt.setString(1, braID);
@@ -229,13 +235,13 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 				roomVO = new RoomVO();
 				roomVO.setRoomID(rs.getString("roomID"));
 				roomVO.setRoomTypeID(rs.getString("roomTypeID"));
+				roomVO.setBraID(rs.getString("braID"));
 				roomVO.setRoomNo(rs.getInt("roomNo"));
 				roomVO.setRoomState(rs.getInt("roomState"));
 				roomVO.setMemName(rs.getString("memName"));
 				
 				list.add(roomVO);
 			}
-				
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -274,7 +280,7 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(Find_Room_ForAssign_SQL);
 			
 			pstmt.setString(1, braID);
@@ -323,11 +329,9 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 	}
 	
 	
-
 	
-	
-	public static void main(String args[]) {
-		RoomJDBCDAO dao = new RoomJDBCDAO();
+//	public static void main(String args[]) {
+//		RoomDAO dao = new RoomDAO();
 		//新增測試
 //		RoomVO roomVO1 = new RoomVO();
 //		roomVO1.setRoomTypeID("RT10");
@@ -366,30 +370,5 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 //			System.out.println("====================");
 //		}
 //		System.out.println("Successfully Search!");
-		
-		//依分店查找房間
-//		List<RoomVO> list = dao.findRoomByBranch("B01");
-//		for(RoomVO roomVO : list) {
-//		System.out.println(roomVO.getRoomID());
-//		System.out.println(roomVO.getRoomTypeID());
-//		System.out.println(roomVO.getRoomNo());
-//		System.out.println(roomVO.getRoomState());
-//		System.out.println(roomVO.getMemName());
-//		System.out.println("----------------------------------");
-//		System.out.println("Successfully Search!");
-//		}
-		
-		//依分店、房型找不同狀態房間
-		List<RoomVO> list = dao.findRoomForAssign("B01", "RT01", 3);
-		for(RoomVO roomVO : list) {
-		System.out.println(roomVO.getRoomID());	
-		System.out.println(roomVO.getRoomTypeID());
-		System.out.println(roomVO.getBraID());
-		System.out.println(roomVO.getRoomNo());
-		System.out.println(roomVO.getRoomState());
-		System.out.println(roomVO.getMemName());
-		System.out.println("----------------------------------");
-		System.out.println("Successfully Search!");	
-		}
-	}	
+//	}	
 }
