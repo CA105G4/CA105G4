@@ -54,9 +54,14 @@ public class RoomTypeService {
 		return dao.getAll();
 	}
 	
-	//更改房型的剩餘房間數欄位
-	public void updateRoomBalance(String balance, String rtID) {
-		dao.updateRoomBalance(balance, rtID);
+	//[Gina]{Ajax}用分店找房型
+	public List<RoomTypeVO> findRoomTypeByBraID(String braID) {
+		return dao.findRoomTypeByBranch(braID);
 	}
+	
+//	//更改房型的剩餘房間數欄位
+//	public void updateRoomBalance(String balance, String rtID) {
+//		dao.updateRoomBalance(balance, rtID);
+//	}
 
 }

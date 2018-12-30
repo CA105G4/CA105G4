@@ -2,6 +2,7 @@ package com.orders.model;
 
 import java.util.*;
 
+import com.orderDetail.model.OrderDetailJDBCDAO;
 import com.orderDetail.model.OrderDetailVO;
 
 import java.sql.*;
@@ -292,23 +293,139 @@ public class OrdersJDBCDAO implements OrdersDAO_interface {
 		return set;
 	}
 	
+	@Override
+	public void insertwithOrderDetail(OrdersVO ordersVO, List<OrderDetailVO> odlist) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			
+			/****關閉autoCommit連線****/
+			con.setAutoCommit(false);
+			
+			/****新增訂單先****/
+			String cols[] = {"ORDID"};	
+			pstmt = con.prepareStatement(INSERT_STMT, cols);  //綁定自增主鍵
+			/*INSERT INTO ORDERS(ORDID, MEMID, BRAID, NUMOFROOM, ORDTYPE, NUMOFGUEST, AMOUNT, BOND, PAYMENT) 
+			 * VALUES (to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ord_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?)*/
+			pstmt.setString(1, ordersVO.getMemID());
+			pstmt.setString(2, ordersVO.getBraID());
+			pstmt.setInt(3, ordersVO.getNumOfRoom());
+			pstmt.setInt(4, ordersVO.getOrdType());
+			pstmt.setInt(5, ordersVO.getNumOfGuest());
+			pstmt.setInt(6, ordersVO.getAmount());
+			pstmt.setInt(7, ordersVO.getBond());
+			pstmt.setInt(8, ordersVO.getPayment());
+			
+			pstmt.executeUpdate();
+			
+			/****取得當前新增的自增主鍵****/
+			String now_ordID = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				now_ordID = rs.getString(1);
+				System.out.println("自增主鍵值= " + now_ordID + "剛新增成功的訂單標號");
+			}else {
+				System.out.println("未取得自增主鍵值!");
+			}
+			
+			rs.close();
+			
+			/****新增訂單明細****/
+			OrderDetailJDBCDAO oddao = new OrderDetailJDBCDAO();
+			System.out.println("list.size()-A="+ odlist.size() + "筆明細同時被新增");	//有幾個明細就跑幾次
+			
+			for(OrderDetailVO orderDetailVO : odlist) {
+				orderDetailVO.setOrdID(now_ordID);	//將取到的主鍵set進去orderDetailVO的ordID中
+				oddao.insertwithOrders(orderDetailVO, con);	//請明細的dao呼叫同時新增明細的方法
+			}
+			
+			con.commit();
+			
+			System.out.println("新增訂單編號 " + now_ordID + " 時，共有明細 " + odlist.size() + " 筆同時被新增");
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (Exception e) {
+				if (con != null) {
+					try {
+						System.err.print("Transaction is being ");
+						System.err.println("rolled back-由-訂單");
+						con.rollback();
+					} catch (SQLException excep) {
+						throw new RuntimeException("rollback error occured. " + excep.getMessage());
+					}
+				}
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
 	
 	//測試執行方法
 	public static void main(String[] args) {
 		OrdersJDBCDAO dao = new OrdersJDBCDAO();
 		
 		//新增insert
-//		OrdersVO ordersVO01 = new OrdersVO();
-//		ordersVO01.setMemID("M0001");
-//		ordersVO01.setBraID("B01");
-//		ordersVO01.setNumOfRoom(2);
-//		ordersVO01.setOrdType(0);;
-//		ordersVO01.setNumOfGuest(6);
-//		ordersVO01.setAmount(3000);
-//		ordersVO01.setBond(2550);
-//		ordersVO01.setPayment(0);
-//		dao.insert(ordersVO01);
-//		System.out.println("新增成功!!");
+		/**新增的訂單**/
+		OrdersVO ordersVO = new OrdersVO();
+		ordersVO.setMemID("M0001");
+		ordersVO.setBraID("B01");
+		ordersVO.setNumOfRoom(2);
+		ordersVO.setOrdType(0);;
+		ordersVO.setNumOfGuest(6);
+		ordersVO.setAmount(3000);
+		ordersVO.setBond(2550);
+		ordersVO.setPayment(0);
+		
+		/**同時新增的訂單明細**/
+		List<OrderDetailVO> odlist = new ArrayList<OrderDetailVO>();
+		
+		OrderDetailVO odVO01 = new OrderDetailVO();	//第一張明細		
+		odVO01.setRtID("RT02");
+		odVO01.setCheckIn(Date.valueOf("2018-12-31"));
+		odVO01.setCheckOut(Date.valueOf("2019-01-02"));
+		odVO01.setSpecial(1);
+		
+		odlist.add(odVO01);
+		
+		OrderDetailVO odVO02 = new OrderDetailVO();	//第一張明細		
+		odVO02.setRtID("RT01");
+		odVO02.setCheckIn(Date.valueOf("2018-12-31"));
+		odVO02.setCheckOut(Date.valueOf("2019-01-02"));
+		odVO02.setSpecial(1);
+		
+		odlist.add(odVO02);	
+		
+		dao.insertwithOrderDetail(ordersVO, odlist);		
+		System.out.println("新增訂單!!");
 		
 		
 		//修改update
@@ -363,20 +480,20 @@ public class OrdersJDBCDAO implements OrdersDAO_interface {
 //		}
 		
 		//查詢單筆訂單的明細
-		Set<OrderDetailVO> set = dao.getOrderDetailByOrders("20181223-000002");
-		
-		for(OrderDetailVO od : set) {
-		System.out.println(od.getOdID());
-		System.out.println(od.getRoomID());
-		System.out.println(od.getOrdID());
-		System.out.println(od.getRtID());
-		System.out.println(od.getCheckIn());
-		System.out.println(od.getCheckOut());
-		System.out.println(od.getRtName());
-		System.out.println(od.getEvaluates());
-		System.out.println(od.getSpecial());
-		System.out.println("---------------------------");
-		}
+//		Set<OrderDetailVO> set = dao.getOrderDetailByOrders("20181223-000002");
+//		
+//		for(OrderDetailVO od : set) {
+//		System.out.println(od.getOdID());
+//		System.out.println(od.getRoomID());
+//		System.out.println(od.getOrdID());
+//		System.out.println(od.getRtID());
+//		System.out.println(od.getCheckIn());
+//		System.out.println(od.getCheckOut());
+//		System.out.println(od.getRtName());
+//		System.out.println(od.getEvaluates());
+//		System.out.println(od.getSpecial());
+//		System.out.println("---------------------------");
+//		}
 		
 	}
 

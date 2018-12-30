@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.orderDetail.model.OrderDetailDAO;
 import com.orderDetail.model.OrderDetailVO;
 
 
@@ -282,4 +283,111 @@ public class OrdersDAO implements OrdersDAO_interface {
 		return set;
 	}
 
+	@Override
+	public void insertwithOrderDetail(OrdersVO ordersVO, List<OrderDetailVO> odlist) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			
+			/****關閉autoCommit連線****/
+			con.setAutoCommit(false);
+			
+			/****新增訂單先****/
+			String cols[] = {"ORDID"};	
+			pstmt = con.prepareStatement(INSERT_STMT, cols);  //綁定自增主鍵
+			/*INSERT INTO ORDERS(ORDID, MEMID, BRAID, NUMOFROOM, ORDTYPE, NUMOFGUEST, AMOUNT, BOND, PAYMENT) 
+			 * VALUES (to_char(sysdate,'yyyymmdd')||'-'||LPAD(to_char(ord_seq.NEXTVAL), 6, '0'), ?, ?, ?, ?, ?, ?, ?, ?)*/
+System.out.println("DAO-MemID:"+ordersVO.getMemID());			
+			pstmt.setString(1, ordersVO.getMemID());
+			
+System.out.println("DAO-BraID:"+ordersVO.getBraID());				
+			pstmt.setString(2, ordersVO.getBraID());
+			
+System.out.println("DAO-NumOfRoom:"+ordersVO.getNumOfRoom());				
+			pstmt.setInt(3, ordersVO.getNumOfRoom());
+			
+System.out.println("DAO-OrdType:"+ordersVO.getOrdType());				
+			pstmt.setInt(4, ordersVO.getOrdType());
+			
+System.out.println("DAO-NumOfGuest:"+ordersVO.getNumOfGuest());			
+			pstmt.setInt(5, ordersVO.getNumOfGuest());
+			
+System.out.println("DAO-Amount:"+ordersVO.getAmount());		
+			pstmt.setInt(6, ordersVO.getAmount());
+			
+System.out.println("DAO-Bond:"+ordersVO.getBond());			
+			pstmt.setInt(7, ordersVO.getBond());
+			
+System.out.println("DAO-Payment:"+ordersVO.getPayment());		
+			pstmt.setInt(8, ordersVO.getPayment());
+			
+			pstmt.executeUpdate();
+			
+			/****取得當前新增的自增主鍵****/
+			String now_ordID = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if(rs.next()) {
+				now_ordID = rs.getString(1);
+				System.out.println("自增主鍵值= " + now_ordID + "剛新增成功的訂單標號");
+			}else {
+				System.out.println("未取得自增主鍵值!");
+			}
+			
+			rs.close();
+			
+			/****新增訂單明細****/
+			OrderDetailDAO oddao = new OrderDetailDAO();
+			System.out.println("list.size()-A="+ odlist.size() + "筆明細同時被新增");	//有幾個明細就跑幾次
+			
+			for(OrderDetailVO orderDetailVO : odlist) {
+				orderDetailVO.setOrdID(now_ordID);	//將取到的主鍵set進去orderDetailVO的ordID中
+				oddao.insertwithOrders(orderDetailVO, con);	//請明細的dao呼叫同時新增明細的方法
+			}
+			
+			con.commit();
+			
+			System.out.println("新增訂單編號 " + now_ordID + " 時，共有明細 " + odlist.size() + " 筆同時被新增");
+			
+		} catch (Exception e) {
+				if (con != null) {
+					try {
+						System.err.print("Transaction is being ");
+						System.err.println("rolled back-由-訂單");
+						con.rollback();
+					} catch (SQLException excep) {
+						throw new RuntimeException("rollback error occured. " + excep.getMessage());
+					}
+				}
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			
+			try {
+				con.setAutoCommit(true);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		
+	}
+	
 }

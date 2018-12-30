@@ -7,6 +7,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.orders.model.OrdersVO;
+import com.roomType.model.RoomTypeDAO;
+
 import java.sql.*;
 import java.sql.Date;
 
@@ -306,5 +309,54 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		
 		return set;
 	}
+	
+	@Override
+	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con) {
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+			//INSERT INTO ORDERDETAIL(ODID, ORDID, RTID, CHECKIN, CHECKOUT, SPECIAL) VALUES (od_seq.NEXTVAL, ?, ?, ?, ?, ?)
+			
+			pstmt.setString(1, orderDetailVO.getOrdID());
+			pstmt.setString(2, orderDetailVO.getRtID());
+			pstmt.setDate(3, orderDetailVO.getCheckIn());
+			pstmt.setDate(4, orderDetailVO.getCheckOut());
+			pstmt.setInt(5, orderDetailVO.getSpecial());
+			
+			pstmt.executeUpdate();
+			
+			/****去更改房型狀態****/
+			RoomTypeDAO rtdao = new RoomTypeDAO();
+			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con);
+			System.out.println("房型編號" + orderDetailVO.getRtID());
+			System.out.println("入住日期" + orderDetailVO.getCheckIn());
+			System.out.println("退房日期" + orderDetailVO.getCheckOut());
+			
+		} catch (Exception e) {
+			if (con != null) {
+				try {
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-訂單明細");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}	
 	
 }

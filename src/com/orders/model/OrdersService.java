@@ -63,5 +63,10 @@ public class OrdersService {
 	public List<OrdersVO> getAll(){
 		return dao.getAll();
 	}
-
+	
+	//[Gina]{訂單交易}	同時新增訂單與明細
+	public OrdersVO insertwithOrderDetail(OrdersVO ordersVO, List<OrderDetailVO> odlist) {
+		dao.insertwithOrderDetail(ordersVO, odlist);
+		return ordersVO;
+	}
 }

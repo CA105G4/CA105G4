@@ -10,4 +10,7 @@ public interface OrdersDAO_interface {
 	public List<OrdersVO> getAll();
 	//查詢某訂單的明細(一對多)(回傳 Set)
     public Set<OrderDetailVO> getOrderDetailByOrders(String ordID);
+    
+	//[Gina]{訂單交易}	同時新增訂單與明細
+	public void insertwithOrderDetail(OrdersVO ordersVO, List<OrderDetailVO> odlist);
 }
