@@ -19,8 +19,10 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 	private static final String DELETE = "DELETE FROM RoomType where RTID = ?";
 	private static final String UPDATE = "UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?";
 	
+	/**[訂單]Gina訂單交易使用**/
 	private static final String UPDATE_ROOMBALANCE ="UPDATE RoomType SET BALANCE=? WHERE RTID=?"; 
 	private static final String FIND_BY_BRANCH ="SELECT RTID, RTNAME FROM ROOMTYPE WHERE BRAID=?";
+	/**[訂單]Gina訂單交易使用**/
 	
 	@Override
 	public void insert(RoomTypeVO roomTypeVO) {
