@@ -14,7 +14,7 @@ import java.util.List;
 
 
 
-public class AuthorityJDBCDAO implements AuthorityDAO_interdace {
+public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 	
 	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";

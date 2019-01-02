@@ -2,7 +2,7 @@ package com.authority.model;
 
 import java.util.List;
 
-public interface AuthorityDAO_interdace  {
+public interface AuthorityDAO_interface  {
 	
 	
 	public void insert(AuthorityVO authorityVO); // 新增權限
