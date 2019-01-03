@@ -6,7 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+
+import com.authorityRecord.model.AuthorityRecordVO;
+
 
 
 
@@ -27,7 +32,7 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
    //權限要更新???
     private static final String GET_ALL_SQL = "SELECT * from Authority";
     private static final String GET_ONE_SQL = "SELECT authID,authName from Authority where authID = ?";
-	
+    private static final String GET_Emps_ByAuthID = "SELECT authID,empID FROM authorityRecord where authID = ? order by empID";
     static {
     	try {
 			Class.forName(DRIVER);
@@ -165,6 +170,62 @@ public class AuthorityJDBCDAO implements AuthorityDAO_interface {
 		return authorityVO;
 	}
 
+	
+	public Set<AuthorityRecordVO> getEmpsByAuthID(Integer authID) {
+		Set<AuthorityRecordVO> set = new LinkedHashSet<AuthorityRecordVO>();
+		AuthorityRecordVO authorityRecordVO = null;
+	
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+	
+		try {
+	
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+		
+			pstmt = con.prepareStatement(GET_Emps_ByAuthID);
+			pstmt.setInt(1, authID);
+			rs = pstmt.executeQuery();
+	
+			while (rs.next()) {
+				authorityRecordVO = new AuthorityRecordVO();
+				authorityRecordVO.setAuthID(rs.getInt("authID"));
+				authorityRecordVO.setEmpID(rs.getString("empID"));
+				
+				set.add(authorityRecordVO); // Store the row in the vector
+			}
+	
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return set;
+	}
+	
+	
 	@Override
 	public List<AuthorityVO> getAll() {
 		List<AuthorityVO> list = new ArrayList<AuthorityVO>();
