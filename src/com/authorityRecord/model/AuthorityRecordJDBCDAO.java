@@ -6,10 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 
-	public class AuthorityRecordJDBCDAO implements AuthorityRecordDAO_interfacr{
+	public class AuthorityRecordJDBCDAO implements AuthorityRecordDAO_interface{
 
 		private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
 		private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -22,8 +24,13 @@ import java.util.List;
 	   //以員工編號 還是權限編號 修改????
 	    private static final String GET_ALL_SQL = "SELECT * from AuthorityRecord";
 	    
-		
-		
+	    private static final String DELETE = 
+	    		"DELETE FROM AUTHORITYRECORD where empID = ?";
+	    private static final String FIND_BY_PK = "SELECT authID,empID  from AuthorityRecord where empID = ?";
+	    
+	    private static final String GET_AllAuth_ByEmpID = "SELECT empID,authID FROM authorityRecord where empID = ? order by authID";
+	    
+	    
 	    static {
 	    	try {
 				Class.forName(DRIVER);
@@ -69,6 +76,63 @@ import java.util.List;
 				}
 			}
 		}
+	    
+	    
+	    
+	    
+	    
+	    public Set<AuthorityRecordVO> getAuthIDByEmpID(String empID) {
+			Set<AuthorityRecordVO> set = new LinkedHashSet<AuthorityRecordVO>();
+			AuthorityRecordVO authorityRecordVO = null;
+		
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+		
+			try {
+		
+				con = DriverManager.getConnection(URL, USER, PASSWORD);
+			
+				pstmt = con.prepareStatement(GET_AllAuth_ByEmpID);
+				pstmt.setString(1, empID);
+				rs = pstmt.executeQuery();
+		
+				while (rs.next()) {
+					authorityRecordVO = new AuthorityRecordVO();
+					authorityRecordVO.setEmpID(rs.getString("empID"));
+					authorityRecordVO.setAuthID(rs.getInt("authID"));
+					set.add(authorityRecordVO); // Store the row in the vector
+				}
+		
+				// Handle any SQL errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return set;
+		}
 
 		@Override
 		public void update(AuthorityRecordVO authorityRecordVO) {
@@ -107,6 +171,104 @@ import java.util.List;
 			}
 		}
 
+		
+		
+		public void delete(String empID) {
+
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+
+				con = DriverManager.getConnection(URL, USER, PASSWORD);
+				pstmt = con.prepareStatement(DELETE);
+
+				pstmt.setString(1, empID);
+
+				pstmt.executeUpdate();
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+
+		}
+		
+		
+		public AuthorityRecordVO findByPK(String empID) {
+			AuthorityRecordVO authorityRecordVO = null;
+			
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				con = DriverManager.getConnection(URL, USER, PASSWORD);
+				pstmt = con.prepareStatement(FIND_BY_PK);
+				
+				pstmt.setString(1, empID);
+				
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					authorityRecordVO = new AuthorityRecordVO();
+					
+					authorityRecordVO.setAuthID(rs.getInt("authID"));
+					authorityRecordVO.setEmpID(rs.getString("empID"));
+					
+					
+					
+					
+					
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				if(rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				
+				if(con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}	
+			return authorityRecordVO;
+		
+		}
 		
 		@Override
 		public List<AuthorityRecordVO> getAll() {
@@ -178,7 +340,7 @@ import java.util.List;
 //				dao.update(authorityRecordVO02);
 //				System.out.println("修改成功!!");
 //				
-
+				
 				
 				
 ////				
