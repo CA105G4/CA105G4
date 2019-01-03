@@ -21,7 +21,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String INSERT_SQL = "INSERT INTO Member (memID,memName,memAcc,memPsw,memBirth,memEmail,memTel,memAddr,memSex,memSkill,memPic,memIDcard)"
 			+ "values('M'||LPAD(to_char(mem_seq.NEXTVAL),4, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 
-	private static final String UPDATE = "UPDATE Member set ,memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =? where memID=?";
+	private static final String UPDATE = "UPDATE Member set memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =? where memID=?";
 
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
 
