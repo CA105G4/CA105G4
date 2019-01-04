@@ -20,6 +20,8 @@ public class MessageReportJDBCDAO implements MessageReportDAO_interface{
 		"DELETE FROM messagereport where mrid = ?";
 	private static final String UPDATE = 
 		"UPDATE messagereport set artid=?, msgid=?, mrreason=?, mrstate=? where mrid = ?";
+	private static final String UPDATE_MESSAGE = 
+		"UPDATE message set msgstate=? where msgid = ?";
 	
 	@Override
 	public void insert(MessageReportVO messageReportVO) {
@@ -262,7 +264,72 @@ public class MessageReportJDBCDAO implements MessageReportDAO_interface{
 		}
 		return list;
 	}
+	
+	@Override
+	public void updateMessageStatus(MessageReportVO messageReportVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		
+		try {
 
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1, messageReportVO.getArtid());
+			pstmt.setInt(2, messageReportVO.getMsgid());
+			pstmt.setString(3, messageReportVO.getMrreason());
+			pstmt.setInt(4, messageReportVO.getMrstate());
+			pstmt.setInt(5, messageReportVO.getMrid());
+			
+//			System.out.println(messageReportVO.getMsgid());
+			pstmt2 = con.prepareStatement(UPDATE_MESSAGE);
+			pstmt2.setInt(1, 1);
+			pstmt2.setInt(2, messageReportVO.getMsgid());
+			
+			con.setAutoCommit(false);
+			
+			pstmt.executeUpdate();
+			pstmt2.executeUpdate();
+			
+			System.out.println("Message Update Operation success!");
+			
+			con.commit();
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			try {
+				// 發生例外即進行rollback動作
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) {
 		MessageReportJDBCDAO dao = new MessageReportJDBCDAO();
@@ -311,4 +378,6 @@ public class MessageReportJDBCDAO implements MessageReportDAO_interface{
 			System.out.println();
 		}
 	}
+
+
 }

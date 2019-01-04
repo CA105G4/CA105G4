@@ -10,5 +10,5 @@ public interface MessageReportDAO_interface {
 	public void delete(Integer mrid);
 	public MessageReportVO findByPrimaryKey(Integer mrid);
 	public List<MessageReportVO> getAll();
-
+	public void updateMessageStatus(MessageReportVO messageReportVO);
 }

@@ -59,4 +59,8 @@ public class ArticleService {
 	public List<ArticleVO> getMemberArticle(String memid) {
 		return dao.findByMember(memid);
 	}
+	
+	public List<ArticleVO> getLastestThree() {
+		return dao.getLatestThree();
+	}
 }

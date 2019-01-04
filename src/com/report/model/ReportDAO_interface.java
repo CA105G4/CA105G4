@@ -8,4 +8,5 @@ public interface ReportDAO_interface {
 	public void delete(Integer repid);
 	public ReportVO findByPrimaryKey(Integer repid);
 	public List<ReportVO> getAll();
+	public void updateArticleStatus(ReportVO reportVO);
 }
