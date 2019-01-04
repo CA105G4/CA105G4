@@ -8,13 +8,13 @@ public class WorkExchangeVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer weID;
-	private String memID;
 	private String empID;
-	private String weRoomID;
+	private String memID;
+	private String rtID;
 	private String weName;
 	private String weContent;
 	private byte[] wePic;
-	private byte[] weRoomPic;
+	private byte[] weVideo;
 	private Date weStart;
 	private Date weEnd;
 	
@@ -28,6 +28,14 @@ public class WorkExchangeVO implements Serializable{
 		this.weID = weID;
 	}
 
+	public String getEmpID() {
+		return empID;
+	}
+	
+	public void setEmpID(String empID) {
+		this.empID = empID;
+	}
+	
 	public String getMemID() {
 		return memID;
 	}
@@ -36,20 +44,13 @@ public class WorkExchangeVO implements Serializable{
 		this.memID = memID;
 	}
 
-	public String getEmpID() {
-		return empID;
+
+	public String getRtID() {
+		return rtID;
 	}
 
-	public void setEmpID(String empID) {
-		this.empID = empID;
-	}
-
-	public String getWeRoomID() {
-		return weRoomID;
-	}
-
-	public void setWeRoomID(String weRoomID) {
-		this.weRoomID = weRoomID;
+	public void setRtID(String rtID) {
+		this.rtID = rtID;
 	}
 
 	public String getWeName() {
@@ -75,13 +76,12 @@ public class WorkExchangeVO implements Serializable{
 	public void setWePic(byte[] wePic) {
 		this.wePic = wePic;
 	}
-
-	public byte[] getWeRoomPic() {
-		return weRoomPic;
+	public byte[] getWeVideo() {
+		return weVideo;
 	}
 
-	public void setWeRoomPic(byte[] weRoomPic) {
-		this.weRoomPic = weRoomPic;
+	public void setWeVideo(byte[] weVideo) {
+		this.weVideo = weVideo;
 	}
 
 	public Date getWeStart() {
@@ -99,5 +99,4 @@ public class WorkExchangeVO implements Serializable{
 	public void setWeEnd(Date weEnd) {
 		this.weEnd = weEnd;
 	}
-
 }

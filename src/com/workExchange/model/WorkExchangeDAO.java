@@ -8,17 +8,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import tool.BLOB;
 
 
 
-public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
+public class WorkExchangeDAO implements WorkExchangeDAO_interface{
 	
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "CA105G4"; 
-	private static final String PASSWORD = "123456"; 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA105G4DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
     private static final String INSERT_SQL = 
     		"INSERT INTO WorkExchange (weID, empID, memID, rtID, weName, weContent, wePic, weVideo, weStart, weEnd) "
@@ -29,13 +38,6 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
     private static final String GET_ALL_SQL = "SELECT * from WorkExchange";
     private static final String GET_ONE_SQL = "SELECT weID, empID, memID, rtID, weName, weContent, wePic, weVideo, weStart, weEnd from WorkExchange where weID = ?";
     
-    static {
-    	try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}    	
-    }
 
 
 	@Override
@@ -44,7 +46,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
 			
 			pstmt.setString(1, workExchangeVO.getEmpID());
@@ -86,7 +88,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
 			pstmt.setString(1, workExchangeVO.getEmpID());
@@ -134,7 +136,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE_SQL);
 			
 			pstmt.setInt(1, weID);
@@ -169,7 +171,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 			
 			pstmt.setInt(1, weID);
@@ -228,7 +230,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_SQL);
 			rs = pstmt.executeQuery();
 			
@@ -277,31 +279,31 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 	
 	
 	
-	public static void main(String[] args) {
-		WorkExchangeJDBCDAO dao = new WorkExchangeJDBCDAO();
+//	public static void main(String[] args) {
+//		WorkExchangeDAO dao = new WorkExchangeDAO();
 		
 		//新增
-		WorkExchangeVO workExchangeVO1 = new WorkExchangeVO();
-		workExchangeVO1.setEmpID("E0003");
-		workExchangeVO1.setMemID("M0003");
-		workExchangeVO1.setRtID("RT03");
-		workExchangeVO1.setWeName("釣魚");
-		workExchangeVO1.setWeContent("最近魚價上漲，懇請一名天才小釣手，幫忙釣魚給大家吃!!");
-		workExchangeVO1.setWePic(new BLOB().writeBlob("WebContent/back-end/workExchange/images/fire.jpg"));
-		workExchangeVO1.setWeStart(java.sql.Date.valueOf("2018-12-20"));
-		workExchangeVO1.setWeEnd(java.sql.Date.valueOf("2018-12-31"));
-		dao.insert(workExchangeVO1);
-		System.out.println("Successfully Insert!!");
+//		WorkExchangeVO workExchangeVO1 = new WorkExchangeVO();
+//		workExchangeVO1.setMemID("M0003");
+//		workExchangeVO1.setEmpID("E0003");
+//		workExchangeVO1.setRtID("RT01");
+//		workExchangeVO1.setWeName("釣魚");
+//		workExchangeVO1.setWeContent("最近魚價上漲，懇請一名天才小釣手，幫忙釣魚給大家吃!!");
+//		workExchangeVO1.setWePic(new BLOB().writeBlob("WebContent/room/images/fishing.jpg"));
+//		workExchangeVO1.setWeStart(java.sql.Date.valueOf("2018-12-20"));
+//		workExchangeVO1.setWeEnd(java.sql.Date.valueOf("2018-12-31"));
+//		dao.insert(workExchangeVO1);
+//		System.out.println("Successfully Insert!!");
 		
 		//修改
 //		WorkExchangeVO workExchangeVO2 = new WorkExchangeVO();
-//		workExchangeVO2.setWeID(1003);
-//		workExchangeVO2.setMemID("M0001");
+//		workExchangeVO2.setWeID(1004);
 //		workExchangeVO2.setEmpID("E0003");
+//		workExchangeVO2.setMemID("M0001");
 //		workExchangeVO2.setRtID("RT03");		
 //		workExchangeVO2.setWeName("天才小釣手");
 //		workExchangeVO2.setWeContent("釣魚釣起來，龍蝦免費吃，房間免費住");
-//		workExchangeVO2.setWePic(new BLOB().writeBlob("WebContent/back-end/workExchange/images/painting.jpg"));
+//		workExchangeVO2.setWePic(new BLOB().writeBlob("WebContent/room/images/fishing.jpg"));
 //		workExchangeVO2.setWeStart(java.sql.Date.valueOf("2018-12-25"));
 //		workExchangeVO2.setWeEnd(java.sql.Date.valueOf("2019-01-25"));
 //		dao.update(workExchangeVO2);
@@ -313,15 +315,14 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 //		System.out.println("Successfully Delete!!");
 		
 		//查找一筆
-//		WorkExchangeVO workExchangeVO4 = dao.findByPrimaryKey(1001);
+//		WorkExchangeVO workExchangeVO4 = dao.findByPrimaryKey(1004);
 //		System.out.println(workExchangeVO4.getWeID());
-//		System.out.println(workExchangeVO4.getEmpID());
 //		System.out.println(workExchangeVO4.getMemID());
+//		System.out.println(workExchangeVO4.getEmpID());
 //		System.out.println(workExchangeVO4.getRtID());
 //		System.out.println(workExchangeVO4.getWeName());
 //		System.out.println(workExchangeVO4.getWeContent());
 //		new BLOB().readBlob(workExchangeVO4.getWePic(), "fishing.jpg");
-//		new BLOB().readBlob(workExchangeVO4.getWeVideo(), "fishing.jpg");
 //		System.out.println(workExchangeVO4.getWeStart());
 //		System.out.println(workExchangeVO4.getWeEnd());
 		
@@ -329,15 +330,15 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 //		List<WorkExchangeVO> list = dao.getAll();
 //		for(WorkExchangeVO wl : list) {
 //			System.out.println(wl.getWeID());
-//			System.out.println(wl.getEmpID());
 //			System.out.println(wl.getMemID());
+//			System.out.println(wl.getEmpID());
 //			System.out.println(wl.getRtID());
 //			System.out.println(wl.getWeName());
 //			System.out.println(wl.getWeContent());
-//			new BLOB().readBlob(wl.getWePic(), "fishing.jpg");
+// 			new BLOB().readBlob(wl.getWePic(), "fishing.jpg");
 //			System.out.println(wl.getWeStart());
 //			System.out.println(wl.getWeEnd());
 //			System.out.println("-------------------------------------");
 //		}				
-	}
+//	}
 }

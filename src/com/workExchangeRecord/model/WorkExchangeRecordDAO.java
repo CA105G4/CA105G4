@@ -8,14 +8,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import tool.BLOB;
 
-public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interface{
+public class WorkExchangeRecordDAO implements WorkExchangeRecordDAO_interface{
 
-	private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	private static final String USER = "CA105G4"; 
-	private static final String PASSWORD = "123456"; 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA105G4DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
     private static final String INSERT_SQL = 
     		"INSERT INTO WorkExchangeRecord (weID, memID, werState, orderID, weApp) "
@@ -24,13 +34,6 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
     private static final String GET_ALL_SQL = "SELECT * from WorkExchangeRecord";
     private static final String GET_ONE_SQL = "SELECT weID, memID, werState, orderID, weApp from WorkExchangeRecord where weID = ? and memID = ?";
     
-    static {
-    	try {
-			Class.forName(DRIVER);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}    	
-    }
 
 	@Override
 	public void insert(WorkExchangeRecordVO workExchangeRecordVO) {
@@ -38,7 +41,7 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
 			
 			pstmt.setInt(1, workExchangeRecordVO.getWeID());
@@ -75,13 +78,12 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		PreparedStatement pstmt = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
 			pstmt.setInt(1, workExchangeRecordVO.getWerState());
 			pstmt.setInt(2, workExchangeRecordVO.getWeID());
 			pstmt.setString(3, workExchangeRecordVO.getMemID());
-			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,7 +116,7 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 			
 			pstmt.setInt(1, werID);
@@ -169,7 +171,7 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		ResultSet rs = null;
 		
 		try {
-			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_SQL);
 			rs = pstmt.executeQuery();
 			
@@ -213,7 +215,7 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 	}
 	
 	public static void main(String[] args) {
-		WorkExchangeRecordJDBCDAO dao = new WorkExchangeRecordJDBCDAO();
+		WorkExchangeRecordDAO dao = new WorkExchangeRecordDAO();
 		
 		//新增
 //		WorkExchangeRecordVO workExchangeRecordVO1 = new WorkExchangeRecordVO();
@@ -230,7 +232,7 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 //		System.out.println("Successfully Update!!!!");
 		
 		//查找一筆
-		WorkExchangeRecordVO workExchangeRecordVO4 = dao.findByPrimaryKey(1002,"M0002");
+		WorkExchangeRecordVO workExchangeRecordVO4 = dao.findByPrimaryKey(1001,"M0001");
 		System.out.println(workExchangeRecordVO4.getWeID());
 		System.out.println(workExchangeRecordVO4.getMemID());
 		System.out.println(workExchangeRecordVO4.getWerState());
