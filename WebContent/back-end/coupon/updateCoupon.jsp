@@ -1,47 +1,46 @@
-<%@page import="com.roomType.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.coupon.model.*"%>
 <%@page import="java.util.*"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	RoomTypeService rtSvc = new RoomTypeService();
-	List<RoomTypeVO> list = rtSvc.getAll();
-	pageContext.setAttribute("list", list);
-	
-
+	CouponVO cpnVO = (CouponVO) request.getAttribute("cpnVO");//CpnServlet.java (Concroller) 存入req的cpnVO物件 (包括幫忙取出的cpnVO, 也包括輸入資料錯誤時的cpnVO物件)
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>listAllRoomType</title>
+<title>Update Coupon</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
+<style>
+.container {
+	margin-left: -13px;
+	padding: 10px;
+}
+</style>
 
 
 
@@ -54,7 +53,7 @@
 		<a class="navbar-brand mr-1" href="index.html">M.C.P.I.G villa</a>
 
 		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
-			id="sidebarToggle" href="#">
+			id="sidebarToggle"  href ="#">
 			<i class="fas fa-bars"></i>
 		</button>
 
@@ -122,7 +121,7 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 
-			<!-- LOGO pic Gina -->
+			<!-- profile pic Gina -->
 			<div class="profile_pic">
 				<img
 					src="https://api.fnkr.net/testimg/1200x1200/00CED1/FFF/?text=img+placeholder"
@@ -154,8 +153,8 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown2">
 					<h6 class="dropdown-header">新增/查詢:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp">查詢訂單</a> <a
-						class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
+					<a class="dropdown-item" href="blank.html">查詢訂單</a> <a
+						class="dropdown-item" href="blank.html">新增訂單</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
 					<a class="dropdown-item" href="tables.html">一般訂單列表</a> <a
@@ -182,10 +181,10 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 					<h6 class="dropdown-header">新增:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp">新增房型</a>
+					<a class="dropdown-item" href="blank.html">新增房型</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/listAllRoomType.jsp">房型列表</a>
+					<a class="dropdown-item" href="tables.html">房型列表</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="pagesDropdown3"
@@ -283,10 +282,10 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 					<h6 class="dropdown-header">新增:</h6>
-					<a class="dropdown-item" href="blank.html">新增分店</a>
+					<a class="dropdown-item" href="addBra.jsp">新增分店</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
-					<a class="dropdown-item" href="table.html">分店列表</a>
+					<a class="dropdown-item" href="listAllBranch.jsp">分店列表</a>
 				</div></li>
 			<li class="nav-item dropdown"><a class="nav-link"
 				href="blank.html"> <i class="fa fa-edit"></i> <span>客服Q&A</span>
@@ -301,106 +300,139 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
 					</li>
-					<li class="breadcrumb-item active">房型列表</li>
+					<li class="breadcrumb-item active">修改優惠卷資料</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>房型列表</h1>
-				<hr>
-				<div class="container-fluid" align="right">
-					<button type="button" class="btn btn-info">
-						<a href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp"     style="color:#fff">新增房型</a>
-					</button>
-				</div>
-				<div class="container-fluid">
-					<h2>listAllRoomType-所有房型資料</h2>
 
-						<!--開始自由發揮-->
-						<table class="table table-bordered table-striped table-hover">
-							<thead>
-							<tr>
-								<th>房型編號</th>
-								<th>分店編號</th>
-								<th>房型名稱</th>
-								<th>房型照片</th>
-								<th>房型介紹</th>
-								<th>一般住房人數</th>
-								<th>住房上限人數</th>
-								<th>平日價格</th>
-								<th>假日價格</th>
-								<th>房間剩餘數量</th>
-								<th>房型數量</th>
-								<th>修改</th>
-							</tr>
-							</thead>
-							<tbody>
-							<%@ include file="page1.file" %> 
-							<c:forEach var="roomTypeVO" items="${list}"  varStatus="status" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-								
-								<tr>
-									<td>${roomTypeVO.rtID}</td>
-									<td>${roomTypeVO.braID}</td>
-									<td>${roomTypeVO.rtName}</td>
-									
-									<c:set var="index"  value="${status.index}"/>
-									<%
-									int count = (Integer) pageContext.getAttribute("index");
-									String encodedText =null;
-									if(list.get(count).getRtPic()!=null){
-										Base64.Encoder encoder = Base64.getEncoder();
-										encodedText = encoder.encodeToString(list.get(count).getRtPic());
-										pageContext.setAttribute("icon_", new Integer(1));
-									}else{
-										pageContext.setAttribute("icon_", new Integer(0));
+				<%--錯誤列表 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+
+
+				<br>
+
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 offset-sm-3 ">
+
+							<form method="post" action="cpn.do" name="updateform"
+								class="form-horizontal justify-content-center"
+								enctype="multipart/form-data">
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="aa">優惠卷編號:<font color=red><b>*</b></font></label> <input
+											type="text" name="cpnID" id="cpnID" placeholder=""
+											class="form-control" style="width: 200px"
+											value="<%=cpnVO.getcpnID()%>">
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group">
+										<label for="aa">折扣金額:</label> <input type="text"
+											name="discount" id="discount" placeholder=""
+											class="form-control" style="width: 200px"
+											value="<%=cpnVO.getdiscount()%>">
+									</div>
+
+
+								</div>
+
+
+								<div class="form-row">
+									<div class="form-group" style="margin-right: 15px">
+										<label for="aa">數量:</label> <input type="text" name="quantity"
+											id="aa" placeholder="" class="form-control"
+											style="width: 140px" value="<%=cpnVO.getquantity()%>">
+
+									</div>
+
+									<div class="form-group">
+										<label for="aa">申請數量:</label> <input type="text"
+											name="appQuantity" id="aa" placeholder=""
+											class="form-control" style="width: 140px"
+											value="<%=cpnVO.getappQuantity()%>">
+									</div>
+
+								</div>
+
+								<br>
+
+								<%
+									Base64.Encoder encoder = Base64.getEncoder();
+									String encodedText = "";
+
+									if (cpnVO.getcpnPic() != null) {
+										encodedText = encoder.encodeToString(cpnVO.getcpnPic());
+										pageContext.setAttribute("cpnPic", new Integer(1));
+									} else {
+										pageContext.setAttribute("cpnPic", new Integer(0));
 									}
-									%>
-									
-									
-									
-									<c:choose>
-									<c:when test="${icon_==1}">
-									
-								<td ><img width="200"
-												src="data:image/png;base64, <%=encodedText%>"></td>
-									
-									</c:when>
-									
-									<c:otherwise>
-						                	<td><img
-												src="<%=request.getContextPath()%>/image/noImage.jpg"
-												width="200" height="132"></td>
-									
-									</c:otherwise>
-									</c:choose>
-									
-									
-									<td>${roomTypeVO.rtIntro}</td> 
-									<td>${roomTypeVO.rtMinimum}</td>
-									<td>${roomTypeVO.rtLimit}</td>
-									<td>${roomTypeVO.weeklyPrice}</td>
-									<td>${roomTypeVO.holidayPrice}</td>
-									<td>${roomTypeVO.balance}</td>
-									<td>${roomTypeVO.total}</td>
-									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="修改" class="btn btn-info">
-									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
-									     <input type="hidden" name="action"	value="GetOneUpdate"></FORM>
-									</td>
-									
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
-						<%@ include file="page2.file" %>	
-						
-						<!-- 結束自由發揮-->
+								%>
+
+								<div class="form-row">
+									<div class="input-group mb-3 form-group">
+										<c:choose>
+											<c:when test="${cpnPic==1}">
+												<img id="blah" width="377.8" height="250"
+													src="data:image ;base64, <%=encodedText%>">
+											</c:when>
+
+
+											<c:otherwise>
+												<img id="icon_preview" width="377.8" height="250"
+													src="<%=request.getContextPath()%>/image/noImage.jpg">
+											</c:otherwise>
+
+										</c:choose>
+
+									</div>
+
+									<div class="input-group mb-3 form-group">
+
+										<div class="custom-file">
+
+											<input class="custom-file-input" id="inputGroupFile01"
+												name="cpnPic" multiple type="file"> <label
+												class="custom-file-label" for="inputGroupFile01"
+												id="labelPicName">上傳優惠卷圖片 file</label>
+										</div>
+
+
+										<div class="input-group-append">
+											<span class="input-group-text" id="">Upload</span>
+										</div>
+
+									</div>
+
+								</div>
+
+
+								<div class="col-12 text-center">
+									<input type="hidden" name="action" value="update"> <input
+										type="hidden" name="requestURL"
+										value="<%=request.getParameter("requestURL")%>">
+									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+									<input class="btn btn-primary" type="submit" value="送出修改">
+									<button class="btn btn-primary">返回</button>
+								</div>
+
+							</form>
+
+							<!--解決按鈕置中的問題 https://stackoverflow.com/questions/41664991/bootstrap-4-how-do-i-center-align-a-button -->
+
+						</div>
+					</div>
 				</div>
-				<div class="container-fluid" align="right">
-					<button type="button" class="btn btn-info">
-						<a href='<%=request.getContextPath()%>/back-end/roomType/select_roomType_page.jsp' style="color:#fff">返回</a>
-					</button>
-				</div>
+
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
@@ -413,11 +445,11 @@
 					</div>
 				</div>
 			</footer>
-
 		</div>
-		<!-- /.content-wrapper -->
 
 	</div>
+	<!-- /.content-wrapper -->
+
 	<!-- /#wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -448,40 +480,53 @@
 		</div>
 	</div>
 
+
+
+
+
 	<!-- Bootstrap core JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="<%=request.getContextPath()%>/back-end/js/sb-admin.min.js"></script>
 
 
+
+
+
 </body>
+<script>
+	$(function() {
 
-<style>
-table {
-	table-layout: auto;
-	width: 100%;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
+		$(document).ready(function() {
+			$('#inputGroupFile01').on('change', function(event) {
+				// and you can get the name of the image like this:
+				console.log(event.target.files[0].name);
+				$('#labelPicName').text(event.target.files[0].name);
+			});
+		});
 
-.table>thead>tr>th {
-	text-align: center;
-	vertical-align: middle;
-}
+		$("#inputGroupFile01").change(function() {
+			if (this.files && this.files[0]) {
+				var reader = new FileReader();
 
-.table>tbody>tr>td {
-	word-break: break-all;
-	text-align: center;
-	vertical-align: middle;
-	border-top: 0px;
-}
-</style>
+				reader.onload = function(e) {
+					$('#icon_preview').attr('src', e.target.result);
+					$('#blah').attr('src', e.target.result);
+				}
+
+				reader.readAsDataURL(this.files[0]);
+
+			}
+		});
+
+	});
+</script>
+
+
+
 </html>

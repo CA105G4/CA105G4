@@ -1,4 +1,4 @@
-package com.coupon.model;
+package com.billboard.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class CouponDAO implements CouponDAO_interface {
+
+public class BillboardDAO implements BillboardDAO_interface {
+
+	private static final String INSERT_SQL = "INSERT INTO Billboard(bbID,url,pic,bbStart,bbEnd) "
+			+ "VALUES(bb_seq.nextval,?,?,?,?)";
+	private static final String UPDATE = "UPDATE Billboard set url=?, pic=?, bbStart=?, bbEnd=? where bbID=?";
+	private static final String DELETE = "DELETE FROM Billboard WHERE bbID=?";
+	private static final String GET_ONE_SQL = "SELECT bbID,url,pic,bbStart,bbEnd FROM Billboard WHERE bbID=?";
+	private static final String GET_ALL_SQL = "SELECT * FROM Billboard ORDER BY bbID ";
 
 	private static DataSource ds = null;
 
@@ -25,31 +33,24 @@ public class CouponDAO implements CouponDAO_interface {
 		}
 	}
 
-	private static final String INSERT_SQL = "INSERT INTO Coupon(cpnID,cpnPic,discount,quantity,appquantity) VALUES ('C'||LPAD(to_char(cpn_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?)";
-	private static final String UPDATE_SQL = "UPDATE Coupon set cpnPic=? ,discount=? ,quantity=? ,appQuantity = ? WHERE cpnID = ?";
-	private static final String GET_ALL_SQL = "SELECT * from coupon";
-	private static final String GET_ONE_SQL = "SELECT * from coupon where cpnID = ?";
-	private static final String DELETE = "DELETE FROM coupon WHERE cpnID=?";
-
 	@Override
-	public void insert(CouponVO couponVO) {
+	public void insert(BillboardVO billboardVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
-
-			pstmt.setBytes(1, couponVO.getcpnPic());
-			pstmt.setInt(2, couponVO.getdiscount());
-			pstmt.setInt(3, couponVO.getquantity());
-			pstmt.setInt(4, couponVO.getappQuantity());
+			pstmt.setString(1, billboardVO.geturl());
+			pstmt.setBytes(2, billboardVO.getpic());
+			pstmt.setDate(3, billboardVO.getbbStart());
+			pstmt.setDate(4, billboardVO.getbbEnd());
 
 			pstmt.executeUpdate();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -65,23 +66,59 @@ public class CouponDAO implements CouponDAO_interface {
 					e.printStackTrace();
 				}
 			}
+
 		}
 	}
 
 	@Override
-	public void update(CouponVO couponVO) {
+	public void update(BillboardVO billboardVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_SQL);
+			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setBytes(1, couponVO.getcpnPic());
-			pstmt.setInt(2, couponVO.getdiscount());
-			pstmt.setInt(3, couponVO.getquantity());
-			pstmt.setInt(4, couponVO.getappQuantity());
-			pstmt.setString(5, couponVO.getcpnID());
+			pstmt.setString(1, billboardVO.geturl());
+			pstmt.setBytes(2, billboardVO.getpic());
+			pstmt.setDate(3, billboardVO.getbbStart());
+			pstmt.setDate(4, billboardVO.getbbEnd());
+			pstmt.setInt(5, billboardVO.getbbID());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+	}
+
+	@Override
+	public void delete(Integer bbID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE);
+
+			pstmt.setInt(1,  bbID);
 
 			pstmt.executeUpdate();
 
@@ -103,12 +140,15 @@ public class CouponDAO implements CouponDAO_interface {
 					e.printStackTrace();
 				}
 			}
+
 		}
+
 	}
 
 	@Override
-	public CouponVO findByPK(String cpnID) {
-		CouponVO couponVO = null;
+	public BillboardVO findByPK(Integer bbID) {
+		BillboardVO billboardVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -117,18 +157,17 @@ public class CouponDAO implements CouponDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_SQL);
 
-			pstmt.setString(1, cpnID);
-
+			pstmt.setInt(1, bbID);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				couponVO = new CouponVO();
+			while (rs.next()) {
+				billboardVO = new BillboardVO();
 
-				couponVO.setcpnID(rs.getString("cpnID"));
-				couponVO.setcpnPic(rs.getBytes("cpnPic"));
-				couponVO.setdiscount(rs.getInt("discount"));
-				couponVO.setquantity(rs.getInt("quantity"));
-				couponVO.setappQuantity(rs.getInt("appQuantity"));
+				billboardVO.setbbID(rs.getInt("bbID"));
+				billboardVO.seturl(rs.getString("url"));
+				billboardVO.setpic(rs.getBytes("pic"));
+				billboardVO.setbbStart(rs.getDate("bbStart"));
+				billboardVO.setbbEnd(rs.getDate("bbEnd"));
 			}
 
 		} catch (SQLException e) {
@@ -158,13 +197,15 @@ public class CouponDAO implements CouponDAO_interface {
 				}
 			}
 		}
-		return couponVO;
+
+		return billboardVO;
 	}
 
 	@Override
-	public List<CouponVO> getAll() {
-		List<CouponVO> list = new ArrayList<CouponVO>();
-		CouponVO couponVO = null;
+	public List<BillboardVO> getAll() {
+		List<BillboardVO> list = new ArrayList<BillboardVO>();
+		BillboardVO billboardVO = null;
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -175,17 +216,16 @@ public class CouponDAO implements CouponDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				couponVO = new CouponVO();
+				billboardVO = new BillboardVO();
 
-				couponVO.setcpnID(rs.getString("cpnID"));
-				couponVO.setcpnPic(rs.getBytes("cpnPic"));
-				couponVO.setdiscount(rs.getInt("discount"));
-				couponVO.setquantity(rs.getInt("quantity"));
-				couponVO.setappQuantity(rs.getInt("appQuantity"));
+				billboardVO.setbbID(rs.getInt("bbID"));
+				billboardVO.seturl(rs.getString("URL"));
+				billboardVO.setpic(rs.getBytes("pic"));
+				billboardVO.setbbStart(rs.getDate("bbStart"));
+				billboardVO.setbbEnd(rs.getDate("bbEnd"));
 
-				list.add(couponVO);
+				list.add(billboardVO);
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -196,7 +236,6 @@ public class CouponDAO implements CouponDAO_interface {
 					e.printStackTrace();
 				}
 			}
-
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -204,7 +243,6 @@ public class CouponDAO implements CouponDAO_interface {
 					e.printStackTrace();
 				}
 			}
-
 			if (con != null) {
 				try {
 					con.close();
@@ -212,42 +250,9 @@ public class CouponDAO implements CouponDAO_interface {
 					e.printStackTrace();
 				}
 			}
+
 		}
+
 		return list;
-	}
-
-	@Override
-	public void delete(String cpnID) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setString(1, cpnID);
-			pstmt.executeQuery();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (pstmt != null) {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-
-				if (con != null) {
-					try {
-						con.close();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-
-		}
 	}
 }

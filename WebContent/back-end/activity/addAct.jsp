@@ -1,48 +1,40 @@
-<%@page import="com.roomType.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.activity.model.*"%>
 <%@page import="java.util.*"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	RoomTypeService rtSvc = new RoomTypeService();
-	List<RoomTypeVO> list = rtSvc.getAll();
-	pageContext.setAttribute("list", list);
-	
-
+	ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>listAllRoomType</title>
+<title>Add Activity</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
-
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
 
 </head>
@@ -122,7 +114,7 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 
-			<!-- LOGO pic Gina -->
+			<!-- profile pic Gina -->
 			<div class="profile_pic">
 				<img
 					src="https://api.fnkr.net/testimg/1200x1200/00CED1/FFF/?text=img+placeholder"
@@ -154,8 +146,8 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown2">
 					<h6 class="dropdown-header">新增/查詢:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp">查詢訂單</a> <a
-						class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
+					<a class="dropdown-item" href="blank.html">查詢訂單</a> <a
+						class="dropdown-item" href="blank.html">新增訂單</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
 					<a class="dropdown-item" href="tables.html">一般訂單列表</a> <a
@@ -182,10 +174,10 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 					<h6 class="dropdown-header">新增:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp">新增房型</a>
+					<a class="dropdown-item" href="blank.html">新增房型</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/listAllRoomType.jsp">房型列表</a>
+					<a class="dropdown-item" href="tables.html">房型列表</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="pagesDropdown3"
@@ -301,106 +293,149 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
 					</li>
-					<li class="breadcrumb-item active">房型列表</li>
+					<li class="breadcrumb-item active">新增一筆促銷活動</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>房型列表</h1>
-				<hr>
-				<div class="container-fluid" align="right">
-					<button type="button" class="btn btn-info">
-						<a href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp"     style="color:#fff">新增房型</a>
-					</button>
-				</div>
-				<div class="container-fluid">
-					<h2>listAllRoomType-所有房型資料</h2>
 
-						<!--開始自由發揮-->
-						<table class="table table-bordered table-striped table-hover">
-							<thead>
-							<tr>
-								<th>房型編號</th>
-								<th>分店編號</th>
-								<th>房型名稱</th>
-								<th>房型照片</th>
-								<th>房型介紹</th>
-								<th>一般住房人數</th>
-								<th>住房上限人數</th>
-								<th>平日價格</th>
-								<th>假日價格</th>
-								<th>房間剩餘數量</th>
-								<th>房型數量</th>
-								<th>修改</th>
-							</tr>
-							</thead>
-							<tbody>
-							<%@ include file="page1.file" %> 
-							<c:forEach var="roomTypeVO" items="${list}"  varStatus="status" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-								
-								<tr>
-									<td>${roomTypeVO.rtID}</td>
-									<td>${roomTypeVO.braID}</td>
-									<td>${roomTypeVO.rtName}</td>
-									
-									<c:set var="index"  value="${status.index}"/>
-									<%
-									int count = (Integer) pageContext.getAttribute("index");
-									String encodedText =null;
-									if(list.get(count).getRtPic()!=null){
-										Base64.Encoder encoder = Base64.getEncoder();
-										encodedText = encoder.encodeToString(list.get(count).getRtPic());
-										pageContext.setAttribute("icon_", new Integer(1));
-									}else{
-										pageContext.setAttribute("icon_", new Integer(0));
-									}
-									%>
-									
-									
-									
-									<c:choose>
-									<c:when test="${icon_==1}">
-									
-								<td ><img width="200"
-												src="data:image/png;base64, <%=encodedText%>"></td>
-									
-									</c:when>
-									
-									<c:otherwise>
-						                	<td><img
-												src="<%=request.getContextPath()%>/image/noImage.jpg"
-												width="200" height="132"></td>
-									
-									</c:otherwise>
-									</c:choose>
-									
-									
-									<td>${roomTypeVO.rtIntro}</td> 
-									<td>${roomTypeVO.rtMinimum}</td>
-									<td>${roomTypeVO.rtLimit}</td>
-									<td>${roomTypeVO.weeklyPrice}</td>
-									<td>${roomTypeVO.holidayPrice}</td>
-									<td>${roomTypeVO.balance}</td>
-									<td>${roomTypeVO.total}</td>
-									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="修改" class="btn btn-info">
-									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
-									     <input type="hidden" name="action"	value="GetOneUpdate"></FORM>
-									</td>
-									
-								</tr>
-							</c:forEach>
-							</tbody>
-						</table>
-						<%@ include file="page2.file" %>	
-						
-						<!-- 結束自由發揮-->
+				<%--錯誤列表 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+
+
+
+
+
+				<h3 style="text-align: center">新增一筆促銷活動</h3>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-7 offset-sm-3 ">
+							<form METHOD="post" ACTION="act.do"
+								class="form-inline form-horizontal" name="insertform">
+								<table class="table table-hover">
+									<tr>
+										<td>促銷活動名稱</td>
+										<td><input class="form-control " type="TEXT"
+											name="actName" placeholder="請新增一筆促銷活動"
+											value="<%=(actVO == null) ? "" : actVO.getActName()%>" /></td>
+									</tr>
+
+									<tr>
+										<td>促銷活動開始時間</td>
+										<td><input name="actStart" id="f_date1" type="text"
+											class="form-control " /></td>
+									</tr>
+
+
+									<tr>
+										<td>促銷活動結束時間</td>
+										<td><input name="actEnd" id="f_date2" type="text"
+											class="form-control " /></td>
+									</tr>
+
+									<tr>
+										<td>促銷折扣</td>
+										<td><input name="discount" type="number"
+											class="form-control " min="0" max="1"  step="0.01" /> 折</td>
+									</tr>
+
+									<tr>
+										<td>選擇房型</td>
+										<td class="form-inline">
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												 name="roomType" value="RT01"> 
+												<label class="form-check-label" >RT01</label>
+										</div>
+										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												 name="roomType"  value="RT02">
+												 <label class="form-check-label" >RT02</label>
+										</div>
+										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT03"> 
+												<label class="form-check-label" >RT03</label>
+										</div>		
+										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT04"> 
+												<label class="form-check-label" >RT04</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT05"> 
+												<label class="form-check-label" >RT05</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT06"> 
+												<label class="form-check-label" >RT06</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT07"> 
+												<label class="form-check-label" >RT07</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT08"> 
+												<label class="form-check-label" >RT08</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT09"> 
+												<label class="form-check-label" >RT09</label>
+										</div>										
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="checkbox"
+												name="roomType"  value="RT10"> 
+												<label class="form-check-label" >RT10</label>
+										</div>
+
+
+										</td>
+									</tr>
+
+
+								</table>
+
+								<div class="col-12 text-center">
+									<input type="hidden" name="action" value="insert">
+
+									<button class="btn btn-info" type="submit">送出新增</button>
+								</div>
+							</form>
+
+
+
+						</div>
+					</div>
 				</div>
-				<div class="container-fluid" align="right">
-					<button type="button" class="btn btn-info">
-						<a href='<%=request.getContextPath()%>/back-end/roomType/select_roomType_page.jsp' style="color:#fff">返回</a>
-					</button>
-				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
@@ -413,11 +448,11 @@
 					</div>
 				</div>
 			</footer>
-
 		</div>
-		<!-- /.content-wrapper -->
 
 	</div>
+	<!-- /.content-wrapper -->
+
 	<!-- /#wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -448,40 +483,120 @@
 		</div>
 	</div>
 
+
+
+
+
 	<!-- Bootstrap core JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="<%=request.getContextPath()%>/back-end/js/sb-admin.min.js"></script>
 
-
 </body>
 
+<%
+	java.sql.Date date = null;
+	try {
+		date = actVO.getActStart();
+	} catch (Exception e) {
+		date = new java.sql.Date(System.currentTimeMillis());
+	}
+
+	String str = null;
+%>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+
 <style>
-table {
-	table-layout: auto;
-	width: 100%;
-	margin-top: 5px;
-	margin-bottom: 5px;
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
 }
 
-.table>thead>tr>th {
-	text-align: center;
-	vertical-align: middle;
-}
-
-.table>tbody>tr>td {
-	word-break: break-all;
-	text-align: center;
-	vertical-align: middle;
-	border-top: 0px;
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
 }
 </style>
+
+
+
+<script>
+        $.datetimepicker.setLocale('zh');
+        $('#f_date1').datetimepicker({
+	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+		   value: '<%=date%>', // value:   new Date(),
+	//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+	//startDate:	            '2017/07/10',  // 起始日
+	//minDate:               '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+	});
+	$('#f_date2').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : false, //timepicker:true,
+		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d', //format:'Y-m-d H:i:s',
+		value :<%=str%>, // value:   new Date(),
+		//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+		//startDate:	            '2017/07/10',  // 起始日
+		minDate : '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+	});
+
+	// ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
+
+	//      1.以下為某一天之前的日期無法選擇
+	//      var somedate1 = new Date('2017-06-15');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() <  somedate1.getYear() || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
+
+	//      2.以下為某一天之後的日期無法選擇
+	//      var somedate2 = new Date('2017-06-15');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() >  somedate2.getYear() || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
+
+	//      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
+	//      var somedate1 = new Date('2017-06-15');
+	//      var somedate2 = new Date('2017-06-25');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() <  somedate1.getYear() || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+	//		             ||
+	//		            date.getYear() >  somedate2.getYear() || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
+</script>
+
 </html>

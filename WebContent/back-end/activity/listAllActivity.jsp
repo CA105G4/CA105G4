@@ -1,49 +1,41 @@
-<%@page import="com.roomType.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.activity.model.*"%>
 <%@page import="java.util.*"%>
-<%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%
-	RoomTypeService rtSvc = new RoomTypeService();
-	List<RoomTypeVO> list = rtSvc.getAll();
+	ActivityService actSvc = new ActivityService();
+	List<ActivityVO> list = actSvc.getAll();
 	pageContext.setAttribute("list", list);
-	
-
 %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>listAllRoomType</title>
+<title>ListAllActivity</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
-
-
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -122,7 +114,7 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 
-			<!-- LOGO pic Gina -->
+			<!-- profile pic Gina -->
 			<div class="profile_pic">
 				<img
 					src="https://api.fnkr.net/testimg/1200x1200/00CED1/FFF/?text=img+placeholder"
@@ -154,8 +146,8 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown2">
 					<h6 class="dropdown-header">新增/查詢:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp">查詢訂單</a> <a
-						class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
+					<a class="dropdown-item" href="blank.html">查詢訂單</a> <a
+						class="dropdown-item" href="blank.html">新增訂單</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
 					<a class="dropdown-item" href="tables.html">一般訂單列表</a> <a
@@ -182,10 +174,10 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 					<h6 class="dropdown-header">新增:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp">新增房型</a>
+					<a class="dropdown-item" href="blank.html">新增房型</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
-					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/roomType/listAllRoomType.jsp">房型列表</a>
+					<a class="dropdown-item" href="tables.html">房型列表</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="pagesDropdown3"
@@ -298,109 +290,102 @@
 			<div class="container-fluid">
 
 				<!-- Breadcrumbs-->
+		
+				
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
 					</li>
-					<li class="breadcrumb-item active">房型列表</li>
+					<li class="breadcrumb-item active">促銷活動管理</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>房型列表</h1>
+				<h1>促銷活動列表</h1>
 				<hr>
-				<div class="container-fluid" align="right">
+				<div class="container-fluid" align="right"  style="margin:0px  0px -25px -63px">
 					<button type="button" class="btn btn-info">
-						<a href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp"     style="color:#fff">新增房型</a>
+						<a href="<%=request.getContextPath()%>/back-end/activity/addAct.jsp"     style="color:#fff">新增促銷活動</a>
 					</button>
 				</div>
-				<div class="container-fluid">
-					<h2>listAllRoomType-所有房型資料</h2>
+			
+				<div class="container">
+					
+				
+					<br>
+					<table class="table table-hover">
 
-						<!--開始自由發揮-->
-						<table class="table table-bordered table-striped table-hover">
-							<thead>
+						<thead>
 							<tr>
-								<th>房型編號</th>
-								<th>分店編號</th>
-								<th>房型名稱</th>
-								<th>房型照片</th>
-								<th>房型介紹</th>
-								<th>一般住房人數</th>
-								<th>住房上限人數</th>
-								<th>平日價格</th>
-								<th>假日價格</th>
-								<th>房間剩餘數量</th>
-								<th>房型數量</th>
-								<th>修改</th>
+								<th>促銷活動編號</th>
+								<th>促銷活動名稱</th>
+								<th>活動開始時間</th>
+								<th>活動結束時間</th>
+								<th align="center">修改</th>
+								<th align="center">刪除</th>
+								<th align="center">查詢明細</th>
 							</tr>
-							</thead>
-							<tbody>
-							<%@ include file="page1.file" %> 
-							<c:forEach var="roomTypeVO" items="${list}"  varStatus="status" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-								
+						</thead>
+
+						<tbody>
+							<%@ include file="page1.file"%>
+							<c:forEach var="actVO" items="${list}" begin="<%=pageIndex%>"
+								end="<%=pageIndex+rowsPerPage-1%>">
 								<tr>
-									<td>${roomTypeVO.rtID}</td>
-									<td>${roomTypeVO.braID}</td>
-									<td>${roomTypeVO.rtName}</td>
-									
-									<c:set var="index"  value="${status.index}"/>
-									<%
-									int count = (Integer) pageContext.getAttribute("index");
-									String encodedText =null;
-									if(list.get(count).getRtPic()!=null){
-										Base64.Encoder encoder = Base64.getEncoder();
-										encodedText = encoder.encodeToString(list.get(count).getRtPic());
-										pageContext.setAttribute("icon_", new Integer(1));
-									}else{
-										pageContext.setAttribute("icon_", new Integer(0));
-									}
-									%>
-									
-									
-									
-									<c:choose>
-									<c:when test="${icon_==1}">
-									
-								<td ><img width="200"
-												src="data:image/png;base64, <%=encodedText%>"></td>
-									
-									</c:when>
-									
-									<c:otherwise>
-						                	<td><img
-												src="<%=request.getContextPath()%>/image/noImage.jpg"
-												width="200" height="132"></td>
-									
-									</c:otherwise>
-									</c:choose>
-									
-									
-									<td>${roomTypeVO.rtIntro}</td> 
-									<td>${roomTypeVO.rtMinimum}</td>
-									<td>${roomTypeVO.rtLimit}</td>
-									<td>${roomTypeVO.weeklyPrice}</td>
-									<td>${roomTypeVO.holidayPrice}</td>
-									<td>${roomTypeVO.balance}</td>
-									<td>${roomTypeVO.total}</td>
+									<td>${actVO.actID}</td>
+									<td>${actVO.actName}</td>
+									<td>${actVO.actStart}</td>
+									<td>${actVO.actEnd}</td>
 									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="修改" class="btn btn-info">
-									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
-									     <input type="hidden" name="action"	value="GetOneUpdate"></FORM>
+										<form METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											style="margin-bottom: 0px;">
+											<button class="btn btn-info" type="submit">修改</button>
+											<input type="hidden" name="actID" value="${actVO.actID}">
+											<input type="hidden" name="action" value="getOne_For_Update">
+										</form>
+									</td>
+									<td>
+										<form METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											style="margin-bottom: 0px;">
+											<button class="btn btn-info" type="submit">刪除</button>
+											<input type="hidden" name="actID" value="${actVO.actID}">
+											<input type="hidden" name="action" value="delete">
+										</form>
+									</td>
+									
+									<td>
+										<form METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											style="margin-bottom: 0px;">
+											<button class="btn btn-info" type="submit">查詢明細</button>
+											<input type="hidden" name="actID" value="${actVO.actID}">
+											<input type="hidden" name="action" value="get_detail_by_actID">
+										</form>
 									</td>
 									
 								</tr>
 							</c:forEach>
-							</tbody>
-						</table>
-						<%@ include file="page2.file" %>	
-						
-						<!-- 結束自由發揮-->
+						</tbody>
+					</table>
+					<%@ include file="page2.file"%>
+					
+					
+					<%if (request.getAttribute("listDetail_ByactID")!=null){%>
+       					<jsp:include page="listDetail_ByactID.jsp" />
+					<%} %>
+					
+					
+					
+					
+					<br>
+					<a href="select_page.jsp">回選取頁面</a>
 				</div>
-				<div class="container-fluid" align="right">
-					<button type="button" class="btn btn-info">
-						<a href='<%=request.getContextPath()%>/back-end/roomType/select_roomType_page.jsp' style="color:#fff">返回</a>
-					</button>
-				</div>
+
+
+
+
+
+
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
@@ -413,11 +398,11 @@
 					</div>
 				</div>
 			</footer>
-
 		</div>
-		<!-- /.content-wrapper -->
 
 	</div>
+	<!-- /.content-wrapper -->
+
 	<!-- /#wrapper -->
 
 	<!-- Scroll to Top Button-->
@@ -448,40 +433,20 @@
 		</div>
 	</div>
 
+
+
+
+
 	<!-- Bootstrap core JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script
-		src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script src="<%=request.getContextPath()%>/back-end/js/sb-admin.min.js"></script>
 
-
 </body>
 
-<style>
-table {
-	table-layout: auto;
-	width: 100%;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-.table>thead>tr>th {
-	text-align: center;
-	vertical-align: middle;
-}
-
-.table>tbody>tr>td {
-	word-break: break-all;
-	text-align: center;
-	vertical-align: middle;
-	border-top: 0px;
-}
-</style>
 </html>

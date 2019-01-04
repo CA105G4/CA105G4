@@ -20,7 +20,7 @@ RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>Update RoomType</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -332,7 +332,7 @@ RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div align="center">
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" name="form1" enctype="multipart/form-data">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" name="form1" enctype="multipart/form-data">
 								<table>
 									<tr>
 										<td>房型編號:</td>

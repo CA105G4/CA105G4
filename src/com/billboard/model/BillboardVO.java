@@ -8,34 +8,34 @@ public class BillboardVO implements java.io.Serializable{
 	private Date bbStart;
 	private Date bbEnd;
 	
-	public Integer getBbID() {
+	public Integer getbbID() {
 		return bbID;
 	}
-	public void setBbID(Integer bbID) {
+	public void setbbID(Integer bbID) {
 		this.bbID = bbID;
 	}
-	public String getUrl() {
+	public String geturl() {
 		return url;
 	}
-	public void setUrl(String url) {
+	public void seturl(String url) {
 		this.url = url;
 	}
-	public byte[] getPic() {
+	public byte[] getpic() {
 		return pic;
 	}
-	public void setPic(byte[] pic) {
+	public void setpic(byte[] pic) {
 		this.pic = pic;
 	}
-	public Date getBbStart() {
+	public Date getbbStart() {
 		return bbStart;
 	}
-	public void setBbStart(Date bbStart) {
+	public void setbbStart(Date bbStart) {
 		this.bbStart = bbStart;
 	}
-	public Date getBbEnd() {
+	public Date getbbEnd() {
 		return bbEnd;
 	}
-	public void setBbEnd(Date bbEnd) {
+	public void setbbEnd(Date bbEnd) {
 		this.bbEnd = bbEnd;
 	}
 	
