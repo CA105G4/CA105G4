@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 
-import com.orders.model.OrdersVO;
-
 public class OrderDetailService {
 	
 	public OrderDetailDAO_interface dao;
@@ -57,6 +55,11 @@ public class OrderDetailService {
 	public void deleteOrderDetail(Integer odID) {
 		dao.delete(odID);;
 	}	
+	
+	//[Gina]{checkout}再訂單明細中加入房間編號
+	public void updateRoomID(String roomID, Integer odID) {
+		dao.updateRoomID(roomID, odID);
+	}
 	
 	
 }

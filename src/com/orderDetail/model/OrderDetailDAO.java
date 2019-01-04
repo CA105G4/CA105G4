@@ -6,12 +6,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.sql.*;
 
-import com.orders.model.OrdersVO;
 import com.roomType.model.RoomTypeDAO;
 
-import java.sql.*;
-import java.sql.Date;
 
 public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static DataSource ds = null;
@@ -32,6 +30,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
 
 	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
+	
+	//[Gina]{CHECKIN} 訂單明細加入房間編號
+	private static final String UPDATE_roomID_ByodID ="UPDATE OrderDetail SET roomID=? WHERE ODID = ?";
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -173,7 +174,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -224,7 +225,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -278,7 +279,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -311,7 +312,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	}
 	
 	@Override
-	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con) {
+	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con, Map<String,Integer> rtIDandNumMap) {
 		
 		PreparedStatement pstmt = null;
 		
@@ -330,10 +331,10 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 			
 			/****去更改房型狀態****/
 			RoomTypeDAO rtdao = new RoomTypeDAO();
-			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con);
-			System.out.println("房型編號" + orderDetailVO.getRtID());
-			System.out.println("入住日期" + orderDetailVO.getCheckIn());
-			System.out.println("退房日期" + orderDetailVO.getCheckOut());
+			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con, rtIDandNumMap);
+			System.out.println("od房型編號" + orderDetailVO.getRtID());
+			System.out.println("od入住日期" + orderDetailVO.getCheckIn());
+			System.out.println("od退房日期" + orderDetailVO.getCheckOut());
 			
 		} catch (Exception e) {
 			if (con != null) {
@@ -356,7 +357,45 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 				}
 			}
 		}
-
-	}	
+	}
+	
+	@Override
+	public void updateRoomID(String roomID, Integer odID) {
+System.out.println("訂單明細收到roomID:"+roomID);
+System.out.println("訂單明細收到odID:"+odID);
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_roomID_ByodID);	
+			//UPDATE OrderDetail SET roomID=? WHERE ODID = ?
+			
+			pstmt.setString(1, roomID);
+			pstmt.setInt(2, odID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
 	
 }

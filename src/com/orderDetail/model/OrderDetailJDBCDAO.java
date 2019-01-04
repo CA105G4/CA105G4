@@ -1,12 +1,9 @@
 package com.orderDetail.model;
 
 import java.util.*;
-
-import com.orders.model.OrdersVO;
-import com.roomType.model.RoomTypeJDBCDAO;
-
 import java.sql.*;
-import java.sql.Date;
+
+import com.roomType.model.RoomTypeJDBCDAO;
 
 public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -22,6 +19,9 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
 	
 	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
+	
+	//[Gina]{CHECKIN} 訂單明細加入房間編號
+	private static final String UPDATE_roomID_ByodID ="UPDATE OrderDetail SET roomID=? WHERE ODID = ?";
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -326,7 +326,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	
 	
 	@Override
-	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con) {
+	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con, Map<String,Integer> rtIDandNumMap) {
 		
 		PreparedStatement pstmt = null;
 		
@@ -345,7 +345,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			
 			/****去更改房型狀態****/
 			RoomTypeJDBCDAO rtdao = new RoomTypeJDBCDAO();
-			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con);
+			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con, rtIDandNumMap);
 			System.out.println("房型編號" + orderDetailVO.getRtID());
 			System.out.println("入住日期" + orderDetailVO.getCheckIn());
 			System.out.println("退房日期" + orderDetailVO.getCheckOut());
@@ -375,6 +375,50 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		}
 
 	}	
+	
+	
+	@Override
+	public void updateRoomID(String roomID, Integer odID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_roomID_ByodID);	
+			//UPDATE OrderDetail SET roomID=? WHERE ODID = ?
+			
+			pstmt.setString(1, roomID);
+			pstmt.setInt(2, odID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		
+	}
+
 	
 	
 	public static void main(String[] args) {
@@ -461,7 +505,5 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 	}
-
-
 
 }

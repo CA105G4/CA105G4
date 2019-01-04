@@ -2,7 +2,6 @@ package com.orderDetail.model;
 
 import java.util.*;
 
-import com.orders.model.OrdersVO;
 
 public interface OrderDetailDAO_interface {
 	public void insert(OrderDetailVO orderDetailVO);
@@ -14,6 +13,9 @@ public interface OrderDetailDAO_interface {
 	public Set<OrderDetailVO> findByOrders(String ordID);
 	
 	//[Gina]{訂單交易}	同時新增訂單與明細
-	public void insertwithOrders(OrderDetailVO orderDetailVO, java.sql.Connection con);
+	public void insertwithOrders(OrderDetailVO orderDetailVO, java.sql.Connection con, Map<String,Integer> rtIDandNumMap);
+	
+	//[Gina]{CHECKIN} 訂單明細加入房間編號
+	public void updateRoomID(String roomID, Integer odID);
 
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 public class OrdersVO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String ordID;		//訂單編號
 	private String memID;		//會員編號
 	private String braID;		//分店編號
