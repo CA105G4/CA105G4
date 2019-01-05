@@ -33,7 +33,7 @@ public class MemberService {
 		return memberVO;
 	}
 
-	public MemberVO updateMem(String memID,String memName,String memAcc,String memPsw,Date memBirth,String memEmail,String memTel,String memAddr,String memSex,String memSkill,Integer memState,byte[]memPic,String memIDcard) {
+	public MemberVO updateMem(String memID,String memName,String memAcc,String memPsw,Date memBirth,String memEmail,String memTel,String memAddr,String memSex,String memSkill,Integer memState,byte[]memPic,Date memReg,String memIDcard) {
 
 		MemberVO memberVO = new MemberVO();
 		
@@ -48,6 +48,8 @@ public class MemberService {
 		memberVO.setMemSex(memSex);
 		memberVO.setMemSkill(memSkill);
 		memberVO.setMemState(memState);
+		memberVO.setMemReg(memReg);
+		memberVO.setMemPic(memPic);
 		
 		memberVO.setMemIDcard(memIDcard);
 		
