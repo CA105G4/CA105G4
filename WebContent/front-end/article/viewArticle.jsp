@@ -139,8 +139,10 @@
     </div>
   </div>
 
-
-
+<%	
+	String memid = request.getParameter("memid");
+	request.getSession().setAttribute("memid",memid); %>
+	
   <div class="container">
     <!--這邊開始自由發揮-->
 
@@ -148,7 +150,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4"> 
-					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(param.memid).memAcc}</b>																			
+					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(param.memid).memAcc} ${sessionScope.memid}</b>	
+																						
 				</div>
 				<div class="col-xs-12 col-sm-8"> 
 				
