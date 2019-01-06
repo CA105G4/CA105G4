@@ -52,4 +52,8 @@ public class MessageService {
 		return dao.getAll();
 	}
 	
+	public List<MessageVO> getArticleMessage(Integer artid) {
+		return dao.findByArticle(artid);
+	}
+	
 }

@@ -1,6 +1,9 @@
 package com.message.model;
 
 import java.util.*;
+
+import com.article.model.ArticleVO;
+
 import java.sql.*;
 
 public class MessageJDBCDAO implements MessageDAO_interface{
@@ -19,6 +22,10 @@ public class MessageJDBCDAO implements MessageDAO_interface{
 		"DELETE FROM message where msgid = ?";
 	private static final String UPDATE = 
 		"UPDATE message set artid=?, msgmemid=?, msgcontent=?, msgdate=?, msgstate=? where msgid = ?";
+	private static final String GET_ARTICLE_MESSAGE = 
+		"SELECT msgid,artid,msgmemid,msgcontent,to_char(msgdate,'yyyy-mm-dd') msgdate,msgstate FROM message where artid = ?  and msgstate = 0  order by msgid desc";
+	
+	
 	@Override
 	public void insert(MessageVO messageVO) {
 		Connection con = null;
@@ -268,6 +275,63 @@ public class MessageJDBCDAO implements MessageDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public List<MessageVO> findByArticle(Integer artid) {
+		List<MessageVO> list = new ArrayList<MessageVO>();
+		MessageVO messageVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ARTICLE_MESSAGE);
+
+			pstmt.setInt(1, artid);
+			rs =pstmt.executeQuery();
+			
+			while(rs.next()) {
+				messageVO = new MessageVO();
+				messageVO.setMsgid(rs.getInt("msgid"));
+				messageVO.setArtid(rs.getInt("artid"));
+				messageVO.setMsgmemid(rs.getString("msgmemid"));
+				messageVO.setMsgcontent(rs.getString("msgcontent"));
+				messageVO.setMsgdate(rs.getDate("msgdate"));
+				messageVO.setMsgstate(rs.getInt("msgstate"));
+				list.add(messageVO);
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 	public static void main(String[] args) {
 		
 		MessageJDBCDAO dao = new MessageJDBCDAO();
@@ -321,5 +385,7 @@ public class MessageJDBCDAO implements MessageDAO_interface{
 //			System.out.println("");
 //		}
 	}
+
+	
 	
 }

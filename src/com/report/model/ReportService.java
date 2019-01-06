@@ -52,4 +52,20 @@ public class ReportService {
 	public List<ReportVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public ReportVO updateArticleStatus(Integer repid,Integer artid,String repreason,String repmemid,
+			java.sql.Date repdate,Integer repstate) {
+		
+		ReportVO reportVO = new ReportVO();
+		
+		reportVO.setRepid(repid);
+		reportVO.setArtid(artid);
+		reportVO.setRepreason(repreason);
+		reportVO.setRepmemid(repmemid);
+		reportVO.setRepdate(repdate);
+		reportVO.setRepstate(repstate);
+		
+		dao.updateArticleStatus(reportVO);
+		return reportVO;
+	}
 }

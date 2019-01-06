@@ -23,12 +23,12 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String INSERT_SQL = "INSERT INTO Member (memID,memName,memAcc,memPsw,memBirth,memEmail,memTel,memAddr,memSex,memSkill,memPic,memIDcard)"
 			+ "values('M'||LPAD(to_char(mem_seq.NEXTVAL),4, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 
-	private static final String UPDATE = "UPDATE Member set ,memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =? where memID=?";
+	private static final String UPDATE = "UPDATE Member set memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =?,memReg=? where memID=?";
 
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
 
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
-	   private static DataSource ds = null;
+	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -48,7 +48,7 @@ public class MemberDAO implements MemberDAO_interface {
 		try {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
-		
+			
 			pstmt.setString(1,memberVO.getMemName());
 			pstmt.setString(2,memberVO.getMemAcc());
 			pstmt.setString(3,memberVO.getMemPsw());
@@ -92,7 +92,7 @@ public class MemberDAO implements MemberDAO_interface {
 		
 		try {
 			con=ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
+pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1,memberVO.getMemName());
 			pstmt.setString(2,memberVO.getMemAcc());
@@ -106,7 +106,8 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(10,memberVO.getMemState());
 			pstmt.setBytes(11,memberVO.getMemPic());
 			pstmt.setString(12,memberVO.getMemIDcard());
-			pstmt.setString(13,memberVO.getMemID());
+			pstmt.setDate(13,memberVO.getMemReg());
+			pstmt.setString(14,memberVO.getMemID());
 		
 			
 			
@@ -146,7 +147,7 @@ public class MemberDAO implements MemberDAO_interface {
 		
 		try {
 			con=ds.getConnection();
-			pstmt = con.prepareStatement(FIND_BY_PK);
+pstmt = con.prepareStatement(FIND_BY_PK);
 			
 			pstmt.setString(1, memID);
 			
@@ -268,7 +269,7 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}	
 			return list;
+		
 	}
-
 }
 

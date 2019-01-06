@@ -13,15 +13,17 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 	
 	
 		private static final String INSERT_STMT = 
-			"INSERT INTO report (repid,artid,artreason,repmemid,repdate,repstate) VALUES (ARTREP_seq.nextval, ?, ?, ?, ?, ?)";
+			"INSERT INTO report (repid,artid,repreason,repmemid,repdate,repstate) VALUES (ARTREP_seq.nextval, ?, ?, ?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT repid,artid,artreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report order by repid";
+			"SELECT repid,artid,repreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report order by repid";
 		private static final String GET_ONE_STMT = 
-			"SELECT repid,artid,artreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report where repid = ?";
+			"SELECT repid,artid,repreason,repmemid,to_char(repdate,'yyyy-mm-dd') repdate,repstate FROM report where repid = ?";
 		private static final String DELETE = 
 			"DELETE FROM report where repid = ?";
 		private static final String UPDATE = 
-			"UPDATE report set artid=?, artreason=?, repmemid=?, repdate=?, repstate=? where repid = ?";
+			"UPDATE report set artid=?, repreason=?, repmemid=?, repdate=?, repstate=? where repid = ?";
+		private static final String UPDATE_ARTICLE = 
+			"UPDATE article set artstate=? where artid = ?";
 		
 	@Override
 	public void insert(ReportVO reportVO) {
@@ -35,7 +37,7 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setInt(1,reportVO.getArtid());
-			pstmt.setString(2,reportVO.getArtreason() );
+			pstmt.setString(2,reportVO.getRepreason() );
 			pstmt.setString(3,reportVO.getRepmemid() );
 			pstmt.setDate(4,reportVO.getRepdate() );
 			pstmt.setInt(5,reportVO.getRepstate() );
@@ -82,7 +84,7 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 			pstmt = con.prepareStatement(UPDATE);
 
 			pstmt.setInt(1,reportVO.getArtid());
-			pstmt.setString(2,reportVO.getArtreason() );
+			pstmt.setString(2,reportVO.getRepreason() );
 			pstmt.setString(3,reportVO.getRepmemid() );
 			pstmt.setDate(4,reportVO.getRepdate() );
 			pstmt.setInt(5,reportVO.getRepstate() );
@@ -181,7 +183,7 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 				reportVO = new ReportVO();
 				reportVO.setRepid(rs.getInt("repid"));;
 				reportVO.setArtid(rs.getInt("artid"));
-				reportVO.setArtreason(rs.getString("artreason"));
+				reportVO.setRepreason(rs.getString("repreason"));
 				reportVO.setRepmemid(rs.getString("repmemid"));
 				reportVO.setRepdate(rs.getDate("repdate"));
 				reportVO.setRepstate(rs.getInt("repstate"));
@@ -234,7 +236,7 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 				reportVO = new ReportVO();
 				reportVO.setRepid(rs.getInt("repid"));;
 				reportVO.setArtid(rs.getInt("artid"));
-				reportVO.setArtreason(rs.getString("artreason"));
+				reportVO.setRepreason(rs.getString("repreason"));
 				reportVO.setRepmemid(rs.getString("repmemid"));
 				reportVO.setRepdate(rs.getDate("repdate"));
 				reportVO.setRepstate(rs.getInt("repstate"));
@@ -267,6 +269,67 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 		}
 		return list;
 	}
+	@Override
+	public void updateArticleStatus(ReportVO reportVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1,reportVO.getArtid());
+			pstmt.setString(2,reportVO.getRepreason() );
+			pstmt.setString(3,reportVO.getRepmemid() );
+			pstmt.setDate(4,reportVO.getRepdate() );
+			pstmt.setInt(5,reportVO.getRepstate() );
+			pstmt.setInt(6,reportVO.getRepid() );
+			
+			pstmt2 = con.prepareStatement(UPDATE_ARTICLE);
+			pstmt2.setInt(1, 0);
+			pstmt2.setInt(2, reportVO.getArtid());
+			
+			con.setAutoCommit(false);
+			
+			pstmt.executeUpdate();
+			pstmt2.executeUpdate();
+			System.out.println("Article Update Operation success!");	
+			con.commit();
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			try {
+				// 發生例外即進行rollback動作
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+	}
+	
 	
 		public static void main(String[] args) {
 			ReportJDBCDAO dao = new ReportJDBCDAO();
@@ -320,4 +383,6 @@ public class ReportJDBCDAO implements ReportDAO_interface{
 //				System.out.println();
 //			}
 		}
+
+		
 }
