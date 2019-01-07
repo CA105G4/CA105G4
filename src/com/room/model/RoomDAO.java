@@ -1,6 +1,7 @@
 package com.room.model;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,6 +34,9 @@ public class RoomDAO implements RoomDAO_interface{
 	private static final String Find_By_Branch_SQL = "select * from Room where braID = ? ";
 	private static final String Find_Room_ForAssign_SQL = "select * from Room where braID = ? and roomTypeID = ? and roomState = ?";
 	
+	/**[CHECKIN]Gina更改房間狀態)**/
+	private static final String UPDATE_roomState_By_roomID = "Update Room set ROOMSTATE = ?, MEMNAME=? where roomID = ?";
+	/**[CHECKIN]Gina更改房間狀態)**/
 	
 	@Override
 	public void insert(RoomVO roomVO) {
@@ -327,6 +331,47 @@ public class RoomDAO implements RoomDAO_interface{
 		}
 		return list;
 	}
+	
+	/**[CHECKIN]Gina更改房間 狀態 及 入住會員名稱)**/
+	@Override
+	public void updateRoomState(Integer roomState, String memname, String roomID) {
+System.out.println("房間收到roomState:"+roomState);
+System.out.println("房間收到memname:"+memname);
+System.out.println("房間收到roomID:"+roomID);
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_roomState_By_roomID);
+			
+			pstmt.setInt(1, roomState);
+			pstmt.setString(2, memname);
+			pstmt.setString(3, roomID);
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	
 	
 	

@@ -7,10 +7,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.room.model.RoomVO;
-
-import tool.BLOB;
-import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 
@@ -31,11 +27,22 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 	
 	private static final String DELETE = "DELETE FROM RoomType where RTID = ?";
 	private static final String UPDATE = "UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?";
-	
-	/**[訂單]Gina訂單交易使用**/
+
+	/**[Gina]訂單交易用**/
 	private static final String UPDATE_ROOMBALANCE ="UPDATE RoomType SET BALANCE=? WHERE RTID=?"; 
-	private static final String FIND_BY_BRANCH ="SELECT RTID, RTNAME FROM ROOMTYPE WHERE BRAID=?";
-	/**[訂單]Gina訂單交易使用**/
+	/**[Gina]訂單交易用**/
+	
+	/**[Gina]訂單前端用**/
+	private static final String FIND_BY_BRANCH ="SELECT RTID, RTNAME, balance, total FROM ROOMTYPE WHERE BRAID=?";
+	/**[Gina]訂單前端用**/
+	
+	/**[Gina]用房型找平日價格**/
+	private static final String FIND_WEEKPRICE_BY_RTID ="SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?";
+	/**[Gina]用房型找平日價格**/
+	
+	/**[Gina]用房型找假日價格**/
+	private static final String FIND_HOLIDAYPRICE_BY_RTID ="SELECT HOLIDAYPRICE FROM ROOMTYPE WHERE RTID=?";
+	/**[Gina]用房型找假日價格**/
 	
 	@Override
 	public void insert(RoomTypeVO roomTypeVO) {
@@ -317,11 +324,12 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		return list;
 	}
 	
+	/**[Gina]訂單交易用**/
 	@Override
-	public void updateRoomBalance(String rtID, Date checkIn, Date checkOut, java.sql.Connection con) {
-		System.out.println("房型編號" + rtID);
-		System.out.println("入住日期" + checkIn);
-		System.out.println("退房日期" + checkOut);
+	public void updateRoomBalance(String rtID, Date checkIn, Date checkOut, java.sql.Connection con, Map<String,Integer> rtIDandNumMap) {
+		System.out.println("rt房型編號" + rtID);
+		System.out.println("rt入住日期" + checkIn);
+		System.out.println("rt退房日期" + checkOut);
 		
 		PreparedStatement pstmt = null;
 		
@@ -331,10 +339,10 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			//UPDATE RoomType SET BALANCE=? WHERE RTID=?
 			
 			//先用主鍵找出的原剩餘房間數
-			RoomTypeJDBCDAO rtdao = new RoomTypeJDBCDAO();
+			RoomTypeDAO rtdao = new RoomTypeDAO();
 			RoomTypeVO findrtbalanceVO = rtdao.findByPrimaryKey(rtID);
 			String beforebalance = findrtbalanceVO.getBalance();
-			System.out.println("用主鍵找出的原剩餘房間數："+beforebalance);
+			System.out.println("rt用主鍵找出的原剩餘房間數："+beforebalance);
 			
 			//先判斷住房時間有幾天
 			java.util.Date checkin = (java.util.Date)checkIn;
@@ -346,60 +354,62 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			System.out.println(checkoutlong);
 			
 			int totalday = (int)((checkoutlong-checkinlong)/1000/60/60/24);
-			System.out.println("住房時間有幾天:" + totalday);
+			System.out.println("rt住房時間有幾天:" + totalday);
 			
 			/***checkIn***/
 			String checkinstring = checkIn.toString();
 			//幾年
 			int checkinyear = new Integer(checkinstring.substring(0,4));
-			System.out.println("入住年：" + checkinyear);
+//			System.out.println("rt入住年：" + checkinyear);
 			//幾月
 			int checkinmonth = new Integer(checkinstring.substring(5,7));
-			System.out.println("入住月：" + checkinmonth);
+//			System.out.println("rt入住月：" + checkinmonth);
 			//幾日	
 			int checkinday = new Integer(checkinstring.substring(8));
-			System.out.println("入住日期：" + checkinday);
+//			System.out.println("rt入住日期：" + checkinday);
 			//當月有幾天
 			Calendar checkincal = new GregorianCalendar(checkinyear, checkinmonth-1, checkinday);
 			int checkinDayofMonth = checkincal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println("GregorianCalendar:" + checkincal.get(Calendar.YEAR) +"年"+ (checkincal.get(Calendar.MONTH)+1) +"月"+ checkincal.get(Calendar.DATE));
-			System.out.println("入住當月天數：" + checkinDayofMonth);
-			System.out.println("=======================");
+//			System.out.println("rt-GregorianCalendar:" + checkincal.get(Calendar.YEAR) +"年"+ (checkincal.get(Calendar.MONTH)+1) +"月"+ checkincal.get(Calendar.DATE));
+//			System.out.println("rt入住當月天數：" + checkinDayofMonth);
+//			System.out.println("=======================");
 			
 			/***checkOut***/
 			String checkoutstring = checkOut.toString();
 			//幾年
 			int checkoutyear = new Integer(checkoutstring.substring(0,4));
-			System.out.println("入住年：" + checkoutyear);		
+//			System.out.println("rt入住年：" + checkoutyear);		
 			//幾月
 			int checkoutmonth = new Integer(checkoutstring.substring(5,7));
-			System.out.println("入住月：" + checkoutmonth);		
+//			System.out.println("rt入住月：" + checkoutmonth);		
 			//幾日
 			int checkoutday = new Integer(checkoutstring.substring(8));
-			System.out.println("退房日期：" + checkoutday);
+//			System.out.println("rt退房日期：" + checkoutday);
 			//當月有幾天
 			Calendar checkoutcal = new GregorianCalendar(checkoutyear, checkoutmonth-1, checkoutday);
 			int checkoutDayofMonth = checkoutcal.getActualMaximum(Calendar.DAY_OF_MONTH);
-			System.out.println("GregorianCalendar:" + checkoutcal.get(Calendar.YEAR) +"年"+ (checkoutcal.get(Calendar.MONTH)+1) +"月"+ checkoutcal.get(Calendar.DATE));
-			System.out.println("退房當月天數：" + checkoutDayofMonth);	
-			System.out.println("=======================");
+//			System.out.println("rt-GregorianCalendar:" + checkoutcal.get(Calendar.YEAR) +"年"+ (checkoutcal.get(Calendar.MONTH)+1) +"月"+ checkoutcal.get(Calendar.DATE));
+//			System.out.println("rt退房當月天數：" + checkoutDayofMonth);	
+//			System.out.println("=======================");
 			
 			//開始計算要修改那些欄位>>使用StringBuffer
 			StringBuffer afterbalance = new StringBuffer(beforebalance);
 			
 			for(int i=1; i<=totalday ;i++) {
-				//先找到要扣的當天房間數量 29
+				//先找到要扣的當天房間數量 
 				if((checkinday*2)>(checkinDayofMonth*2)) {
 					checkinday = 1;
 				}
 				
 				int beforeroomnum = new Integer(beforebalance.substring((checkinday*2-2),(checkinday*2)));
-				System.out.println("找到要扣的當天房間數量："+beforeroomnum);
+				System.out.println("rt找到要扣的當天房間數量："+beforeroomnum);
 				
 				int checkindaybindex = (checkinday*2)-2;
 				int checkindayeindex = checkinday*2;
-				
-				Integer roomnumint = new Integer(beforeroomnum-1);
+				//從map拿出數量:找出使用者選擇了幾間這種房型
+				int rtNum = rtIDandNumMap.get(rtID);
+System.out.println("使用者選擇了幾間這:"+rtNum);
+				Integer roomnumint = new Integer(beforeroomnum-rtNum);
 				
 				String roomnumstr = null;
 				if(roomnumint<10) {
@@ -410,7 +420,7 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 				System.out.println(roomnumstr);
 	
 				afterbalance.replace(checkindaybindex, checkindayeindex, roomnumstr);
-				System.out.println("新的剩餘房間術欄位" + afterbalance);
+				System.out.println("rt新的剩餘房間術欄位" + afterbalance);
 				
 				checkinday++;
 			}
@@ -445,7 +455,8 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		}
 		
 	}
-
+	
+	/**[Gina]訂單前端用**/
 	@Override
 	public List<RoomTypeVO> findRoomTypeByBranch(String braID) {
 		List<RoomTypeVO> list = new ArrayList<RoomTypeVO>();
@@ -467,7 +478,9 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 			while(rs.next()) {
 				roomTypeVO = new RoomTypeVO();
 				roomTypeVO.setRtID(rs.getString("RTID"));
-				roomTypeVO.setRtName(rs.getString("RTNAME"));	
+				roomTypeVO.setRtName(rs.getString("RTNAME"));
+				roomTypeVO.setBalance(rs.getString("balance"));
+				roomTypeVO.setTotal(rs.getInt("total"));
 				
 				list.add(roomTypeVO);
 			}
@@ -495,5 +508,138 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		return list;
 	}
 	
+	/**[Gina]用房型找平日價格**/
+	@Override
+	public int findWeekpriceByrtID(String rtID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int weekpriceByrtID = 0;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_WEEKPRICE_BY_RTID);	
+			//SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?
+			
+			pstmt.setString(1, rtID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				weekpriceByrtID = rs.getInt("WEEKLYPRICE");
+				System.out.println(weekpriceByrtID);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return weekpriceByrtID;
+	}
+	
+	/**[Gina]用房型找假日價格**/
+	@Override
+	public int findHollydaypriceByrtID(String rtID) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int HollydaypriceByrtID = 0;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(FIND_HOLIDAYPRICE_BY_RTID);	
+			//SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?
+			
+			pstmt.setString(1, rtID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HollydaypriceByrtID = rs.getInt("HOLIDAYPRICE");
+				System.out.println(HollydaypriceByrtID);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 
+		return HollydaypriceByrtID;
+	}
+
+	/**[Gina]排程器使用，在當天11:59分，將當天房型數量變回原房型數量**/
+	@Override
+	public void returnRoomNum(String balance, String rtID) {
+//		System.out.println("DAO收到balance:"+balance);
+//		System.out.println("DAO收到rtID:"+rtID);
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_ROOMBALANCE);
+			//UPDATE RoomType SET BALANCE=? WHERE RTID=?
+			
+			pstmt.setString(1, balance);
+			pstmt.setString(2, rtID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 }

@@ -337,17 +337,9 @@
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" name="form1" autocomplete="off">
 								<table>
 									<tr>
-										<td><input type="hidden" name="memID" id="memID" value=""></td>
-										<td>
-											<img id="image" src="" style="display: none;"></img>
-											<p id="answer"></p>	<p id="answer2"></p>
-										</td>
-									</tr>
-									<tr>
-										<th>會員身分證字號:</th>
-										<td>
-											<input type="TEXT" name="memIDcard" size="45" class="form-control" id="question" />
-										</td>
+										<th>會員編號:</th>
+										<td><input type="TEXT" name="memID" size="45" class="form-control"
+											 value="<%= (ordVO==null)? "M0001" : ordVO.getMemID() %>" readonly="true"/></td>
 									</tr>
 									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 									<tr>
@@ -384,21 +376,53 @@
 									</tr>
 									<tr>
 										<th>入住日期:</th>
-										<td><input type="text" name="checkIn" id="start_date" size="45" class="form-control" /></td>
+										<td><input type="text" name="checkIn" id="start_date" size="45" class="form-control"/></td>
 									</tr>
 									<tr>
 										<th>退房日期:</th>
-										<td><input type="text" name="checkOut" id="end_date" size="45" class="form-control" /></td>
+										<td><input type="text" name="checkOut" id="end_date" size="45" class="form-control"/></td>
 									</tr>
 								</table>
-								
 								<!-- 以下為明細 -->
-								<table class="roomTypeList">
-										<!-- 明細在這 -->
+								<caption>選擇房型</caption>
+								<table class="orderDetail">
+									<tr>
+										<td>
+											<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=RT01" class="img-fluid showrtpic" width="200px">
+										</td>
+										<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+										<td>選擇房型:
+											<select size="1" name="rtID" class="custom-select selectrtPic">
+													<option value="-1">請選擇</option>
+											</select>
+										</td>
+										<td>房間數量:
+											<select size="1" name="numOfRoom" class="custom-select">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+												<option value="6">6</option>
+												<option value="7">7</option>
+												<option value="8">8</option>
+												<option value="9">9</option>
+												<option value="10">10</option>
+											</select>
+										</td>
+										<td>加床需求:
+											<select size="1" name="special" class="custom-select">
+												<option value="0">不加床</option>
+												<option value="1">加床</option>
+											</select>
+										</td>
+										<td>
+											<input type="button" class="add btn btn-secondary" value="新增">
+										</td>
+									</tr>
 								</table>
 								<br>
 									<input type="hidden" name="action" value="insert">
-									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									<input type="submit" value="送出新增" class="btn btn-info" >
 									<button type="button" class="btn btn-info">
 										<a href='<%=request.getContextPath()%>/back-end/orders/select_orders_page.jsp' style="color:#fff">返回</a>
@@ -483,13 +507,18 @@
 	<!-- sweetalert-->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
-  <script>
+	<script>
 		$.datetimepicker.setLocale('zh'); 
 		$(function(){
 			 $('#start_date').datetimepicker({
 			  format:'Y-m-d',
 			  minDate: new Date(),
 			  maxDate: new Date(new Date().getTime() + 30*24*60*60*1000),
+// 			  onShow:function(){
+// 			   this.setOptions({
+// 			    maxDate:$('#end_date').val()?$('#end_date').val():false
+// 			   })
+// 			  },
 			  timepicker:false
 			 });
 			 
@@ -503,61 +532,88 @@
 			  maxDate: new Date(new Date().getTime() + 30*24*60*60*1000),
 			  timepicker:false
 			 });
+
+			 initAddOrder();
+			 changertpic();
 			 
-			 checkmemIDcardAJAX();
 			 changeRoomTypebyBranch();
-			 changeRoomTypeNumbers();
 
 		});
- </script>
- 
- <script>
-		var timer;
-		function checkmemIDcardAJAX(){
-			$('#question').on('keyup', function(){
-				$('#answer').text('資料輸入中...');
-				$('#answer2').text('');
-				$('#image').attr('src', '').css('display', 'none');
-				var question = $(this).val();
-				_debounce(function(){ 
-					return getAnswer(question); 
-				}, 500);
-			});
-		};
+	</script>
+	
+	<script>
+
 		
-		function getAnswer(question){
-			$('#answer').text('Thinking...');
-			$.ajax({
-				url: "<%=request.getContextPath()%>/roomType/AjaxResRoomType.do",
-				type: "get",
-				data: { 
-						action: 'checkmemIDcard', 
-						question: $('#question').val() 
-					},
-				dataType: 'json',
-				success: function(res){
-					console.log(res);
-					$('#answer').text(res.answer);
-					$('#answer2').text(res.answer2);
-					$('#image').attr('src', "<%=request.getContextPath()%>/member/memImg.do?memID="+res.answer).css('display', 'block');
-					$('#memID').attr('value' , res.answer);
-				},
-				error: function(res){
-					$('#answer').text('查無此會員!請重新輸入會員身分證字號!');
-				}
-			});
-		}
-		
-		function _debounce(callback, time){
-			if(timer)
-				 clearTimeout(timer);
-			timer = setTimeout(function(){
-				callback();
-			}, time);
-		}
-  </script>
-  
-  <script>
+	
+	function initAddOrder(){
+	      $('.orderDetail').on('click', '.add', function(){
+	       		var str = '';
+	       		for(var i = 0; i < selectData.length; i++){
+		        	str += ("<option value='"+selectData[i].value+"'>"+selectData[i].text+"</option>");
+		       	}
+		        $(this).closest('tr').after(
+			         '<tr>'+
+ 			         '<td><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=RT01" class="img-fluid showrtpic" width="200px">'+
+			         '</td>'+
+			         '<td>選擇房型:'+
+			          '<select size="1" name="rtID" class="custom-select selectrtPic">'+
+			            '<option value="-1">請選擇</option>'+
+			            str+
+			          '</select>'+
+			         '</td>'+
+			         '<td>房間數量:'+
+			          '<select size="1" name="numOfRoom" class="custom-select">'+
+			           '<option value="1">1</option>'+
+			           '<option value="2">2</option>'+
+			           '<option value="3">3</option>'+
+			           '<option value="4">4</option>'+
+			           '<option value="5">5</option>'+
+			           '<option value="6">6</option>'+
+			           '<option value="7">7</option>'+
+			           '<option value="8">8</option>'+
+			           '<option value="9">9</option>'+
+			           '<option value="10">10</option>'+
+			          '</select>'+
+			         '</td>'+
+			         '<td>加床需求:'+
+			          '<select size="1" name="special" class="custom-select">'+
+			           '<option value="0">不加床</option>'+
+			           '<option value="1">加床</option>'+
+			          '</select>'+
+			         '</td>'+
+			         '<td>'+
+			          '<input type="button" class="add btn btn-secondary" value="新增">'+
+			          '<input type="button" class="remove btn btn-secondary" value="刪除">'+
+			         '</td>'+
+			        '</tr>'
+		        );
+	
+		       refreshItem();
+	     });	
+	      
+		$('.orderDetail').on('click', '.remove', function(){
+			$(this).closest('tr').remove();
+			refreshItem();
+		});
+	}
+	function refreshItem(){
+		$('.orderDetail tr').each(function(index, item){
+			$(this).find('.rank').text(index);
+		});	
+	};
+	
+	function changertpic(){
+	    $('.orderDetail').on('change', '.selectrtPic', function(){
+	     var rtid = $(this).val();
+	     console.log(rtid);
+	     console.log($(this).parent().prev().find('img'));
+	     $(this).parent().prev().find('img').attr('src', "<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID="+rtid);
+	     refreshItem();
+	    });
+	}
+	
+	var selectData = []; 
+	
 	function changeRoomTypebyBranch(){
 	    $('#selectBranch').change(function(){
 		     $.ajax({
@@ -567,32 +623,12 @@
 			      dataType: "json",
 			      success: function (data){
 				       console.log(data);
-				       clearTable();
-				       var labelcount = 1;
-				       $.each(data, function(i, item){ //foreach寫法<option value='"+item.rtID+"'>"+item.rtName+"</option>
-					        $('.roomTypeList').append("<tr>"+
-					        							 "<td>"+					        
-					        							 	"<input class='form-check-input' type='checkbox' name='rtID' value='" + item.rtID + "' id='defaultCheck" + labelcount + "' >"+
-					       								 "</td>"+
-					        							 "<td>"+
-					        							 "<label class='form-check-label' for='defaultCheck" + labelcount + "'>"+
-					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' width='200px'>"+
-					        							 "</label>"+
-					        							 "</td>"+
-					        							 "<td>"+					        
-					        							 	item.rtName+
-					       								 "</td>"+
-					        							 "<td>"+					        
-					        							 	"<select size='1' name='numOfRoom' class='custom-select rtNumClean' id='" + item.rtID + "'>"+
-					        							 		"<option value='-1'>請選擇</option>"+
-					        							 	"</select>"+
-					       								 "</td>"+
-					        							 "<td>"+					        
-					        							 	"<input type='hidden' name='special' value='0'>"+
-					       								 "</td>"+
-					        						 "</tr>"
-					     	);
-					        labelcount++;
+				       clearSelect();
+				       selectData = [];
+				       $.each(data, function(i, item){ //foreach寫法
+					        $('.selectrtPic').append("<option value='"+item.rtID+"'>"+item.rtName+"</option>");
+					        var obj = {value: item.rtID, text: item.rtName};
+					        selectData.push(obj);
 			      	   });
 		     	  },
 		     error: function(){alert("AJAX-grade發生錯誤囉!")}
@@ -606,52 +642,11 @@
 		return queryString;
 	}
 	
-	function clearTable(){
-		$('.roomTypeList').empty();	//清資料
-		$('.roomTypeList').append("");
-	}
-  </script>
-  
-  <script>
-	function changeRoomTypeNumbers(){
-	    $('#end_date').blur(function(){
-	    	console.log("123");
-		     $.ajax({
-			      type:"GET",
-			      url:"<%=request.getContextPath()%>/roomType/AjaxResRoomType.do",
-			      data:{
-				    	  	"action":"getRoomTypeNumbers",
-				    	  	"checkOutDay":$(this).val(),
-				    	  	"checkInDay":$('#start_date').val(),
-				    	  	"braID":$('#selectBranch').val()	    	  	
-			    	  	},
-			      dataType: "json",
-			      success: function (data){
-				       console.log(data);
-				       clearSelect();
-				       $.each(data, function(i, item){ //foreach寫法<option value='"+item.rtID+"'>"+item.rtName+"</option>
-					       
-				       		var minroomnum = parseInt(item.balance);
-					        console.log(minroomnum);
-				       		for(var j=1; j<=minroomnum; j++){
-// 				       			alert("#"+item.rtID+"---<option value="+j+">"+j+"</option>");
-					        	$("#"+item.rtID).append("<option value='"+j+"'>"+j+"</option>");
-					
-					        }
-				       		
-			      	   });
-		     	  },
-		     error: function(){alert("AJAX-grade發生錯誤囉!")}
-		     })
-	    })
-	}
-	
-	
 	function clearSelect(){
-		$('.rtNumClean').empty();	//清資料
-		$('.rtNumClean').append("<option value='-1'>請選擇</option>");
+		$('.selectrtPic').empty();	//清資料
+		$('.selectrtPic').append("<option value='-1'>請選擇</option>");
 	}
-  </script>
+	</script>
 </body>
 
 </html>

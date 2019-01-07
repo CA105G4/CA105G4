@@ -9,4 +9,8 @@ public interface RoomDAO_interface {
 	public List<RoomVO> getAll(); //取得所有房間之列表
 	public List<RoomVO> findRoomByBranch(String braID);//依照分店查找房間
 	public List<RoomVO> findRoomForAssign(String braID, String roomTypeID, Integer roomState); //可依照分店、房型找尋不同狀態的房間
+	
+	/**[CHECKIN]Gina更改房間狀態)**/
+	public void updateRoomState(Integer roomState, String memname, String roomID);
+	/**[CHECKIN]Gina更改房間狀態)**/
 }

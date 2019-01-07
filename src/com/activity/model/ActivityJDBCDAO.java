@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,11 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 	private static final String FIND_BY_NAME = "SELECT actID,actStart,actEnd FROM Activity where actName=?";
 	private static final String FIND_ALL_STMT = "SELECT * FROM Activity ORDER by actID";
 	
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/
+	private static final String GET_DISCOUNT_SQL = "SELECT activity.actId, activitydetail.rtid, actName, actstart, actend, activitydetail.discount FROM activity " + 
+			   "inner join activityDetail on activity.actId = activityDetail.actid " + 
+			   "where activityDetail.rtId = ? AND (actstart <= ? AND ? <= actend)";
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
 
 	static {
 		try {
@@ -305,10 +311,61 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 				}
 			}
 		}
-		return list;
-		
-		
+		return list;	
 	}
+	
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/
+	@Override
+	public float getActivityDiscount(String rtId, String date) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PWD);
+			pstmt = con.prepareStatement(GET_DISCOUNT_SQL);
+
+			pstmt.setString(1, rtId);
+			pstmt.setDate(2, Date.valueOf(date));
+			pstmt.setDate(3, Date.valueOf(date));
+
+			System.out.println(Date.valueOf(date));
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				return rs.getFloat("discount");
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return 1;
+	}
+
 	
 	public static void main(String[] args) {
 		ActivityJDBCDAO dao= new ActivityJDBCDAO();
@@ -364,6 +421,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		
 		
 	}
+
 
 
 }

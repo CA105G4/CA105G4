@@ -11,5 +11,7 @@ public interface ActivityDAO_interface {
 	public ActivityVO findByName(String actName); //用活動名稱找到對應促銷活動
 	public List<ActivityVO> getAll(); //取得全部促銷活動之列表
 	
-	
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/
+	public float getActivityDiscount(String rtId, String date);
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
 }

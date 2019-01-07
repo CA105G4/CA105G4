@@ -140,14 +140,14 @@
 							<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								
 								<tr>
-									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=myAccountOrd">${ordVO.ordID}</a></td>
+									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
 									<td>${ordVO.braID}</td>
 									<td>${ordVO.numOfRoom}</td>
-									<td>${ordVO.ordType}</td> 
+									<td>${ordStateMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>
 									<td>${ordVO.amount}</td>
 									<td>${ordVO.bond}</td>
-									<td>${ordVO.payment}</td>
+									<td>${paymentMap.get(ordVO.getPayment())}</td>
 									<td>${ordVO.ordTime}</td>
 									<td>
 									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">

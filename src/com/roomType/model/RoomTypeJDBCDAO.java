@@ -1,8 +1,6 @@
 package com.roomType.model;
 
 import java.util.*;
-import tool.BLOB;
-import java.io.IOException;
 import java.sql.*;
 import java.sql.Date;
 
@@ -19,10 +17,21 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 	private static final String DELETE = "DELETE FROM RoomType where RTID = ?";
 	private static final String UPDATE = "UPDATE RoomType SET BRAID=?, RTNAME=?, RTPIC = ?, RTINTRO=?, RTMINIMUM=?, RTLIMIT=?, WEEKLYPRICE=?, HOLIDAYPRICE=?, BALANCE=?, TOTAL=?  WHERE RTID = ?";
 	
-	/**[訂單]Gina訂單交易使用**/
+	/**[Gina]訂單交易用**/
 	private static final String UPDATE_ROOMBALANCE ="UPDATE RoomType SET BALANCE=? WHERE RTID=?"; 
+	/**[Gina]訂單交易用**/
+	
+	/**[Gina]訂單前端用**/
 	private static final String FIND_BY_BRANCH ="SELECT RTID, RTNAME FROM ROOMTYPE WHERE BRAID=?";
-	/**[訂單]Gina訂單交易使用**/
+	/**[Gina]訂單前端用**/
+	
+	/**[Gina]用房型找平日價格**/
+	private static final String FIND_WEEKPRICE_BY_RTID ="SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?";
+	/**[Gina]用房型找平日價格**/
+	
+	/**[Gina]用房型找假日價格**/
+	private static final String FIND_HOLIDAYPRICE_BY_RTID ="SELECT HOLIDAYPRICE FROM ROOMTYPE WHERE RTID=?";
+	/**[Gina]用房型找假日價格**/
 	
 	@Override
 	public void insert(RoomTypeVO roomTypeVO) {
@@ -328,7 +337,7 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 	
 	
 	@Override
-	public void updateRoomBalance(String rtID, Date checkIn, Date checkOut, java.sql.Connection con) {
+	public void updateRoomBalance(String rtID, Date checkIn, Date checkOut, java.sql.Connection con, Map<String,Integer> rtIDandNumMap) {
 		System.out.println("房型編號" + rtID);
 		System.out.println("入住日期" + checkIn);
 		System.out.println("退房日期" + checkOut);
@@ -408,8 +417,10 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 				
 				int checkindaybindex = (checkinday*2)-2;
 				int checkindayeindex = checkinday*2;
+				//從map拿出數量:找出使用者選擇了幾間這種房型
+				int rtNum = rtIDandNumMap.get(rtID);
 				
-				Integer roomnumint = new Integer(beforeroomnum-1);
+				Integer roomnumint = new Integer(beforeroomnum-rtNum);
 				
 				String roomnumstr = null;
 				if(roomnumint<10) {
@@ -509,6 +520,147 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public int findWeekpriceByrtID(String rtID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int weekpriceByrtID = 0;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_WEEKPRICE_BY_RTID);	
+			//SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?
+			
+			pstmt.setString(1, rtID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				weekpriceByrtID = rs.getInt("WEEKLYPRICE");
+				System.out.println(weekpriceByrtID);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return weekpriceByrtID;
+	}
+
+	@Override
+	public int findHollydaypriceByrtID(String rtID) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int HollydaypriceByrtID = 0;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(FIND_HOLIDAYPRICE_BY_RTID);	
+			//SELECT WEEKLYPRICE FROM ROOMTYPE WHERE RTID=?
+			
+			pstmt.setString(1, rtID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				HollydaypriceByrtID = rs.getInt("HOLIDAYPRICE");
+				System.out.println(HollydaypriceByrtID);
+			}
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return HollydaypriceByrtID;
+	}
+	
+	/**[Gina]排程器使用，在當天11:59分，將當天房型數量變回原房型數量**/
+	@Override
+	public void returnRoomNum(String balance, String rtID) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(UPDATE_ROOMBALANCE);
+			//UPDATE RoomType SET BALANCE=? WHERE RTID=?
+			
+			pstmt.setString(1, balance);
+			pstmt.setString(2, rtID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	public static void main(String[] args) {
 		RoomTypeJDBCDAO dao = new RoomTypeJDBCDAO();
 		
@@ -603,13 +755,21 @@ public class RoomTypeJDBCDAO implements RoomTypeDAO_interface{
 //		
 //		System.out.println("修改成功!!");		
 		
-		List<RoomTypeVO> rtlist = dao.findRoomTypeByBranch("B01");
-		for(RoomTypeVO rtVO : rtlist) {
-			System.out.println(rtVO.getRtID());
-			System.out.println(rtVO.getRtName());
-			System.out.println("=========================");
-		}
+//		List<RoomTypeVO> rtlist = dao.findRoomTypeByBranch("B01");
+//		for(RoomTypeVO rtVO : rtlist) {
+//			System.out.println(rtVO.getRtID());
+//			System.out.println(rtVO.getRtName());
+//			System.out.println("=========================");
+//		}
+		
+		int wprice = dao.findWeekpriceByrtID("RT02");
+		System.out.println(wprice);
+		System.out.println("=======================");
+		int hprice = dao.findHollydaypriceByrtID("RT02");
+		System.out.println(hprice);
 		
 	}
+
+
 
 }
