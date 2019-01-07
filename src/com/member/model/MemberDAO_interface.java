@@ -8,5 +8,6 @@ public interface MemberDAO_interface {
 	public void update(MemberVO  memberVO); //修改會員
 	public MemberVO findByPK(String memID); //用PK找對應的會員
 	public List<MemberVO> getAll(); //取得全部會員之列表
+	public String findAcc(String memAcc);
 
 }

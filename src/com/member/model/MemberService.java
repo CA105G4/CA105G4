@@ -63,6 +63,9 @@ public class MemberService {
 	public MemberVO getOneMem(String memID) {
 		return dao.findByPK(memID);
 	}
+	public String getOneMemByAcc(String memAcc) {
+		return dao.findAcc(memAcc);
+	}
 
 	public List<MemberVO> getAll() {
 		return dao.getAll();

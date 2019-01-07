@@ -28,6 +28,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
 
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
+	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
 	private static DataSource ds = null;
 	static {
 		try {
@@ -204,6 +205,46 @@ pstmt = con.prepareStatement(FIND_BY_PK);
 			}
 		}	
 		return memberVO;
+	}
+	
+	
+	public String findAcc(String memAcc) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String memID =null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_MEMACC);
+			
+			pstmt.setString(1,memAcc);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				memID=rs.getString("memID");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return memID;
 	}
 
 	@Override
