@@ -20,7 +20,7 @@ public class EmployeeService {
 		employeeVO.setEmpJob(empJob);
 		employeeVO.setEmpTel(empTel);
 		employeeVO.setEmpAcc(empAcc);
-		employeeVO.setEmPsw(empPsw);
+		employeeVO.setEmpPsw(empPsw);
 		employeeVO.setEmpPic(empPic);
 		dao.insert(employeeVO);
 
@@ -38,14 +38,16 @@ public class EmployeeService {
 		employeeVO.setEmpTel(empTel);
 		employeeVO.setEmpState(empState);
 		employeeVO.setEmpAcc(empAcc);
-		employeeVO.setEmPsw(empPsw);
+		employeeVO.setEmpPsw(empPsw);
 		employeeVO.setEmpID(empID);
 		dao.update(employeeVO);
 
 		return employeeVO;
 	}
 
-	
+	public String getOneEmpByAcc(String memAcc) {
+		return dao.findAcc(memAcc);
+	}
 
 	public EmployeeVO getOneEmp(String empID) {
 		return dao.findByPK(empID);

@@ -1,6 +1,6 @@
 package com.employee.model;
 
-public class EmployeeVO {
+public class EmployeeVO implements java.io.Serializable{
 	private String empID;
 	private String braID;
 	private String empName;
@@ -9,7 +9,7 @@ public class EmployeeVO {
 	private Integer empState;
 	private byte[] empPic;
 	private String empAcc;
-	private String emPsw;
+	private String empPsw;
 	
 	
 	
@@ -23,11 +23,11 @@ public class EmployeeVO {
 	public void setEmpAcc(String empAcc) {
 		this.empAcc = empAcc;
 	}
-	public String getEmPsw() {
-		return emPsw;
+	public String getEmpPsw() {
+		return empPsw;
 	}
-	public void setEmPsw(String emPsw) {
-		this.emPsw = emPsw;
+	public void setEmpPsw(String empPsw) {
+		this.empPsw = empPsw;
 	}
 	public String getEmpID() {
 		return empID;

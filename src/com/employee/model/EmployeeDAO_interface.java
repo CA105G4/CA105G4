@@ -8,6 +8,7 @@ public interface EmployeeDAO_interface {
 	public void update(EmployeeVO employeeVO); //修改員工
 	public EmployeeVO findByPK(String empID); //用PK找到對應的員工
 	public List<EmployeeVO> getAll(); //取得全部員工列表
+	public String findAcc(String memAcc);
 	
 	
 	

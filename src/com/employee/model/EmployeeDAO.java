@@ -25,6 +25,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
     private static final String UPDATE_SQL = "UPDATE Employee set braID = ?,empName = ?,empJob = ?,empTel = ?,empState = ?,empAcc = ?,empPsw = ? where empID = ?";
     //可修改 分店ID 姓名 職稱 電話 狀態 帳號 密碼
     private static final String GET_ALL_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empAcc, empPsw from Employee";
+    private static final String FIND_BY_MEMACC = "SELECT * from Employee where empAcc = ?";
     private static final String GET_ONE_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empPic, empAcc, empPsw from Employee where empID = ?";
     private static DataSource ds = null;
     static {
@@ -50,7 +51,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 			pstmt.setString(3, employeeVO.getEmpJob());
 			pstmt.setString(4, employeeVO.getEmpTel());
 			pstmt.setString(5, employeeVO.getEmpAcc());			
-			pstmt.setString(6, employeeVO.getEmPsw());
+			pstmt.setString(6, employeeVO.getEmpPsw());
 			pstmt.setBytes(7, employeeVO.getEmpPic());
 			
 			pstmt.executeUpdate();
@@ -91,7 +92,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 			pstmt.setString(4, employeeVO.getEmpTel());
 			pstmt.setInt(5, employeeVO.getEmpState());
 			pstmt.setString(6, employeeVO.getEmpAcc());
-			pstmt.setString(7, employeeVO.getEmPsw());
+			pstmt.setString(7, employeeVO.getEmpPsw());
 			pstmt.setString(8, employeeVO.getEmpID());
 			
 			pstmt.executeUpdate();
@@ -115,6 +116,44 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				}
 			}
 		}
+	}
+	public String findAcc(String empAcc) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String empID =null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_MEMACC);
+			
+			pstmt.setString(1,empAcc);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				empID=rs.getString("empID");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return empID;
 	}
 
 	@Override
@@ -144,7 +183,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpState(rs.getInt("empState"));
 				employeeVO.setEmpPic(rs.getBytes("EmpPic"));
 				employeeVO.setEmpAcc(rs.getString("EmpAcc"));
-				employeeVO.setEmPsw(rs.getString("EmpPsw"));				
+				employeeVO.setEmpPsw(rs.getString("EmpPsw"));				
 			}
 			
 		} catch (SQLException e) {
@@ -201,7 +240,7 @@ public class EmployeeDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpTel(rs.getString("empTel"));
 				employeeVO.setEmpState(rs.getInt("empState"));
 				employeeVO.setEmpAcc(rs.getString("empAcc"));
-				employeeVO.setEmPsw(rs.getString("empPsw"));
+				employeeVO.setEmpPsw(rs.getString("empPsw"));
 				
 				list.add(employeeVO);
 			}

@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 import tool.BLOB;
 
 public class EmployeeJDBCDAO implements EmployeeDAO_interface {
@@ -26,7 +24,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
     //可修改 分店ID 姓名 職稱 電話 狀態 帳號 密碼
     private static final String GET_ALL_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empAcc, empPsw from Employee";
     private static final String GET_ONE_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empPic, empAcc, empPsw from Employee where empID = ?";
-	
+    private static final String FIND_BY_MEMACC = "SELECT * from Employee where empAcc = ?";
     static {
     	try {
 			Class.forName(DRIVER);
@@ -49,7 +47,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(3, employeeVO.getEmpJob());
 			pstmt.setString(4, employeeVO.getEmpTel());
 			pstmt.setString(5, employeeVO.getEmpAcc());			
-			pstmt.setString(6, employeeVO.getEmPsw());
+			pstmt.setString(6, employeeVO.getEmpPsw());
 			pstmt.setBytes(7, employeeVO.getEmpPic());
 			
 			pstmt.executeUpdate();
@@ -90,7 +88,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			pstmt.setString(4, employeeVO.getEmpTel());
 			pstmt.setInt(5, employeeVO.getEmpState());
 			pstmt.setString(6, employeeVO.getEmpAcc());
-			pstmt.setString(7, employeeVO.getEmPsw());
+			pstmt.setString(7, employeeVO.getEmpPsw());
 			pstmt.setString(8, employeeVO.getEmpID());
 			
 			pstmt.executeUpdate();
@@ -114,6 +112,44 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				}
 			}
 		}
+	}
+	public String findAcc(String empAcc) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String empID =null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(FIND_BY_MEMACC);
+			
+			pstmt.setString(1,empAcc);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				empID=rs.getString("empID");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return empID;
 	}
 
 	@Override
@@ -143,7 +179,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpState(rs.getInt("empState"));
 				employeeVO.setEmpPic(rs.getBytes("EmpPic"));
 				employeeVO.setEmpAcc(rs.getString("EmpAcc"));
-				employeeVO.setEmPsw(rs.getString("EmpPsw"));				
+				employeeVO.setEmpPsw(rs.getString("EmpPsw"));				
 			}
 			
 		} catch (SQLException e) {
@@ -200,7 +236,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				employeeVO.setEmpTel(rs.getString("empTel"));
 				employeeVO.setEmpState(rs.getInt("empState"));
 				employeeVO.setEmpAcc(rs.getString("empAcc"));
-				employeeVO.setEmPsw(rs.getString("empPsw"));
+				employeeVO.setEmpPsw(rs.getString("empPsw"));
 				
 				list.add(employeeVO);
 			}
@@ -247,7 +283,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 		 employeeVO.setEmpTel("095776677");
 		 employeeVO.setEmpPic(new BLOB().writeBlob("images/panta.jpg"));
 		 employeeVO.setEmpAcc("aaa");
-		 employeeVO.setEmPsw("bbb");
+		 employeeVO.setEmpPsw("bbb");
 		 dao.insert(employeeVO);
 		 System.out.println("新增成功");
 		 
@@ -259,7 +295,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 //			employeeVO02.setEmpTel("095796677");
 //			employeeVO02.setEmpState(0);
 //			employeeVO02.setEmpAcc("CCC");
-//			employeeVO02.setEmPsw("CCC");
+//			employeeVO02.setempPsw("CCC");
 //			employeeVO02.setEmpID("E0003");
 //			dao.update(employeeVO02);
 //			System.out.println("修改成功!!");
@@ -275,7 +311,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 //			System.out.println(employeeVO03.getEmpState());
 //			new BLOB().readBlob(employeeVO03.getEmpPic(),"input/panta.jpg");
 //			System.out.println(employeeVO03.getEmpAcc());
-//			System.out.println(employeeVO03.getEmPsw());
+//			System.out.println(employeeVO03.getempPsw());
 //			
 //			//查詢多筆	
 			List<EmployeeVO> list = dao.getAll();
@@ -288,7 +324,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 				System.out.println(rt.getEmpState());
 				System.out.println(rt.getEmpPic());
 				System.out.println(rt.getEmpAcc());
-				System.out.println(rt.getEmPsw());
+				System.out.println(rt.getEmpPsw());
 				
 				System.out.println("=========================");
 			}
