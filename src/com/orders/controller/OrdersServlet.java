@@ -36,7 +36,6 @@ public class OrdersServlet extends HttpServlet{
 				String memID = req.getParameter("memID");
 System.out.println("memID："+ memID);
 				if(memID == null || memID.trim().length() == 0) {
-					memID = "M0001";
 					errorMsgs.add("會員編號：請勿空白");
 				}
 				
@@ -95,17 +94,21 @@ System.out.println("numOfGuest："+ numOfGuest);
 					//先取到明細所有的房型id	拿取前面的 rtIDlist
 				
 					//取到明細所有的特殊需求，但因為陣列會是全部送進來
-				String[] speciallistbefore = null;
-				speciallistbefore = req.getParameterValues("special");
+//				String[] speciallistbefore = null;
+//				speciallistbefore = req.getParameterValues("special");
 					//做篩選，篩選掉請選擇(-1)，再存到新的陣列中
 				String[] speciallist = new String[rtIDlist.length];
-				int specialindex = 0;
-				for(int i=0; i<speciallistbefore.length; i++) {
-					String specialvalue = speciallistbefore[i];
-					if(!("-1".equals(specialvalue))) {
-						speciallist[specialindex] = speciallistbefore[i];
-						specialindex++;
-					}
+//				int specialindex = 0;
+//				for(int i=0; i<speciallistbefore.length; i++) {
+//					String specialvalue = speciallistbefore[i];
+//					if(!("-1".equals(specialvalue))) {
+//						speciallist[specialindex] = speciallistbefore[i];
+//						specialindex++;
+//					}
+//				}
+					/**因最後決定不讓客人決定要不要加床，這邊全部直接存為不加床**/
+				for(int i=0; i<speciallist.length; i++) {
+					speciallist[i] = "0";
 				}
 				
 				for(int i=0; i<speciallist.length; i++) {
@@ -319,9 +322,19 @@ System.out.println("=======================");
 				/*------新增完成,SET，然後轉交(Send the Success view)------*/
 				req.setAttribute("rtIDandNumMap", rtIDandNumMap);
 				
-				String url = "/back-end/orders/addorders_step2.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
-				successView.forward(req, res);	
+				String comeURI = req.getParameter("requestURL");
+				System.out.println("comeURI"+comeURI);
+				
+				if("/back-end/orders/addorders.jsp".equals(comeURI)) {
+					String url = "/back-end/orders/addorders_step2.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);	
+				}else {
+					String url = "/front-end/orders/addorders_step2.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);	
+				}
+
 				
 				/*------其他可能的錯誤處理------*/
 			}catch(Exception e) {
@@ -579,118 +592,37 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			boolean openModal=true;
 			req.setAttribute("openModal",openModal);	//此為旗標
 			
-			String url = "/back-end/orders/listAllOrders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+			/*------準備轉交------*/
+			String comeURI = req.getParameter("requestURL");
 			
+			if("/back-end/orders/listAllOrders.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else if("/back-end/orders/normalOrders.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else if("/back-end/orders/workExchangeOrders.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else if("/back-end/orders/returnOrders.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else if("/front-end/orders/myAccountorders.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else if("/front-end/orders/myAccountordersRecord.jsp".equals(comeURI)) {
+				System.out.println("comeURI：" + comeURI);
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}
+	
 		}
 		
-		if ("getNormal_OrderDetail".equals(action)) {
-			
-			String ordID = (String)req.getParameter("ordID");
-			req.setAttribute("ordID", ordID);
-			
-			/*------查到單筆訂單的所有明細(set)------*/
-			OrdersService ordSvc = new OrdersService();
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			/*------設置旗標------*/
-			boolean openModal=true;
-			req.setAttribute("openModal",openModal);	//此為旗標
-			
-			String url = "/back-end/orders/normalOrders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
-		}
-
-		if ("getWE_OrderDetail".equals(action)) {
-			
-			String ordID = (String)req.getParameter("ordID");
-			req.setAttribute("ordID", ordID);
-			
-			/*------查到單筆訂單的所有明細(set)------*/
-			OrdersService ordSvc = new OrdersService();
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			/*------設置旗標------*/
-			boolean openModal=true;
-			req.setAttribute("openModal",openModal);	//此為旗標
-			
-			String url = "/back-end/orders/workExchangeOrders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
-		}
-		
-		
-		if ("getReturn_OrderDetail".equals(action)) {
-			
-			String ordID = (String)req.getParameter("ordID");
-			req.setAttribute("ordID", ordID);
-			
-			/*------查到單筆訂單的所有明細(set)------*/
-			OrdersService ordSvc = new OrdersService();
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			/*------設置旗標------*/
-			boolean openModal=true;
-			req.setAttribute("openModal",openModal);	//此為旗標
-			
-			String url = "/back-end/orders/returnOrders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
-		}
-		
-		if ("myAccountOrd".equals(action)) {
-			
-			String ordID = (String)req.getParameter("ordID");
-			req.setAttribute("ordID", ordID);
-			
-			/*------查到單筆訂單的所有明細(set)------*/
-			OrdersService ordSvc = new OrdersService();
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			/*------設置旗標------*/
-			boolean openModal=true;
-			req.setAttribute("openModal",openModal);	//此為旗標
-			
-			String url = "/front-end/orders/myAccountorders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
-		}
-		
-		if ("myAccountOrdRec".equals(action)) {
-			
-			String ordID = (String)req.getParameter("ordID");
-			req.setAttribute("ordID", ordID);
-			
-			/*------查到單筆訂單的所有明細(set)------*/
-			OrdersService ordSvc = new OrdersService();
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			/*------設置旗標------*/
-			boolean openModal=true;
-			req.setAttribute("openModal",openModal);	//此為旗標
-			
-			String url = "/front-end/orders/myAccountordersRecord.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			
-		}
 		
 		if ("CancelOrders".equals(action)) {
 			String ordID = req.getParameter("ordID");

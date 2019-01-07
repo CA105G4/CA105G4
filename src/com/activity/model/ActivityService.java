@@ -49,4 +49,10 @@ public class ActivityService {
 		return dao.getAll();
 	}
 	
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/
+	public float getActivityDiscount(String rtId, String date) {
+		return dao.getActivityDiscount(rtId, date);
+	};
+	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
+	
 }

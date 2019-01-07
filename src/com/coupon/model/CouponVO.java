@@ -16,43 +16,43 @@ public class CouponVO implements Serializable{
 		super();
 	}
 
-	public String getCpnID() {
+	public String getcpnID() {
 		return cpnID;
 	}
 	
-	public void setCpnID(String cpnID) {
+	public void setcpnID(String cpnID) {
 		this.cpnID = cpnID;
 	}
 	
-	public byte[] getCpnPic() {
+	public byte[] getcpnPic() {
 		return cpnPic;
 	}
 	
-	public void setCpnPic(byte[] cpnPic) {
+	public void setcpnPic(byte[] cpnPic) {
 		this.cpnPic = cpnPic;
 	}
 	
-	public Integer getDiscount() {
+	public Integer getdiscount() {
 		return discount;
 	}
 	
-	public void setDiscount(Integer discount) {
+	public void setdiscount(Integer discount) {
 		this.discount = discount;
 	}
 	
-	public Integer getQuantity() {
+	public Integer getquantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setquantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
-	public Integer getAppQuantity() {
+	public Integer getappQuantity() {
 		return appQuantity;
 	}
 	
-	public void setAppQuantity(Integer appQuantity) {
+	public void setappQuantity(Integer appQuantity) {
 		this.appQuantity = appQuantity;
 	}
 }

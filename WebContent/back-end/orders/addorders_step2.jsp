@@ -458,7 +458,7 @@
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 	
-		<!-- sweetalert-->
+	<!-- sweetalert-->
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
 	<script>

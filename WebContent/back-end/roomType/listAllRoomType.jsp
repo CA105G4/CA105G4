@@ -1,13 +1,14 @@
-<%@page import="com.roomType.model.RoomTypeService"%>
-<%@page import="com.roomType.model.RoomTypeVO"%>
+<%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> list = rtSvc.getAll();
 	pageContext.setAttribute("list", list);
+	
+
 %>
 
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>listAllRoomType</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -300,15 +301,15 @@
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
 					</li>
-					<li class="breadcrumb-item active">Blank Page</li>
+					<li class="breadcrumb-item active">房型列表</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>訂單列表</h1>
+				<h1>房型列表</h1>
 				<hr>
 				<div class="container-fluid" align="right">
 					<button type="button" class="btn btn-info">
-						<a href='<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp' style="color:#fff">新增房型</a>
+						<a href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp"     style="color:#fff">新增房型</a>
 					</button>
 				</div>
 				<div class="container-fluid">
@@ -316,6 +317,7 @@
 
 						<!--開始自由發揮-->
 						<table class="table table-bordered table-striped table-hover">
+							<thead>
 							<tr>
 								<th>房型編號</th>
 								<th>分店編號</th>
@@ -329,16 +331,49 @@
 								<th>房間剩餘數量</th>
 								<th>房型數量</th>
 								<th>修改</th>
-								<th>刪除</th>
 							</tr>
+							</thead>
+							<tbody>
 							<%@ include file="page1.file" %> 
-							<c:forEach var="roomTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+							<c:forEach var="roomTypeVO" items="${list}"  varStatus="status" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								
 								<tr>
 									<td>${roomTypeVO.rtID}</td>
 									<td>${roomTypeVO.braID}</td>
 									<td>${roomTypeVO.rtName}</td>
-									<td><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${roomTypeVO.rtID}" class="img-fluid" width="400px"></td>
+									
+									<c:set var="index"  value="${status.index}"/>
+									<%
+									int count = (Integer) pageContext.getAttribute("index");
+									String encodedText =null;
+									if(list.get(count).getRtPic()!=null){
+										Base64.Encoder encoder = Base64.getEncoder();
+										encodedText = encoder.encodeToString(list.get(count).getRtPic());
+										pageContext.setAttribute("icon_", new Integer(1));
+									}else{
+										pageContext.setAttribute("icon_", new Integer(0));
+									}
+									%>
+									
+									
+									
+									<c:choose>
+									<c:when test="${icon_==1}">
+									
+								<td ><img width="200"
+												src="data:image/png;base64, <%=encodedText%>"></td>
+									
+									</c:when>
+									
+									<c:otherwise>
+						                	<td><img
+												src="<%=request.getContextPath()%>/image/noImage.jpg"
+												width="200" height="132"></td>
+									
+									</c:otherwise>
+									</c:choose>
+									
+									
 									<td>${roomTypeVO.rtIntro}</td> 
 									<td>${roomTypeVO.rtMinimum}</td>
 									<td>${roomTypeVO.rtLimit}</td>
@@ -347,19 +382,15 @@
 									<td>${roomTypeVO.balance}</td>
 									<td>${roomTypeVO.total}</td>
 									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" style="margin-bottom: 0px;">
+									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="修改" class="btn btn-info">
 									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
 									     <input type="hidden" name="action"	value="GetOneUpdate"></FORM>
 									</td>
-									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="刪除(沒做)" class="btn btn-info">
-									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
-									     <input type="hidden" name="action" value="delete"></FORM>
-									</td>
+									
 								</tr>
 							</c:forEach>
+							</tbody>
 						</table>
 						<%@ include file="page2.file" %>	
 						
@@ -433,4 +464,24 @@
 
 </body>
 
+<style>
+table {
+	table-layout: auto;
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.table>thead>tr>th {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.table>tbody>tr>td {
+	word-break: break-all;
+	text-align: center;
+	vertical-align: middle;
+	border-top: 0px;
+}
+</style>
 </html>

@@ -53,4 +53,11 @@ public class RoomService {
 	public List<RoomVO> getRoomForAssign(String braID, String roomTypeID, Integer roomState){
 		return dao.findRoomForAssign(braID, roomTypeID, roomState);
 	}
+	
+	/**[Gina]CHECKIN更改房間狀態)**/
+	public void updateRoomState(Integer roomState, String memname, String roomID) {
+		dao.updateRoomState(roomState, memname, roomID);
+	}
+	/**[Gina]CHECKIN更改房間狀態)**/
+	
 }

@@ -205,9 +205,10 @@
 								
 								<br>
 									<input type="hidden" name="action" value="insert">
+									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									<input type="submit" value="送出新增" class="btn btn-info" >
 									<button type="button" class="btn btn-info">
-										<a href='<%=request.getContextPath()%>/back-end/orders/select_orders_page.jsp' style="color:#AAAAAA">返回</a>
+										<a href='<%=request.getContextPath()%>/back-end/orders/select_orders_page.jsp' style="color: #AAAAAA">返回</a>
 									</button>
 								</FORM>	
 														
@@ -342,12 +343,8 @@
 					        							 		"<option value='-1'>請選擇</option>"+
 					        							 	"</select>"+
 					       								 "</td>"+
-					        							 "<td>"+					        
-															"<select size='1' name='special' class='custom-select'>"+
-																"<option value='-1'>請選擇</option>"+
-																"<option value='0'>不加床</option>"+
-																"<option value='1'>加床</option>"+
-															"</select>"+
+					        							 "<td>"+				        
+															"<input type='hidden' name='special' value='0'>"+
 					       								 "</td>"+
 					        						 "</tr>"
 					     	);
