@@ -5,7 +5,7 @@
 
 <% 
 	RoomService roomSvc = new RoomService();
-	Set<RoomVO> set = roomSvc.getRoomByBranch("B01");
+	List<RoomVO> set = roomSvc.getRoomByBranch("B01");
 	List<RoomVO> list = roomSvc.getAll();
 	pageContext.setAttribute("set", set);
 	pageContext.setAttribute("list", list);
