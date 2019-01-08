@@ -34,10 +34,13 @@ public class WorkExchangeDAO implements WorkExchangeDAO_interface{
     		+ "VALUES (we_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE WorkExchange set empID= ?, memID = ?, rtID = ?,"
     		+ "weName = ?, weContent = ?, wePic = ?, weVideo = ?, weStart = ?, weEnd = ? where weID = ?";
+    private static final String UPDATE_MEMID_SQL = "Update WorkExchange set memID = ? where weID = ?";
+    
     private static final String DELETE_SQL = "DELETE from WorkExchange where weID = ?";
-    private static final String GET_ALL_SQL = "SELECT * from WorkExchange";
+    private static final String GET_ALL_SQL = "SELECT * from WorkExchange Order By WEID";
     private static final String GET_ONE_SQL = "SELECT weID, empID, memID, rtID, weName, weContent, wePic, weVideo, weStart, weEnd from WorkExchange where weID = ?";
     
+    private static final String Get_ALL_SQL_NM = "SELECT * from WorkExchange where MemID is null Order By WEID";
 
 
 	@Override
@@ -124,7 +127,41 @@ public class WorkExchangeDAO implements WorkExchangeDAO_interface{
 			}
 		}
 	}
-
+	
+	@Override
+	public void updateMemID(WorkExchangeVO workExchangeVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_MEMID_SQL);
+			
+			pstmt.setString(1, workExchangeVO.getMemID());
+			pstmt.setInt(2, workExchangeVO.getWeID());
+			
+			
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 
@@ -232,6 +269,63 @@ public class WorkExchangeDAO implements WorkExchangeDAO_interface{
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_SQL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				workExchangeVO = new WorkExchangeVO();
+				workExchangeVO.setWeID(rs.getInt("weID"));
+				workExchangeVO.setEmpID(rs.getString("empID"));
+				workExchangeVO.setMemID(rs.getString("memID"));
+				workExchangeVO.setRtID(rs.getString("rtID"));
+				workExchangeVO.setWeName(rs.getString("weName"));
+				workExchangeVO.setWeContent(rs.getString("weContent"));
+				workExchangeVO.setWePic(rs.getBytes("wePic"));
+				workExchangeVO.setWeVideo(rs.getBytes("weVideo"));
+				workExchangeVO.setWeStart(rs.getDate("weStart"));				
+				workExchangeVO.setWeEnd(rs.getDate("weEnd"));
+				
+				list.add(workExchangeVO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<WorkExchangeVO> getAllEmpty() {
+		
+		List<WorkExchangeVO> list = new ArrayList<WorkExchangeVO>();
+		WorkExchangeVO workExchangeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Get_ALL_SQL_NM);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

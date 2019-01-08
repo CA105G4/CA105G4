@@ -31,8 +31,10 @@ public class WorkExchangeRecordDAO implements WorkExchangeRecordDAO_interface{
     		"INSERT INTO WorkExchangeRecord (weID, memID, werState, orderID, weApp) "
     		+ "VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE WorkExchangeRecord set werState = ? where weID = ? and memID = ?";
+    private static final String UPDATE_BYWE_SQL = "UPDATE WorkExchangeRecord set werState = ? where weID = ?";
     private static final String GET_ALL_SQL = "SELECT * from WorkExchangeRecord";
     private static final String GET_ONE_SQL = "SELECT weID, memID, werState, orderID, weApp from WorkExchangeRecord where weID = ? and memID = ?";
+    private static final String GET_ALL_BYWE_SQL = "SELECT * from WorkExchangeRecord where weID= ?";
     
 
 	@Override
@@ -105,6 +107,37 @@ public class WorkExchangeRecordDAO implements WorkExchangeRecordDAO_interface{
 		}
 	}
 
+	@Override
+	public void updateByWE(WorkExchangeRecordVO workExchangeRecordVO) {
+		Connection con = null; 
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_BYWE_SQL);
+			
+			pstmt.setInt(1, workExchangeRecordVO.getWerState());
+			pstmt.setInt(2, workExchangeRecordVO.getWeID());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 	@Override
@@ -214,40 +247,58 @@ public class WorkExchangeRecordDAO implements WorkExchangeRecordDAO_interface{
 		return list;
 	}
 	
-	public static void main(String[] args) {
-		WorkExchangeRecordDAO dao = new WorkExchangeRecordDAO();
+	@Override
+	public List<WorkExchangeRecordVO> getAllByWE(Integer weID) {
+		List<WorkExchangeRecordVO> list = new ArrayList<WorkExchangeRecordVO>();
+		WorkExchangeRecordVO workExchangeRecordVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		
-		//新增
-//		WorkExchangeRecordVO workExchangeRecordVO1 = new WorkExchangeRecordVO();
-//		workExchangeRecordVO1.setWeID(1002);
-//		workExchangeRecordVO1.setMemID("M0003");
-//		workExchangeRecordVO1.setWerState(1);
-//		workExchangeRecordVO1.setOrderID("20181212-000007");
-//		workExchangeRecordVO1.setWeApp(new BLOB().writeBlob("images/fishing.jpg"));
-//		dao.insert(workExchangeRecordVO1);
-//		System.out.println("Successfully Insert!!!!!");
-		
-		//修改
-//		dao.update(2, 1002, "M0003");
-//		System.out.println("Successfully Update!!!!");
-		
-		//查找一筆
-		WorkExchangeRecordVO workExchangeRecordVO4 = dao.findByPrimaryKey(1001,"M0001");
-		System.out.println(workExchangeRecordVO4.getWeID());
-		System.out.println(workExchangeRecordVO4.getMemID());
-		System.out.println(workExchangeRecordVO4.getWerState());
-		System.out.println(workExchangeRecordVO4.getOrderID());
-//		new BLOB().readBlob(workExchangeRecordVO4.getWeApp(), "fishing.jpg");
-		
-		//查找全部
-//		List<WorkExchangeRecordVO> list = dao.getAll();
-//		for(WorkExchangeRecordVO wl : list) {
-//			System.out.println(wl.getWeID());
-//			System.out.println(wl.getMemID());
-//			System.out.println(wl.getWerState());
-//			System.out.println(wl.getOrderID());
-//			new BLOB().readBlob(wl.getWeApp(), "fishing.jpg");
-//			System.out.println("--------------------------------");
-//		}	
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_BYWE_SQL);
+			pstmt.setInt(1, weID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				workExchangeRecordVO = new WorkExchangeRecordVO();
+				workExchangeRecordVO.setWeID(rs.getInt("weID"));
+				workExchangeRecordVO.setMemID(rs.getString("memID"));
+				workExchangeRecordVO.setWerState(rs.getInt("werState"));
+				workExchangeRecordVO.setOrderID(rs.getString("orderID"));
+				workExchangeRecordVO.setWeApp(rs.getBytes("weApp"));
+				
+				list.add(workExchangeRecordVO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}	
+		return list;
 	}
+
+
 }

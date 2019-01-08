@@ -21,8 +21,10 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
     		"INSERT INTO WorkExchangeRecord (weID, memID, werState, orderID, weApp) "
     		+ "VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE WorkExchangeRecord set werState = ? where weID = ? and memID = ?";
+    private static final String UPDATE_BYWE_SQL = "UPDATE WorkExchangeRecord set werState = ? where weID = ?";
     private static final String GET_ALL_SQL = "SELECT * from WorkExchangeRecord";
     private static final String GET_ONE_SQL = "SELECT weID, memID, werState, orderID, weApp from WorkExchangeRecord where weID = ? and memID = ?";
+    private static final String GET_ALL_BYWE_SQL = "SELECT * from WorkExchangeRecord where weID= ?";
     
     static {
     	try {
@@ -103,7 +105,36 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		}
 	}
 
-
+	public void updateByWE(WorkExchangeRecordVO workExchangeRecordVO) {
+		Connection con = null; 
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_BYWE_SQL);
+			
+			pstmt.setInt(1, workExchangeRecordVO.getWerState());
+			pstmt.setInt(2, workExchangeRecordVO.getWeID());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	@Override
 	public WorkExchangeRecordVO findByPrimaryKey(Integer werID, String memID) {
@@ -212,6 +243,57 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 		return list;
 	}
 	
+	public List<WorkExchangeRecordVO> getAllByWE(Integer weID) {
+		List<WorkExchangeRecordVO> list = new ArrayList<WorkExchangeRecordVO>();
+		WorkExchangeRecordVO workExchangeRecordVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_ALL_BYWE_SQL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				workExchangeRecordVO = new WorkExchangeRecordVO();
+				workExchangeRecordVO.setWeID(rs.getInt("weID"));
+				workExchangeRecordVO.setMemID(rs.getString("memID"));
+				workExchangeRecordVO.setWerState(rs.getInt("werState"));
+				workExchangeRecordVO.setOrderID(rs.getString("orderID"));
+				workExchangeRecordVO.setWeApp(rs.getBytes("weApp"));
+				
+				list.add(workExchangeRecordVO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}	
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		WorkExchangeRecordJDBCDAO dao = new WorkExchangeRecordJDBCDAO();
 		
@@ -230,11 +312,11 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 //		System.out.println("Successfully Update!!!!");
 		
 		//查找一筆
-		WorkExchangeRecordVO workExchangeRecordVO4 = dao.findByPrimaryKey(1002,"M0002");
-		System.out.println(workExchangeRecordVO4.getWeID());
-		System.out.println(workExchangeRecordVO4.getMemID());
-		System.out.println(workExchangeRecordVO4.getWerState());
-		System.out.println(workExchangeRecordVO4.getOrderID());
+//		WorkExchangeRecordVO workExchangeRecordVO4 = dao.findByPrimaryKey(1002,"M0002");
+//		System.out.println(workExchangeRecordVO4.getWeID());
+//		System.out.println(workExchangeRecordVO4.getMemID());
+//		System.out.println(workExchangeRecordVO4.getWerState());
+//		System.out.println(workExchangeRecordVO4.getOrderID());
 //		new BLOB().readBlob(workExchangeRecordVO4.getWeApp(), "fishing.jpg");
 		
 		//查找全部
@@ -246,6 +328,17 @@ public class WorkExchangeRecordJDBCDAO implements WorkExchangeRecordDAO_interfac
 //			System.out.println(wl.getOrderID());
 //			new BLOB().readBlob(wl.getWeApp(), "fishing.jpg");
 //			System.out.println("--------------------------------");
-//		}	
+//		}
+		
+		//依需求查詢
+//		List<WorkExchangeRecordVO> list = dao.getAllByWE(1001);
+//		for(WorkExchangeRecordVO wl : list) {
+//			System.out.println(wl.getWeID());
+//			System.out.println(wl.getMemID());
+//			System.out.println(wl.getWerState());
+//			System.out.println(wl.getOrderID());
+////			new BLOB().readBlob(wl.getWeApp(), "fishing.jpg");
+//			System.out.println("--------------------------------");
+//		}
 	}
 }

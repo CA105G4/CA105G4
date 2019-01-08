@@ -22,15 +22,22 @@ public class WorkExchangeRecordService {
 			 
 			 return workExchangeRecordVO; 
 		 }
-		public WorkExchangeRecordVO updateWER(Integer weID, String memID, Integer werState, String orderID, byte[] weApp){
+		public WorkExchangeRecordVO updateWER(Integer weID, String memID, Integer werState){
 			WorkExchangeRecordVO workExchangeRecordVO = new WorkExchangeRecordVO();
 			
 			workExchangeRecordVO.setWeID(weID);
 			workExchangeRecordVO.setMemID(memID);
 			workExchangeRecordVO.setWerState(werState);
-			workExchangeRecordVO.setOrderID(orderID);
-			workExchangeRecordVO.setWeApp(weApp);
 			dao.update(workExchangeRecordVO);
+			
+			return workExchangeRecordVO; 
+		}
+		public WorkExchangeRecordVO updateByWE(Integer weID, Integer werState){
+			WorkExchangeRecordVO workExchangeRecordVO = new WorkExchangeRecordVO();
+			
+			workExchangeRecordVO.setWeID(weID);
+			workExchangeRecordVO.setWerState(werState);
+			dao.updateByWE(workExchangeRecordVO);
 			
 			return workExchangeRecordVO; 
 		}
@@ -41,6 +48,10 @@ public class WorkExchangeRecordService {
 		 
 		public List<WorkExchangeRecordVO> getAll(){
 			return dao.getAll();
+		} 
+		
+		public List<WorkExchangeRecordVO> getAllByWE(Integer weID){
+			return dao.getAllByWE(weID);
 		} 
 	}
 	

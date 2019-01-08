@@ -25,6 +25,7 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
     		+ "VALUES (we_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE WorkExchange set empID= ?, memID = ?, rtID = ?,"
     		+ "weName = ?, weContent = ?, wePic = ?, weVideo = ?, weStart = ?, weEnd = ? where weID = ?";
+    private static final String UPDATE_MEMID_SQL = "Update WorkExchange set memID = ? where weID = ?";
     private static final String DELETE_SQL = "DELETE from WorkExchange where weID = ?";
     private static final String GET_ALL_SQL = "SELECT * from WorkExchange";
     private static final String GET_ONE_SQL = "SELECT weID, empID, memID, rtID, weName, weContent, wePic, weVideo, weStart, weEnd from WorkExchange where weID = ?";
@@ -123,6 +124,40 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 		}
 	}
 
+	@Override
+	public void updateMemID(WorkExchangeVO workExchangeVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_MEMID_SQL);
+			
+			pstmt.setString(1, workExchangeVO.getMemID());
+			pstmt.setInt(2, workExchangeVO.getWeID());
+			
+			
+			
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 
 
@@ -339,5 +374,13 @@ public class WorkExchangeJDBCDAO implements WorkExchangeDAO_interface{
 //			System.out.println(wl.getWeEnd());
 //			System.out.println("-------------------------------------");
 //		}				
+	}
+
+
+
+	@Override
+	public List<WorkExchangeVO> getAllEmpty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
