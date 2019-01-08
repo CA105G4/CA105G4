@@ -121,5 +121,9 @@ public class OrdersService {
 		return dao.findOrdersBymemIDordState123(memID);
 	};
 	
+	//[Gina]{加床}加床要更改訂單總金額
+	public void addBedupdateAmount(Integer amount, String ordID) {
+		dao.addBedupdateAmount(amount, ordID);
+	}
 	
 }

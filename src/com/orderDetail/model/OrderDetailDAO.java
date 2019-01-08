@@ -34,6 +34,9 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 	//[Gina]{CHECKIN} 訂單明細加入房間編號
 	private static final String UPDATE_roomID_ByodID ="UPDATE OrderDetail SET roomID=? WHERE ODID = ?";
 	
+	//[Gina]{加床}再訂單明細中改加床
+	private static final String UPDATE_SPECIAL_ByodID ="UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?";
+	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
 		Connection con = null;
@@ -372,6 +375,43 @@ System.out.println("訂單明細收到odID:"+odID);
 			//UPDATE OrderDetail SET roomID=? WHERE ODID = ?
 			
 			pstmt.setString(1, roomID);
+			pstmt.setInt(2, odID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void updateSpecial(Integer special, Integer odID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_SPECIAL_ByodID);	
+			//UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?
+			
+			pstmt.setInt(1, special);
 			pstmt.setInt(2, odID);
 			
 			pstmt.executeUpdate();

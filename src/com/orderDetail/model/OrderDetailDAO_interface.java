@@ -17,5 +17,8 @@ public interface OrderDetailDAO_interface {
 	
 	//[Gina]{CHECKIN} 訂單明細加入房間編號
 	public void updateRoomID(String roomID, Integer odID);
+	
+	//[Gina]{加床}再訂單明細中改加床
+	public void updateSpecial(Integer special, Integer odID);
 
 }

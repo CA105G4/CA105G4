@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import com.activity.model.ActivityService;
 import com.orderDetail.model.OrderDetailService;
 import com.orderDetail.model.OrderDetailVO;
+import com.orders.model.OrdersCheckInOutVO;
 import com.orders.model.OrdersService;
 import com.orders.model.OrdersVO;
 import com.room.model.RoomService;
@@ -320,6 +321,7 @@ System.out.println("=======================");
 				ordSvc.insertwithOrderDetail(ordVO, odlist, rtIDandNumMap);
 				
 				/*------新增完成,SET，然後轉交(Send the Success view)------*/
+				req.setAttribute("memID", memID);
 				req.setAttribute("rtIDandNumMap", rtIDandNumMap);
 				
 				String comeURI = req.getParameter("requestURL");
@@ -517,18 +519,16 @@ System.out.println("傳進來的roomState"+roomState);
 		}
 		
 		
-		if("CheckInUpdate".equals(action)) {
+		if("InsertRoomintoOd".equals(action)) {
 			
-			/*------修改訂單的狀態------*/
 			String ordID = req.getParameter("ordID");
-			OrdersService ordSvc = new OrdersService();
-			ordSvc.updateOrdState(1, ordID); //訂單狀態1，為"入住"的意思
-System.out.println("修改訂單狀態成功");
+			System.out.println("ordID:"+ordID);
 					
 			/*------修改被分配的該間 房間的狀態 及 入住會員姓名------*/
 			String roomID = req.getParameter("roomID");
 			RoomService roomSvc = new RoomService();
 			
+			OrdersService ordSvc = new OrdersService();
 			OrdersVO ordVO =ordSvc.getOneOrders(ordID);
 			String memname = ordVO.getMemID();
 			System.out.println(ordID+"訂單的會員為:"+memname);
@@ -557,20 +557,63 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			successView.forward(req, res);
 		}
 		
+		if("CheckInUpdate".equals(action)) {
+			String ordID = req.getParameter("ordID");
+			
+			System.out.println("ordID:"+ordID);
+			
+			OrdersService ordSvc = new OrdersService();
+			
+			/*------先確認是否此訂單皆有分房完成------*/
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			Set<OrderDetailVO> odlist = ordSvc.getOrderDetailByOrders(ordID);
+			for(OrderDetailVO odVO : odlist) {
+				if(odVO.getRoomID() == null) {
+					errorMsgs.add("此訂單還有明細尚未分房!請先分房完再checkIn!");
+				}
+			}
+			
+			if(!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/orders/checkIn.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
+			/*------如以上錯誤驗證皆無問題，修改訂單的狀態------*/
+			ordSvc.updateOrdState(1, ordID); //訂單狀態1，為"入住"的意思
+System.out.println("修改訂單狀態成功");
+
+			/*------以上方法皆結束，轉交回checkIn網頁------*/
+			String url = "/back-end/orders/checkIn.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
+		
 		if("CheckOutUpdate".equals(action)) {
 			
-			/*------修改訂單的狀態------*/
 			String ordID = req.getParameter("ordID");
 			OrdersService ordSvc = new OrdersService();
+			
+			/*------先找到被選擇的該張訂單所有的明細------*/
+			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
+			
+			/*------每張明細中的房間，改其 房間的狀態3 及 入住會員姓名"清空"------*/
+			for(OrderDetailVO odVO : odSet) {
+				
+				/*------修改被分配的該間 房間的狀態 及 入住會員姓名------*/
+				String roomID = odVO.getRoomID();
+				RoomService roomSvc = new RoomService();
+				
+				String memname = "";
+				System.out.println(ordID+"訂單的會員為:"+memname);
+				roomSvc.updateRoomState(3, memname, roomID); //房間狀態3，為"打掃"的意思
+			}
+			
+			/*------修改訂單的狀態------*/
 			ordSvc.updateOrdState(2, ordID); 
 			
-			/*------修改被分配的該間 房間的狀態 及 入住會員姓名------*/
-			String roomID = req.getParameter("roomID");
-			RoomService roomSvc = new RoomService();
-			
-			String memname = "";
-			System.out.println(ordID+"訂單的會員為:"+memname);
-			roomSvc.updateRoomState(3, memname, roomID); //房間狀態2，為"入住"的意思
 			
 			/*------以上方法皆結束，轉交回checkOut網頁------*/
 			String url = "/back-end/orders/checkOut.jsp";
@@ -594,32 +637,10 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			
 			/*------準備轉交------*/
 			String comeURI = req.getParameter("requestURL");
+			System.out.println("comeURI：" + comeURI);
 			
-			if("/back-end/orders/listAllOrders.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}else if("/back-end/orders/normalOrders.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}else if("/back-end/orders/workExchangeOrders.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}else if("/back-end/orders/returnOrders.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}else if("/front-end/orders/myAccountorders.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}else if("/front-end/orders/myAccountordersRecord.jsp".equals(comeURI)) {
-				System.out.println("comeURI：" + comeURI);
-				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
-				successView.forward(req, res);
-			}
+			RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+			successView.forward(req, res);
 	
 		}
 		
@@ -631,10 +652,12 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			OrdersService ordSvc = new OrdersService();			
 			ordSvc.updateOrdState(3, ordID);	//訂單狀態3，為"退訂"的意思
 			
-			String url = "/front-end/orders/myAccountorders.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
+			String comeURI = req.getParameter("requestURL");
+			System.out.println("comeURI:" + comeURI);
+
+			RequestDispatcher successView = req.getRequestDispatcher(comeURI);
 			successView.forward(req, res);
+			
 		}
 		
 		if ("GiveEvaluates".equals(action)) {
@@ -649,6 +672,89 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			System.out.println("url" + url);
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
+		}
+		
+		if ("AddBed".equals(action)) {
+			String ordID = req.getParameter("ordID");
+			System.out.println("service接收到ordID:"+ordID);
+			
+			/*------取到該行的訂單資料，並且轉交------*/
+			OrdersService ordSvc = new OrdersService();
+			OrdersVO ordVO = ordSvc.getOneOrders(ordID);
+			
+			req.setAttribute("ordVO", ordVO);
+			
+			/*------取到該行的訂單資料的訂單明細，並且轉交------*/
+			Integer odID = new Integer(req.getParameter("odID"));
+System.out.println("傳進來的odID"+odID);
+			OrderDetailService odSvc = new OrderDetailService();
+			OrderDetailVO odVO = odSvc.getOneOrderDetail(odID);
+			
+			req.setAttribute("odVO", odVO);
+			
+			/*------取到來源，把來源網址傳到加床頁面------*/
+			String comeURI = req.getParameter("requestURL");
+			System.out.println("comeURI:" + comeURI);
+			
+			req.setAttribute("comeURI", comeURI);
+			
+			/*------導回來源------*/
+			String url = "/back-end/orders/addBed.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+			
+		}
+		
+		if ("ChangeAmount".equals(action)) {
+			String ordID = req.getParameter("ordID");
+System.out.println("service接收到ordID:"+ordID);
+			Integer odID = new Integer(req.getParameter("odID"));
+System.out.println("傳進來的odID"+odID);
+			
+			/*------取到加床的值------*/
+			Integer special = new Integer(req.getParameter("special"));
+			
+			/*------找到原本加床的欄位值------*/
+			OrderDetailService odSvc = new OrderDetailService();
+			int oldSpecial = odSvc.getOneOrderDetail(odID).getSpecial();
+			
+			/*------判斷原本欄位與新的欄位是否一致------*/
+			if(oldSpecial != special) {	
+				/*------對明細進行 加床欄位 更改的動作------*/
+				odSvc.updateSpecial(special, odID);
+System.out.println("對明細的加床欄位進行修改");
+				
+				if(special==0){
+					/*------原本加床變不加床(-500)------*/
+					OrdersService ordSvc = new OrdersService();
+					Integer oldAmount = ordSvc.getOneOrders(ordID).getAmount();
+System.out.println("oldAmount:"+oldAmount);
+					Integer newAmount = oldAmount-500;
+System.out.println("newAmount:"+newAmount);
+					ordSvc.addBedupdateAmount(newAmount, ordID);
+				}else {
+					/*------原本不加床變加床(+500)------*/
+					OrdersService ordSvc = new OrdersService();
+					Integer oldAmount = ordSvc.getOneOrders(ordID).getAmount();
+System.out.println("oldAmount:"+oldAmount);
+					Integer newAmount = oldAmount+500;
+System.out.println("newAmount:"+newAmount);
+					ordSvc.addBedupdateAmount(newAmount, ordID);
+				}
+				
+				String comeURI = req.getParameter("comeURI");
+System.out.println("comeURI:" + comeURI);
+				
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}else {
+				String comeURI = req.getParameter("comeURI");
+System.out.println("comeURI:" + comeURI);
+				
+				RequestDispatcher successView = req.getRequestDispatcher(comeURI);
+				successView.forward(req, res);
+			}
+						
 		}
 		
 	}

@@ -60,6 +60,10 @@ public class OrdersDAO implements OrdersDAO_interface {
 	
 	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
 	private static final String SELECT_ORDERS_BymemIDordSta123 = "SELECT * FROM ORDERS WHERE MEMID=? AND (ordState=1 OR ordState=2 OR ordState=3)";
+	
+	//[Gina]{加床}加床要更改訂單總金額
+	private static final String UPDATE_AMOUNT_ByOrdID = "UPDATE ORDERS SET amount=? WHERE ordID = ?";
+	
 			
 	@Override
 	public void insert(OrdersVO ordersVO) {
@@ -1000,5 +1004,40 @@ System.out.println("訂單收到ordID:"+ordID);
 		return list;
 	}
 
+	@Override
+	public void addBedupdateAmount(Integer amount, String ordID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_AMOUNT_ByOrdID);	
+			//UPDATE ORDERS SET amount=? WHERE ordID = ?
+			
+			pstmt.setInt(1, amount);
+			pstmt.setString(2, ordID);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
 }

@@ -45,4 +45,7 @@ public interface OrdersDAO_interface {
 	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
 	public List<OrdersVO> findOrdersBymemIDordState123(String memID);
 	
+	//[Gina]{加床}加床要更改訂單總金額
+	public void addBedupdateAmount(Integer amount, String ordID);
+	
 }
