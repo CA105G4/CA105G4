@@ -311,7 +311,7 @@
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/employee/empImg.do" name="form1" enctype="multipart/form-data" >
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/employee/emp.do" name="form1" enctype="multipart/form-data" >
 <table>
 	<tr>
 		<td>員工姓名:</td>
