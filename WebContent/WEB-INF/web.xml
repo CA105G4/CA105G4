@@ -143,15 +143,6 @@
 		<servlet-name>AjaxResRoomType</servlet-name>
 		<url-pattern>/roomType/AjaxResRoomType.do</url-pattern>
 	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>MemberImgServlet</servlet-name>
-		<servlet-class>com.member.model.MemberImgServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MemberImgServlet</servlet-name>
-		<url-pattern>/member/memImg.do</url-pattern>
-	</servlet-mapping>
 	<!-- Gina end -->
 
 	<!-- Ivan -->
@@ -163,7 +154,7 @@
 		<servlet-name>RoomServlet</servlet-name>
 		<url-pattern>/room/room.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>WorkExchangeServlet</servlet-name>
 		<servlet-class>com.workExchange.controller.WorkExchangeServlet</servlet-class>
@@ -172,7 +163,7 @@
 		<servlet-name>WorkExchangeServlet</servlet-name>
 		<url-pattern>/workExchange/workExchange.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>WorkExchangeImgServlet</servlet-name>
 		<servlet-class>com.workExchange.controller.WorkExchangeImgServlet</servlet-class>
@@ -181,7 +172,7 @@
 		<servlet-name>WorkExchangeImgServlet</servlet-name>
 		<url-pattern>/workExchange/workExchangeImg.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>WorkExchangeVideoServlet</servlet-name>
 		<servlet-class>com.workExchange.controller.WorkExchangeVideoServlet</servlet-class>
@@ -190,7 +181,7 @@
 		<servlet-name>WorkExchangeVideoServlet</servlet-name>
 		<url-pattern>/workExchange/workExchangeVideo.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>WorkExchangeRecordServlet</servlet-name>
 		<servlet-class>com.workExchangeRecord.controller.WorkExchangeRecordServlet</servlet-class>
@@ -199,7 +190,7 @@
 		<servlet-name>WorkExchangeRecordServlet</servlet-name>
 		<url-pattern>/workExchangeRecord/workExchangeRecord.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>WorkExchangeRecordImgServlet</servlet-name>
 		<servlet-class>com.workExchangeRecord.controller.WorkExchangeRecordImgServlet</servlet-class>
@@ -211,15 +202,194 @@
 	<!-- Ivan end -->
 
 	<!-- PO -->
+	<servlet>
+		<servlet-name>ActServlet</servlet-name>
+		<servlet-class>com.activity.controller.ActServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActServlet</servlet-name>
+		<url-pattern>/back-end/activity/act.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BchServlet</servlet-name>
+		<servlet-class>com.branch.controller.braServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BchServlet</servlet-name>
+		<url-pattern>/back-end/branch/bra.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>braImgServlet</servlet-name>
+		<servlet-class>com.branch.controller.braImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>braImgServlet</servlet-name>
+		<url-pattern>/back-end/branch/braImg.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>braVideoServlet</servlet-name>
+		<servlet-class>com.branch.controller.braVideoServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>braVideoServlet</servlet-name>
+		<url-pattern>/back-end/branch/braVideo.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BBServlet</servlet-name>
+		<servlet-class>com.billboard.controller.BBServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BBServlet</servlet-name>
+		<url-pattern>/back-end/billboard/bb.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CpnServlet</servlet-name>
+		<servlet-class>com.coupon.controller.CpnServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CpnServlet</servlet-name>
+		<url-pattern>/back-end/coupon/cpn.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>CpnImgServlet</servlet-name>
+		<servlet-class>com.coupon.controller.CpnImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CpnImgServlet</servlet-name>
+		<url-pattern>/front-end/coupon/cpn.do</url-pattern>
+	</servlet-mapping>
 	<!-- PO end -->
 
+	<!-- Wen -->
+	<servlet>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<servlet-class>com.employee.controller.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<url-pattern>/employee/emp.do</url-pattern>
+	</servlet-mapping>
 
-	<!--  -->
-	<!--  -->
+	<servlet>
+		<servlet-name>EmployeeImgServlet</servlet-name>
+		<servlet-class>com.employee.model.EmployeeImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeImgServlet</servlet-name>
+		<url-pattern>/employee/empImg.do</url-pattern>
+	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/mem.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>MemberImgServlet</servlet-name>
+		<servlet-class>com.member.model.MemberImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberImgServlet</servlet-name>
+		<url-pattern>/member/memImg.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AuthorityRecordServlet</servlet-name>
+		<servlet-class>com.authorityRecord.controller.AuthorityRecordServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthorityRecordServlet</servlet-name>
+		<url-pattern>/authorityRecord/authorityRecord.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AuthorityServlet</servlet-name>
+		<servlet-class>com.authority.controller.AuthorityServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AuthorityServlet</servlet-name>
+		<url-pattern>/authority/authority.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>memLogin</servlet-name>
+		<servlet-class>com.member.controller.memLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>memLogin</servlet-name>
+		<url-pattern>/front-end/memlogin.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmpLogin</servlet-name>
+		<servlet-class>com.employee.controller.EmpLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpLogin</servlet-name>
+		<url-pattern>/back-end/Emplogin.do</url-pattern>
+	</servlet-mapping>
+	<!-- Wen end -->
 
 	<!-- Android -->
-	
+	<!-- 會員 -->
+	<servlet>
+		<servlet-name>AndroidMemberServlet</servlet-name>
+		<servlet-class>com.android.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidMemberServlet</servlet-name>
+		<url-pattern>/member/Member.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 優惠券 -->
+	<servlet>
+		<servlet-name>AndroidCouponServlet</servlet-name>
+		<servlet-class>com.android.coupon.controller.CouponServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidCouponServlet</servlet-name>
+		<url-pattern>/coupon/Coupon.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 房型 -->
+	<servlet>
+		<servlet-name>AndroidRoomTypeServlet</servlet-name>
+		<servlet-class>com.android.roomType.controller.RoomTypeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidRoomTypeServlet</servlet-name>
+		<url-pattern>/roomType/RoomType.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 分店 -->
+	<servlet>
+		<servlet-name>AndroidBranchServlet</servlet-name>
+		<servlet-class>com.android.branch.controller.BranchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidBranchServlet</servlet-name>
+		<url-pattern>/branch/Branch.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 訂單 -->
+	<servlet>
+		<servlet-name>AndroidOrdersServlet</servlet-name>
+		<servlet-class>com.android.orders.controller.OrdersServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidOrdersServlet</servlet-name>
+		<url-pattern>/orders/Orders.do</url-pattern>
+	</servlet-mapping>
 	<!-- Android end -->
 
 
