@@ -8,8 +8,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.employee.model.*;
-import com.member.model.MemberService;
-import com.member.model.MemberVO;
+
 @MultipartConfig
 public class EmployeeServlet extends HttpServlet {
 
@@ -43,7 +42,7 @@ public class EmployeeServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;
 				}
 				
 				String empID = null;
@@ -71,13 +70,13 @@ public class EmployeeServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;
 				}
 				
 				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)*************/
 				req.setAttribute("employeeVO", employeeVO); // 資料庫取出的empVO物件,存入req
-				String url = "/back-end/listOneEmp.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\���listOneEmp.jsp
+				String url = "/back-end/employee/listOneEmp.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/***************************��L�i�઺���~�B�z*************************************/
@@ -90,7 +89,7 @@ public class EmployeeServlet extends HttpServlet {
 		}
 		
 		
-		if ("getOne_For_Update".equals(action)) { // �Ӧ�listAllEmp.jsp ��  /dept/listEmps_ByDeptno.jsp ���ШD
+		if ("getOne_For_Update".equals(action)) { 
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -106,9 +105,9 @@ public class EmployeeServlet extends HttpServlet {
 				EmployeeVO employeeVO = empSvc.getOneEmp(empID);
 								
 				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
-				req.setAttribute("employeeVO", employeeVO); // ��Ʈw���X��empVO����,�s�Jreq
+				req.setAttribute("employeeVO", employeeVO); 
 				String url = "/back-end/employee/update_emp_input.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\���update_emp_input.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/***************************��L�i�઺���~�B�z************************************/
@@ -119,7 +118,7 @@ public class EmployeeServlet extends HttpServlet {
 		}
 		
 		
-		if ("update".equals(action)) { // �Ӧ�update_emp_input.jsp���ШD
+		if ("update".equals(action)) { 
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -134,7 +133,7 @@ public class EmployeeServlet extends HttpServlet {
 				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (empName == null || empName.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
-				} else if(!empName.trim().matches(enameReg)) { //�H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
+				} else if(!empName.trim().matches(enameReg)) {
 					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
@@ -197,11 +196,11 @@ public class EmployeeServlet extends HttpServlet {
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("employeeVO", employeeVO); // �t����J�榡���~��empVO����,�]�s�Jreq
+					req.setAttribute("employeeVO", employeeVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/employee/update_emp_input.jsp");
 					failureView.forward(req, res);
-					return; //�{�����_
+					return; 
 				}
 				
 				/***************************2.�}�l�ק���*****************************************/
@@ -209,34 +208,34 @@ public class EmployeeServlet extends HttpServlet {
 				employeeVO = empSvc.updateEmp(braID, empName, empJob, empTel, empState, empAcc, empPsw, empID);
 				
 				/***************************3.�ק粒��,�ǳ����(Send the Success view)*************/
-				req.setAttribute("employeeVO", employeeVO); // ��Ʈwupdate���\��,���T����empVO����,�s�Jreq
+				req.setAttribute("employeeVO", employeeVO); 
 				String url = "/back-end/employee/listOneEmp.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // �ק令�\��,���listOneEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
 				/***************************��L�i�઺���~�B�z*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("�ק��ƥ���:"+e.getMessage());
+				errorMsgs.add("無法取得資料:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/back-end/employee/update_emp_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
 
-        if ("insert".equals(action)) { // �Ӧ�addEmp.jsp���ШD  
+        if ("insert".equals(action)) {  
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
-//			try {
+			try {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 				String empName = req.getParameter("empName");
 				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 				if (empName == null || empName.trim().length() == 0) {
 					errorMsgs.add("員工姓名: 請勿空白");
-				} else if(!empName.trim().matches(enameReg)) { //�H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
+				} else if(!empName.trim().matches(enameReg)) { 
 					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
@@ -287,10 +286,10 @@ public class EmployeeServlet extends HttpServlet {
 				employeeVO.setEmpTel(empTel);
 				employeeVO.setEmpAcc(empAcc);
 				employeeVO.setEmpPsw(empPsw);
-
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("employeeVO", employeeVO); // �t����J�榡���~��empVO����,�]�s�Jreq
+					req.setAttribute("employeeVO", employeeVO); 
 					
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/back-end/employee/addEmployee.jsp");
@@ -305,16 +304,21 @@ public class EmployeeServlet extends HttpServlet {
 				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
 				
 				String url = "/back-end/employee/listAllEmp_1.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				
 				
 				/***************************��L�i�઺���~�B�z**********************************/
 			
+		}catch (Exception e) {
+			errorMsgs.add("無法取得資料" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/back-end/employee/addEmployee.jsp");
+			failureView.forward(req, res);
 		}
 		
        
 		
 			
-		
+        }
 	}
 }

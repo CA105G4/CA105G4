@@ -25,7 +25,7 @@ public class EmpLogout  extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.removeAttribute("employeeVO");
 //		session.invalidate();
-		String url ="login.jsp";
+		String url =req.getContextPath()+"/back-end/login.jsp";
 		res.sendRedirect(url);
 		System.out.println(session.getAttribute("employeeVO"));
 	}
