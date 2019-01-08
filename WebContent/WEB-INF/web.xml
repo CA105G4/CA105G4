@@ -321,6 +321,23 @@
 		<url-pattern>/authority/authority.do</url-pattern>
 	</servlet-mapping>
 
+	<filter>
+		<filter-name>EmpLoginFilter</filter-name>
+		<filter-class>com.employee.controller.EmpLoginFliter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>EmpLoginFilter</filter-name>
+		<url-pattern>/back-end/employee/addEmployee.jsp</url-pattern>
+		<url-pattern>/back-end/employee/listAllEmp_1.jsp</url-pattern>
+		<url-pattern>/back-end/employee/listOneEmp.jsp</url-pattern>
+		<url-pattern>/back-end/employee/update_emp_input.jsp</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
 	<servlet>
 		<servlet-name>memLogin</servlet-name>
 		<servlet-class>com.member.controller.memLogin</servlet-class>
@@ -337,6 +354,15 @@
 	<servlet-mapping>
 		<servlet-name>EmpLogin</servlet-name>
 		<url-pattern>/back-end/Emplogin.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmpLogout</servlet-name>
+		<servlet-class>com.employee.controller.EmpLogout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmpLogout</servlet-name>
+		<url-pattern>/back-end/EmpLogout.do</url-pattern>
 	</servlet-mapping>
 	<!-- Wen end -->
 
