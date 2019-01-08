@@ -85,9 +85,9 @@
 					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
 					<div class="dropdown-divider"></div>
 					<h6 class="dropdown-header">列表:</h6>
-					<a class="dropdown-item" href="tables.html">一般訂單列表</a> <a
-						class="dropdown-item" href="tables.html">打工換宿訂單列表</a> <a
-						class="dropdown-item" href="tables.html">退訂訂單列表</a>
+					<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/normalOrders.jsp">一般訂單列表</a> <a
+						class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/workExchangeOrders.jsp">打工換宿訂單列表</a> <a
+						class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/returnOrders.jsp">退訂訂單列表</a>
 				</div></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="pagesDropdown3"
