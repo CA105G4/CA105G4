@@ -1,15 +1,26 @@
-package com.orderDetail.model;
+package com.android.orderDetail.model;
 
 import java.util.*;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import com.android.roomType.model.RoomTypeDAO;
+
 import java.sql.*;
 
-import com.roomType.model.RoomTypeJDBCDAO;
-
-public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA105G4";
-	String passwd = "123456";
+public class OrderDetailDAO implements OrderDetailDAO_interface{
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource)ctx.lookup("java:comp/env/jdbc/CA105G4DB");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private static final String INSERT_STMT = "INSERT INTO ORDERDETAIL(ODID, ORDID, RTID, CHECKIN, CHECKOUT, SPECIAL) VALUES (od_seq.NEXTVAL, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM OrderDetail";
@@ -17,15 +28,11 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	
 	private static final String DELETE = "DELETE FROM OrderDetail where ODID = ?";
 	private static final String UPDATE = "UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, checkOut=?, EVALUATES=?, special=? WHERE ODID = ?";
-	
+
 	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
 	
 	//[Gina]{CHECKIN} 訂單明細加入房間編號
 	private static final String UPDATE_roomID_ByodID ="UPDATE OrderDetail SET roomID=? WHERE ODID = ?";
-	
-	//[Gina]{加床}再訂單明細中改加床
-	private static final String UPDATE_SPECIAL_ByodID ="UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?";
-	
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -33,8 +40,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setString(1, orderDetailVO.getOrdID());
@@ -45,9 +51,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -76,8 +79,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);	
 			/*"UPDATE OrderDetail SET roomID=?, ordID=?, rtID=?, checkIn=?, 
 			checkOut=?, rtName=?, EVALUATES=?, special=? WHERE ODID = ?" */
@@ -94,9 +96,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -125,8 +124,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);	//DELETE FROM OrderDetail where ODID = ?
 			
 			pstmt.setInt(1, odID);
@@ -134,9 +132,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -167,8 +162,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);	//SELECT * FROM OrderDetail WHERE ODID = ?
 			
 			pstmt.setInt(1, odID);
@@ -180,7 +174,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -188,9 +182,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setSpecial(rs.getInt("SPECIAL"));
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -224,8 +215,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);	//SELECT * FROM OrderDetail
 			
 			rs = pstmt.executeQuery();
@@ -235,7 +225,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -244,9 +234,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				list.add(orderDetailVO);
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -280,8 +267,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		ResultSet rs = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_OrderDetail_ByOrders_STMT);	//SELECT * FROM ORDERDETAIL WHERE ORDID=?
 			
 			pstmt.setString(1, ordID);
@@ -293,7 +279,7 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				orderDetailVO.setOdID(rs.getInt("ODID"));
 				orderDetailVO.setRoomID(rs.getString("ROOMID"));
 				orderDetailVO.setOrdID(rs.getString("ORDID"));
-				orderDetailVO.setOrdID(rs.getString("RTID"));
+				orderDetailVO.setRtID(rs.getString("RTID"));
 				orderDetailVO.setCheckIn(rs.getDate("CHECKIN"));
 				orderDetailVO.setCheckOut(rs.getDate("CHECKOUT"));
 				orderDetailVO.setRtName(rs.getString("RTNAME"));
@@ -302,9 +288,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				set.add(orderDetailVO);
 			}
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -328,7 +311,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		return set;
 	}
 	
-	
 	@Override
 	public void insertwithOrders(OrderDetailVO orderDetailVO, Connection con, Map<String,Integer> rtIDandNumMap) {
 		
@@ -348,13 +330,11 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			pstmt.executeUpdate();
 			
 			/****去更改房型狀態****/
-			RoomTypeJDBCDAO rtdao = new RoomTypeJDBCDAO();
+			RoomTypeDAO rtdao = new RoomTypeDAO();
 			rtdao.updateRoomBalance(orderDetailVO.getRtID(), orderDetailVO.getCheckIn(), orderDetailVO.getCheckOut(), con, rtIDandNumMap);
-			System.out.println("房型編號" + orderDetailVO.getRtID());
-			System.out.println("入住日期" + orderDetailVO.getCheckIn());
-			System.out.println("退房日期" + orderDetailVO.getCheckOut());
-			
-			
+			System.out.println("od房型編號" + orderDetailVO.getRtID());
+			System.out.println("od入住日期" + orderDetailVO.getCheckIn());
+			System.out.println("od退房日期" + orderDetailVO.getCheckOut());
 			
 		} catch (Exception e) {
 			if (con != null) {
@@ -377,18 +357,17 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				}
 			}
 		}
-
-	}	
-	
+	}
 	
 	@Override
 	public void updateRoomID(String roomID, Integer odID) {
+System.out.println("訂單明細收到roomID:"+roomID);
+System.out.println("訂單明細收到odID:"+odID);
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_roomID_ByodID);	
 			//UPDATE OrderDetail SET roomID=? WHERE ODID = ?
 			
@@ -397,49 +376,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void updateSpecial(Integer special, Integer odID) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_SPECIAL_ByodID);	
-			//UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?
-			
-			pstmt.setInt(1, special);
-			pstmt.setInt(2, odID);
-			
-			pstmt.executeUpdate();
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -462,93 +398,4 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 	}
 	
-	
-	
-	public static void main(String[] args) {
-		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
-		
-		
-//		//新增
-//		Date checkin = Date.valueOf("2019-01-15");
-//		Date checkout = Date.valueOf("2019-01-16");
-//		
-//		OrderDetailVO od01 = new OrderDetailVO();
-//		od01.setOrdID("20181223-000008");
-//		od01.setRtID("RT02");
-//		od01.setCheckIn(checkin);
-//		od01.setCheckOut(checkout);
-//		od01.setSpecial(1);
-//		
-//		dao.insert(od01);
-//		System.out.println("新增成功!!");
-		
-		//修改
-//		OrderDetailVO od02 = new OrderDetailVO();
-//		od02.setRoomID("R00002");
-//		od02.setOrdID("20181223-000010");
-//		od02.setRtID("RT02");
-//		
-//		od02.setCheckIn(Date.valueOf("2018-11-10"));
-//		od02.setCheckOut(Date.valueOf("2018-11-12"));	
-//		
-//		od02.setEvaluates(8.0);
-//		od02.setSpecial(1);
-//		od02.setOdID(1005);
-//		
-//		dao.update(od02);
-//		System.out.println("修改成功!!!");
-		
-		//刪除	!!!! 記得要commit;	!!!	
-//		dao.delete(1012);
-//		System.out.println("成功刪除!!");
-		
-		//查詢一筆
-//		OrderDetailVO od03 = dao.findByPrimaryKey(1009);
-//		System.out.println(od03.getOdID());
-//		System.out.println(od03.getRoomID());
-//		System.out.println(od03.getOrdID());
-//		System.out.println(od03.getRtID());
-//		System.out.println(od03.getCheckIn());
-//		System.out.println(od03.getCheckOut());
-//		System.out.println(od03.getRtName());
-//		System.out.println(od03.getEvaluates());
-//		System.out.println(od03.getSpecial());
-//		System.out.println("========================");
-		
-		//查詢多筆
-//		List<OrderDetailVO> list = dao.getALL();
-//		for(OrderDetailVO od : list) {
-//			System.out.println(od.getOdID());
-//			System.out.println(od.getRoomID());
-//			System.out.println(od.getOrdID());
-//			System.out.println(od.getRtID());
-//			System.out.println(od.getCheckIn());
-//			System.out.println(od.getCheckOut());
-//			System.out.println(od.getRtName());
-//			System.out.println(od.getEvaluates());
-//			System.out.println(od.getSpecial());
-//			System.out.println("---------------------------");
-//		}
-		
-		//查找單筆訂單的明細
-		Set<OrderDetailVO> set = dao.findByOrders("20181223-000002");
-		
-		for(OrderDetailVO od : set) {
-		System.out.println(od.getOdID());
-		System.out.println(od.getRoomID());
-		System.out.println(od.getOrdID());
-		System.out.println(od.getRtID());
-		System.out.println(od.getCheckIn());
-		System.out.println(od.getCheckOut());
-		System.out.println(od.getRtName());
-		System.out.println(od.getEvaluates());
-		System.out.println(od.getSpecial());
-		System.out.println("---------------------------");
-		}
-		
-		
-	}
-
-
-
 }

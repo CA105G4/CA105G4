@@ -1,4 +1,4 @@
-package com.orderDetail.model;
+package com.android.orderDetail.model;
 
 import java.sql.Date;
 import java.util.List;
@@ -61,8 +61,5 @@ public class OrderDetailService {
 		dao.updateRoomID(roomID, odID);
 	}
 	
-	//[Gina]{加床}再訂單明細中改加床
-	public void updateSpecial(Integer special, Integer odID) {
-		dao.updateSpecial(special, odID);
-	}
+	
 }

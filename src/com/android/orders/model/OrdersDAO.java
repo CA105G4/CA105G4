@@ -1,4 +1,4 @@
-package com.orders.model;
+package com.android.orders.model;
 
 import java.util.*;
 import java.sql.*;
@@ -9,8 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.orderDetail.model.OrderDetailDAO;
-import com.orderDetail.model.OrderDetailVO;
+import com.android.orderDetail.model.OrderDetailDAO;
+import com.android.orderDetail.model.OrderDetailVO;
 
 
 
@@ -34,37 +34,21 @@ public class OrdersDAO implements OrdersDAO_interface {
 	
 	//查詢單筆訂單的明細
 	private static final String GET_OrderDetail_ByOrders_STMT = "SELECT * FROM ORDERDETAIL WHERE ORDID=? order by ODID";
+	
 	//CHECKIN
 	private static final String GET_CHECKIN_ByOrdJoinOD_STMT = "SELECT * FROM ORDERS LEFT JOIN ORDERDETAIL ON ORDERS.ORDID=ORDERDETAIL.ORDID WHERE CHECKIN=? AND BRAID=? ORDER BY ORDERS.ORDID";
+	
 	//CHECKOUT
 	private static final String GET_CHECKOUT_ByOrdJoinOD_STMT = "SELECT * FROM ORDERS LEFT JOIN ORDERDETAIL ON ORDERS.ORDID=ORDERDETAIL.ORDID WHERE CHECKOUT=? AND BRAID=? ORDER BY ORDERS.ORDID";
-	//[CHECKOUT]更改訂單狀態
+	//[CHECKIN]更改訂單狀態
 	private static final String UPDATE_ordState_ByordID = "UPDATE ORDERS SET ORDSTATE=? WHERE ORDID=?";
-	//[addOrders_Step2]查詢
-	private static final String SELECT_NEWORDERID_ByMemID = "SELECT ORDID FROM ORDERS WHERE MEMID=? ORDER BY ORDID DESC";
 	
-	//用分店查找訂單
-	private static final String SELECT_ORDERS_BybraID = "SELECT * FROM ORDERS WHERE BRAID=?";
+	//找出要 checkin 的會員 => checin時間 + 會員編號
+	private static final String GET_CHECKIN_BY_MEMID_SQL = "SELECT * FROM ORDERS LEFT JOIN ORDERDETAIL ON ORDERS.ORDID = ORDERDETAIL.ORDID WHERE MEMID = ? AND CHECKIN = ?";
 	
-	//用分店及訂單種類ordType(0線上,1臨櫃)查找訂單
-	private static final String SELECT_ORDERS_ByordType01 = "SELECT * FROM ORDERS WHERE BRAID=? AND (ordType=0 OR ordType=1)";
+	//修改訂單總金額 => 用訂單明細查詢
+	private static final String UPDATE_ORDER_AMOUNT_SQL = "UPDATE ORDERS SET AMOUNT = ? WHERE ORDID = ?";
 	
-	//用分店及訂單種類ordType(2打工換宿)查找訂單
-	private static final String SELECT_ORDERS_ByordType2 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordType=2";
-	
-	//用分店及訂單狀態ordState(3退訂)查找訂單
-	private static final String SELECT_ORDERS_ByordState3 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordState=3";
-	
-	//用會員memID及訂單狀態ordState(0預訂)查找訂單
-	private static final String SELECT_ORDERS_BymemIDordSta0 = "SELECT * FROM ORDERS WHERE MEMID=? AND ordState=0";
-	
-	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
-	private static final String SELECT_ORDERS_BymemIDordSta123 = "SELECT * FROM ORDERS WHERE MEMID=? AND (ordState=1 OR ordState=2 OR ordState=3)";
-	
-	//[Gina]{加床}加床要更改訂單總金額
-	private static final String UPDATE_AMOUNT_ByOrdID = "UPDATE ORDERS SET amount=? WHERE ordID = ?";
-	
-			
 	@Override
 	public void insert(OrdersVO ordersVO) {
 		Connection con = null;
@@ -264,7 +248,6 @@ public class OrdersDAO implements OrdersDAO_interface {
 	
 	@Override
 	public Set<OrderDetailVO> getOrderDetailByOrders(String ordID) {
-System.out.println("OrdersDAO收到:"+ordID);
 		Set<OrderDetailVO> set = new LinkedHashSet<OrderDetailVO>();
 		OrderDetailVO orderDetailVO = null;
 		
@@ -602,423 +585,30 @@ System.out.println("訂單收到ordID:"+ordID);
 					e.printStackTrace(System.err);
 				}
 			}
-		}		
+		}	
 	}
 	
 	@Override
-	public String findNewOrderID(String memID) {
-		String ordID="";
+	public boolean updateOrdersAmount(Integer amount, String ordId) {     //修改總金額
 		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		boolean success = false;
 		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_NEWORDERID_ByMemID);
-			//SELECT ORDID FROM ORDERS WHERE MEMID=? ORDER BY ORDID DESC
-			
-			pstmt.setString(1, memID);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				ordID = rs.getString(1);
-			}
-
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-
-		return ordID;
-	}
-	
-	
-
-	//用分店查找訂單
-	@Override
-	public List<OrdersVO> findBybraID(String braID) {
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_BybraID);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, braID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-	
-	//用分店及訂單種類ordType(0線上,1臨櫃)查找訂單
-	@Override
-	public List<OrdersVO> findByordType01(String braID) {
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_ByordType01);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, braID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-
-	//用分店及訂單種類ordType(2打工換宿)查找訂單
-	@Override
-	public List<OrdersVO> findByordType2(String braID) {
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_ByordType2);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, braID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-
-	//用分店及訂單狀態ordState(3退訂)查找訂單
-	@Override
-	public List<OrdersVO> findByordState3(String braID) {
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_ByordState3);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, braID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-	
-	
-	//用會員memID及訂單狀態ordState(0預訂)查找訂單
-	@Override
-	public List<OrdersVO> findOrdersBymemIDordState0(String memID) {
-		System.out.println("DAO接收到memID"+memID);
-		
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_BymemIDordSta0);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, memID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-	
-	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
-	@Override
-	public List<OrdersVO> findOrdersBymemIDordState123(String memID) {
-		System.out.println("DAO接收到memID"+memID);
-		
-		List<OrdersVO> list = new ArrayList<OrdersVO>();
-		OrdersVO ordersVO = null;
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			con = ds.getConnection();
-			pstmt = con.prepareStatement(SELECT_ORDERS_BymemIDordSta123);
-			//SELECT * FROM ORDERS WHERE BRAID=?
-			
-			pstmt.setString(1, memID);
-			
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				ordersVO = new OrdersVO();
-				ordersVO.setOrdID(rs.getString("ORDID"));
-				ordersVO.setMemID(rs.getString("MEMID"));
-				ordersVO.setBraID(rs.getString("BRAID"));
-				ordersVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
-				ordersVO.setOrdType(rs.getInt("ORDTYPE"));
-				ordersVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
-				ordersVO.setAmount(rs.getInt("AMOUNT"));
-				ordersVO.setBond(rs.getInt("BOND"));
-				ordersVO.setPayment(rs.getInt("PAYMENT"));
-				ordersVO.setOrdState(rs.getInt("ORDSTATE"));
-				ordersVO.setOrdTime(rs.getDate("ORDTIME"));
-				list.add(ordersVO);	
-			}
-			
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}	
-		
-		return list;
-	}
-
-	@Override
-	public void addBedupdateAmount(Integer amount, String ordID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE_AMOUNT_ByOrdID);	
-			//UPDATE ORDERS SET amount=? WHERE ordID = ?
+			pstmt = con.prepareStatement(UPDATE_ORDER_AMOUNT_SQL);	
 			
 			pstmt.setInt(1, amount);
-			pstmt.setString(2, ordID);
+			pstmt.setString(2, ordId);
 			
-			pstmt.executeUpdate();
-			
+			int i = pstmt.executeUpdate();
+			if(i == 0)
+				success = false;
+			else
+				success = true;
+
 		} catch (SQLException e) {
 			throw new RuntimeException("A database error occured. " + e.getMessage());
 			// Clean up JDBC resources
@@ -1038,6 +628,77 @@ System.out.println("訂單收到ordID:"+ordID);
 				}
 			}
 		}
+		return success;
 	}
 	
+	public OrdersCheckInOutVO findCheckinMember(String memId, Date checkin) {   //找出checkin 的會員
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		OrdersCheckInOutVO ordCheckInOutVO = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_CHECKIN_BY_MEMID_SQL);	
+			
+			pstmt.setString(1, memId);
+			pstmt.setDate(2, checkin);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ordCheckInOutVO = new OrdersCheckInOutVO();
+				ordCheckInOutVO.setOrdID(rs.getString("ORDID"));
+				ordCheckInOutVO.setMemID(rs.getString("MEMID"));
+				ordCheckInOutVO.setBraID(rs.getString("BRAID"));
+				ordCheckInOutVO.setNumOfRoom(rs.getInt("NUMOFROOM"));
+				ordCheckInOutVO.setOrdType(rs.getInt("ORDTYPE"));
+				ordCheckInOutVO.setNumOfGuest(rs.getInt("NUMOFGUEST"));
+				ordCheckInOutVO.setAmount(rs.getInt("AMOUNT"));
+				ordCheckInOutVO.setBond(rs.getInt("BOND"));
+				ordCheckInOutVO.setPayment(rs.getInt("PAYMENT"));
+				ordCheckInOutVO.setOrdState(rs.getInt("ORDSTATE"));
+				ordCheckInOutVO.setOrdTime(rs.getDate("ORDTIME"));
+				
+				//訂單明細
+				ordCheckInOutVO.setOdID(rs.getInt("ODID"));
+				ordCheckInOutVO.setRoomID(rs.getString("ROOMID"));
+				ordCheckInOutVO.setRtID(rs.getString("RTID"));
+				ordCheckInOutVO.setCheckIn(rs.getDate("CHECKIN"));
+				ordCheckInOutVO.setCheckOut(rs.getDate("CHECKOUT"));
+				ordCheckInOutVO.setRtName(rs.getString("RTNAME"));
+				ordCheckInOutVO.setEvaluates(rs.getDouble("EVALUATES"));
+				ordCheckInOutVO.setSpecial(rs.getInt("SPECIAL"));
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return ordCheckInOutVO;
+	}
 }

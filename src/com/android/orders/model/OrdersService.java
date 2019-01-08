@@ -1,9 +1,9 @@
-package com.orders.model;
+package com.android.orders.model;
 
 import java.sql.Date;
 import java.util.*;
 
-import com.orderDetail.model.OrderDetailVO;
+import com.android.orderDetail.model.OrderDetailVO;
 
 public class OrdersService {
 	
@@ -55,8 +55,7 @@ public class OrdersService {
 	public OrdersVO getOneOrders(String ordID) {
 		return dao.findByPrimaryKey(ordID);
 	}
-	
-	//查詢單筆訂單的明細
+
 	public Set<OrderDetailVO> getOrderDetailByOrders(String ordID){
 		return dao.getOrderDetailByOrders(ordID);
 	}
@@ -81,49 +80,20 @@ public class OrdersService {
 		return dao.findCheckOut_ByOrdJoinOD(checkOut, braID);
 	}
 	
-	//[Gina]{checkout}修改訂單的狀態
+	//[Gina]{checkout}查找當日checkOut的訂單與明細
 	public void updateOrdState(Integer ordState, String ordID) {
 		dao.updateOrdState(ordState, ordID);
 	}
 	
-	//[addOrders_Step2]查詢
-	public String findNewOrderID(String memID) {
-		return dao.findNewOrderID(memID);
-	};
-	
-	//用分店查找訂單
-	public List<OrdersVO> findBybraID(String braID){
-		return dao.findBybraID(braID);
-	};
-	
-	//用分店及訂單種類ordType(0線上,1臨櫃)查找訂單
-	public List<OrdersVO> findByordType01(String braID){
-		return dao.findByordType01(braID);
-	};
-	
-	//用分店及訂單種類ordType(2打工換宿)查找訂單
-	public List<OrdersVO> findByordType2(String braID){
-		return dao.findByordType2(braID);
-	};
-	
-	//用分店及訂單狀態ordState(3退訂)查找訂單
-	public List<OrdersVO> findByordState3(String braID){
-		return dao.findByordState3(braID);
-	};
-	
-	//用會員memID及訂單狀態ordState(0預訂)查找訂單
-	public List<OrdersVO> findOrdersBymemIDordState0(String memID){
-		return dao.findOrdersBymemIDordState0(memID);
-	};
-	
-	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
-	public List<OrdersVO> findOrdersBymemIDordState123(String memID){
-		return dao.findOrdersBymemIDordState123(memID);
-	};
-	
-	//[Gina]{加床}加床要更改訂單總金額
-	public void addBedupdateAmount(Integer amount, String ordID) {
-		dao.addBedupdateAmount(amount, ordID);
+	//使用優惠券 修改總價
+	public boolean updateOrdersAmount(Integer amount, String ordId) {
+		return dao.updateOrdersAmount(amount, ordId);
 	}
+	
+	//找出要 checkin 的會員
+	public OrdersCheckInOutVO getCheckinMember(String memId, Date checkin) {
+		return dao.findCheckinMember(memId, checkin);
+	}
+	
 	
 }

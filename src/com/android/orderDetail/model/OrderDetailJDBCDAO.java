@@ -1,9 +1,10 @@
-package com.orderDetail.model;
+package com.android.orderDetail.model;
 
 import java.util.*;
-import java.sql.*;
 
-import com.roomType.model.RoomTypeJDBCDAO;
+import com.android.roomType.model.RoomTypeJDBCDAO;
+
+import java.sql.*;
 
 public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -22,10 +23,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	
 	//[Gina]{CHECKIN} 訂單明細加入房間編號
 	private static final String UPDATE_roomID_ByodID ="UPDATE OrderDetail SET roomID=? WHERE ODID = ?";
-	
-	//[Gina]{加床}再訂單明細中改加床
-	private static final String UPDATE_SPECIAL_ByodID ="UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?";
-	
 	
 	@Override
 	public void insert(OrderDetailVO orderDetailVO) {
@@ -354,8 +351,6 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 			System.out.println("入住日期" + orderDetailVO.getCheckIn());
 			System.out.println("退房日期" + orderDetailVO.getCheckOut());
 			
-			
-			
 		} catch (Exception e) {
 			if (con != null) {
 				try {
@@ -419,49 +414,10 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 				}
 			}
 		}
+		
+		
 	}
 
-	@Override
-	public void updateSpecial(Integer special, Integer odID) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(UPDATE_SPECIAL_ByodID);	
-			//UPDATE OrderDetail SET SPECIAL=? WHERE ODID = ?
-			
-			pstmt.setInt(1, special);
-			pstmt.setInt(2, odID);
-			
-			pstmt.executeUpdate();
-			
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException e) {
-			throw new RuntimeException("A database error occured. " + e.getMessage());
-			// Clean up JDBC resources
-		}finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-		
-	}
-	
 	
 	
 	public static void main(String[] args) {
@@ -548,7 +504,5 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 	}
-
-
 
 }
