@@ -44,7 +44,7 @@ public class RoomServlet extends HttpServlet {
 			String braID = req.getParameter("braID");
 //			System.out.println(braID);
 			RoomService roomSvc = new RoomService();
-			Set<RoomVO> set = roomSvc.getRoomByBranch(braID);
+			List<RoomVO> set = roomSvc.getRoomByBranch(braID);
 //			for(RoomVO roomVO : set) {
 //				System.out.println(roomVO.getRoomID());
 //				System.out.println(roomVO.getRoomTypeID());
