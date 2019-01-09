@@ -199,6 +199,15 @@
 		<servlet-name>WorkExchangeRecordImgServlet</servlet-name>
 		<url-pattern>/workExchangeRecord/workExchangeRecordImg.do</url-pattern>
 	</servlet-mapping>
+	<!-- Ajax --> 
+	<servlet>
+    	<servlet-name>AjaxResRoomServlet</servlet-name>
+    	<servlet-class>com.room.model.AjaxResRoomServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>AjaxResRoomServlet</servlet-name>
+	    <url-pattern>/room/AjaxResRoom.do</url-pattern>
+	</servlet-mapping>
 	<!-- Ivan end -->
 
 	<!-- PO -->

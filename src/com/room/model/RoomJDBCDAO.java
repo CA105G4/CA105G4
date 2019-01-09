@@ -30,6 +30,9 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 	private static final String UPDATE_roomState_By_roomID = "Update Room set ROOMSTATE = ?, MEMNAME=? where roomID = ?";
 	/**[CHECKIN]Gina更改房間狀態)**/
 	
+	//依房號去修改狀態
+	private static final String UPDATE_roomState_By_roomNo = "Update Room set ROOMSTATE = ? where roomNo = ?";
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -365,6 +368,45 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 			}
 		}
 	}
+	
+	
+	
+	
+	@Override
+	public void updateRSByRoomNo(Integer roomState, Integer roomNo) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_roomState_By_roomNo);
+			
+			pstmt.setInt(1, roomState);
+			pstmt.setInt(2, roomNo);
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 
 
 	

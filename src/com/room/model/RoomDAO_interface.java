@@ -13,4 +13,8 @@ public interface RoomDAO_interface {
 	/**[CHECKIN]Gina更改房間狀態)**/
 	public void updateRoomState(Integer roomState, String memname, String roomID);
 	/**[CHECKIN]Gina更改房間狀態)**/
+	
+	//依房號去更新房間狀態(分店房號都要不同)
+	public void updateRSByRoomNo(Integer roomState, Integer roomNo);
+	
 }

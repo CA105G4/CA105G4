@@ -60,4 +60,10 @@ public class RoomService {
 	}
 	/**[Gina]CHECKIN更改房間狀態)**/
 	
+	//依房號去更新房間狀態(分店房號都要不同)
+	public void updateRSByRoomNo(Integer roomState, Integer roomNo) {
+		dao.updateRSByRoomNo(roomState, roomNo);
+	}
+
+	
 }
