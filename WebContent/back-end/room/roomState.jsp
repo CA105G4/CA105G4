@@ -302,6 +302,42 @@
 	<!-- Custom scripts for all pages-->
 	<script
 		src="<%=request.getContextPath()%>/back-end/js/sb-admin.min.js"></script>
+		
+	<!--WebSocket-->
+	<script>
+	var OrdersPoint = "/OrdersEchoServer";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0,path.indexOf('/',1));
+	var endPointURL = "ws://"+host+webCtx+OrdersPoint;
+	
+	var webSocket;
+	
+	$(function(){
+		connect();
+	})
+	function connect(){
+		webSocket = new WebSocket(endPointURL);
+		console.log(webSocket);
+		
+		webSocket.onopen = function(event){
+			//alert(event.data);
+			console.log("WebSocket connected successful");
+		};
+		
+		webSocket.onmessage = function(event){
+			console.log(event.data);
+			alert("我重刷囉!");
+			window.location.reload();
+		};
+		
+		webSocket.onclose = function(event){
+			webSocket.close();
+			console.log("WebSocket disconnected");
+		};
+	}
+	
+	</script>
 
 </body>
 
