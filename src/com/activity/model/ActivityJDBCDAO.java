@@ -8,6 +8,9 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import com.activityDetail.model.ActivityDetailVO;
 
 public class ActivityJDBCDAO implements ActivityDAO_interface {
 
@@ -31,6 +34,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 			   "where activityDetail.rtId = ? AND (actstart <= ? AND ? <= actend)";
 	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
 
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -366,6 +370,15 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		return 1;
 	}
 
+	@Override
+	public void insertWithDetail(ActivityVO actVO, List<ActivityDetailVO> list) {
+		
+	}
+
+	@Override
+	public Set<ActivityDetailVO> getDetailByactID(String actID) {
+		return null;
+	}
 	
 	public static void main(String[] args) {
 		ActivityJDBCDAO dao= new ActivityJDBCDAO();
@@ -421,7 +434,4 @@ public class ActivityJDBCDAO implements ActivityDAO_interface {
 		
 		
 	}
-
-
-
 }

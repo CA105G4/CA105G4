@@ -32,7 +32,7 @@ public class BranchDAO implements BranchDAO_interface {
 
 	//private static final String DELETE = "DELETE FROM Branch WHERE braID=?";
 	private static final String FIND_BY_PK = "SELECT * FROM Branch WHERE braID=?";
-	private static final String FIND_ALL_STMT = "SELECT * FROM Branch ORDER BY braID";
+	private static final String FIND_ALL_STMT = "SELECT * FROM Branch where braId != 'B00' ORDER BY braID";
 
 	@Override
 	public void insert(BranchVO branchVO) {

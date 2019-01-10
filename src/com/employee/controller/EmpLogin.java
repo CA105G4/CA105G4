@@ -110,7 +110,7 @@ public class EmpLogin extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			res.sendRedirect(req.getContextPath()+"/back-end/employee/listAllEmp_1.jsp");//要跳轉到的地方
+			res.sendRedirect(req.getContextPath()+"/back-end/room/roomState.jsp");//要跳轉到的地方
 		}
 		
 		return;

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 	
 <%
-  OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
+	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
 %>
 	
 <!DOCTYPE html>

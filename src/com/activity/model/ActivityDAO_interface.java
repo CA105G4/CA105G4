@@ -1,6 +1,9 @@
 package com.activity.model;
 
 import java.util.List;
+import java.util.Set;
+
+import com.activityDetail.model.ActivityDetailVO;
 
 public interface ActivityDAO_interface {
 		
@@ -14,4 +17,7 @@ public interface ActivityDAO_interface {
 	/**[Gina]訂單計算總金額-查找促銷日期折扣**/
 	public float getActivityDiscount(String rtId, String date);
 	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
+	
+	public void insertWithDetail(ActivityVO actVO,List<ActivityDetailVO>list);
+	public Set<ActivityDetailVO> getDetailByactID(String actID);           //查詢該活動明細(一對多)(回傳 Set)
 }

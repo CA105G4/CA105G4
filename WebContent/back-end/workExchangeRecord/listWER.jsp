@@ -11,6 +11,7 @@
 	List<WorkExchangeRecordVO> list = werSvc.getAllByWE(weID);
 	pageContext.setAttribute("list",list);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 

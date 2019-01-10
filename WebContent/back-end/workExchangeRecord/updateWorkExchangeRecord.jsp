@@ -4,8 +4,9 @@
 <%@ page import="java.util.*" %>
 
 <% 
-  WorkExchangeRecordVO workExchangeRecordVO = (WorkExchangeRecordVO)(request.getAttribute("workExchangeRecordVO"));
+	WorkExchangeRecordVO workExchangeRecordVO = (WorkExchangeRecordVO)(request.getAttribute("workExchangeRecordVO"));
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 

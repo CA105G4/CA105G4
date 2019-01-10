@@ -33,6 +33,9 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 	//依房號去修改狀態
 	private static final String UPDATE_roomState_By_roomNo = "Update Room set ROOMSTATE = ? where roomNo = ?";
 	
+	//依分店及狀態查詢各個房況總數
+	private static final String GET_RoomState = "select COUNT(*) from Room where roomState = ? and braID= ?";
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -407,9 +410,51 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		}
 	}
 
-
-
-	
+	@Override
+	public int getEachRoomState(Integer roomState, String braID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Integer total = 0;
+		
+		try {
+			con=DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt=con.prepareStatement(GET_RoomState);
+			
+			pstmt.setInt(1, roomState);
+			pstmt.setString(2, braID);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+			total = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return total;
+	}
 	
 	public static void main(String args[]) {
 		RoomJDBCDAO dao = new RoomJDBCDAO();
@@ -464,17 +509,20 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 //		System.out.println("Successfully Search!");
 //		}
 		
-		//依分店、房型找不同狀態房間
-		List<RoomVO> list = dao.findRoomForAssign("B01", "RT01", 3);
-		for(RoomVO roomVO : list) {
-		System.out.println(roomVO.getRoomID());	
-		System.out.println(roomVO.getRoomTypeID());
-		System.out.println(roomVO.getBraID());
-		System.out.println(roomVO.getRoomNo());
-		System.out.println(roomVO.getRoomState());
-		System.out.println(roomVO.getMemName());
-		System.out.println("----------------------------------");
-		System.out.println("Successfully Search!");	
-		}
+//		//依分店、房型找不同狀態房間
+//		List<RoomVO> list = dao.findRoomForAssign("B01", "RT01", 3);
+//		for(RoomVO roomVO : list) {
+//		System.out.println(roomVO.getRoomID());	
+//		System.out.println(roomVO.getRoomTypeID());
+//		System.out.println(roomVO.getBraID());
+//		System.out.println(roomVO.getRoomNo());
+//		System.out.println(roomVO.getRoomState());
+//		System.out.println(roomVO.getMemName());
+//		System.out.println("----------------------------------");
+//		System.out.println("Successfully Search!");	
+//		}
+		
+		Integer total  = dao.getEachRoomState(3, "B01");
+		System.out.println(total);
 	}	
 }

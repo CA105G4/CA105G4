@@ -1,6 +1,9 @@
 package com.activity.model;
 
 import java.util.List;
+import java.util.Set;
+
+import com.activityDetail.model.ActivityDetailVO;
 
 public class ActivityService {
 	
@@ -55,4 +58,13 @@ public class ActivityService {
 	};
 	/**[Gina]訂單計算總金額-查找促銷日期折扣**/	
 	
+	public ActivityVO insertWithDetail(ActivityVO actVO,List<ActivityDetailVO>adList) {
+		dao.insertWithDetail(actVO, adList);
+		
+		return actVO;
+	}
+	
+	public Set<ActivityDetailVO>getDetailVOByactID(String actID){
+		return dao.getDetailByactID(actID);
+	}
 }

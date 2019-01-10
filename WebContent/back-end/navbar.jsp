@@ -47,7 +47,7 @@
 
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-		<a class="navbar-brand mr-1" href="index.html">M.C.P.I.G villa</a>
+		<a class="navbar-brand mr-1" href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">M.C.P.I.G villa</a>
 
 		<button class="btn btn-link btn-sm text-white order-1 order-sm-0"
 			id="sidebarToggle" href="#">

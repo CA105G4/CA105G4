@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.employee.model.*"%> 
- <%
-EmployeeService empSvc = new EmployeeService();
+<%
+	EmployeeService empSvc = new EmployeeService();
 	List<EmployeeVO> list = empSvc.getAll();
 	pageContext.setAttribute("list",list);
 %>   

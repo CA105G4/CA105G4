@@ -21,7 +21,7 @@ public class BranchJDBCDAO implements BranchDAO_interface{
     		"INSERT INTO branch (braID, braName, braIntro, braPic, braTel, braVideo, braAddr, braLng, braLat) "
     		+ "VALUES ('B'||LPAD(to_char(bra_seq.NEXTVAL), 2, '0'), ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE branch set braName = ? where braID = ?";
-    private static final String GET_ALL_SQL = "SELECT * from branch";
+    private static final String GET_ALL_SQL = "SELECT * from branch where braId != 'B00'";
     private static final String GET_ONE_SQL = "SELECT braID, braName, braIntro, braPic, braTel, braAddr, braLng, braLat, braState from branch where braID = ?";
     
     static {

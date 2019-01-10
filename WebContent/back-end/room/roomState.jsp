@@ -1,15 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page import="com.employee.model.EmployeeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.room.model.*"%>
 <%@ page import="java.util.*"%>
 
 <%
+	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+	String braId = empVO.getBraID();
+			
 	RoomService roomSvc = new RoomService();
-	List<RoomVO> listByBranch = roomSvc.getRoomByBranch("B01");
-	List<RoomVO> list = roomSvc.getAll();
+	
+	List<RoomVO> listByBranch = roomSvc.getRoomByBranch(braId);
+	Integer empty = roomSvc.getEachRoomState(1, braId);
+	Integer checkIn = roomSvc.getEachRoomState(2, braId);
+	Integer clean = roomSvc.getEachRoomState(3, braId);
+	Integer outOfOrder = roomSvc.getEachRoomState(4, braId);
+	Integer reserved = roomSvc.getEachRoomState(5, braId);
+
 	pageContext.setAttribute("listByBranch", listByBranch);
-	pageContext.setAttribute("list", list);
+	
+	System.out.println("roomState = " + braId);
 %>
 
 
@@ -25,7 +35,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>後台首頁-當日房況</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -80,9 +90,9 @@
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">Blank Page</li>
 				</ol>
 				<!-- Icon Card -->
 				<div class="row">
@@ -92,7 +102,9 @@
 								<div class="card-body-icon">
 									<i class="fas fa-user-clock"></i>
 								</div>
-								<div class="mr-5">共 xx 間 保留!</div>
+								<div class="mr-5 reservedText">共  <%=reserved%>間 保留!</div>
+								<input type="hidden" name="reserved" id="reserved" value="<%=reserved%>">
+								<div class="mr-5" ><input type="hidden" name="outOfOrder" id="outOfOrder" value="<%=outOfOrder%>"></div>
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
 								<span class="float-left">保留</span> <span class="float-right">
@@ -107,7 +119,8 @@
 								<div class="card-body-icon">
 									<i class="fas fa-stopwatch"></i>
 								</div>
-								<div class="mr-5">共 xx 間 打掃中!</div>
+								<div class="mr-5 cleanText">共  <%=clean%>間 打掃!</div>
+								<input type="hidden" name="clean" id="clean" value="<%=clean%>">
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
 								<span class="float-left">打掃</span> <span class="float-right">
@@ -122,7 +135,8 @@
 								<div class="card-body-icon">
 									<i class="fas fa-edit"></i>
 								</div>
-								<div class="mr-5">共 xx 間 空房!</div>
+								<div class="mr-5 emptyText">共  <%=empty%>間 空房!</div>
+								<input type="hidden" name="empty" id="empty" value="<%=empty%>">
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
 								<span class="float-left">空房</span> <span class="float-right">
@@ -137,7 +151,8 @@
 								<div class="card-body-icon">
 									<i class="fas fa-user-check"></i>
 								</div>
-								<div class="mr-5">共 xx 間 入住!</div>
+								<div class="mr-5 checkInText">共  <%=checkIn%>間 入住!</div>
+								<input type="hidden" name="checkIn" id="checkIn" value="<%=checkIn%>">
 							</div>
 							<a class="card-footer text-white clearfix small z-1" href="#">
 								<span class="float-left">入住</span> <span class="float-right">
@@ -156,11 +171,11 @@
 						style="display: grid; max-width: 100%">
 						<c:forEach var="roomVO" items="${listByBranch}">
 							<div class="btn" id="${roomVO.roomNo}"
-								${roomVO.roomState==1 ? "style='background-Color:#F5DEB3;border: 2px solid #000000;'" : 
-												 (roomVO.roomState==2) ? "style='background-Color:paleturquoise;border: 2px solid #000000;'": 
-												 (roomVO.roomState==3) ? "style='background-Color:palegreen;border: 2px solid #000000;'" : 
-												 (roomVO.roomState==4) ? "style='background-Color:red;border: 2px solid #000000;'": 
-												 (roomVO.roomState==5) ? "style='background-Color:yellow;border: 2px solid #000000;'" : ''}>
+								${roomVO.roomState==1 ? "style='background-Color:#28a745;border: 2px solid #000000;'" : 
+												 (roomVO.roomState==2) ? "style='background-Color:#dc3545;border: 2px solid #000000;'": 
+												 (roomVO.roomState==3) ? "style='background-Color:#FFFF00;border: 2px solid #000000;'" : 
+												 (roomVO.roomState==4) ? "style='background-Color:#F5DEB3;border: 2px solid #000000;'": 
+												 (roomVO.roomState==5) ? "style='background-Color:#007bff;border: 2px solid #000000;'" : ''}>
 								<!-- 1.空房  2.入住  3.打掃  4.維修  5.保留  -->
 								<div class="flex-container" style="display: flex;">
 									<input type="hidden" name="roomNo" id="${roomVO.roomNo}"
@@ -210,29 +225,6 @@
 		class="fas fa-angle-up"></i>
 	</a>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-<%-- 					<a class="btn btn-primary" href="<%=request.getContextPath()%>/back-end/EmpLogout.do">Logout</a> --%>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<script>
         $(function(){
        		$("select").change(function(){
@@ -242,40 +234,53 @@
 					data : {
 							"action" : 'UpdateRoomState',
 							"roomNo" : $(this).parent().parent().parent().attr("id"),
-							"roomState" : $(this).val()
+							"roomState" : $(this).val(),
+							"empty" : $("#empty").val(),
+							"checkIn" : $("#checkIn").val(),
+							"clean" : $("#clean").val(),
+							"outOfOrder" :$("#outOfOrder").val(),
+							"reserved" : $("#reserved").val(),
 							},
 					dataType : 'json',
 					success : function(res) {
-						console.log(res);
-						$(this).val(res.roomState);
-						console.log(res.roomState);
-	
-						var roomNo = "#" + res.roomNo;
-						console.log(roomNo);
-						if (res.roomState === 1) {
-							$(roomNo)
-									.attr("style",
-											'background-Color:#F5DEB3 ; border:2px solid #000000;');
-						} else if (res.roomState === 2) {
-							$(roomNo)
-									.attr("style",
-											'background-Color:paleturquoise ; border:2px solid #000000;');
-						} else if (res.roomState === 3) {
-							$(roomNo)
-									.attr("style",
-											'background-Color:palegreen ; border:2px solid #000000;');
-							return;
-						} else if (res.roomState === 4) {
-							$(roomNo)
-									.attr("style",
-											'background-Color:red ; border:2px solid #000000;');
-							return;
-						} else if (res.roomState === 5) {
-							$(roomNo)
-									.attr("style",
-											'background-Color:yellow ; border:2px solid #000000;');
-						}
-					},
+							console.log(res);
+							
+							$(this).val(res.roomState);
+							console.log(res.roomState);
+							
+							$("#empty").val(res.empty);
+							$("#checkIn").val(res.checkIn);
+							$("#clean").val(res.clean);
+							$("#outOfOrder").val(res.outOfOrder);
+							$("#reserved").val(res.reserved);
+							
+							//更換上方各房間狀態數
+							$(".emptyText").text("共 " +res.empty+"間  空房!");
+							$(".checkInText").text("共 " +res.checkIn+"間  入住!");
+							$(".cleanText").text("共 " +res.clean+"間  打掃!");
+							$(".reservedText").text("共 " +res.reserved+"間  保留!");
+							
+							console.log(res.empty);
+							console.log(res.checkIn);
+							console.log(res.clean);
+							console.log(res.outOfOrder);
+							console.log(res.reserved);
+							
+							
+							var roomNo = "#" + res.roomNo;
+							console.log(roomNo);
+							if (res.roomState === 1) {
+								$(roomNo).attr("style",'background-Color:#28a745 ; border:2px solid #000000;');
+							} else if (res.roomState === 2) {
+								$(roomNo).attr("style",'background-Color:#dc3545 ; border:2px solid #000000;');
+							} else if (res.roomState === 3) {
+								$(roomNo).attr("style",'background-Color:#FFFF00 ; border:2px solid #000000;');
+							} else if (res.roomState === 4) {
+								$(roomNo).attr("style",'background-Color:#F5DEB3 ; border:2px solid #000000;');
+							} else if (res.roomState === 5) {
+								$(roomNo).attr("style",'background-Color:#007bff ; border:2px solid #000000;');
+							}
+						},
 					error : function() {
 						alert("發生錯誤請小心!!!")
 					}

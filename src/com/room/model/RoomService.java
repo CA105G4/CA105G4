@@ -65,5 +65,9 @@ public class RoomService {
 		dao.updateRSByRoomNo(roomState, roomNo);
 	}
 
+	//依分店房間狀態取得各房間狀態間數
+	public int getEachRoomState(Integer roomState, String braID) {
+		return dao.getEachRoomState(roomState, braID);
+	}
 	
 }

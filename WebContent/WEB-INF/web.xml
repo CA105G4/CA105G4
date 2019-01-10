@@ -336,10 +336,21 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>EmpLoginFilter</filter-name>
-		<url-pattern>/back-end/employee/addEmployee.jsp</url-pattern>
-		<url-pattern>/back-end/employee/listAllEmp_1.jsp</url-pattern>
-		<url-pattern>/back-end/employee/listOneEmp.jsp</url-pattern>
-		<url-pattern>/back-end/employee/update_emp_input.jsp</url-pattern>
+		<url-pattern>/back-end/activity/*</url-pattern>
+		<url-pattern>/back-end/article/*</url-pattern>
+		<url-pattern>/back-end/billboard/*</url-pattern>
+		<url-pattern>/back-end/branch/*</url-pattern>
+		<url-pattern>/back-end/coupon/*</url-pattern>
+		<url-pattern>/back-end/employee/*</url-pattern>
+		<url-pattern>/back-end/member/*</url-pattern>
+		<url-pattern>/back-end/messageReport/*</url-pattern>
+		<url-pattern>/back-end/orders/*</url-pattern>
+		<url-pattern>/back-end/question/*</url-pattern>
+		<url-pattern>/back-end/report/*</url-pattern>
+		<url-pattern>/back-end/room/*</url-pattern>
+		<url-pattern>/back-end/roomType/*</url-pattern>
+		<url-pattern>/back-end/workExchange/*</url-pattern>
+		<url-pattern>/back-end/workExchangeRecord/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

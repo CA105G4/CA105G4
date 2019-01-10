@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.orders.model.OrdersVO"%>
 <%@page import="com.orders.model.OrdersService"%>
@@ -5,10 +6,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
 <%
-	
+	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+
 	OrdersService ordSvc = new OrdersService();
-	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState0("M0001");
+	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState0(memVO.getMemID());
 	pageContext.setAttribute("list", list);
+	
+	System.out.println("myAccountOrders = " + memVO.getMemID());
 %>
 
 <!DOCTYPE html>
