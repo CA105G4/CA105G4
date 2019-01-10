@@ -73,11 +73,6 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-
-
-
-
-
 				<div class="container-fluid">
 					<caption>輪播廣告</caption>
 					<br>
@@ -132,13 +127,6 @@
 									</c:choose>
 
 
-						
-
-
-
-
-
-
 
 									<td>
 										<form METHOD="post"
@@ -167,12 +155,6 @@
 										</form>
 									</td>
 									
-									
-									
-									
-
-
-
 
 
 								</tr>
@@ -184,10 +166,6 @@
 				</div>
 
 
-
-
-
-
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
@@ -196,7 +174,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © Your Website 2018</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

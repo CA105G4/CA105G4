@@ -25,7 +25,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>ListAllCoupon</title>
+<title>優惠券列表</title>
 
 <!-- Bootstrap core CSS-->
 <link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -82,17 +82,13 @@ width: 120px;
 
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">所有分店列表</li>
+					<li class="breadcrumb-item active">優惠券列表</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-
-
-
-
-
 				<div class="container-fluid">
 					<caption>優惠卷列表</caption>
 					<br>
@@ -213,7 +209,7 @@ width: 120px;
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © Your Website 2018</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

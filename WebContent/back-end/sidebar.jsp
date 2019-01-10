@@ -45,10 +45,6 @@
 
 <body id="page-top">
 
-
-
-
-
 	<!-- Sidebar -->
 	<ul class="sidebar navbar-nav">
 
@@ -122,6 +118,8 @@
 				<h6 class="dropdown-header">新增:</h6>
 				<a class="dropdown-item"
 					href="<%=request.getContextPath()%>/back-end/roomType/addroomType.jsp">新增房型</a>
+<!-- 				<a class="dropdown-item" -->
+<%-- 					href="<%=request.getContextPath()%>/back-end/roomType/select_roomType_page.jsp">查詢房型</a> --%>
 				<div class="dropdown-divider"></div>
 				<h6 class="dropdown-header">列表:</h6>
 				<a class="dropdown-item"

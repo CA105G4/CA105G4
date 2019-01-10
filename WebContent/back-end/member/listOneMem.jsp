@@ -18,7 +18,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>新增會員</title>
+<title>單筆會員資料</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -68,7 +68,7 @@
 					<li class="breadcrumb-item">
 						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">Tables</li>
+					<li class="breadcrumb-item active">單筆會員資料</li>
 				</ol>
 
 				<!-- DataTables Example -->

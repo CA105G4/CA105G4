@@ -17,7 +17,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>單筆訂單</title>
 
 <!-- Bootstrap core CSS-->
 <link

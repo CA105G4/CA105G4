@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>查詢訂單</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -60,9 +60,10 @@
 
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">Blank Page</li>
+					<li class="breadcrumb-item active">查詢訂單</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->

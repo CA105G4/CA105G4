@@ -22,7 +22,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Tables</title>
+<title>會員列表</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -69,7 +69,7 @@
 					<li class="breadcrumb-item">
 						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">Tables</li>
+					<li class="breadcrumb-item active">會員列表</li>
 				</ol>
 
 				<!-- DataTables Example -->
@@ -192,7 +192,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>© MCPIG 2019</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

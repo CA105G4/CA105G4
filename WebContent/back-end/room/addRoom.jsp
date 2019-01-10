@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>新增房間</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -63,9 +63,10 @@
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">Blank Page</li>
+					<li class="breadcrumb-item active">新增房間</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
@@ -145,7 +146,7 @@
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © Your Website 2018</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

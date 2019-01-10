@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>新增打工需求</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -47,15 +47,15 @@
 	<!-- Navbar -->
 
 	<jsp:include page="/back-end/navbar.jsp" />
-	
+
 	<!-- /Navbar -->
-	
+
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		
+
 		<jsp:include page="/back-end/sidebar.jsp" />
-		
+
 		<!-- /Sidebar -->
 
 		<div id="content-wrapper">
@@ -63,8 +63,8 @@
 			<div class="container-fluid">
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">
-						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
 					<li class="breadcrumb-item active">新增打工需求</li>
 				</ol>
@@ -153,7 +153,7 @@
 				<footer class="sticky-footer">
 					<div class="container my-auto">
 						<div class="copyright text-center my-auto">
-							<span>Copyright © Your Website 2018</span>
+							<span>© M.C.P.I.G 2019</span>
 						</div>
 					</div>
 				</footer>
@@ -161,27 +161,28 @@
 			<!-- /.content-wrapper -->
 
 		</div>
-		<!-- /#wrapper -->
+	</div>
+	<!-- /#wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
 
-		<!-- Bootstrap core JavaScript-->
-		<script
-			src="<%=request.getContextPath() %>/back-end/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="<%=request.getContextPath() %>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script
+		src="<%=request.getContextPath() %>/back-end/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="<%=request.getContextPath() %>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script
-			src="<%=request.getContextPath() %>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script
+		src="<%=request.getContextPath() %>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script
-			src="<%=request.getContextPath() %>/back-end/js/sb-admin.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script
+		src="<%=request.getContextPath() %>/back-end/js/sb-admin.min.js"></script>
 </body>
 
 

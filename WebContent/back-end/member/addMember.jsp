@@ -20,7 +20,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>新增會員</title>
+<title>新增會員資料</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -83,7 +83,7 @@
 					<li class="breadcrumb-item"><a
 						href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-					<li class="breadcrumb-item active">新增會員</li>
+					<li class="breadcrumb-item active">新增會員資料</li>
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
@@ -184,7 +184,7 @@
 						<footer class="sticky-footer">
 							<div class="container my-auto">
 								<div class="copyright text-center my-auto">
-									<span>© MCPIG 2019</span>
+									<span>© M.C.P.I.G 2019</span>
 								</div>
 							</div>
 						</footer>
@@ -227,8 +227,7 @@
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=hiredate%>'
-					', // value:   new Date(),
+		   value: '<%=hiredate%>', // value:   new Date(),
 					//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 					//startDate:	            '2017/07/10',  // 起始日
 					//minDate:               '-1970-01-01', // 去除今日(不含)之前

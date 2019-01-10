@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
+	RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 %>
 
 <!DOCTYPE html>
@@ -18,7 +18,7 @@ RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>add RoomType</title>
+<title>新增房型</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -64,7 +64,8 @@ RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
 					<li class="breadcrumb-item active">新增房型</li>
 				</ol>
@@ -193,7 +194,7 @@ RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © Your Website 2018</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

@@ -45,7 +45,7 @@ iframe {
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Dashboard</title>
+<title>留言檢舉管理</title>
 
 <!-- Bootstrap core CSS-->
 <link
@@ -90,11 +90,14 @@ iframe {
 
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-					<li class="breadcrumb-item active">Overview</li>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					</li>
+					<li class="breadcrumb-item active">留言檢舉管理</li>
 				</ol>
 
-				<jsp:useBean id="memberService" scope="page" class="com.member.model.MemberService" />
+				<jsp:useBean id="memberService" scope="page"
+					class="com.member.model.MemberService" />
 
 				<h4>
 					<a
@@ -226,21 +229,20 @@ iframe {
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday
-						at 11:59 PM</div>
+					<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 				</div>
 
 			</div>
 			<!-- /.container-fluid -->
 
-			<!-- Sticky Footer -->
-			<!--         <footer class="sticky-footer"> -->
-			<!--           <div class="container my-auto"> -->
-			<!--             <div class="copyright text-center my-auto"> -->
-			<!--               <span>© MCPIG 2019</span> -->
-			<!--             </div> -->
-			<!--           </div> -->
-			<!--         </footer> -->
+			<!-- 			Sticky Footer -->
+<!-- 			<footer class="sticky-footer"> -->
+<!-- 				<div class="container my-auto"> -->
+<!-- 					<div class="copyright text-center my-auto"> -->
+<!-- 						<span>© M.C.P.I.G 2019</span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</footer> -->
 
 		</div>
 		<!-- /.content-wrapper -->
