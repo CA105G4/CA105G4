@@ -153,6 +153,7 @@
 									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="取消訂單" class="btn btn-info">
 									     <input type="hidden" name="ordID"  value="${ordVO.ordID}">
+									     <input type="hidden" name="requestURL"  value="<%=request.getServletPath()%>">
 									     <input type="hidden" name="action"	value="CancelOrders"></FORM>
 									</td>
 								</tr>

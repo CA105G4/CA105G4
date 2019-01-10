@@ -1,5 +1,6 @@
 package com.roomType.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class RoomTypeService {
@@ -78,9 +79,9 @@ public class RoomTypeService {
 	}
 	/**[Gina]排程器使用，在當天11:59分，將當天房型數量變回原房型數量**/
 	
-//	//更改房型的剩餘房間數欄位
-//	public void updateRoomBalance(String balance, String rtID) {
-//		dao.updateRoomBalance(balance, rtID);
-//	}
-
+	/**[Gina]取消訂單用，找到該訂單明細中的房型，並把原本有預約的房型數量+1**/
+	public void cancelOrderChangeRoomBalance(String rtID, Date checkIn, Date checkOut) {
+		dao.cancelOrderChangeRoomBalance(rtID, checkIn, checkOut);
+	}
+	/**[Gina]取消訂單用，找到該訂單明細中的房型，並把原本有預約的房型數量+1**/
 }

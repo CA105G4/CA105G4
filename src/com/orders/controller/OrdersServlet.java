@@ -649,7 +649,15 @@ System.out.println("修改訂單狀態成功");
 			String ordID = req.getParameter("ordID");
 			System.out.println("service接收到ordID:"+ordID);
 			
-			OrdersService ordSvc = new OrdersService();			
+			/**要先把該張訂單中，所有明細裡面的房型，天數加回去**/
+			OrdersService ordSvc = new OrdersService();	
+			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
+			for(OrderDetailVO odVO : odSet) {
+				RoomTypeService rtSvc = new RoomTypeService();
+				rtSvc.cancelOrderChangeRoomBalance(odVO.getRtID(), odVO.getCheckIn(), odVO.getCheckOut());
+			}
+			
+			/**前面完成後，更改訂單狀態**/
 			ordSvc.updateOrdState(3, ordID);	//訂單狀態3，為"退訂"的意思
 			
 			String comeURI = req.getParameter("requestURL");

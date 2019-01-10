@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,12 +99,21 @@
 	<c:forEach var="odVO" items="${odSet}">
 		<tr>
 			<td>${odVO.ordID}</td>
-			<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+			<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
 			<td>${rtSvc.getOneRoomType(odVO.getRtID()).rtName}</td>
 			<td>${odVO.checkIn}</td>
 			<td>${odVO.checkOut}</td>
 			<td>${odVO.evaluates}</td>
-			<td>${odVO.special}</td>
+			<td>${specialMap.get(odVO.getSpecial())}</td>
+			<td>
+				<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
+				<input type="submit" value="加床" ${ ordSvc.getOneOrders(ordID).getOrdState()==0 ? "class='btn btn-info'" : "class='btn btn-secondary' disabled"}>
+				<input type="hidden" name="odID"  value="${odVO.odID}">
+				<input type="hidden" name="ordID"  value="${ordID}">
+				<input type="hidden" name="requestURL"  value="${requestURL}">
+				<input type="hidden" name="action"	value="AddBed"></FORM>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

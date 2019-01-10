@@ -28,4 +28,8 @@ public interface RoomTypeDAO_interface {
 	/**[Gina]排程器使用，在當天11:59分，將當天房型數量變回原房型數量**/
 	public void returnRoomNum(String balance, String rtID);
 	/**[Gina]排程器使用，在當天11:59分，將當天房型數量變回原房型數量**/
+	
+	/**[Gina]取消訂單用，找到該訂單明細中的房型，並把原本有預約的房型數量+1**/
+	public void cancelOrderChangeRoomBalance(String rtID, Date checkIn, Date checkOut);
+	/**[Gina]取消訂單用，找到該訂單明細中的房型，並把原本有預約的房型數量+1**/
 }

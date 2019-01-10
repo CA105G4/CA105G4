@@ -1,17 +1,18 @@
+<%@page import="com.orderDetail.model.OrderDetailVO"%>
+<%@page import="com.orders.model.OrdersVO"%>
 <%@page import="com.orders.model.OrdersCheckInOutVO"%>
+<%@page import="com.orders.model.OrdersService"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.util.*"%>
-<%@page import="com.orders.model.OrdersService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	OrdersService ordSvc = new OrdersService();
-	java.util.Date udate = new java.util.Date();
-	java.sql.Date today = new java.sql.Date(udate.getTime());
-	List<OrdersCheckInOutVO> checkOutlist = ordSvc.findCheckOut_ByOrdJoinOD(today, "B01");
-	pageContext.setAttribute("today", today);
-	pageContext.setAttribute("checkOutlist", checkOutlist);
+	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
+	OrderDetailVO odVO = (OrderDetailVO)request.getAttribute("odVO");
+	
+	pageContext.setAttribute("ordVO", ordVO);
+	pageContext.setAttribute("odVO", odVO);
 %>
 
 <!DOCTYPE html>
@@ -53,7 +54,6 @@
 </head>
 
 <body id="page-top">
-
 	<!-- Navbar -->
 
 	<jsp:include page="/back-end/navbar.jsp" />
@@ -80,47 +80,71 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>Check Out</h1>
+				<h1>分配房間</h1>
 				<hr>
 				<div class="container-fluid">
-					<h2>Check Out</h2>
-
-						<!--開始自由發揮-->
-						<table class="table table-bordered table-striped table-hover">
-							<tr>
-								<th>訂單編號</th>
-								<th>會員姓名</th>
-								<th>房型</th>
-								<th>房號</th>
-								<th>房間數</th>
-								<th>人數</th>
-								<th>入住時間</th>
-								<th>退房時間</th>
-								<th>Check Out</th>
-							</tr>
-					
-							<c:forEach var="ordcheckInVO" items="${checkOutlist}">
-								<tr>
-									<td>${ordcheckInVO.ordID}</td>
-									<td>${ordcheckInVO.memID}</td>
-									<td>${ordcheckInVO.rtID}</td>
-									<td>${ordcheckInVO.roomID}</td>
-									<td>${ordcheckInVO.numOfRoom}</td>
-									<td>${ordcheckInVO.numOfGuest}</td> 
-									<td>${ordcheckInVO.checkIn}</td>
-									<td>${ordcheckInVO.checkOut}</td>
-									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="CheckOut" ${ordcheckInVO.ordState == 2? "class='btn btn-secondary'" : "class='btn btn-info'"} >
-									     <input type="hidden" name="ordID"  value="${ordcheckInVO.ordID}">
-									     <input type="hidden" name="roomID"  value="${ordcheckInVO.roomID}">
-									     <input type="hidden" name="action"	value="CheckOutUpdate"></FORM>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
+					<h2>分配房間	${comeURI}</h2>
+						<div class="row">
+							<div class="col-xs-12 col-sm-2">
 						
-						
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
+									<!--開始自由發揮-->
+									<table class="table table-bordered table-striped table-hover">
+										<tr>
+											<th>訂單編號</th>
+											<td>${ordVO.ordID}</td>
+										</tr>
+										<tr>	
+											<th>房型照片</th>
+											<td><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${odVO.rtID}" class="img-fluid showrtpic" width="400px"></td>
+										</tr>
+										<tr>	
+											<th>房型</th>
+											<td>${odVO.rtID}</td>
+										</tr>
+										<tr>	
+											<th>特殊需求(加床)</th>
+											<td>
+												<select name="special" class="custom-select">
+														<option value="0">不加床</option>
+														<option value="1">加床</option>
+												</select>
+											</td>
+										</tr>
+										<tr>	
+											<th>入住時間</th>
+											<td>${odVO.checkIn}</td>
+										</tr>
+										<tr>	
+											<th>退房時間</th>
+											<td>${odVO.checkOut}</td>
+										</tr>
+										<tr>
+											<td></td>
+											<td>
+												<input type="submit" value="確認" class="btn btn-info">											
+											    <input type="hidden" name="ordID" value="${ordVO.ordID}">
+											    <input type="hidden" name="odID" value="${odVO.odID}">
+											    <input type="hidden" name="comeURI" value="${comeURI}">
+											    <input type="hidden" name="action"	value="ChangeAmount">
+											    
+											    <button type="button" class="btn btn-info">
+													<a href='<%=request.getContextPath()%>/back-end/orders/checkIn.jsp' style="color:#fff">返回</a>
+												</button>
+											    
+										    </td>										
+										</tr>
+									</table>
+								</FORM>
+										<br>
+									
+												
+							</div>
+							<div class="col-xs-12 col-sm-2">
+								
+							</div>
 						<!-- 結束自由發揮-->
 				</div>
 				<!-- Page Content 這邊開始自由發揮結束-->
@@ -186,7 +210,7 @@
 	<!-- datetimepicker JavaScript-->
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-	
+
 </body>
 
 </html>
