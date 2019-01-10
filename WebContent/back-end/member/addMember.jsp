@@ -41,6 +41,21 @@
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
 	rel="stylesheet">
 
+<!-- datepicker-->
+<link
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet" type="text/css" />
+
+<style>
+	.xdsoft_datetimepicker .xdsoft_datepicker {
+		width: 300px; /* width:  300px; */
+	}
+	
+	.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+		height: 151px; /* height:  151px; */
+	}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -65,8 +80,8 @@
 
 				<!-- Breadcrumbs-->
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item">
-						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					<li class="breadcrumb-item"><a
+						href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
 					<li class="breadcrumb-item active">新增會員</li>
 				</ol>
@@ -194,39 +209,33 @@
 						hiredate = new java.sql.Date(System.currentTimeMillis());
 					}
 				%>
-				<link rel="stylesheet" type="text/css"
-					href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+
+				<!-- datetimepicker-->
 				<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 				<script
 					src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-				<style>
-.xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 300px; /* width:  300px; */
-}
 
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	height: 151px; /* height:  151px; */
-}
-</style>
 
-				<script>
+			</div>
+		</div>
+	</div>
+	
+	<script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=hiredate%>
+		   value: '<%=hiredate%>'
 					', // value:   new Date(),
 					//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 					//startDate:	            '2017/07/10',  // 起始日
 					//minDate:               '-1970-01-01', // 去除今日(不含)之前
 					//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 					});
-				</script>
-			</div>
-		</div>
-	</div>
+	</script>
+	
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>

@@ -154,7 +154,7 @@ public class MessageReportServlet extends HttpServlet {
 				messageReportVO = messageReportService.updateMessageReport(mrid, artid, msgid, mrreason, mrstate);
 				
 				req.setAttribute("messageReportVO", messageReportVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/back-end/messageReport/listOneMessageReport.jsp";
+				String url = "/back-end/messageReport/listAllMessageReport.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 

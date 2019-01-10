@@ -163,7 +163,7 @@ public class ReportServlet extends HttpServlet{
 				reportVO = reportService.updateReport(repid, artid, repreason, repmemid, repdate, repstate);
 				
 				req.setAttribute("reportVO", reportVO); 
-				String url = "/back-end/report/listOneReport.jsp";
+				String url = "/back-end/report/listAllReport.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 

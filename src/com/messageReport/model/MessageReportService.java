@@ -34,7 +34,7 @@ public class MessageReportService {
 		   messageReportVO.setMsgid(msgid);
 		   messageReportVO.setMrreason(mrreason);
 		   messageReportVO.setMrstate(mrstate);
-		   dao.insert(messageReportVO);
+		   dao.update(messageReportVO);
 		   
 		   return messageReportVO;
 	}

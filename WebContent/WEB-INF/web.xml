@@ -337,7 +337,6 @@
 	<filter-mapping>
 		<filter-name>EmpLoginFilter</filter-name>
 		<url-pattern>/back-end/activity/*</url-pattern>
-		<url-pattern>/back-end/article/*</url-pattern>
 		<url-pattern>/back-end/billboard/*</url-pattern>
 		<url-pattern>/back-end/branch/*</url-pattern>
 		<url-pattern>/back-end/coupon/*</url-pattern>

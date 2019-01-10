@@ -70,15 +70,14 @@
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 				<h6 class="dropdown-header">入住:</h6>
 				<a class="dropdown-item"
-					href="<%=request.getContextPath()%>/back-end/orders/checkIn.jsp">Check
-					In</a> <a class="dropdown-item" href="blank.html">新增會員</a> <a
-					class="dropdown-item"
+					href="<%=request.getContextPath()%>/back-end/orders/checkIn.jsp">CheckIn</a>
+				<a class="dropdown-item" href="blank.html">新增會員</a>
+				<a class="dropdown-item"
 					href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
 				<div class="dropdown-divider"></div>
 				<h6 class="dropdown-header">退房:</h6>
 				<a class="dropdown-item"
-					href="<%=request.getContextPath()%>/back-end/orders/checkOut.jsp">Check
-					Out</a>
+					href="<%=request.getContextPath()%>/back-end/orders/checkOut.jsp">CheckOut</a>
 			</div></li>
 		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 			href="#" id="pagesDropdown2" role="button" data-toggle="dropdown"
@@ -220,10 +219,12 @@
 		</a>
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 				<h6 class="dropdown-header">文章檢舉:</h6>
-				<a class="dropdown-item" href="blank.html">被檢舉文章列表</a>
+				<a class="dropdown-item" 
+					href="<%=request.getContextPath()%>/back-end/report/listAllReport.jsp">被檢舉文章列表</a>
 				<div class="dropdown-divider"></div>
 				<h6 class="dropdown-header">留言檢舉:</h6>
-				<a class="dropdown-item" href="table.html">被檢舉留言列表</a>
+				<a class="dropdown-item" 
+					href="<%=request.getContextPath()%>/back-end/messageReport/listAllMessageReport.jsp">被檢舉留言列表</a>
 			</div></li>
 		<li class="nav-item dropdown"><a class="nav-link dropdown-toggle"
 			href="#" id="pagesDropdown3" role="button" data-toggle="dropdown"
