@@ -18,6 +18,15 @@
 	System.out.println("checkout = " + empVO.getBraID());
 %>
 
+<!--WebSocket-->
+<% 
+	if(request.getAttribute("refreshRoomState") != null){
+		String refreshRoomState = (String)request.getAttribute("refreshRoomState");
+		pageContext.setAttribute("refreshRoomState", refreshRoomState);
+	}
+%>
+<!--WebSocket-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -106,9 +115,12 @@
 							<c:forEach var="ordcheckInVO" items="${checkOutlist}">
 								<tr>
 									<td>${ordcheckInVO.ordID}</td>
-									<td>${ordcheckInVO.memID}</td>
-									<td>${ordcheckInVO.rtID}</td>
-									<td>${ordcheckInVO.roomID}</td>
+							<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
+									<td>${memSvc.getOneMem(ordcheckInVO.getMemID()).getMemName()}</td>
+							<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+									<td>${rtSvc.getOneRoomType(ordcheckInVO.getRtID()).getRtName()}</td>
+							<jsp:useBean id="roomSvc" scope="page" class="com.room.model.RoomService" />
+									<td>${roomSvc.getOneRoom(ordcheckInVO.getRoomID()).getRoomNo()}</td>
 									<td>${ordcheckInVO.numOfRoom}</td>
 									<td>${ordcheckInVO.numOfGuest}</td> 
 									<td>${ordcheckInVO.checkIn}</td>
@@ -167,6 +179,53 @@
 	<!-- datetimepicker JavaScript-->
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	
+	<!--WebSocket-->
+	<script>
+	var OrdersPoint = "/OrdersEchoServer";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0,path.indexOf('/',1));
+	var endPointURL = "ws://"+host+webCtx+OrdersPoint;
+	var refreshRoomState = ${refreshRoomState};
+	console.log(refreshRoomState);
+	var webSocket;
+	
+	$(function(){
+		connect();
+	})
+	
+	function connect(){
+		webSocket = new WebSocket(endPointURL);
+		console.log(webSocket);
+		
+		webSocket.onopen = function(event){
+			//alert(event.data);
+			console.log("WebSocket connected successful");
+			if(refreshRoomState===1){
+				console.log("connection:"+refreshRoomState);
+				sendMessage();
+			}
+		};
+		
+		webSocket.onmessage = function(event){
+			console.log(event.data);
+			<% pageContext.setAttribute("refreshRoomState", "0"); %>
+			//alert(event.data);
+		};
+		
+		webSocket.onclose = function(event){
+			webSocket.close();
+			console.log("WebSocket disconnected");
+		};
+	}
+	
+	function sendMessage(){
+		webSocket.send('refreshRoomState');
+		console.log('refreshRoomState');
+	}
+	</script>
+	<!--WebSocket-->
 	
 </body>
 
