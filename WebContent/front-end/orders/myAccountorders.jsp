@@ -143,7 +143,7 @@
 									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
 									<td>${ordVO.braID}</td>
 									<td>${ordVO.numOfRoom}</td>
-									<td>${ordStateMap.get(ordVO.getOrdType())}</td> 
+									<td>${ordTypeMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>
 									<td>${ordVO.amount}</td>
 									<td>${ordVO.bond}</td>

@@ -120,7 +120,7 @@
 									<td>${ordVO.memID}</td>
 									<td>${ordVO.braID}</td>
 									<td>${ordVO.numOfRoom}</td>
-									<td>${ordStateMap.get(ordVO.getOrdType())}</td> 
+									<td>${ordTypeMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>
 									<td>${ordVO.amount}</td>
 									<td>${ordVO.bond}</td>
