@@ -44,7 +44,7 @@ public class RoomServlet extends HttpServlet {
 			String braID = req.getParameter("braID");
 //			System.out.println(braID);
 			RoomService roomSvc = new RoomService();
-			List<RoomVO> set = roomSvc.getRoomByBranch(braID);
+			List<RoomVO> list = roomSvc.getRoomByBranch(braID);
 //			for(RoomVO roomVO : set) {
 //				System.out.println(roomVO.getRoomID());
 //				System.out.println(roomVO.getRoomTypeID());
@@ -54,7 +54,7 @@ public class RoomServlet extends HttpServlet {
 //				System.out.println("----------------------------------");
 //				System.out.println("Successfully Search!");
 //				}
-			req.setAttribute("set", set);
+			req.setAttribute("list", list);
 			RequestDispatcher rd = req.getRequestDispatcher("/back-end/room/listRoomByBranch.jsp");
 			rd.forward(req, res);
 		}

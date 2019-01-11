@@ -112,7 +112,7 @@ table, th, td {
 						</td>
 						<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}</td>
 						<td class="text-center">${roomVO.roomNo}</td>
-						<td class="text-center">${roomVO.roomState}</td>
+						<td class="text-center">${roomStateMap.get(roomVO.roomState)}</td>
 						<td class="text-center">${roomVO.memName}</td>
 						<td class="text-center">
 							<FORM method="post" action="<%=request.getContextPath()%>/room/room.do" style="margin-bottom: 0px;">
