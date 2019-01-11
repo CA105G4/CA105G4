@@ -44,6 +44,10 @@ public class RoomDAO implements RoomDAO_interface{
 	//依分店及狀態查詢各個房況總數
 	private static final String GET_RoomState = "select COUNT(*) from Room where roomState = ? and braID= ? ";
 	
+	//依房號去修改狀態
+	private static final String UPDATE_RoomState_By_RoomID = "Update Room set ROOMSTATE = ? where roomID = ?";
+	
+	
 	@Override
 	public void insert(RoomVO roomVO) {
 		Connection con = null;
@@ -457,6 +461,41 @@ System.out.println("房間收到roomID:"+roomID);
 			}
 		}
 		return total;
+	}
+
+	@Override
+	public void updateRSByRoomID(Integer roomState, String roomID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_RoomState_By_RoomID);
+			
+			pstmt.setInt(1, roomState);
+			pstmt.setString(2, roomID);
+			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	

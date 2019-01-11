@@ -70,4 +70,10 @@ public class RoomService {
 		return dao.getEachRoomState(roomState, braID);
 	}
 	
+	//依房間ID去更新房間狀態
+	public void updateRSByRoomID(Integer roomState, String roomID) {
+		dao.updateRSByRoomID(roomState, roomID);
+	}
+	
+	
 }

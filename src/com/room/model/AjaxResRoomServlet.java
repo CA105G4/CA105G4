@@ -8,9 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.employee.model.EmployeeVO;
 
 @WebServlet("/AjaxResRoomServlet")
 public class AjaxResRoomServlet extends HttpServlet {
@@ -24,9 +27,14 @@ public class AjaxResRoomServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		if("UpdateRoomState".equals(action)) {
-			
-			Integer roomNo =new Integer(req.getParameter("roomNo"));
+			String roomID = req.getParameter("roomID");
+//			Integer roomNo =new Integer(req.getParameter("roomNo"));
 			Integer roomState = new Integer(req.getParameter("roomState"));
+//			String braId  = req.getParameter("braId");
+			HttpSession session = req.getSession();
+			EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+			String braId = empVO.getBraID();
+			
 			
 			Integer clean = new Integer(req.getParameter("clean"));
 			Integer checkIn = new Integer(req.getParameter("checkIn"));
@@ -34,7 +42,7 @@ public class AjaxResRoomServlet extends HttpServlet {
 			Integer outOfOrder = new Integer(req.getParameter("outOfOrder"));
 			Integer reserved = new Integer(req.getParameter("reserved"));
 
-			System.out.println("房號:"+roomNo);
+//			System.out.println("房號:"+roomNo);
 			System.out.println("房間狀態:"+roomState);
 			System.out.println("起始----------------");
 			System.out.println("空房總共:"+empty);
@@ -45,13 +53,13 @@ public class AjaxResRoomServlet extends HttpServlet {
 			
 			RoomService rSvc = new RoomService();
 			//更新所選的那間房況
-			rSvc.updateRSByRoomNo(roomState, roomNo);
+			rSvc.updateRSByRoomID(roomState, roomID);
 			//各個房間狀態數量
-			empty = rSvc.getEachRoomState(1,"B01");
-			checkIn = rSvc.getEachRoomState(2,"B01");
-			clean = rSvc.getEachRoomState(3,"B01");
-			outOfOrder = rSvc.getEachRoomState(4,"B01");
-			reserved = rSvc.getEachRoomState(5,"B01");
+			empty = rSvc.getEachRoomState(1,braId);
+			checkIn = rSvc.getEachRoomState(2,braId);
+			clean = rSvc.getEachRoomState(3,braId);
+			outOfOrder = rSvc.getEachRoomState(4,braId);
+			reserved = rSvc.getEachRoomState(5,braId);
 			
 			System.out.println("結束----------------");
 			System.out.println("空房總共:"+empty);
@@ -62,7 +70,7 @@ public class AjaxResRoomServlet extends HttpServlet {
 			
 			JSONObject jobj = new JSONObject();
 			try {
-				jobj.put("roomNo", roomNo);
+				jobj.put("roomID", roomID);
 				jobj.put("roomState", roomState);
 				
 				jobj.put("empty", empty);

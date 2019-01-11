@@ -16,7 +16,8 @@
 	Integer clean = roomSvc.getEachRoomState(3, braId);
 	Integer outOfOrder = roomSvc.getEachRoomState(4, braId);
 	Integer reserved = roomSvc.getEachRoomState(5, braId);
-
+	
+	pageContext.setAttribute("braId",braId);
 	pageContext.setAttribute("listByBranch", listByBranch);
 	
 	System.out.println("roomState = " + braId);
@@ -170,7 +171,7 @@
 					<div class="col-xs-12 col-sm-6 col-sm-offset-3 grid-container"
 						style="display: grid; max-width: 100%">
 						<c:forEach var="roomVO" items="${listByBranch}">
-							<div class="btn" id="${roomVO.roomNo}"
+							<div class="btn" id="${roomVO.roomID}"
 								${roomVO.roomState==1 ? "style='background-Color:#28a745;border: 2px solid #000000;'" : 
 												 (roomVO.roomState==2) ? "style='background-Color:#dc3545;border: 2px solid #000000;'": 
 												 (roomVO.roomState==3) ? "style='background-Color:#FFFF00;border: 2px solid #000000;'" : 
@@ -233,7 +234,8 @@
        				url:"<%=request.getContextPath()%>/room/AjaxResRoom.do",
 					data : {
 							"action" : 'UpdateRoomState',
-							"roomNo" : $(this).parent().parent().parent().attr("id"),
+// 							"braId" : ${braId},
+							"roomID" : $(this).parent().parent().parent().attr("id"),
 							"roomState" : $(this).val(),
 							"empty" : $("#empty").val(),
 							"checkIn" : $("#checkIn").val(),
@@ -267,18 +269,18 @@
 							console.log(res.reserved);
 							
 							
-							var roomNo = "#" + res.roomNo;
-							console.log(roomNo);
+							var roomID = "#" + res.roomID;
+							console.log(roomID);
 							if (res.roomState === 1) {
-								$(roomNo).attr("style",'background-Color:#28a745 ; border:2px solid #000000;');
+								$(roomID).attr("style",'background-Color:#28a745 ; border:2px solid #000000;');
 							} else if (res.roomState === 2) {
-								$(roomNo).attr("style",'background-Color:#dc3545 ; border:2px solid #000000;');
+								$(roomID).attr("style",'background-Color:#dc3545 ; border:2px solid #000000;');
 							} else if (res.roomState === 3) {
-								$(roomNo).attr("style",'background-Color:#FFFF00 ; border:2px solid #000000;');
+								$(roomID).attr("style",'background-Color:#FFFF00 ; border:2px solid #000000;');
 							} else if (res.roomState === 4) {
-								$(roomNo).attr("style",'background-Color:#F5DEB3 ; border:2px solid #000000;');
+								$(roomID).attr("style",'background-Color:#F5DEB3 ; border:2px solid #000000;');
 							} else if (res.roomState === 5) {
-								$(roomNo).attr("style",'background-Color:#007bff ; border:2px solid #000000;');
+								$(roomID).attr("style",'background-Color:#007bff ; border:2px solid #000000;');
 							}
 						},
 					error : function() {

@@ -19,4 +19,7 @@ public interface RoomDAO_interface {
 	
 	//依分店及狀態查詢各個房況總數
 	public int getEachRoomState(Integer roomState, String braID);
+	
+	//依PK去更新房間狀態(1/11更新)
+	public void updateRSByRoomID(Integer roomState, String roomID);
 }
