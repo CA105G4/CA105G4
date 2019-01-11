@@ -70,74 +70,91 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>新增房間</h1>
-				<hr>
+ <h1>新增房間</h1>
+          <hr>
+          	<div class="container-fluid">
+<!--           		<div class="row"> -->
+					<!-- 錯誤驗證 -->
+<%-- 					<c:if test="${not empty errMessage}"> --%>
+<!-- 						<font style="color:red">請修正以下錯誤</font> -->
+<!-- 						<ul> -->
+<%-- 						<c:forEach var="message" items="${errMessage}"> --%>
+<%-- 							<li style="color:red">${message}</li> --%>
+<%-- 						</c:forEach> --%>
+<!-- 						</ul>	 -->
+<%-- 					</c:if> --%>
+<!-- 				</div> -->
 				<div class="container-fluid">
-					<div class="row">
-						<!-- 錯誤驗證 -->
+				<div class="row">
+					<div class="col-xs-12 col-sm-2">
 						<c:if test="${not empty errMessage}">
-							<font style="color: red">請修正以下錯誤</font>
-							<ul>
-								<c:forEach var="message" items="${errMessage}">
-									<li style="color: red">${message}</li>
+						<font style="color:red">請修正以下錯誤</font>
+						<ul>
+						<c:forEach var="message" items="${errMessage}">
+							<li style="color:red">${message}</li>
+						</c:forEach>
+						</ul>	
+					</c:if>
+					</div>
+					<div class="col-xs-12 col-sm-8">
+					<form method="post" action="<%=request.getContextPath()%>/room/room.do" style="margin-bottom: 0px;">
+						<jsp:useBean id="roomTypeSvc" class="com.roomType.model.RoomTypeService"/>
+						<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
+						<table class="table table-bordered table-striped table-hover">
+							<tr>	
+								<td class="text-center">房型:</td>
+								<td class="text-center">
+									<select size="1" name="roomTypeID" class="form-control">
+										<c:forEach var="roomTypeVO" items="${roomTypeSvc.all}" begin="0" end="4">
+										<option value="${roomTypeVO.rtID}">${roomTypeSvc.getOneRoomType(roomTypeVO.rtID).rtName}
+										</c:forEach>
+									</select>
+								</td>
+								<!--<input type="text" name="roomTypeID" value="${roomVO.roomTypeID}" class="form-control" size="45">-->
+							</tr>
+							<tr>	
+								<td class="text-center">店別:</td>
+								<td class="text-center">
+								<select name="braID" class="form-control">
+									<c:forEach var="branchVO" items="${braSvc.all}">
+									<option value="${branchVO.braID}">${branchVO.braName}</option>
+									</c:forEach>
+								</select>
+								</td>
+							</tr>	
+							<tr>	
+								<td class="text-center">房號:</td>
+								<td class="text-center"><input type="text" name="roomNo" value="${roomVO.roomNo}" class="form-control" size="20"></td>
+							</tr>
+							<tr>
+								<td class="text-center">房間狀態:</td>
+								<td class="text-center">
+								<select name="roomState" class="form-control">
+								<c:forEach var="roomState" items="${roomStateMap}">
+									<option value="${roomState.key}">${roomState.value}</option>
 								</c:forEach>
-							</ul>
-						</c:if>
+								</select>				
+								</td>
+							<!--	<input type="text" name="roomState" value="${roomVO.roomState}" class="form-control"> -->
+							</tr>
+							<tr>	
+								<td class="text-center">旅客姓名:</td>
+								<td class="text-center"><input type="text" name="memName" value="${roomVO.memName}" class="form-control" size="20"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td class="text-center">
+									<input class="btn-info form-control" type="submit" value="送出">
+									<input type="hidden" name="action" value="confirm_Add">
+								</td>
+							</tr>	
+						</table>
+					</form>
 					</div>
-					<div class="row">
-						<form method="post"
-							action="<%=request.getContextPath()%>/room/room.do"
-							style="margin-bottom: 0px;">
-							<table>
-								<jsp:useBean id="roomTypeSvc"
-									class="com.roomType.model.RoomTypeService" />
-
-								<tr>
-									<td>房型:&nbsp;</td>
-									<td><select size="1" name="roomTypeID"
-										class="form-control">
-											<c:forEach var="roomTypeVO" items="${roomTypeSvc.all}">
-												<option value="${roomTypeVO.rtID}">${roomTypeSvc.getOneRoomType(roomTypeVO.rtID).rtName}
-											</c:forEach>
-									</select></td>
-									<!--<input type="text" name="roomTypeID" value="${roomVO.roomTypeID}" class="form-control" size="45">-->
-								</tr>
-								<tr>
-									<td>店別:&nbsp;</td>
-									<td><input type="text" name="braID"
-										value="${roomVO.braID}" class="form-control" size="30"></td>
-								</tr>
-								<tr>
-									<td>房號:&nbsp;</td>
-									<td><input type="text" name="roomNo"
-										value="${roomVO.roomNo}" class="form-control"></td>
-								</tr>
-								<tr>
-									<td>房間狀態:&nbsp;</td>
-									<td><select name="roomState" class="form-control">
-											<option value="1">空房</option>
-											<option value="2">入住</option>
-											<option value="3">打掃</option>
-											<option value="4">維修</option>
-											<option value="5">保留</option>
-									</select></td>
-									<!--	<input type="text" name="roomState" value="${roomVO.roomState}" class="form-control"> -->
-								</tr>
-								<tr>
-									<td>旅客姓名:&nbsp;</td>
-									<td><input type="text" name="memName"
-										value="${roomVO.memName}" class="form-control"></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td><input class="btn-info form-control" type="submit"
-										value="送出"> <input type="hidden" name="action"
-										value="confirm_Add"></td>
-								</tr>
-							</table>
-						</form>
-					</div>
+					<div class="col-xs-12 col-sm-2"></div>
 				</div>
+			  </div>
+			</div>	
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
