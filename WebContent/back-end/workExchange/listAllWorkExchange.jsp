@@ -76,79 +76,69 @@ table, th, td {
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>打工需求列表</h1>
-				<hr>
-				<div class="container-fluid">
-					<div class="row">
-						<table>
-							<tr>
-								<th>需求編號</th>
-								<th>創建員工</th>
-								<th>會員姓名</th>
-								<th class="text-center">房型</th>
-								<th>需求名稱</th>
-								<!-- 					<th>需求內容</th> -->
-								<!-- 					<th>需求照片</th> -->
-								<!-- 					<th>需求影片</th> -->
-								<th>開始時間</th>
-								<th>結束時間</th>
-								<th>需求詳情</th>
-								<th class="text-center">審核</th>
-							</tr>
-							<%-- 				<%@ include file="page1.file" %> --%>
-							<jsp:useBean id="memberSvc"
-								class="com.member.model.MemberService" />
-							<jsp:useBean id="employeeSvc"
-								class="com.employee.model.EmployeeService" />
-							<jsp:useBean id="roomTypeSvc"
-								class="com.roomType.model.RoomTypeService" />
-
-							<c:forEach var="workExchangeVO" items="${list}">
-								<tr>
-									<td>${workExchangeVO.weID}</td>
-									<td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
-									<td>${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
-									<td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}</td>
-									<td>${workExchangeVO.weName}</td>
-									<%-- 					<td>${workExchangeVO.weContent}</td> --%>
-									<td>${workExchangeVO.weStart}</td>
-									<td>${workExchangeVO.weEnd}</td>
-									<td class="text-center">
-										<form method="post"
-											action="<%=request.getContextPath()%>/workExchange/workExchange.do"
-											style="margin-bottom: 0px;">
-											<input type="hidden" name="weID"
-												value="${workExchangeVO.weID}"> <input type="submit"
-												class="btn-info" value="查看"> <input type="hidden"
-												name="action" value="getOne_WEDET">
-										</form>
-									</td>
-									<td>
-										<form method="post"
-											action="<%=request.getContextPath()%>/workExchange/workExchange.do"
-											style="margin-bottom: 0px;">
-											<input type="hidden" name="weID"
-												value="${workExchangeVO.weID}"> <input type="submit"
-												${(workExchangeVO.memID == null) ? "class='btn-warning'" : "class='btn-success'"}
-												${(workExchangeVO.memID == null) ? "value='審核'"  : "value='完成'"}>
-											<!--disabled='disabled'-->
-											<input type="hidden" name="action" value="choose_member">
-										</form>
-									</td>
-									<!-- 							<td class="text-center"> -->
-									<%-- 							<form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;"> --%>
-									<%-- 								<input type="hidden" name="weID" value="${workExchangeVO.weID}"> --%>
-									<!-- 								<input type="submit" class="btn-warning" value="刪除"> -->
-									<!-- 								<input type="hidden" name="action" value="deleteOneWE"> -->
-									<!-- 							</form> -->
-									<!-- 							</td> -->
-								</tr>
-							</c:forEach>
-						</table>
-					</div>
+				          <h1>打工需求列表</h1>
+          <hr>
+          	<div class="container-fluid">
+				<div class="row">
+				<table class="table table-bordered table-striped table-hover">
+					<tr>
+						<th class="text-center">需求編號</th>
+						<th class="text-center">創建員工</th>
+						<th class="text-center">會員姓名</th>
+						<th class="text-center">房型</th>
+						<th class="text-center">需求名稱</th>
+	<!-- 					<th>需求內容</th> -->
+	<!-- 					<th>需求照片</th> -->
+	<!-- 					<th>需求影片</th> -->
+						<th class="text-center">開始時間</th>
+						<th class="text-center">結束時間</th>
+						<th class="text-center">需求詳情</th>
+						<th class="text-center">審核</th>
+					</tr>
+<%-- 				<%@ include file="page1.file" %> --%>
+					<jsp:useBean id="memberSvc" class="com.member.model.MemberService"/>
+					<jsp:useBean id="employeeSvc" class="com.employee.model.EmployeeService"/>
+					<jsp:useBean id="roomTypeSvc" class="com.roomType.model.RoomTypeService" />
+					
+					<c:forEach var="workExchangeVO" items="${list}">
+						<tr>
+							<td class="text-center">${workExchangeVO.weID}</td>
+							<td class="text-center">${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
+							<td class="text-center">${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
+							<td class="text-center">${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}</td>
+							<td class="text-center">${workExchangeVO.weName}</td>
+		<%-- 					<td>${workExchangeVO.weContent}</td> --%>
+							<td class="text-center">${workExchangeVO.weStart}</td>
+							<td class="text-center">${workExchangeVO.weEnd}</td>
+							<td class="text-center">
+							<form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
+								<input type="hidden" name="weID" value="${workExchangeVO.weID}">
+								<input type="submit" class="btn btn-info" value="查看">
+								<input type="hidden" name="action" value="getOne_WEDET">
+							</form>
+							</td>
+							<td class="text-center">
+							<form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
+								<input type="hidden" name="weID" value="${workExchangeVO.weID}">
+								<input type="submit" ${(workExchangeVO.memID == null) ? "class='btn btn-warning'" : "class='btn btn-success'"} 
+								${(workExchangeVO.memID == null) ? "value='審核'"  : "value='完成'"}>  <!--disabled='disabled'-->
+								<input type="hidden" name="action" value="choose_member">
+							</form>
+							</td>
+<!-- 							<td class="text-center"> -->
+<%-- 							<form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;"> --%>
+<%-- 								<input type="hidden" name="weID" value="${workExchangeVO.weID}"> --%>
+<!-- 								<input type="submit" class="btn-warning" value="刪除"> -->
+<!-- 								<input type="hidden" name="action" value="deleteOneWE"> -->
+<!-- 							</form> -->
+<!-- 							</td> -->
+						</tr>
+					</c:forEach>
+				  </table>
 				</div>
-				<!-- Page Content 這邊開始自由發揮結束-->
-			</div>
+			</div>	
+          <!-- Page Content 這邊開始自由發揮結束-->
+        </div>
 			<!-- /.container-fluid -->
 
 			<!-- Sticky Footer -->

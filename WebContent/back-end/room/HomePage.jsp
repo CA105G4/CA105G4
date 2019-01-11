@@ -14,8 +14,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
 
@@ -74,14 +73,14 @@
 				<hr>
 				<div class="container-fluid">
 					<!-- 錯誤驗證 -->
-					<c:if test="${not empty errMessage}">
-						<font style="color: red">請修正以下錯誤</font>
-						<ul>
-							<c:forEach var="message" items="${errMessage}">
-								<li style="color: red">${message}</li>
-							</c:forEach>
-						</ul>
-					</c:if>
+<%-- 					<c:if test="${not empty errMessage}"> --%>
+<!-- 						<font style="color: red">請修正以下錯誤</font> -->
+<!-- 						<ul> -->
+<%-- 							<c:forEach var="message" items="${errMessage}"> --%>
+<%-- 								<li style="color: red">${message}</li> --%>
+<%-- 							</c:forEach> --%>
+<!-- 						</ul> -->
+<%-- 					</c:if> --%>
 
 					<ul>
 						<jsp:useBean id="roomSvc" class="com.room.model.RoomService" />
@@ -108,15 +107,16 @@
 							</form>
 						</li>
 						<li>
-							<form method="post"
-								action="<%=request.getContextPath()%>/room/room.do">
-								<b>選擇分店:</b> <select name="braID">
-									<option value="B01">B01
-									<option value="B02">B02
-								</select> <input type="hidden" name="action"
-									value="getRoomByBranch_For_Display"> <input
-									type="hidden" name="braID" value="B01"> <input
-									class="btn-warning" type="submit" value="送出">
+							<jsp:useBean id="braSvc" class="com.branch.model.BranchService"/>
+							<form method="post" action="<%=request.getContextPath()%>/room/room.do">
+								<b>選擇分店:</b>
+								<select name="braID">
+									<c:forEach var="branchVO" items="${braSvc.all}">
+									<option value="${branchVO.braID}">${branchVO.braName}</option>
+									</c:forEach>
+								</select> 
+								<input type="hidden" name="action" value="getRoomByBranch_For_Display"> 
+								<input class="btn-warning" type="submit" value="送出">
 							</form>
 						</li>
 					</ul>

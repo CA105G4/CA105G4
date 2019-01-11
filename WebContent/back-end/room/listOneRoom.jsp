@@ -77,7 +77,7 @@ table, th, td {
 				<h1>查詢房間資料</h1>
 				<hr>
 
-				<table>
+				<table class="table table-bordered table-striped table-hover">
 					<tr>
 						<th>房間編號</th>
 						<th>房型</th>
@@ -85,6 +85,7 @@ table, th, td {
 						<th>房號</th>
 						<th>房間狀態</th>
 						<th>旅客姓名</th>
+						<th></th>
 					</tr>
 
 					<tr>
@@ -92,13 +93,14 @@ table, th, td {
 						<td>${roomVO.roomTypeID}</td>
 						<td>${roomVO.braID}</td>
 						<td>${roomVO.roomNo}</td>
-						<td align="center">${roomVO.roomState}</td>
+						<td>${roomStateMap.get(roomVO.roomState)}</td>
 						<td>${roomVO.memName}</td>
+						<td>
+							<form method="post" action="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">
+								<input class="btn btn-success" type="submit" value="返回">
+							</form>
+						</td>
 				</table>
-				<form method="post"
-					action="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">
-					<input class="btn-success" type="submit" value="返回">
-				</form>
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->

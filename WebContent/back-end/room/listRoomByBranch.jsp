@@ -5,7 +5,6 @@
 <%@ page import="java.util.*"%>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,12 +72,14 @@ table, th, td {
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>${param.braID}的房間</h1>
+				<div class="container-fluid">
+					<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
+					<h3>${braSvc.getOneByID(param.braID).braName}的房間&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size:small"><a href="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">返回</a></span></h3>
+				</div>
 				<hr>
 
-				<table>
-					<jsp:useBean id="roomTypeSvc" scope="page"
-						class="com.roomType.model.RoomTypeService" />
+				<table class="table table-bordered table-striped table-hover">
+					<jsp:useBean id="roomTypeSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 					<tr>
 						<th>房間編號</th>
 						<th>房型</th>
@@ -86,20 +87,16 @@ table, th, td {
 						<th>房間狀態</th>
 						<th>旅客姓名</th>
 					</tr>
-					<c:forEach var="roomVO" items="${set}">
+					<c:forEach var="roomVO" items="${list}">
 						<tr>
 							<td>${roomVO.roomID}</td>
 							<td>${roomTypeSvc.getOneRoomType(roomVO.roomTypeID).rtName}</td>
 							<td>${roomVO.roomNo}</td>
-							<td align="center">${roomVO.roomState}</td>
+							<td>${roomStateMap.get(roomVO.getRoomState())}</td>
 							<td>${roomVO.memName}</td>
 						</tr>
 					</c:forEach>
 				</table>
-				<form method="post"
-					action="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">
-					<input class="btn-success" type="submit" value="返回">
-				</form>
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->

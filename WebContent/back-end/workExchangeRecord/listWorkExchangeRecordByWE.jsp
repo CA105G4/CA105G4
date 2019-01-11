@@ -48,9 +48,9 @@
 <link href="<%=request.getContextPath() %>/back-end/css/sb-admin.css"
 	rel="stylesheet">
 <style>
-table, th, td {
-	border: 2px solid #CCCCFF;
-}
+	table, th, td {
+  	text-align:center;
+	}
 </style>
 </head>
 
@@ -81,58 +81,52 @@ table, th, td {
 					<li class="breadcrumb-item active">打工申請紀錄列表</li>
 				</ol>
 
-				<!-- Page Content 這邊開始自由發揮-->
-				<h1>打工申請紀錄列表</h1>
-				<hr>
-				<div class="container-fluid">
-					<div class="row">
-						<table>
-							<tr>
-								<th>需求編號</th>
-								<th>需求名稱</th>
-								<th>會員姓名</th>
-								<th>會員技能</th>
-								<!-- 						<th>訂單編號</th> -->
-								<th>申請圖片</th>
-								<th>審核狀況</th>
-								<th class="text-center">審核</th>
-							</tr>
-							<jsp:useBean id="memberSvc"
-								class="com.member.model.MemberService" />
-							<jsp:useBean id="rtSvc"
-								class="com.roomType.model.RoomTypeService" />
-							<c:forEach var="workExchangeRecordVO" items="${list}">
-								<tr>
-									<td>${workExchangeRecordVO.weID}</td>
-									<td>${workExchangeVO.weName}</td>
-									<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memName}</td>
-									<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memSkill}</td>
-									<%-- 							<td>${workExchangeRecordVO.orderID}</td> --%>
-									<td><img
-										src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}"
-										class="img-fluid"></td>
-									<td>
-										${werStateMap.get(workExchangeRecordVO.getWerState())}</td>
-									<td class="text-center">
-										<form method="post"
-											action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do"
-											style="margin-bottom: 0px;">
-											<input type="hidden" name="weID"
-												value="${workExchangeRecordVO.weID}"> <input
-												type="hidden" name="memID"
-												value="${workExchangeRecordVO.memID}"> <input
-												type="hidden" name="werState" value="1"> <input
-												type="submit"
-												${(workExchangeRecordVO.werState == 1) ? "class='btn-success'" : "class='btn-danger'"}
-												${(workExchangeRecordVO.werState == 1) ? "value='成立訂單'" : "value='通過'"}>
-											<input type="hidden" name="action" value="OK">
-										</form>
-									</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</div>
-				</div>
+			  <!-- Page Content 這邊開始自由發揮-->
+	          <h1>打工申請紀錄列表</h1>
+	          <hr>
+          		<div class="container-fluid">
+				<div class="row">
+				<table class="table table-bordered table-striped table-hover">
+					<tr>
+						<th>需求編號</th>
+						<th>需求名稱</th>
+						<th>會員姓名</th>
+						<th>會員技能</th>
+<!-- 						<th>訂單編號</th> -->
+						<th>申請圖片</th>
+						<th>審核狀況</th>
+						<th class="text-center">審核</th>
+					</tr>
+					<jsp:useBean id="memberSvc" class="com.member.model.MemberService"/>
+					<jsp:useBean id="rtSvc" class="com.roomType.model.RoomTypeService"/>
+					<c:forEach var="workExchangeRecordVO" items="${list}">
+						<tr>
+							<td>${workExchangeRecordVO.weID}</td>
+							<td>${workExchangeVO.weName}</td>
+							<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memName}</td>
+							<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memSkill}</td>	
+<%-- 							<td>${workExchangeRecordVO.orderID}</td> --%>
+							<td>
+							<img src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}" class="img-fluid">
+							</td>
+							<td>
+								${werStateMap.get(workExchangeRecordVO.getWerState())}
+							</td>
+							<td class="text-center">
+							<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" style="margin-bottom: 0px;">
+								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
+								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
+								<input type="hidden" name="werState" value="1">
+								<input type="submit" ${(workExchangeRecordVO.werState == 1) ? "class='btn-success'" : "class='btn-danger'"} 
+								${(workExchangeRecordVO.werState == 1) ? "value='成立訂單'" : "value='通過'"}>
+								<input type="hidden" name="action" value="OK">
+							</form>
+							</td>
+						</tr>
+					  </c:forEach>
+				    </table>
+				  </div>
+				</div>	
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
