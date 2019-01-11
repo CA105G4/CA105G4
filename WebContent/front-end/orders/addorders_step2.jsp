@@ -1,4 +1,3 @@
-<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.orderDetail.model.OrderDetailVO"%>
 <%@page import="com.orders.model.OrdersService"%>
@@ -7,10 +6,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 	
 <%
-	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
-
 	OrdersService odSvc = new OrdersService();
-	String ordID = odSvc.findNewOrderID(memVO.getMemID());
+	String ordID = odSvc.findNewOrderID("M0001");
 	
 	OrdersVO ordVO = odSvc.getOneOrders(ordID);
 	pageContext.setAttribute("ordVO", ordVO);
@@ -18,8 +15,6 @@
 	Set<OrderDetailVO> odSet = odSvc.getOrderDetailByOrders(ordID);
 	OrderDetailVO odVO = odSet.iterator().next();
 	pageContext.setAttribute("odVO", odVO);
-	
-	System.out.println("addOrders_step2 = " + memVO.getMemID());
 %>
 	
 <!DOCTYPE html>

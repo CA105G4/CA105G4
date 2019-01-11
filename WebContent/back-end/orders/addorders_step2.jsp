@@ -212,8 +212,30 @@
 	
 	<script>
 		$(function(){
-			swal("新增成功!", "感謝您的支持!", "success");
+		    $('#confirmtoPay').on('click', function(){
+		    	swal("Good job!", "You clicked the button!", "success");
+				$.ajax({
+					url: "<%=request.getContextPath()%>/roomType/AjaxResRoomType.do",
+					type: "get",
+					data: { 
+							action: 'sweetalert', 
+							sweet: 'sweetsuccess'
+						},
+					dataType: 'json',
+					success: function(res){
+						console.log(res.success);
+						changePage();
+					},
+					error: function(res){
+							swal("Sorry!", "已給過評價囉!", "error");
+					}
+				});
+		    });
 		});
+		
+		function changePage(){
+			document.location.href='<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp';
+		}
 	</script>
 
 </body>

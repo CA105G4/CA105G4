@@ -1,4 +1,3 @@
-<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.orders.model.OrdersVO"%>
 <%@page import="com.orders.model.OrdersService"%>
@@ -6,13 +5,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
 <%
-	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
-
-	OrdersService ordSvc = new OrdersService();
-	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState0(memVO.getMemID());
-	pageContext.setAttribute("list", list);
 	
-	System.out.println("myAccountOrders = " + memVO.getMemID());
+	OrdersService ordSvc = new OrdersService();
+	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState0("M0001");
+	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -137,7 +133,7 @@
 								<th>總額</th>
 								<th>訂金</th>
 								<th>付款方式</th>
-								<th>下訂單時間</th>
+								<th>下訂時間</th>
 								<th></th>
 							</tr>
 							<%@ include file="page1.file" %> 

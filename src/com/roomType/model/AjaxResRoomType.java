@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
+import com.orderDetail.model.OrderDetailService;
+import com.orderDetail.model.OrderDetailVO;
 
 public class AjaxResRoomType extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -134,8 +136,56 @@ public class AjaxResRoomType extends HttpServlet{
 			}		
 		}
 		
+		if ("updateEvaluates".equals(action)) {
+			Integer evaluates = new Integer(req.getParameter("evaluates"));
+			Integer odID = new Integer(req.getParameter("odID"));
+			
+			System.out.println("evaluates:"+evaluates);
+			System.out.println("odID:"+odID);
+			
+			OrderDetailService odSvc = new OrderDetailService();
+			/**判斷是否給過評價**/
+			OrderDetailVO odVO = odSvc.getOneOrderDetail(odID);
+			System.out.println("odVO.getEvaluates():"+odVO.getEvaluates());
+			if(odVO.getEvaluates() != 0.0) {
+				return;
+			}
+			
+			odSvc.updateEvaluates(evaluates, odID);
+			
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("odID", odID);
+				obj.put("evaluates", evaluates);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(obj.toString());
+			out.flush();
+			out.close();
+		}
 		
-		
+		if ("sweetalert".equals(action)) {
+			String sweet = req.getParameter("sweet");
+			
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("success", "success");
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(obj.toString());
+			out.flush();
+			out.close();
+		}
 		
 	}
 }

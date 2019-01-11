@@ -64,12 +64,64 @@
 			<td>${rtSvc.getOneRoomType(odVO.getRtID()).rtName}</td>
 			<td>${odVO.checkIn}</td>
 			<td>${odVO.checkOut}</td>
-			<td>${odVO.evaluates}</td>
+	<jsp:useBean id="odSvc" scope="page" class="com.orderDetail.model.OrderDetailService" />
+	<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
+	<c:choose>
+		<c:when test="${odVO.evaluates == 0.0}">
+			<td><span class="ratyli test" data-rate="0" data-ratemax="5" id="${odVO.odID}"></span> </td>
+		</c:when>
+		<c:when test="${ordSvc.getOneOrders(odSvc.getOneOrderDetail(odVO.odID).getOrdID()).getOrdState() == 3}">
+			<td>無法給評</td>
+		</c:when>
+		<c:otherwise>
+			<td><span class="ratyli test" data-rate="${odVO.evaluates}" data-ratemax="5" id="${odVO.odID}"></span> </td>
+		</c:otherwise>
+	</c:choose>
 			<td>${odVO.special}</td>
 		</tr>
 	</c:forEach>
 </table>
 
-</body>
+  <script>
+  $(function() {
+	  console.log(222);
+	  $('.ratyli').ratyli();
+	  updateEvaluates();
+	});   
+  
+	function updateEvaluates(){
+		  $('.test').on('click', function(){
+	    	  console.log($(this).attr('data-rate'));
+	    	  console.log($(this).attr('id'));
+	    	  
+				$.ajax({
+					url: "<%=request.getContextPath()%>/roomType/AjaxResRoomType.do",
+					type: "get",
+					data: { 
+							action: 'updateEvaluates', 
+							evaluates: $(this).attr('data-rate'),
+							odID: $(this).attr('id')
+						},
+					dataType: 'json',
+					success: function(res){
+						console.log(res.odID);
+						console.log(res.evaluates);
+						$('#'+res.odID).attr('data-rate', res.evaluates);
+						
+						$(function(){
+							swal("評價成功!", "感謝您的支持!", "success");
+						});
+					},
+					error: function(res){
+							swal("Sorry!", "已給過評價囉!", "error");
+					}
+				});
+	    	  
+	     });	
+	}
+  </script>  
 
+</body>
+	<!-- sweetalert-->
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </html>

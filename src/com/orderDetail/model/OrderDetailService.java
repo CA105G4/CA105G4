@@ -65,4 +65,9 @@ public class OrderDetailService {
 	public void updateSpecial(Integer special, Integer odID) {
 		dao.updateSpecial(special, odID);
 	}
+	
+	//[Gina]{給評價}再訂單明細中給評價
+	public void updateEvaluates(Integer evaluates, Integer odID) {
+		dao.updateEvaluates(evaluates, odID);
+	};
 }

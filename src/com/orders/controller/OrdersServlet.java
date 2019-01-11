@@ -673,19 +673,6 @@ System.out.println("修改訂單狀態成功");
 			
 		}
 		
-		if ("GiveEvaluates".equals(action)) {
-			String ordID = req.getParameter("ordID");
-			System.out.println("service接收到ordID:"+ordID);
-			
-			OrdersService ordSvc = new OrdersService();			
-			Set<OrderDetailVO> odSet = ordSvc.getOrderDetailByOrders(ordID);
-			req.setAttribute("odSet", odSet);
-			
-			String url = "/front-end/orders/giveEvaluates.jsp";
-			System.out.println("url" + url);
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-		}
 		
 		if ("AddBed".equals(action)) {
 			String ordID = req.getParameter("ordID");

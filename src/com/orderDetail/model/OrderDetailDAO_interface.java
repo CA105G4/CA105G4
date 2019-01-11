@@ -20,5 +20,7 @@ public interface OrderDetailDAO_interface {
 	
 	//[Gina]{加床}再訂單明細中改加床
 	public void updateSpecial(Integer special, Integer odID);
-
+	
+	//[Gina]{給評價}再訂單明細中給評價
+	public void updateEvaluates(Integer evaluates, Integer odID);
 }

@@ -1,4 +1,3 @@
-<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.orders.model.OrdersVO"%>
 <%@page import="com.orders.model.OrdersService"%>
@@ -6,13 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
 <%
-	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
-
 	OrdersService ordSvc = new OrdersService();
-	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState123(memVO.getMemID());
+	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState123("M0001");
 	pageContext.setAttribute("list", list);
-	
-	System.out.println("myOrderRecord = " + memVO.getMemID());
 %>
 
 <!DOCTYPE html>
@@ -136,7 +131,7 @@
 								<th>總額</th>
 								<th>訂金</th>
 								<th>付款方式</th>
-								<th>下訂單時間</th>
+								<th>下訂時間</th>
 								<th></th>
 							</tr>
 							<%@ include file="page1.file" %> 
@@ -146,18 +141,12 @@
 									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
 									<td>${ordVO.braID}</td>
 									<td>${ordVO.numOfRoom}</td>
-									<td>${ordStateMap.get(ordVO.getOrdType())}</td> 
+									<td>${ordTypeMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>
 									<td>${ordVO.amount}</td>
 									<td>${ordVO.bond}</td>
 									<td>${paymentMap.get(ordVO.getPayment())}</td>
 									<td>${ordVO.ordTime}</td>									
-									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
-									     <input type="submit" value="給予評價"  ${(ordVO.ordState == 3)? "class='btn btn-secondary' disabled"  : "class='btn btn-info'" }>
-									     <input type="hidden" name="ordID"  value="${ordVO.ordID}">
-									     <input type="hidden" name="action"	value="GiveEvaluates"></FORM>
-									</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -240,6 +229,9 @@
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   
+  <!-- 評價星星 -->
+  <script src="<%=request.getContextPath()%>/front-end/js/jquery.ratyli.min.js"></script>
+  
     <%-- ${openModal!=null} --%>
 	<c:if test="${openModal!=null}">
 	
@@ -275,10 +267,10 @@
   <script>
     $(document).ready(function() {
       $('.list-group-item').click(function(e) {
-      e.stoppropagation()
-      $('.list-group-item').removeClass('active');
-      $(this).addClass('active');
-    });
+	      e.stoppropagation()
+	      $('.list-group-item').removeClass('active');
+	      $(this).addClass('active');
+	    });
     });
   </script>  
   </body>
