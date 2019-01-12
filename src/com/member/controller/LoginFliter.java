@@ -38,7 +38,7 @@ public class LoginFliter  implements Filter {
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		if(memberVO==null) {
 			session.setAttribute("location", req.getRequestURI());
-			res.sendRedirect(req.getContextPath()+"/front-end/member/Login.jsp");
+			res.sendRedirect(req.getContextPath()+"/front-end/Login.jsp");
 			return;
 		}else {
 			chain.doFilter(request, response);

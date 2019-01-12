@@ -54,7 +54,7 @@ public class memLogin extends HttpServlet {
 		if("insert".equals(button)){
 			req.setAttribute(memAcc, memAcc);
 			req.setAttribute(memPsw, memPsw);
-			String url =req.getContextPath()+"/back-end/member/addMember.jsp";
+			String url =req.getContextPath()+"/front-end/member/register.jsp";//註冊葉面
 			res.sendRedirect(url);
 			return;
 			
@@ -108,7 +108,7 @@ public class memLogin extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			res.sendRedirect(req.getContextPath()+"/select_page.jsp");//要跳轉的頁面
+			res.sendRedirect(req.getContextPath()+"/front-end/member/myAccountMyPage.jsp");//要跳轉的頁面
 		}
 		
 		return;
