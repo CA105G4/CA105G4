@@ -109,7 +109,7 @@
 						<tr>
 							<td>電話:</td>
 							<td><input type="TEXT" name="empTel" size="45"
-								value="<%=(employeeVO == null) ? "09781235" : employeeVO.getEmpTel()%>" /></td>
+								value="<%=(employeeVO == null) ? "0978001235" : employeeVO.getEmpTel()%>" /></td>
 						</tr>
 						<tr>
 							<td>員工帳號:</td>
