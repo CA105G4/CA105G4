@@ -70,12 +70,13 @@ System.out.println("braID："+ braID);
 						numOfRoomlistindex++;
 					}
 				}			
-				
+					//算出房間總數
 				for(int i=0; i<numOfRoomlist.length; i++) {
+					numOfRoom += new Integer(numOfRoomlist[i]);
 					System.out.println("NEWnumOfRoomlist["+i+"]:"+ numOfRoomlist[i]);
 				}
-	
-		
+System.out.println("numOfRoom："+ numOfRoom);					
+			
 				Integer ordType = null;
 				ordType = new Integer(req.getParameter("ordType").trim());
 System.out.println("ordType："+ ordType);

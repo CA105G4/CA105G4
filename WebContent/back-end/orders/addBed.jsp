@@ -102,15 +102,16 @@
 											<td><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${odVO.rtID}" class="img-fluid showrtpic" width="400px"></td>
 										</tr>
 										<tr>	
+				<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 											<th>房型</th>
-											<td>${odVO.rtID}</td>
+											<td>${rtSvc.getOneRoomType(odVO.rtID).getRtName()}</td>
 										</tr>
 										<tr>	
 											<th>特殊需求(加床)</th>
 											<td>
 												<select name="special" class="custom-select">
-														<option value="0">不加床</option>
-														<option value="1">加床</option>
+														<option value="0" ${odVO.special==0? 'selected' : ''}>不加床</option>
+														<option value="1" ${odVO.special==1? 'selected' : ''}>加床</option>
 												</select>
 											</td>
 										</tr>

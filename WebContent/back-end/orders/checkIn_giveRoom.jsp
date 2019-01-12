@@ -104,7 +104,8 @@
 										</tr>
 										<tr>	
 											<th>房型</th>
-											<td>${odVO.rtID}</td>
+						<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+											<td>${rtSvc.getOneRoomType(odVO.rtID).getRtName()}</td>
 										</tr>
 										<tr>	
 											<th>房間號碼</th>

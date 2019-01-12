@@ -138,13 +138,12 @@
 					<c:forEach var="odVO" items="${odSet}">
 						<tr>
 							<td>${odVO.ordID}</td>
-							<jsp:useBean id="rtSvc" scope="page"
-								class="com.roomType.model.RoomTypeService" />
+							<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 							<td>${rtSvc.getOneRoomType(odVO.getRtID()).rtName}</td>
 							<td>${odVO.checkIn}</td>
 							<td>${odVO.checkOut}</td>
 							<td>${odVO.evaluates}</td>
-							<td>${odVO.special}</td>
+							<td>${specialMap.get(odVO.special)}</td>
 						</tr>
 					</c:forEach>
 				</table>

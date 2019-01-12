@@ -169,23 +169,6 @@ public class AjaxResRoomType extends HttpServlet{
 			out.close();
 		}
 		
-		if ("sweetalert".equals(action)) {
-			String sweet = req.getParameter("sweet");
-			
-			JSONObject obj = new JSONObject();
-			try {
-				obj.put("success", "success");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			
-			res.setContentType("text/plain");
-			res.setCharacterEncoding("UTF-8");
-			PrintWriter out = res.getWriter();
-			out.write(obj.toString());
-			out.flush();
-			out.close();
-		}
 		
 	}
 }

@@ -100,11 +100,13 @@
 								</tr>
 								<tr>
 									<th>會員姓名：</th>
-									<td>${ordVO.memID}</td>
+					<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
+									<td>${memSvc.getOneMem(ordVO.memID).getMemName()}</td>
 								</tr>
 								<tr>
+					<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
 									<th>分店名稱：</th>
-									<td>${ordVO.braID}</td>
+									<td>${braSvc.getOneByID(ordVO.braID).getBraName()}</td>
 								</tr>
 								<tr>
 									<th>訂房數量：</th>
@@ -112,7 +114,7 @@
 								</tr>
 								<tr>
 									<th>訂單種類：</th>
-									<td>${ordVO.ordType}</td>
+									<td>${ordTypeMap.get(ordVO.ordType)}</td>
 								</tr>
 								<tr>
 									<th>入住時間：</th>
@@ -124,7 +126,7 @@
 								</tr>
 								<tr>
 									<th>付款方式：</th>
-									<td>${ordVO.payment}</td>
+									<td>${paymentMap.get(ordVO.payment)}</td>
 								</tr>
 								<tr>
 									<th>下訂時間：</th>
@@ -139,7 +141,7 @@
 											<th>
 												<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtIDandNum.getKey()}" class="img-fluid showrtpic" width="300px" padding-right: 15px;>
 											</th>
-											<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+							<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 											<td>${rtSvc.getOneRoomType(rtIDandNum.getKey()).rtName} : </td>
 											<td>${rtIDandNum.getValue()} 間</td>
 										</tr>
@@ -213,29 +215,17 @@
 	<script>
 		$(function(){
 		    $('#confirmtoPay').on('click', function(){
-		    	swal("Good job!", "You clicked the button!", "success");
-				$.ajax({
-					url: "<%=request.getContextPath()%>/roomType/AjaxResRoomType.do",
-					type: "get",
-					data: { 
-							action: 'sweetalert', 
-							sweet: 'sweetsuccess'
-						},
-					dataType: 'json',
-					success: function(res){
-						console.log(res.success);
-						changePage();
-					},
-					error: function(res){
-							swal("Sorry!", "已給過評價囉!", "error");
-					}
-				});
+		    	swal({
+		            title: "訂單新增成功!", text: "感謝您的支持", type: "success", icon: "success",showCancelButton: true, confirmButtonText: "前往"
+		          }).then(
+		           function (result) {
+		           if(result){
+		        	   document.location.href='<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp';
+		           }
+		           });
 		    });
 		});
-		
-		function changePage(){
-			document.location.href='<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp';
-		}
+
 	</script>
 
 </body>

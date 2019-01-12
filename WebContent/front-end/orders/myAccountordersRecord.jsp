@@ -139,7 +139,8 @@
 								
 								<tr>
 									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
-									<td>${ordVO.braID}</td>
+						<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
+									<td>${braSvc.getOneByID(ordVO.braID).getBraName()}</td>
 									<td>${ordVO.numOfRoom}</td>
 									<td>${ordTypeMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>

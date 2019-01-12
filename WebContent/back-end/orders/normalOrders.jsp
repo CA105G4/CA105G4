@@ -107,7 +107,7 @@
 							<tr>
 								<th>訂單編號</th>
 								<th>會員姓名</th>
-								<th>分店編號</th>
+								<th>分店</th>
 								<th>房間數</th>
 								<th>訂單種類</th>
 								<th>人數</th>
@@ -124,8 +124,10 @@
 								
 								<tr>
 									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
-									<td>${ordVO.memID}</td>
-									<td>${ordVO.braID}</td>
+							<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
+									<td>${memSvc.getOneMem(ordVO.memID).getMemName()}</td>
+							<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
+									<td>${braSvc.getOneByID(ordVO.braID).getBraName()}</td>
 									<td>${ordVO.numOfRoom}</td>
 									<td>${ordTypeMap.get(ordVO.getOrdType())}</td> 
 									<td>${ordVO.numOfGuest}</td>

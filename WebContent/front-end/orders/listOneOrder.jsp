@@ -60,14 +60,14 @@
 	<c:forEach var="odVO" items="${odSet}">
 		<tr>
 			<td>${odVO.ordID}</td>
-			<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+		<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 			<td>${rtSvc.getOneRoomType(odVO.getRtID()).rtName}</td>
 			<td>${odVO.checkIn}</td>
 			<td>${odVO.checkOut}</td>
 	<jsp:useBean id="odSvc" scope="page" class="com.orderDetail.model.OrderDetailService" />
 	<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
 	<c:choose>
-		<c:when test="${odVO.evaluates == 0.0}">
+		<c:when test="${ (odVO.evaluates == 0.0)}">
 			<td><span class="ratyli test" data-rate="0" data-ratemax="5" id="${odVO.odID}"></span> </td>
 		</c:when>
 		<c:when test="${ordSvc.getOneOrders(odSvc.getOneOrderDetail(odVO.odID).getOrdID()).getOrdState() == 3}">
