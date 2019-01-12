@@ -210,6 +210,7 @@ div {
 			</div>
 		</div>
 	</div>
+
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -314,6 +315,7 @@ div {
 	var userName = '456';
 //     var url = "ws://localhost:8081/CA105G4/chatSocket?username=${sessionScope.username}";
 	var url = "ws://localhost:8081/CA105G4/chatSocket?username=456";
+	var historyMsgArray = [];
     window.onload = function() {
         if ('WebSocket' in window) {
             ws = new WebSocket(url);
@@ -326,7 +328,7 @@ div {
 
         ws.onmessage = function(event) {
             eval("var result=" + event.data);
-			console.log(event.data);
+			console.log("event.data:" + event.data);
             if (result.alert != undefined) {
                 $("#content").append(result.alert + "<br/>");
             }
@@ -338,14 +340,14 @@ div {
 	                            $("#userList").append(
 // 	                                    "<input type=checkbox value='"+this+"'/>"
 // 	                                            + this + "<br/>"
-										"<label class='container'>" + this + "<input type='checkbox' value='" + this + "'/><span class='checkmark'></span></label>"								  
+										"<label class='container'>" + this + "<input type='checkbox' onchange='history()' value='" + this + "' /><span class='checkmark'></span></label>"								  
 	                             );  
                         });       		
             }
             var inputMessage = document.getElementById("content");
             
             if (result.from != undefined) {
-            	console.log("result.from" + result.from);
+            	console.log("from :" + result.from);
                 $("#content").append(
                         "【" + result.from + "】" + "&nbsp;&nbsp;" + result.date + "：<br/>" + result.sendMsg); 
 //                 		+ result.sendMsg + "<br/>"); 
@@ -358,49 +360,106 @@ div {
 //             			 );
 //             	 inputMessage.scrollTop = inputMessage.scrollHeight;
 //             }
+			
+            
+            
+//             var historyMsgArray = [];
+            if (result.type == 3){
+//             	var historyMsgArray = [];
+				var jsonObj = JSON.parse(result.msg);
+				console.log("jsonObj: " + jsonObj);
+				for(var i = 0; i < jsonObj.length; i++){
+					eval("var historyMsg=" + jsonObj[i]);
+					historyMsgArray.push("【" + historyMsg.from + " to " + historyMsg.to + "】" + " : " + historyMsg.msg); 
+// 					console.log("historyMsgInside: " + historyMsg);
+				}
+				console.log("historyMsgArray: " + historyMsgArray);
 
+				$('#history').click(function(){
+            		$.each(historyMsgArray,function(index, val){
+            			console.log("index:val " + index + ";" + val);
+            			$("#content").append(val);
+            		});
+            		historyMsgArray.length = 0;
+            		console.log("historylength: " + historyMsgArray.length);
+            	});
+			}
+//             console.log("historyMsgArrayOutside: " + historyMsgArray);
+            
+//             $(document).ready(function(){
+//             	$('#history').click(function(){
+//             		$.each(historyMsgArray,function(index, val){
+//             			console.log(index, val)
+//             			$("#content").append(val);
+//             			historyMsgArray = [];
+//             		})
+//             	})
+//             })
         };
     };
+    
+	
+    
     
     function formatDate(date) {
    	 
       var month = ("0" + (date.getMonth() + 1)).slice(-2);
-  	  var day = ("0" + (date.getDate() + 1)).slice(-2);
-  	  var hour = ("0" + (date.getHours() + 1)).slice(-2);
-  	  var min = ("0" + (date.getMinutes() + 1)).slice(-2);
-  	  var sec = ("0" + (date.getSeconds() + 1)).slice(-2);
+  	  var day = ("0" + date.getDate()).slice(-2);
+  	  var hour = ("0" + date.getHours()).slice(-2);
+  	  var min = ("0" + date.getMinutes()).slice(-2);
+  	  var sec = ("0" + date.getSeconds()).slice(-2);
 
   	  return hour + ':' + min + ':' + sec + '  ' + month + '/' + day;
   }
 
     function send() {
-    	var inputMessage = document.getElementById("content");
-        var ss = $("#userList :checked");
-        var to = $('#userList :checked').val();
-        console.log('to: ' + to);
-        if (to == userName) {
-            alert("不能送給自己");
-            return;
-        }
-        var value = tinyMCE.activeEditor.getContent();
-        var object = null;
-        if (ss.size() == 0) {
-            object = {
-                msg : value,
-                type : 1, 
-            };
-        } else {
-            object = {
-                to : to,
-                msg : value,
-                type : 2, 
-            };
-            $("#content").append( "【"+ userName +"】" + formatDate(new Date()) +":" + value );
-            inputMessage.scrollTop = inputMessage.scrollHeight;
-        }
-        var json = JSON.stringify(object);
-        ws.send(json);
-        $("#msg").val(tinyMCE.activeEditor.setContent(''));
+    	var value = tinyMCE.activeEditor.getContent();
+	    if( value.length != 0){
+	    	var inputMessage = document.getElementById("content");
+	        var ss = $("#userList :checked");
+	        var to = $('#userList :checked').val();
+	        console.log('to: ' + to);
+	        if (to == userName) {
+	            alert("不能送給自己");
+	            return;
+	        }
+	        
+	        var object = null;
+	        if (ss.size() == 0) {
+	            object = {
+	                msg : value,
+	                type : 1, 
+	            };
+	        } else {
+	            object = {
+	            	from : userName,
+	                to : to,
+	                msg : value,
+	                type : 2, 
+	            };
+	            $("#content").append( "【"+ userName +"】" + formatDate(new Date()) +":" + value );
+	            inputMessage.scrollTop = inputMessage.scrollHeight;
+	        }
+	        var json = JSON.stringify(object);
+	        ws.send(json);
+	        $("#msg").val(tinyMCE.activeEditor.setContent(''));
+    	}else{
+    		alert('請輸入訊息');
+    	}
+    }
+    
+    function history(){
+    	if($('#userList :checked').attr('checked') ){
+    		console.log($('#userList :checked').attr('checked'));
+	    	var to = $('#userList :checked').val();
+	    	console.log('history to: ' + to);
+	    	object = {
+	                 to : to,
+	                 type : 3, 
+	             };
+	    	 var json = JSON.stringify(object);
+	    	 ws.send(json);
+    	}
     }
 </script>
 </body>

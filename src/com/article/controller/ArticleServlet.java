@@ -44,7 +44,7 @@ public class ArticleServlet extends HttpServlet {
 				try {
 					artid = new Integer(str);
 				} catch (Exception e) {
-					errorMsgs.add("員工編號格式不正確");
+					errorMsgs.add("文章編號不正確");
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req

@@ -111,7 +111,7 @@
 		
 <!-- 		改SESSION		 -->
 <%-- 		<input type="hidden" name="memid" value="<%= session.getAttribute("name")%>"> --%>
-		<input type="hidden" name="memid" value="M0005">
+		<input type="hidden" name="memid" value="M0007">
 		<input type="hidden" name="artpic">
 		<input type="hidden" name="artstate" value="1">
 		<textarea id="artexp" name="artexp"></textarea>

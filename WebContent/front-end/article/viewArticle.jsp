@@ -141,8 +141,9 @@
 
 <%	
 	String memid = request.getParameter("memid");
-	request.getSession().setAttribute("memid",memid); %>
-	
+	request.getSession().setAttribute("memid",memid);
+%>
+memid<input width = "500" type="text" value="<%= session.getAttribute("memid") %>" size="100"/> <br>	
   <div class="container">
     <!--這邊開始自由發揮-->
 
@@ -150,7 +151,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4"> 
-					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(param.memid).memAcc} ${sessionScope.memid}</b>	
+					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(sessionScope.memid).memAcc} ${sessionScope.memid}</b>	
 																						
 				</div>
 				<div class="col-xs-12 col-sm-8"> 
@@ -165,7 +166,7 @@
 								    <tr>
 								    <td>理由</td>
 								    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/report/report.do" >
-								      <td><input type="text" name="repreason" size="30"></td>
+								      <td><input type="text" name="repreason" size="30" required></td>
 									  <input type="hidden" name="artid" value="${param.artid}">
 									  
 <!-- 									  以後改SESSION  -->
@@ -210,7 +211,7 @@
 								   	  <td>留言</td>
 								   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/message/message.do" >
 								      
-								      <td><input id="msginput" type="text" name="msgcontent" size="80"></td>
+								      <td><input id="msginput" type="text" name="msgcontent" size="80" required></td>
 								      <input type="hidden" name="artid" value="${param.artid}">
 								      <!--  以後改SESSION  -->
 								      <input type="hidden" name="msgmemid" value="M0002">
@@ -236,7 +237,7 @@
 													    <tr>
 													    <td>理由</td>
 													    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/messageReport/messageReport.do" >
-													      <td><input type="text" name="mrreason" size="20"></td>
+													      <td><input type="text" name="mrreason" size="20" required></td>
 														  <input type="hidden" name="artid" value="${param.artid}">
 														  <input type="hidden" name="msgid" value="${messageVO.msgid}">
 													      <input type="hidden" name="mrstate" value="0">																      

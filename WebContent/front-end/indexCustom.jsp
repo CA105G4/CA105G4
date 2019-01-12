@@ -10,6 +10,8 @@
 	pageContext.setAttribute("list",list);
 %>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,6 +36,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.carousel.min.css"></link>  -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.0.0-beta.2.4/assets/owl.theme.default.min.css"></link> -->
+    <style type="text/css">
+            .thumbnail iframe {
+                 width: 1440px;
+                 height: 900px;
+        }
+        .thumbnail {
+               position: relative; 
+              -ms-zoom: 0.25;
+              -moz-transform: scale(0.25);
+              -moz-transform-origin: 0 0;
+              -o-transform: scale(0.25);
+              -o-transform-origin: 0 0;
+              -webkit-transform: scale(0.25);
+              -webkit-transform-origin: 0 0;
+        }
+        .thumbnail:after {
+              content: "";
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+        }
+        </style>
+</style>
   </head>
   <body>
   
@@ -265,16 +293,14 @@
 	                <div class="image align-self-center"><img src="imagesCustom/Sandy.jpg" alt="Person here"></div>
 	                <div class="name-text align-self-center">
 	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memAcc}</h2>
-	<!--                   <span class="meta">Satisfied Customer</span> -->
 	                </div>
 	              </div>
-<style>
-</style>             
-	              <div class="text">
+          
+	              <div class="thumbnail" style="height: 300px">
 	                <a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}&memid=${articleVO.memid}">
-	                    <div style="position:absolute;  z-index:500;height:245px;width:100%;"></div>
-	                     <iframe id="forecast_embed" scrolling="no" frameborder="0" height="100%" width="100%" src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" onload="resizeIframe(this)"></iframe>
-
+	                    <div style="position:absolute;height:1440px;width:1440px;"></div>
+<%-- 	                     <iframe id="iFrame1" scrolling="no" frameborder="0" height="100%" width="100%" src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" onload="resizeIframe(this)"></iframe> --%>
+						<iframe src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" frameborder="0"></iframe>
 	                </a>
 	              </div>
 			   </div>
@@ -342,11 +368,31 @@
   <script src="js/main.js"></script>
   
 <script type="text/javascript">
-		$(document).ready(function(){
-				$('#forecast_embed').load(function() {
-				    $('#frame').height($('#frame').get(0).contentWindow.document.body.offsetHeight + 'px');
-				});
-		});
+// 		$(document).ready(function(){
+// 				$('#forecast_embed').load(function() {
+// 				    $('#frame').height($('#frame').get(0).contentWindow.document.body.offsetHeight + 'px');
+// 				});
+// 		});
+// 		function resizeIframe(obj) {
+//     			obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+//  		 }
+		function resizeIFrameToFitContent( iFrame ) {
+
+		    iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+		    iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+		}
+
+		window.addEventListener('DOMContentLoaded', function(e) {
+		
+		    var iFrame = document.getElementById( 'iFrame1' );
+		    resizeIFrameToFitContent( iFrame );
+		
+		    // or, to resize all iframes:
+		    var iframes = document.querySelectorAll("iframe");
+		    for( var i = 0; i < iframes.length; i++) {
+		        resizeIFrameToFitContent( iframes[i] );
+		    }
+		} );
 </script> 
 
   </body>

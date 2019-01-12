@@ -117,7 +117,7 @@
               <a href="#" class="list-group-item" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
               <a href="#" class="list-group-item "><i class="fa fa-credit-card"></i> <span>Orders</span></a>
               <a href="#" class="list-group-item "><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-              <a href="<%=request.getContextPath()%>/article/article.do?memid=M0001&action=get_Member_Display" class="list-group-item active"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+              <a href="<%=request.getContextPath()%>/article/article.do?memid=M0007&action=get_Member_Display" class="list-group-item active"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
               <a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
               <a href="#" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
           </div>

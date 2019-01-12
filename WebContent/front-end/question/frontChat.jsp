@@ -348,43 +348,63 @@
 //             			 );
 //             	 inputMessage.scrollTop = inputMessage.scrollHeight;
 //             }
-
-        };
+        
+// 			if (result.type ==3){
+// 				var jsonObj = JSON.parse(result.msg);
+// 				console.log("jsonObj: " + jsonObj);
+// 				for(var i = 0; i < jsonObj.length; i++){
+// 					var historyMsg = jsonObj.to[i] + ": " + jsonObj.msg[i];
+// 					eval("var historyMsg=" + jsonObj[i]);
+// 					console.log("historyMsg: " + historyMsg.msg);
+// 					$("#content").append( "【" + historyMsg.to + "】" + " : " + historyMsg.msg)
+// 				}
+// 				console.log("jsonObj.length: " + jsonObj.length);
+// 				$("#content").append(historyMsg);
+                        
+// 			}
+        }
     };
     
     function formatDate(date) {
     	 
 		  var month = ("0" + (date.getMonth() + 1)).slice(-2);
-    	  var day = ("0" + (date.getDate() + 1)).slice(-2);
-    	  var hour = ("0" + (date.getHours() + 1)).slice(-2);
-    	  var min = ("0" + (date.getMinutes() + 1)).slice(-2);
-    	  var sec = ("0" + (date.getSeconds() + 1)).slice(-2);
+	  	  var day = ("0" + date.getDate()).slice(-2);
+	  	  var hour = ("0" + date.getHours()).slice(-2);
+	  	  var min = ("0" + date.getMinutes()).slice(-2);
+	  	  var sec = ("0" + date.getSeconds()).slice(-2);
 
     	  return hour + ':' + min + ':' + sec + '  ' + month + '/' + day;
     }
 
     function send() {
-    	var inputMessage = document.getElementById("content");
-        var ss = $("#userList :checked");
-        var to = "456";
-        var date = new Date();
-        console.log('to: ' + to);
-        if (to == userName) {
-            alert("不能送給自己");
-            return;
-        }
-        var value = tinyMCE.activeEditor.getContent();
-        var object = null;
-        	object = {
-            to : to,
-            msg : value,
-            type : 2, 
-        }
-        $("#content").append( "【"+ userName +"】" + formatDate(new Date()) +":" + value + "<br/>");
-        inputMessage.scrollTop = inputMessage.scrollHeight;
-        var json = JSON.stringify(object);
-        ws.send(json);
-        $("#msg").val(tinyMCE.activeEditor.setContent(''));
+	    var value = tinyMCE.activeEditor.getContent();
+	   	if( value.length != 0){
+	    	var inputMessage = document.getElementById("content");
+	        var ss = $("#userList :checked");
+	        var to = "456";
+	        var date = new Date();
+	        console.log('to: ' + to);
+	        if (to == userName) {
+	            alert("不能送給自己");
+	            return;
+	        }
+	        
+	        var object = null;
+	        	object = {
+	        	from : userName,
+	            to : to,
+	            msg : value,
+	            type : 2, 
+	        }
+	        $("#content").append( "【"+ userName +"】" + formatDate(new Date()) +":" + value + "<br/>");
+	        inputMessage.scrollTop = inputMessage.scrollHeight;
+	        var json = JSON.stringify(object);
+	        ws.send(json);
+	        $("#msg").val(tinyMCE.activeEditor.setContent(''));
+	   	}else{
+			alert('請輸入訊息');
+	}
+   	
     }
 </script>
   </body>

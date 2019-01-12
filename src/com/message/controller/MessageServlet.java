@@ -40,7 +40,7 @@ public class MessageServlet extends HttpServlet {
 				try {
 					msgid = new Integer(str);
 				} catch (Exception e) {
-					errorMsgs.add("員工編號格式不正確");
+					errorMsgs.add("留言編號不正確");
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
