@@ -331,6 +331,40 @@
 	</servlet-mapping>
 
 	<filter>
+		<filter-name>MemLoginFilter</filter-name>
+		<filter-class>com.member.controller.LoginFliter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>MemLoginFilter</filter-name>
+		<url-pattern>/front-end/test.jsp</url-pattern>
+		<url-pattern>/front-end/member/myaountMyPage.jsp</url-pattern>
+
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>memLogin</servlet-name>
+		<servlet-class>com.member.controller.memLogin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>memLogin</servlet-name>
+		<url-pattern>/front-end/memlogin.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MemLogout</servlet-name>
+		<servlet-class>com.member.controller.MemLogout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemLogout</servlet-name>
+		<url-pattern>/back-end/MemLogout.do</url-pattern>
+	</servlet-mapping>
+
+	<filter>
 		<filter-name>EmpLoginFilter</filter-name>
 		<filter-class>com.employee.controller.EmpLoginFliter</filter-class>
 	</filter>
@@ -356,15 +390,6 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-
-	<servlet>
-		<servlet-name>memLogin</servlet-name>
-		<servlet-class>com.member.controller.memLogin</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>memLogin</servlet-name>
-		<url-pattern>/front-end/memlogin.do</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>EmpLogin</servlet-name>
@@ -435,8 +460,27 @@
 		<servlet-name>AndroidOrdersServlet</servlet-name>
 		<url-pattern>/orders/Orders.do</url-pattern>
 	</servlet-mapping>
-	<!-- Android end -->
+	
+	<!-- 員工 -->
+	<servlet>
+		<servlet-name>AndroidEmployeeServlet</servlet-name>
+		<servlet-class>com.android.employee.controller.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidEmployeeServlet</servlet-name>
+		<url-pattern>/employee/Employee.do</url-pattern>
+	</servlet-mapping>
 
+	<!-- 房間 -->
+	<servlet>
+		<servlet-name>AndroidRoomServlet</servlet-name>
+		<servlet-class>com.android.room.controller.RoomServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AndroidRoomServlet</servlet-name>
+		<url-pattern>/room/Room.do</url-pattern>
+	</servlet-mapping>
+	<!-- Android end -->
 
 
 </web-app>
