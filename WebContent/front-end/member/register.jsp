@@ -168,7 +168,7 @@
 	<tr>
 		<td>會員電話:</td>
 		<td><input type="TEXT" name="memTel" size="45"
-			 value="<%= (memberVO==null)? "097853656" : memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
+			 value="<%= (memberVO==null)? "0978534656" : memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>地址:</td>
@@ -178,7 +178,7 @@
 	<tr>
 		<td>性別:</td>
 		<td>
-				<input type="radio" name="memSex" value="M">男
+				<input type="radio" name="memSex" value="M" checked="true">男
 				<input type="radio" name="memSex" value="F">女<span style="color:red;">※ </span><br>
 		</td>
 	</tr>
@@ -210,7 +210,7 @@
 
 </table>
 <br>
-	<input type="hidden" name="action" value="insert">
+	<input type="hidden" name="action" value="register">
 	<input type="submit" value="送出">
 </FORM>
         </div>
@@ -279,7 +279,7 @@
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-md-4"><img src="imagesCustom/logoC.jpg" width="250px" height="200px">
+          <div class="col-xs-12 col-md-4"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/logoC.jpg" width="250px" height="200px">
           </div>
           <div class="col-xs-12 col-md-4">
             <!-- style.css Line7633 -->
