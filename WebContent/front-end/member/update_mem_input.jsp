@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@page import="com.member.model.*"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.member.model.*"%>
 
 <%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); 
+	request.setAttribute("memberVO", memberVO);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,22 +29,6 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
-<style type="text/css">
-   .list-group {
-     
-     margin:auto;
-     float:left;
-     padding-top:20px;
-    }
-    .lead {
-     
-     margin:auto;
-     left:0;
-     right:0;
-     padding-top:10%;
-    }
-</style>
-
   </head>
   <body>
   
@@ -63,10 +48,18 @@
           <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
           <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item active"><a href="Coupon.html" class="nav-link">Coupon</a></li>
+          <li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
           <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item"><a href="account.html" class="nav-link">My Account</a></li>
+          <li class="nav-item active"><a href="MyAccount.html" class="nav-link">My Account</a></li>
           <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+        <c:choose>
+        	<c:when test="${memberVO == null}">
+          		<li class="nav-item"> <a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+        	</c:when>
+        	<c:otherwise>
+        		<li class="nav-item"> <a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+        	</c:otherwise>
+        </c:choose>
         </ul>
       </div>
     </div>
@@ -77,9 +70,9 @@
 
 
 <!-- 廣告瀏覽區 -->
-  <div class="block-31"  style="position: relative">
+  <div class="block-31" style="position: relative;">
     <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 item" style="background-image: url('imagesCustom/workExchangebanner.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
+      <div class="block-30 item" style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/workExchangebanner.jpg'); min-height: 150px;height: 30vh" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-10">
@@ -87,17 +80,16 @@
           </div>
         </div>
       </div>
-      <div class="block-30 item" style="background-image: url('imagesCustom/banner2.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
+      <div class="block-30 item" style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/banner2.jpg'); min-height: 150px;height: 30vh" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-10">
-              <!-- <span class="subheading-sm">Welcome</span> -->
               <h2 class="heading"></h2>
             </div>
           </div>
         </div>
       </div>
-      <div class="block-30 item" style="background-image: url('imagesCustom/EastScenerybanner.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
+      <div class="block-30 item" style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/EastScenerybanner.jpg'); min-height: 150px;height: 30vh" data-stellar-background-ratio="0.5">
         <div class="container">
           <div class="row align-items-center">
             <div class="col-md-10">
@@ -111,12 +103,30 @@
 
 
 
+
+  <br>
   <div class="container">
-    <!--這邊開始自由發揮-->
+      <div class="row">
+       <div class="col-xs-12 col-sm-3">
+           
+          <!-- Sidebar -->
+          <div class="list-group">
+              <a href="#" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+              <a href="#" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+              <a href="#" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+              <a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
+              <a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
+              <a href="#" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+          </div>
+          <!-- Sidebar -->
+          
+       </div>
+       <div class="col-xs-12 col-sm-9">
+            <!--這邊開始自由發揮-->
 <div class="container">
          	<div class="row">
          		<div class="col-xs-12 col-sm-8">
-         			 <h1 >會員註冊</h1>
+         			 <h1 >修改會員資料</h1>
          			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
 							<div class="row">
 								<span>請注意「</span>
@@ -128,7 +138,6 @@
           
 
 
-<%-- ���~��C --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
@@ -140,130 +149,72 @@
 
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" name="form1" enctype="multipart/form-data">
 <table>
+	
 	<tr>
 		<td>會員姓名:</td>
-		<td><input type="TEXT" name="memName" size="45" 
-			 value="<%= (memberVO==null)? "Tomdag" : memberVO.getMemName()%>" /><span style="color:red;">※ </span></td>
+		<td><%=memberVO.getMemName()%></td>
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
-		<td><input type="TEXT" name="memAcc" size="45" 
-			 value="<%= (memberVO==null)? "overtom" : memberVO.getMemAcc()%>" /><span style="color:red;">※ </span></td>
+		<td><%=memberVO.getMemAcc()%></td>
 	</tr>
+	
 	<tr>
 		<td>會員密碼:</td>
-		<td><input type="password" name="memPsw" size="45"
-			 value="<%= (memberVO==null)? "overdag" : memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
-	</tr>
-	<tr>
-		<td>生日:</td>
-		<td><input type="TEXT" name="memBirth" id="f_date1" size="45"
-			  /><span style="color:red;">※ </span></td>
-	</tr>
-	<tr>
-		<td>會員信箱:</td>
-		<td><input type="TEXT" name="memEmail" size="45"
-			 value="<%= (memberVO==null)? "tomdog@gmail.com" : memberVO.getMemEmail()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memPsw" size="45" value="<%=memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>會員電話:</td>
-		<td><input type="TEXT" name="memTel" size="45"
-			 value="<%= (memberVO==null)? "0978534656" : memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memTel" size="45"	value="<%=memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
-		<td>地址:</td>
-		<td><input type="TEXT" name="memAddr" size="45"
-			 value="<%= (memberVO==null)? "台北市永和區明樂街59號10樓" : memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
+		<td>會員地址 :</td>
+		<td><input type="TEXT" name="memAddr" size="45"	value="<%=memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
 	</tr>
-	<tr>
-		<td>性別:</td>
-		<td>
-				<input type="radio" name="memSex" value="M" checked="true">男
-				<input type="radio" name="memSex" value="F">女<span style="color:red;">※ </span><br>
-		</td>
-	</tr>
-	
 	<tr>
 		<td>會員技能:</td>
-		<td><input type="TEXT" name="memSkill" size="45"
-			 value="<%= (memberVO==null)? "大胃王" : memberVO.getMemSkill()%>" /></td>
-	</tr>
-	<tr>
-		<td>身分字號:</td>
-		<td><input type="TEXT" name="memIDcard" size="45"
-			 value="<%= (memberVO==null)? "T123456789" : memberVO.getMemIDcard()%>" /><span style="color:red;">※ </span></td>
-	</tr>
-<tr>
-		<td>會員頭貼:</td>
-		<td>
-			<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" 
-													class="img-fluid" width="300px">
-		</td>
-	</tr>
-	<tr>
-		<td></td>
-				<td>
-		<input type="file" name="memPic"  id="inputfile01">
-  				</td>
+		<td><input type="TEXT" name="memSkill" size="45" value="<%=memberVO.getMemSkill()%>" /></td>
 	</tr>
 	
-
+	
+	<tr>
+										<td>會員頭貼:</td>
+										<td>
+												<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" 
+													class="img-fluid" width="300px">
+										</td>
+	</tr>
+	<tr>
+										<td></td>
+										<td>
+										    <input type="file" name="memPic"  id="inputfile01">
+  										</td>
+	</tr>
 </table>
 <br>
-	<input type="hidden" name="action" value="register">
-	<input type="submit" value="送出">
+
+<input type="hidden" name="memAcc" value="<%=memberVO.getMemAcc()%>">
+<input type="hidden" name="memBirth" value="<%=memberVO.getMemBirth()%>">
+<input type="hidden" name="memEmail" value="<%=memberVO.getMemEmail()%>">
+<input type="hidden" name="memSex" value="<%=memberVO.getMemSex()%>">
+<input type="hidden" name="memState" value="<%=memberVO.getMemState()%>">
+<input type="hidden" name="memIDcard" value="<%=memberVO.getMemIDcard()%>">
+<input type="hidden" name="memName" value="<%=memberVO.getMemName()%>">
+<input type="hidden" name="memReg" value="<%=memberVO.getMemReg()%>">
+<input type="hidden" name="action" value="update_from_mem">
+<input type="hidden" name="memID" value="<%=memberVO.getMemID()%>">
+<input type="submit" value="送出修改">
 </FORM>
-        </div>
-        <!-- /.container-fluid -->
-
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-            
-            </div>
-          </div>
-        </footer>
-
+		
+          <!--這邊結束自由發揮--> 
+       </div>
+       </div>
+       </div>
+       </div>
       </div>
-      <!-- /.content-wrapper -->
 
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <!--這邊結束自由發揮-->
   </div>
 <br>
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-         
 
 
 
@@ -330,75 +281,12 @@
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   <script>
     $(document).ready(function() {
-  
-
-	  $('.list-group-item').click(function(e) {
-	    e.preventDefault();
-	    $('.list-group-item').removeClass('active');
-	    $(this).addClass('active');
-	  });
-	});
-  </script>
-  <% 
-  java.sql.Date hiredate = null;
-  try {
-	    hiredate = memberVO.getMemBirth();
-   } catch (Exception e) {
-	    hiredate = new java.sql.Date(System.currentTimeMillis());
-   }
-%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
-</style>
-
-<script>
-        $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
-	       theme: '',              //theme: 'dark',
-	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=hiredate%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate:	            '2017/07/10',  // 起始日
-           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        }); 
-        
- </script>
-         		</div>
-         	</div>
-         </div>
-    <!-- Bootstrap core JavaScript-->
-    <script src="<%=request.getContextPath()%>/back-end/vendor/jquery/jquery.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="<%=request.getContextPath()%>/back-end/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="<%=request.getContextPath()%>/back-end/js/sb-admin.min.js"></script>
-	
-		<script>
-		$("#inputfile01").change(function(){
-	        if (this.files && this.files[0]) {
-	                var reader = new FileReader();
-	                
-	                reader.onload = function (e) {
-	                        $('#previewpic').attr('src', e.target.result);
-	                }
-	                
-	                reader.readAsDataURL(this.files[0]);
-	        }
-		});
-	</script>
+      $('.list-group-item').click(function(e) {
+      e.preventDefault();
+      $('.list-group-item').removeClass('active');
+      $(this).addClass('active');
+    });
+    });
+  </script>  
   </body>
 </html>
