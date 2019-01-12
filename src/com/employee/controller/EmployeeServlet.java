@@ -37,7 +37,7 @@ public class EmployeeServlet extends HttpServlet {
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入員工編號");
 				}
-				// Send the use back to the form, if there were errors
+			
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
@@ -51,12 +51,12 @@ public class EmployeeServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("員工編號格式不正確");
 				}
-				// Send the use back to the form, if there were errors
+				
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;
 				}
 				
 				/***************************2.�}�l�d�߸��*****************************************/
@@ -65,7 +65,6 @@ public class EmployeeServlet extends HttpServlet {
 				if (employeeVO == null) {
 					errorMsgs.add("查無資料");
 				}
-				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/select_page.jsp");
@@ -146,10 +145,15 @@ public class EmployeeServlet extends HttpServlet {
 				if (empJob == null || empJob.trim().length() == 0) {
 					errorMsgs.add("職位請勿空白");
 				}		
-				String empTel = req.getParameter("empTel").trim();
+		
+				String empTel = null;
+				String empTel_reg = "^09[0-9]{8}$";
+				empTel = req.getParameter("empTel").trim();
 				if (empTel == null || empTel.trim().length() == 0) {
-					errorMsgs.add("電話請勿空白");
-				}		
+					errorMsgs.add("手機號碼請勿空白");
+				} else if (!empTel.trim().matches(empTel_reg)) {
+					errorMsgs.add("手機號碼請填10位數字 ( 09xxxxxxxx ) ");
+				}
 				String empAcc = req.getParameter("empAcc").trim();
 				if (empAcc == null || empAcc.trim().length() == 0) {
 					errorMsgs.add("帳號請勿空白");
@@ -158,9 +162,7 @@ public class EmployeeServlet extends HttpServlet {
 				if (empPsw == null || empPsw.trim().length() == 0) {
 					errorMsgs.add("密碼請勿空白");
 				}		
-//				Integer empState = req.getParameter("empState").trim();
-//				if (empState == null || empState.trim().length() == 0) {
-//					errorMsgs.add("員工狀態請勿空白");
+
 				
 				Integer empState = new Integer(req.getParameter("empState").trim());
 				
@@ -248,10 +250,15 @@ public class EmployeeServlet extends HttpServlet {
 				if (empJob == null || empJob.trim().length() == 0) {
 					errorMsgs.add("職位請勿空白");
 				}		
-				String empTel = req.getParameter("empTel").trim();
+
+				String empTel = null;
+				String empTel_reg = "^09[0-9]{8}$";
+				empTel = req.getParameter("empTel").trim();
 				if (empTel == null || empTel.trim().length() == 0) {
-					errorMsgs.add("電話請勿空白");
-				}		
+					errorMsgs.add("手機號碼請勿空白");
+				} else if (!empTel.trim().matches(empTel_reg)) {
+					errorMsgs.add("手機號碼請填10位數字 ( 09xxxxxxxx ) ");
+				}
 				String empAcc = req.getParameter("empAcc").trim();
 				if (empAcc == null || empAcc.trim().length() == 0) {
 					errorMsgs.add("帳號請勿空白");
@@ -266,9 +273,8 @@ public class EmployeeServlet extends HttpServlet {
 				byte[] empPic = null;
 				Part part = req.getPart("empPic");
 				if(part == null || part.getSubmittedFileName().length() == 0) {
-					EmployeeService rtSvc = new EmployeeService();
-					EmployeeVO rtvo = rtSvc.getOneEmp(empID);
-					empPic = rtvo.getEmpPic();	
+					
+					errorMsgs.add("請選擇照片");	
 					
 				}else {
 					InputStream in =  part.getInputStream();
@@ -302,7 +308,7 @@ public class EmployeeServlet extends HttpServlet {
 				employeeVO = empSvc.addEmp(braID, empName, empJob, empTel, empPic, empAcc, empPsw);
 				
 				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-				
+				 
 				String url = "/back-end/employee/listAllEmp_1.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);				
