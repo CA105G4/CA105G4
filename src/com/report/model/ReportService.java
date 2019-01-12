@@ -7,7 +7,7 @@ public class ReportService {
 	private ReportDAO_interface dao;
 	
 	public ReportService() {
-		dao = new ReportJDBCDAO();
+		dao = new ReportDAO();
 	}
 	
 	public ReportVO addReport(Integer artid,String repreason,String repmemid,

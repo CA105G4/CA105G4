@@ -111,13 +111,14 @@
 		
 <!-- 		改SESSION		 -->
 <%-- 		<input type="hidden" name="memid" value="<%= session.getAttribute("name")%>"> --%>
-		<input type="hidden" name="memid" value="M0007">
+		<input type="hidden" name="memid" value="${memberVO.memID}">
 		<input type="hidden" name="artpic">
 		<input type="hidden" name="artstate" value="1">
 		<textarea id="artexp" name="artexp"></textarea>
 		<input type="hidden" name="artdate" id="f_date1">
 		<input type="hidden" name="action" value="insert">
 		<input type="submit" class="btn btn-info" value="分享文章">
+		
 		<div>
 			<c:if test="${not empty errorMsgs}">
 <!-- 				<font style="color:red">請修正以下錯誤:</font> -->

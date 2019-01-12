@@ -6,7 +6,7 @@ public class ArticleService {
 	
 	private ArticleDAO_interface dao;
 	public ArticleService() {
-		dao = new ArticleJDBCDAO();
+		dao = new ArticleDAO();
 	}
 
 	public ArticleVO addArticle(String memid, byte[] artpic,String artexp,

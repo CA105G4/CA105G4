@@ -102,12 +102,8 @@
       </div>
     </div>
   </div>
-
-
-	
   <div class="container" >
     <!--這邊開始自由發揮-->
-
 
       <br>
       <br>
@@ -126,46 +122,10 @@
         </div> 
   </div>
 
-
-
-
-
-
-
-
-
-
-
-    
     <!--這邊結束自由發揮-->
   </div>
 </div>
 <br>
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-         
-
-
-
-
-
-
-
-    
-
-
 
     <!-- Footer尾巴 -->
     <footer class="footer">
@@ -243,14 +203,8 @@
 		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
 			   value: 'new Date()', // value:   new Date(),
-	           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	           //startDate:	            '2017/07/10',  // 起始日
-	           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-	           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 	        });
 	</script>
-  
-  
   
   <!-- 	TinyMCE -->
 	<script src="<%=request.getContextPath()%>/back-end/article/tinymce/tinymce.js"></script>
@@ -288,17 +242,14 @@
 		  },
 		});
 	</script>
-		</script>
 		
 <!-- 	chatRoom -->
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript">
 	
     var ws;
-//     var userName = ${sessionScope.username};
-	var userName = '789';
-//     var url = "ws://localhost:8081/CA105G4/chatSocket?username=${sessionScope.username}";
-	var url = "ws://localhost:8081/CA105G4/chatSocket?username=789";
+	var userName = '${memberVO.memName}';
+	var url = "ws://localhost:8081/CA105G4/question?username=${memberVO.memName}";
     window.onload = function() {
         if ('WebSocket' in window) {
             ws = new WebSocket(url);
@@ -312,24 +263,15 @@
         ws.onmessage = function(event) {
             eval("var result=" + event.data);
 			console.log(event.data);
-//             if (result.alert != undefined) {
-//                 $("#content").append(result.alert + "<br/>");
-//             }
-
-//             var n = result.names;
             if (result.names != undefined) {
                 $("#userList").html("");
                 $(result.names).each(   		
                         function() {  
                         	console.log(result.names);
-//                         	if(n.includes('userName') == true){
 	                            $("#userList").append(
 	                                    "<input type=checkbox value='"+this+"'/>"
 	                                            + this + "<br/>"
-// 										"<label class='container'>" + this + "<input type='checkbox' value='" + this + "'/><span class='checkmark'></span></label>"
-										  
 	                             );  
-//                         	}
                         });       		
             }
             var inputMessage = document.getElementById("content");
@@ -338,30 +280,9 @@
             	console.log("result.from" + result.from);
                 $("#content").append(
                         "【" + result.from + "】" + "&nbsp;&nbsp;" + result.date + "：<br/>" + result.sendMsg); 
-//                 		+ result.sendMsg + "<br/>"); 
                 inputMessage.scrollTop = inputMessage.scrollHeight;
                 
             }
-//             else{
-//             	 $("#content").append(
-//             			 "【" + result.from + "】" + "&nbsp;&nbsp;" + result.date + "：<br/>" + result.sendMsg + "<br/>"
-//             			 );
-//             	 inputMessage.scrollTop = inputMessage.scrollHeight;
-//             }
-        
-// 			if (result.type ==3){
-// 				var jsonObj = JSON.parse(result.msg);
-// 				console.log("jsonObj: " + jsonObj);
-// 				for(var i = 0; i < jsonObj.length; i++){
-// 					var historyMsg = jsonObj.to[i] + ": " + jsonObj.msg[i];
-// 					eval("var historyMsg=" + jsonObj[i]);
-// 					console.log("historyMsg: " + historyMsg.msg);
-// 					$("#content").append( "【" + historyMsg.to + "】" + " : " + historyMsg.msg)
-// 				}
-// 				console.log("jsonObj.length: " + jsonObj.length);
-// 				$("#content").append(historyMsg);
-                        
-// 			}
         }
     };
     
@@ -381,7 +302,7 @@
 	   	if( value.length != 0){
 	    	var inputMessage = document.getElementById("content");
 	        var ss = $("#userList :checked");
-	        var to = "456";
+	        var to = "商商";
 	        var date = new Date();
 	        console.log('to: ' + to);
 	        if (to == userName) {
