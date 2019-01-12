@@ -95,9 +95,9 @@
 							<td>所屬分店:</td>
 							<td><select name="braID" class="form-control"
 								value="<%=employeeVO.getEmpName()%>">
-									<option value="B00">總管理處</option>
-									<option value="B01">福翔</option>
-									<option value="B02">麻翔</option>
+								<option value="B00" ${employeeVO.getBraID()=="B00" ? 'selected' : '' }>總管理處</option>
+								<option value="B01"${employeeVO.getBraID()=="B01" ? 'selected' : '' }>福翔</option>
+								<option value="B02"${employeeVO.getBraID()=="B02" ? 'selected' : '' }>麻翔</option>						
 							</select></td>
 						</tr>
 						<tr>
@@ -115,12 +115,13 @@
 							<td><input type="TEXT" name="empTel" size="45"
 								value="<%=employeeVO.getEmpTel()%>" /></td>
 						</tr>
+						
 						<tr>
-							<td>帳號狀態 :</td>
-							<td><select name="empState" class="form-control">
-									<option value="0">離職</option>
-									<option value="1">在職</option>
-							</select></td>
+								<td>帳號狀態 :</td>
+									<td><select name="empState" class="form-control">
+										<option value="1"${employeeVO.getEmpState()==1 ? 'selected' : '' }>在職</option>
+										<option value="0"${employeeVO.getEmpState()==0 ? 'selected' : '' }>離職</option>						
+										</select></td>
 						</tr>
 						<tr>
 							<td>員工帳號:</td>
