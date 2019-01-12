@@ -11,6 +11,8 @@
     
     pageContext.setAttribute("cpnList",cpnList);
     
+    
+    
     %>
     
     
@@ -35,6 +37,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+<!--      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" /> -->
 
 <style>
 
@@ -44,14 +47,12 @@ margin:25px;
 
 }
 
-
 </style>
 </head>
 
+
+<!-- </script> -->
   <body>
-  
-
-
 
     <!-- NavBar -->
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -75,9 +76,6 @@ margin:25px;
     </div>
   </nav>
   <!-- END nav -->
-  
-
-
 
 <!-- 廣告瀏覽區 -->
   <div class="block-31" style="position: relative;">
@@ -112,44 +110,68 @@ margin:25px;
     </div>
   </div>
 
-
-
-
   <!-- 主畫面優惠券照片 -->
 <div class="container">
   <div class="site-section bg-light main-section">
     <h2>&nbsp;All For Free! Let's join us !!!</h2>
     
-    		<jsp:useBean id="cpnSvc1" scope="page"
-								class="com.coupon.model.CouponService" />
+    		
    <c:forEach var="cpnVO" items="${cpnList}"  varStatus="status"  begin="0" end="2">
-    
-    
-    <div class="container couponmargin">
-      <div class="row">
-      
-        <div class="col-xs-12 col-sm-6">
-          <img src="<%=request.getContextPath()%>/front-end/coupon/cpn.do?cpnID=${cpnVO.cpnID}" width="500px">
-        </div>
-        	
-        <div class="col-xs-12 col-sm-6" >
-        <br>
-          <div class="price"><sup>$</sup><span class="number">${cpnVO.discount}</span></div>
-     
-      <div>
-        	<strong>Coupon Number:</strong>${cpnVO.quantity}
-        </div>
-       <br>
-        <button type="button" class="btn-info">Get Coupon!</button>
-        </div>
-      </div>
-    </div>
-    
-     
-    
-    
-    
-    </c:forEach>
+
+
+				<div class="container couponmargin">
+					<div class="row">
+
+<c:set var="index" value="${status.index}"/> 
+
+	<%
+										int count = (Integer) pageContext.getAttribute("index");
+											if (cpnList.get(count).getquantity() != 0) {
+												pageContext.setAttribute("cpn", new Integer(1));
+											} else {
+												pageContext.setAttribute("cpn", new Integer(0));
+											}
+	%>
+
+
+<c:choose>
+<c:when test="${cpn==1}">
+
+						<div class="col-xs-12 col-sm-6">
+							<img
+								src="<%=request.getContextPath()%>/front-end/coupon/cpn.do?cpnID=${cpnVO.cpnID}"
+								width="500px" id="image">
+						</div>
+</c:when>
+<c:otherwise>
+		<div class="col-xs-12 col-sm-6">
+							<img
+								src="<%=request.getContextPath()%>/front-end/imagesCustom/noCoupon.png"
+								width="500px">
+						</div>
+</c:otherwise>
+</c:choose>
+
+
+						<div class="col-xs-12 col-sm-6">
+							<br>
+							<div class="price">
+								<h3>
+									<sup>$</sup><span class="number sale">${cpnVO.discount}</span>
+								</h3>
+							</div>
+							<div id="quantity2">
+								<Strong>Coupon Number:</Strong>
+								<p id="${cpnVO.cpnID}">${cpnVO.quantity}</p>
+							</div>
+							<br>
+							<button type="submit" class="btn-info"
+								value="${cpnVO.cpnID }">Get Coupon!</button>
+						</div>
+					</div>
+				</div>
+
+			</c:forEach>
     
     
   </div>
@@ -167,11 +189,10 @@ margin:25px;
           <div class="col-xs-12 col-md-4">
             <!-- style.css Line7633 -->
               <h3 class="heading-section">About Us</h3>
-                <p class="mb-5">麻翔山莊創立於1923年，於日治時期台東地區第一家現代化旅館，超過90年以上的經營，成為台灣最具指標性的山莊，分店翔泰山莊於2018年，符合環境友善，同時會及最新科技的六星級旅館. </p>
+                <p class="mb-5">麻翔山莊創立於1923年，於日治時期台東地區第一家現代化旅館，超過90年以上的經營，成為台灣最具指標性的山莊，分店翔泰山莊於2018年，符合環境友善，同時匯集最新科技的六星級旅館. </p>
           </div>
           <div class="col-xs-12 col-md-4">
             <h3 class="heading-section">Contact Info</h3>
-              <div class="text-left">
                 <span class="icon icon-map-marker"></span><span class="text">&nbsp;&nbsp;台東縣太麻里福翔村高達斯路
                 </span><br>
                 <span class="icon icon-map-marker"></span><span class="text">&nbsp;&nbsp;花蓮縣長濱鄉達達鄉
@@ -211,6 +232,57 @@ margin:25px;
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
+<!--     <script src="https://code.jquery.com/jquery-3.2.1.min.js" type="text/javascript"></script> -->
     
-  </body>
+    <script type="text/javascript">
+	$(document).ready(function(){
+		var d;
+		 $('button').click(function(){
+			 $.ajax({
+				 type: "GET",
+				 url: "<%=request.getContextPath()%>/back-end/coupon/cpn.do",
+				 data: creatQueryString($(this).val()),
+				 dataType: "json",
+				 success: function (data){
+ 						var id = "#" + data.cpnID;
+ 						
+					console.log(data.cpnVO);
+					console.log(data.cpnID);
+ 						$(id).text(data.cpnVO);
+			     },
+	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	         })
+		 })
+	
+	})
+	
+		function creatQueryString(cpnID){
+		var queryString= {"action":"get_coupon", "cpnID":cpnID};
+		return queryString;
+	}
+
+</script>
+
+<script type="text/javascript">
+
+
+	 $(function () {
+            $("button").click(function () {
+                //alert範例
+                swal({
+                		position: 'top-end',
+                		type: 'success',
+                		 title: 'You got a perfect coupon!!!',
+                		 showConfirmButton: false,
+                		 timer: 1500
+                }        
+                );
+
+            });
+        });
+	
+
+</script>
+</body>
 </html>

@@ -2,6 +2,7 @@ package com.coupon.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.coupon.model.CouponService;
 import com.coupon.model.CouponVO;
@@ -236,6 +240,65 @@ public class CpnServlet extends HttpServlet {
 					
 				}
 				
+				
+			}
+			
+	if("get_coupon".equals(action)) {
+				
+				
+				System.out.println(action);
+				
+				List<String> errorMsgs =new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				CouponVO cpnVO =new CouponVO();
+				Integer totalNow= null;
+				CouponService cpnSvc =new CouponService(); 
+				//1.傳送參數
+				String cpnID =req.getParameter("cpnID");
+				System.out.println(cpnID);
+				if(cpnID.trim().length()==0||cpnID==null) {
+					errorMsgs.add("傳輸產生錯誤");
+				}
+				
+				
+				//1-1傳送參數，同時新增優惠券明細
+				
+				
+				
+				
+				
+				//2.取出該優惠卷VO，修改資料
+				
+				cpnVO =cpnSvc.getOneByID(cpnID);
+				totalNow =cpnVO.getquantity()-1;     //領取減少的動作
+				
+				cpnVO= cpnSvc.updateCpn(totalNow, cpnID);  //更改優惠卷數量
+				
+				//2-1優惠卷取完後，回傳0
+				Integer balance=0;
+				
+				if(cpnVO.getquantity()<=0) {
+					cpnVO.setquantity(balance);
+					cpnVO=cpnSvc.updateCpn(balance, cpnID);
+				}
+				
+				
+				
+				//3.使用JSONObject 回傳資料
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put("cpnVO", cpnVO.getquantity());
+					obj.put("cpnID", cpnID);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				out.write(obj.toString());
+				out.flush();
+				out.close();
 				
 			}
 			

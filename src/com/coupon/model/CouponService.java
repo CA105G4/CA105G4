@@ -36,6 +36,18 @@ public class CouponService {
 		return cpnVO;
 	}
 		
+	public CouponVO updateCpn(Integer nowQuantity,String cpnID) {
+	CouponVO cpnVO = new CouponVO();	
+	
+	
+	cpnVO.setquantity(nowQuantity);
+	cpnVO.setcpnID(cpnID);
+	
+	dao.updateQuantity(cpnVO);
+		
+		return cpnVO;
+	}
+	
 	public CouponVO getOneByID(String cpnID) {
 		return dao.findByPK(cpnID);
 		

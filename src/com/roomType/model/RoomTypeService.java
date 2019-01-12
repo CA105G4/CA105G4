@@ -2,6 +2,7 @@ package com.roomType.model;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 public class RoomTypeService {
 	
@@ -53,6 +54,10 @@ public class RoomTypeService {
 	
 	public List<RoomTypeVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Set<RoomTypeVO> getAllInSet() {
+		return dao.getAllInSet();
 	}
 	
 	/**[Gina]{Ajax}用分店找房型**/

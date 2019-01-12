@@ -270,4 +270,10 @@ public class CouponJDBCDAO implements CouponDAO_interface{
 	public void delete(String cpnID) {
 		
 	}
+
+	@Override
+	public void updateQuantity(CouponVO couponVO) {
+		// TODO Auto-generated method stub
+		
+	}
 }

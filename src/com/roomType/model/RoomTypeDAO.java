@@ -324,6 +324,63 @@ public class RoomTypeDAO implements RoomTypeDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public Set<RoomTypeVO> getAllInSet() {
+		Set<RoomTypeVO> set = new HashSet<RoomTypeVO>();
+		RoomTypeVO roomTypeVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				roomTypeVO = new RoomTypeVO();
+				roomTypeVO.setRtID(rs.getString("RTID"));
+				roomTypeVO.setBraID(rs.getString("BRAID"));
+				roomTypeVO.setRtName(rs.getString("RTNAME"));
+				roomTypeVO.setRtPic(rs.getBytes("RTPIC"));
+				roomTypeVO.setRtIntro(rs.getString("RTINTRO"));
+				roomTypeVO.setRtMinimum(rs.getInt("RtMinimum"));
+				roomTypeVO.setRtLimit(rs.getInt("RtLimit"));
+				roomTypeVO.setWeeklyPrice(rs.getInt("WeeklyPrice"));
+				roomTypeVO.setHolidayPrice(rs.getInt("HolidayPrice"));
+				roomTypeVO.setBalance(rs.getString("Balance"));
+				roomTypeVO.setTotal(rs.getInt("Total"));
+				
+				set.add(roomTypeVO);
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return set;
+	}
+	
+	
+	
 	/**[Gina]訂單交易用**/
 	@Override
 	public void updateRoomBalance(String rtID, Date checkIn, Date checkOut, java.sql.Connection con, Map<String,Integer> rtIDandNumMap) {

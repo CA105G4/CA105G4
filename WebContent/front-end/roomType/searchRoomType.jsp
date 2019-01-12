@@ -2,21 +2,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>   
-  <%
-  RoomTypeService rtSvc =new RoomTypeService();
-  List<RoomTypeVO> rtList =rtSvc.getAll();
-  Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
-  pageContext.setAttribute("rtList",rtList);
-  pageContext.setAttribute("rtSet",rtSet);
-  
+  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-  %>  
-   <jsp:useBean id="adSvc"  scope="page" class="com.activityDetail.model.ActivityDetailService" />   
+   <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
     
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Room Type</title>
+    <title>Bright Hotel - Free Bootstrap 4 Template by Colorlib</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -34,14 +27,11 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
     
+    
      <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
- 
-
-
-</head>
-  
-  <body onload="connect();" onunload="disconnect();">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
+  </head>
+  <body>
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
@@ -64,6 +54,13 @@
     </div>
   </nav>
   <!-- END nav -->
+  
+
+
+
+
+
+
 
   <div class="block-30 block-30-sm item" style="background-image: url('imagesCustom/room.jpg'); min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
     <div class="container">
@@ -154,24 +151,18 @@
     <!-- 房間一覽 style.css Line7622 -->
     <div class="site-section bg-light">
       <div class="container">
-         <c:forEach var="rtVO" items="${rtList}"  varStatus="status"  >
+         <c:forEach var="rtVO" items="${searchList}"  varStatus="status"  >
         
         
         <div class="row mb-5">
           
           
           <div class="col-md-12 mb-5">
-           
+            
            
  <c:choose>
  		<c:when test="${status.index %2==0 }">
-             
-
-             <c:forEach var="adVO"  items="${adSvc.all}" varStatus="">
-             	<c:if test="${adVO.rtID==rtVO.rtID}">
-             <span class="flag-discount">${adVO.discount}折</span> 
-             	</c:if>
-             </c:forEach>
+            
             <div class="block-3 d-md-flex ">
               <div class="image" style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}')"></div>
               <div class="text">
@@ -186,8 +177,9 @@
                   <li><strong>Size:</strong> 20m<sup>2</sup></li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
+
                 <p><a href="#" class="btn btn-primary py-3 px-5">Read More</a></p>
-				 <p><a href="#" class="btn btn-info py-3 px-5">Collect Room</a></p>
+
               </div>
             </div>
 </c:when>
@@ -211,7 +203,7 @@
                 </ul>
 
                 <p><a href="#" class="btn btn-primary py-3 px-5">Read More</a></p>
-                 <p style="width:100px"><a href="#" class="btn btn-info py-3 px-5">Collect Room</a></p>	
+                
               </div>
             </div>
 
@@ -244,11 +236,13 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, iusto, omnis! Quidem, sint, impedit? Dicta eaque delectus tempora hic, corporis velit doloremque quod quam laborum, nobis iusto autem culpa quaerat!</p>
             </div>
           </div>
-          
-          
+          <c:set var="index" value="${status.index}" />
+      
  
   <div class="row">
-  <c:forEach var="rtVO" items="${rtSet}"  varStatus="status"  begin="0" end="2">   
+  <c:forEach var="rtVO" items="${searchSet}"  varStatus="status"  begin="0" end="2">   
+          
+          
           <div class="col-lg-4 mb-5">
             <div class="block-34">
             
@@ -405,62 +399,15 @@
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
+<%--   <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script> --%>
   
   <script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-   <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
-<!--   //sweet alert 引用 -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
-  
+    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
   </body>
-   <style>
-* {
-  font-family: "Encode Sans Condensed", sans-serif;
-}
-
-
-
-
-.flag-discount {
-    border-radius: 6px 0 0 6px;
-    color: #fff;
-    display: block;
-    float: right;
-    padding: 10px 20px;
-    background: #93274f;
-    font-size: 20px;
-    font-weight: 400;
-    position: relative;
-}
-.flag-discount::before,
-.flag-discount::after {
-    content: "";
-    position: absolute;
-    left: 100%;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    display: block;
-}
-.flag-discount::before {
-    top: 0;
-    border-width: 22px 15px 0 0;
-    border-color: #93274f transparent transparent transparent;
-}
-.flag-discount::after {
-    bottom: 0;
-    border-width: 0 15px 22px 0;
-    border-color: transparent transparent #93274f transparent;
-}
-</style>
-  
-  
-  
-  
   <script>
   var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 $('#checkin_date').datepicker({
@@ -480,67 +427,6 @@ $('#checkout_date').datepicker({
         return $('#checkin_date').val();
     }
 });
-  
-  </script>
-  <script>
-
-function getReload(event){
-	var data = JSON.parse( event.data );
-	console.log(data.message);
-	swal({
-		html: $("<div>").addClass('serverPush-alert').text(data.message),
-		showCancelButton : true,
- 		confirmButtonColor : '#3085d6',
- 		cancelButtonColor : '#d33',
-//		type: 'success',
- 		confirmButtonText : 'OK, 朕知道了!',
- 		cancelButtonText : '好喔, 等會再說!',
-		confirmButtonClass : 'confirm-class',
-		cancelButtonClass : 'cancel-class',
-		closeOnConfirm : false,
-		closeOnCancel : false
-	})
-	
-	
-	
-}
-
-
-
-</script>
-  
-  <script>
-  
-  var MyPoint = "/MyEchoServer";
-  var host = window.location.host;
-  var path = window.location.pathname;
-  var webCtx = path.substring(0, path.indexOf('/', 1));
-  var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-  
-  var webSocket;
-  
-  
-	function connect() {
-		// 建立 websocket 物件
-		webSocket = new WebSocket(endPointURL);
-		
-		webSocket.onopen = function(event) {
-			console.log("WebSocket 成功連線");
-		};
-	
-		webSocket.onmessage = function(event) {
-			console.log("促銷活動準備上線...");
- 			getReload(event);
-		};
-		
-
-
-		webSocket.onclose = function(event) {
-			console.log("WebSocket 已離線");
-		};
-	}
-  	
-  
   
   </script>
 </html>
