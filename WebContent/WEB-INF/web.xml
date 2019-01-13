@@ -336,12 +336,9 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>MemLoginFilter</filter-name>
-		<url-pattern>/front-end/test.jsp</url-pattern>
-		<url-pattern>/front-end/member/myaountMyPage.jsp</url-pattern>
+		<url-pattern>/front-end/member/myAountMyPage.jsp</url-pattern>
 		<url-pattern>/front-end/workExchangeRecord/addWER.jsp</url-pattern>
 		<url-pattern>/front-end/coupon/myCoupon.jsp</url-pattern>
-		<url-pattern>/front-end/test.jsp</url-pattern>
-		<url-pattern>/front-end/member/myaountMyPage.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
