@@ -108,40 +108,12 @@ public class memLogin extends HttpServlet {
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			res.sendRedirect(req.getContextPath()+"/front-end/member/myAccountMyPage.jsp");//要跳轉的頁面
+			res.sendRedirect(req.getContextPath()+"/front-end/indexSearch2.jsp");//要跳轉的頁面
 		}
 		
 		return;
 		
-		
-		
-		
     }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-    }
+}
 
     

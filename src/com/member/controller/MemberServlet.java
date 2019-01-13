@@ -364,7 +364,6 @@ public class MemberServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // �t����J�榡���~��empVO����,�]�s�Jreq
-					System.out.println("memberVO:" + memberVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/member/update_mem_input.jsp");
 					failureView.forward(req, res);
@@ -376,8 +375,7 @@ public class MemberServlet extends HttpServlet {
 				memberVO = memSvc.updateMem(memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memSkill, memState, memPic,memReg, memIDcard);
 				/***************************3.�ק粒��,�ǳ����(Send the Success view)*************/
 				req.setAttribute("memberVO", memberVO); 
-				System.out.println("memberVO:" + memberVO);
-				String url = "/front-end/TemplateInner.jsp";
+				String url = "/front-end/member/myAccountMyPage2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 				

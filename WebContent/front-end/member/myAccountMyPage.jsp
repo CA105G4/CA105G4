@@ -45,12 +45,12 @@
       <!--NavBar 右半部-->
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
+          <li class="nav-item active"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
           <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
+          <li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
           <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item active"><a href="MyAccount.html" class="nav-link">My Account</a></li>
+          <li class="nav-item"><a href="MyAccount.html" class="nav-link">My Account</a></li>
           <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
         <c:choose>
         	<c:when test="${memberVO == null}">

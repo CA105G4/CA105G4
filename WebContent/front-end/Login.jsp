@@ -42,8 +42,7 @@
 					</div>
 						<div class="col-xs-12 col-sm-6">
 							<center>
-								<button type="submit" name="button" class="btn btn-info" value="login">
-								登入</button>
+								<button type="submit" name="button" class="btn btn-info" value="login">登入</button>
 							</center>
 						</div>
 						<div class="col-xs-12 col-sm-6">

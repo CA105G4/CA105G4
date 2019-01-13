@@ -1,33 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.roomType.model.*"%>
-<%@page import="java.util.*"%>   
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="java.util.*"%>
+<%@page import="com.roomType.model.RoomTypeVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-   <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
-    
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Bright Hotel - Free Bootstrap 4 Template by Colorlib</title>
+<head>
+    <!-- 頁面標籤 -->
+    <title>翔太山莊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
-<%--     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css"> --%>
-<%--     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css"> --%>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="css/ionicons.min.css">
+<!--     <link rel="stylesheet" href="css/bootstrap-datepicker.css"> -->
+<!--     <link rel="stylesheet" href="css/jquery.timepicker.css"> -->
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="css/style.css">
+  
+<!--    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">  -->
     
     <style>
 		.input-group-prepend .btn, .input-group-append .btn {
@@ -39,7 +40,7 @@
 			position: relative;
 			z-index: 0; 
 		}
-	</style>    
+	</style>
     
 </head>
 
@@ -58,8 +59,8 @@
 			<!--NavBar 右半部-->
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
-					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
@@ -84,28 +85,54 @@
 
 
 
-
-
-
-
-  <div class="block-30 block-30-sm item" style="background-image: url('imagesCustom/room.jpg'); min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-10">
-          <span class="subheading-sm">Rooms</span>
-          <h2 class="heading">Rooms &amp; Suites</h2>
+<!-- 廣告瀏覽區 -->
+  <div class="block-31" style="position: relative;">
+    <div class="owl-carousel loop-block-31 ">
+      <div class="block-30 item" style="background-image: url('imagesCustom/mountain village.jpg'); min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-10">
+              <span class="subheading-sm">Welcome</span>
+              <h2 class="heading">Enjoy a Luxury Experience</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block-30 item" style="background-image: url('imagesCustom/workExchange.jpg'); min-height: 600px; height: 80vh " data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-10">
+              <!-- <span class="subheading-sm">Welcome</span> -->
+              <h2 class="heading"></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="block-30 item" style="background-image: url('imagesCustom/EastScenery2.jpg');  min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-10">
+              <!-- <span class="subheading-sm">Welcome</span> -->
+              <h2 class="heading">Simple Life</h2>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
 
-  <!-- 複合查詢 -->
+
+
+
+
+<!-- 快速查房  style.css Line8464 -->
   <div class="container">
-       <div class="row mb-5">
+      
+      <div class="row mb-5">
         <div class="col-md-12">
           <div class="block-32">
-            <form METHOD="post"  action="<%=request.getContextPath() %>/front-end/roomType/roomType.do">
+            <form METHOD="post"  action="<%=request.getContextPath() %>/roomType/roomType.do">
               
               <div class="row">
               
@@ -172,146 +199,76 @@
           </div>
         </div>
       </div>
-   
-</div>
-    <!-- 房間一覽 style.css Line7622 -->
-    <div class="site-section bg-light">
-      <div class="container">
-         <c:forEach var="rtVO" items="${searchList}"  varStatus="status"  >
-        
-        
-        <div class="row mb-5">
-          
-          
-          <div class="col-md-12 mb-5">
-            
-           
- <c:choose>
- 		<c:when test="${status.index %2==0 }">
-            
-            <div class="block-3 d-md-flex ">
-              <div class="image" style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}')"></div>
-              <div class="text">
 
-                <h2 class="heading">${rtVO.rtName}</h2>
-                <div class="price"><sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub></div>
-                <ul class="specs mb-5">
-                  <li><strong>Adults:</strong> ${rtVO.rtLimit} </li>
-                  <li><strong>Total:</strong>  ${rtVO.total}</li>
-                  <li><strong>Introduction:</strong>${rtVO.rtIntro}</li>
-                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
-                  <li><strong>Bed Type:</strong> One bed</li>
-                </ul>
-
-                <p><a href="#" class="btn btn-primary py-3 px-5">Read More</a></p>
-
-              </div>
-            </div>
-</c:when>
-
-<c:otherwise>
- <div class="col-md-12 mb-5">
-            
-            <div class="block-3 d-md-flex ">
-              <div class="image order-2" style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}'); "></div>
-              <div class="text order-1">
-                
-                <h2 class="heading">${rtVO.rtName}</h2>
-                <div class="price"><sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub></div>
-                <ul class="specs mb-5">
-                   <li><strong>Adults:</strong> ${rtVO.rtLimit} </li>
-                   <li><strong>Total:</strong>  ${rtVO.total}</li>
-                  <li><strong>Introduction:</strong> ${rtVO.rtIntro}</li>
-                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
-                  <li><strong>Bed Type:</strong> One bed</li>
-                </ul>
-
-                <p><a href="#" class="btn btn-primary py-3 px-5">Read More</a></p>
-                
-              </div>
-            </div>
-
-
-          </div>  
-
-</c:otherwise>
-
-
-
-
-</c:choose>
-
-          </div>  
-
-
-
-
-     
-
-        </div>
-
-        </c:forEach>
-          <!-- 房間與房間中間文字訊息 -->
-        
-        
-           <div class="row mb-5 pt-5 justify-content-center">
-            <div class="col-md-7 text-center section-heading">
-              <h2 class="heading">More Rooms</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, iusto, omnis! Quidem, sint, impedit? Dicta eaque delectus tempora hic, corporis velit doloremque quod quam laborum, nobis iusto autem culpa quaerat!</p>
+      <!-- 山莊設施 -->
+      <div class="row site-section">
+        <div class="col-md-12">
+          <div class="row mb-5">
+            <div class="col-md-7 section-heading">
+              <span class="subheading-sm">Services</span>
+              <h2 class="heading">Facilities &amp; Services</h2>
             </div>
           </div>
-          <c:set var="index" value="${status.index}" />
-      
- 
-  <div class="row">
-  <c:forEach var="rtVO" items="${searchSet}"  varStatus="status"  begin="0" end="2">   
-          
-          
-          <div class="col-lg-4 mb-5">
-            <div class="block-34">
-            
-              <div class="image">
-                <a href="#"><img src="<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}" alt="Image placeholder"></a>
-              </div>
-              <div class="text">
-                <h2 class="heading">${rtVO.rtName}</h2>
-                <div class="price"><sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub></div>
-                <ul class="specs">
-                  <li><strong>Adults:</strong> 1</li>
-                  <li><strong>Categories:</strong> Single</li>
-                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
-                  <li><strong>Bed Type:</strong> One bed</li>
-                </ul>
-              </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-double-bed"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Luxury Rooms</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+            </div>
+          </div>      
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-wifi"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Fast &amp; Free Wifi</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
             </div>
           </div>
-
-  
-    
-    
-    
-    </c:forEach>
-    
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-customer-service"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Call Us 24/7</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+            </div>
+          </div>
         </div>
 
-
-
-
-
-
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-taxi"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Travel Accomodation</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+            </div>
+          </div>      
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-credit-card"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Accepts Credit Card</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+            </div>
+          </div>
+        </div>
+<!--         <div class="col-md-6 col-lg-4">
+          <div class="media block-6">
+            <div class="icon"><span class="flaticon-dinner"></span></div>
+            <div class="media-body">
+              <h3 class="heading">Restaurant</h3>
+              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+            </div>
+          </div>
+        </div> -->
 
       </div>
     </div>
-    
 
-
-
-
-
-  
     <!-- 旅客回饋 -->
     <div class="site-section bg-light">
       <div class="container">
@@ -416,26 +373,44 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
-<%--   <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script> --%>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/jquery.waypoints.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.magnific-popup.min.js"></script>
   
-  <script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
+  
+<!--   <script src="js/bootstrap-datepicker.js"></script> -->
+  
+  
+  
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.animateNumber.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-    <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+  <script src="js/google-map.js"></script>
+  <script src="js/main.js"></script>
+  <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script> 
+  
+<!--   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+  
+   
+  
+  
+  
+  
+  
+  
+  
+    
   </body>
-  <script>
-  var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+  
+
+<script>
+var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 $('#checkin_date').datepicker({
     uiLibrary: 'bootstrap4',
     iconsLibrary: 'fontawesome',
@@ -453,6 +428,5 @@ $('#checkout_date').datepicker({
         return $('#checkin_date').val();
     }
 });
-  
   </script>
 </html>

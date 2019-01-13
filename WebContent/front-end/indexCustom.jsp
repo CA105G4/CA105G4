@@ -61,7 +61,6 @@
               bottom: 0;
         }
         </style>
-</style>
   </head>
   <body>
   
