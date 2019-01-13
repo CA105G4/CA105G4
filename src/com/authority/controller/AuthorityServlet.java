@@ -23,7 +23,7 @@ public class AuthorityServlet extends HttpServlet {
 
 		String action = req.getParameter("action");
 
-		    // �Ӧ�select_page.jsp���ШD                                  // �Ӧ� dept/listAllDept.jsp���ШD
+		                        
 		if ("listEmps_ByAuthID_A".equals(action) ) {
 
 			List<String> errorMsgs = new LinkedList<String>();
@@ -42,7 +42,7 @@ public class AuthorityServlet extends HttpServlet {
 
 				String url = null;
 				if ("listEmps_ByAuthID_A".equals(action))
-					url = "/authority/listEmp_ByAuthID.jsp";        // ���\��� dept/listEmps_ByDeptno.jsp
+					url = "/back-end/authority/listEmp_ByAuthID.jsp";        // ���\��� dept/listEmps_ByDeptno.jsp
 				
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
