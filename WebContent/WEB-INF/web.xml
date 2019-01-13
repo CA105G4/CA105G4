@@ -217,7 +217,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActServlet</servlet-name>
-		<url-pattern>/back-end/activity/act.do</url-pattern>
+		<url-pattern>/activity/act.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -226,7 +226,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BchServlet</servlet-name>
-		<url-pattern>/back-end/branch/bra.do</url-pattern>
+		<url-pattern>/branch/bra.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -235,7 +235,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>braImgServlet</servlet-name>
-		<url-pattern>/back-end/branch/braImg.do</url-pattern>
+		<url-pattern>/branch/braImg.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -244,7 +244,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>braVideoServlet</servlet-name>
-		<url-pattern>/back-end/branch/braVideo.do</url-pattern>
+		<url-pattern>/branch/braVideo.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -253,7 +253,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>BBServlet</servlet-name>
-		<url-pattern>/back-end/billboard/bb.do</url-pattern>
+		<url-pattern>/billboard/bb.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -262,7 +262,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CpnServlet</servlet-name>
-		<url-pattern>/back-end/coupon/cpn.do</url-pattern>
+		<url-pattern>/coupon/cpn.do</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -338,7 +338,10 @@
 		<filter-name>MemLoginFilter</filter-name>
 		<url-pattern>/front-end/test.jsp</url-pattern>
 		<url-pattern>/front-end/member/myaountMyPage.jsp</url-pattern>
-
+		<url-pattern>/front-end/workExchangeRecord/addWER.jsp</url-pattern>
+		<url-pattern>/front-end/coupon/myCoupon.jsp</url-pattern>
+		<url-pattern>/front-end/test.jsp</url-pattern>
+		<url-pattern>/front-end/member/myaountMyPage.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -361,7 +364,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MemLogout</servlet-name>
-		<url-pattern>/back-end/MemLogout.do</url-pattern>
+		<url-pattern>/front-end/MemLogout.do</url-pattern>
 	</servlet-mapping>
 
 	<filter>

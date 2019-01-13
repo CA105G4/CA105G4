@@ -73,7 +73,7 @@
 				<hr>
 				<div class="container-fluid" align="right"  style="margin:0px  0px -25px -63px">
 					<button type="button" class="btn btn-info">
-						<a href="<%=request.getContextPath()%>/back-end/activity/addAct.jsp"     style="color:#fff">新增促銷活動</a>
+						<a href="<%=request.getContextPath()%>/back-end/activity/addAct.jsp" style="color:#fff">新增促銷活動</a>
 					</button>
 				</div>
 			
@@ -106,7 +106,7 @@
 									<td>${actVO.actEnd}</td>
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											ACTION="<%=request.getContextPath()%>/activity/act.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
 											<input type="hidden" name="actID" value="${actVO.actID}">
@@ -115,7 +115,7 @@
 									</td>
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											ACTION="<%=request.getContextPath()%>/activity/act.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">刪除</button>
 											<input type="hidden" name="actID" value="${actVO.actID}">
@@ -125,7 +125,7 @@
 									
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/activity/act.do"
+											ACTION="<%=request.getContextPath()%>/activity/act.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">查詢明細</button>
 											<input type="hidden" name="actID" value="${actVO.actID}">

@@ -44,10 +44,10 @@
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-          <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
+          <li class="nav-item active"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
           <li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
           <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item active"><a href="MyAccount.html" class="nav-link">My Account</a></li>
+          <li class="nav-item"><a href="MyAccount.html" class="nav-link">My Account</a></li>
           <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
         </ul>
       </div>

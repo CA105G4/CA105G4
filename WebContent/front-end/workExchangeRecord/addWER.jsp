@@ -12,52 +12,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 頁面標籤 -->
-<title>CA105G4-翔太山莊</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- 頁面標籤 -->
+	<title>翔太山莊</title>
+	<meta charset="utf-8">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css"/>
 
-<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/animate.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/aos.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css"/>
+	<style>
+		font {
+		font-family: PMingLiU;
+		}
+	</style>
+
 </head>
 
-<style>
-	font {
-	font-family: PMingLiU;
-	}
-</style>
+
 <body>
-
-
-
-
-	<!-- NavBar -->
+    <!-- NavBar -->
 	<nav
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
@@ -71,17 +57,23 @@
 			<!--NavBar 右半部-->
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="indexCustom.html"
-						class="nav-link">Home</a></li>
-					<li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-					<li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay
-							and Help</a></li>
-					<li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
-					<li class="nav-item"><a href="Neighbourhood.html"
-						class="nav-link">Neighbourhood</a></li>
-					<li class="nav-item active"><a href="MyAccount.html"
-						class="nav-link">My Account</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
+<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
 					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<c:choose>
+						<c:when test="${memberVO == null}">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 		</div>

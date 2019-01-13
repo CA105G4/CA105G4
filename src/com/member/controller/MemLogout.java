@@ -25,7 +25,7 @@ public class MemLogout  extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.removeAttribute("memberVO");
 //		session.invalidate();
-		String url =req.getContextPath()+"/front-end/TemplateInner.jsp";  //跳轉葉面
+		String url =req.getContextPath()+"/front-end/indexSearch2.jsp";  //跳轉葉面
 		res.sendRedirect(url);	
 		System.out.println(session.getAttribute("memberVO"));
 	}
