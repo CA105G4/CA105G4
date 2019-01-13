@@ -12,7 +12,7 @@
 <html lang="en">
   <head>
     <!-- 頁面標籤 -->
-    <title>CA105G4-翔太山莊</title>
+    <title>翔太山莊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -30,41 +30,43 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
   </head>
-  <body>
   
-
-
-
-    <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <!--NavBar 右半部-->
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-          <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
-          <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item active"><a href="MyAccount.html" class="nav-link">My Account</a></li>
-          <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
-        <c:choose>
-        	<c:when test="${memberVO == null}">
-          		<li class="nav-item"> <a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
-        	</c:when>
-        	<c:otherwise>
-        		<li class="nav-item"> <a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
-        	</c:otherwise>
-        </c:choose>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- END nav -->
+  
+<body>
+	<!-- NavBar -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<!--NavBar 右半部 -->
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
+<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
+					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<c:choose>
+						<c:when test="${memberVO == null}">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
   
 
 
@@ -102,128 +104,115 @@
   </div>
 
 
-
-
   <br>
-  <div class="container">
-      <div class="row">
-       <div class="col-xs-12 col-sm-3">
+  
+	<div class="container">
+		<div class="row">
+		<div class="col-xs-12 col-sm-3">
            
           <!-- Sidebar -->
           <div class="list-group">
-              <a href="#" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+              <a href="#" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+              <a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item active"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+              <a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
               <a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
-              <a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
-              <a href="#" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+              <a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
+              <a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
           </div>
           <!-- Sidebar -->
           
-       </div>
-       <div class="col-xs-12 col-sm-9">
+		</div>
+		<div class="col-xs-12 col-sm-9">
             <!--這邊開始自由發揮-->
-<div class="container">
-         	<div class="row">
-         		<div class="col-xs-12 col-sm-8">
-         			 <h1 >修改會員資料</h1>
-         			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+			<div class="container">
+	         	<div class="row">
+	         		<div class="col-xs-12 col-sm-8">
+	         			 <h1 >修改會員資料</h1>
+	         			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
 							<div class="row">
 								<span>請注意「</span>
-									<span style="color:red;">※ </span>
+								<span style="color:red;">※ </span>
 								<span>」為必填欄位。</span>
+							</div>
+						</div>
+						
+	          			<hr>
+	
+						<c:if test="${not empty errorMsgs}">
+							<font style="color:red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color:red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+	
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" name="form1" enctype="multipart/form-data">
+							<table>
+		
+								<tr>
+									<td>會員姓名:</td>
+									<td><%=memberVO.getMemName()%></td>
+								</tr>
+								<tr>
+									<td>會員帳號:</td>
+									<td><%=memberVO.getMemAcc()%></td>
+								</tr>
+								
+								<tr>
+									<td>會員密碼:</td>
+									<td><input type="TEXT" name="memPsw" size="45" value="<%=memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
+								</tr>
+								<tr>
+									<td>會員電話:</td>
+									<td><input type="TEXT" name="memTel" size="45"	value="<%=memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
+								</tr>
+								<tr>
+									<td>會員地址 :</td>
+									<td><input type="TEXT" name="memAddr" size="45"	value="<%=memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
+								</tr>
+								<tr>
+									<td>會員技能:</td>
+									<td><input type="TEXT" name="memSkill" size="45" value="<%=memberVO.getMemSkill()%>" /></td>
+								</tr>
+								<tr>
+									<td>會員頭貼:</td>
+									<td>
+										<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" class="img-fluid" width="300px">
+									</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<input type="file" name="memPic"  id="inputfile01">
+									</td>
+								</tr>
+							</table>
+							
+							<br>
+	
+							<input type="hidden" name="memAcc" value="<%=memberVO.getMemAcc()%>">
+							<input type="hidden" name="memBirth" value="<%=memberVO.getMemBirth()%>">
+							<input type="hidden" name="memEmail" value="<%=memberVO.getMemEmail()%>">
+							<input type="hidden" name="memSex" value="<%=memberVO.getMemSex()%>">
+							<input type="hidden" name="memState" value="<%=memberVO.getMemState()%>">
+							<input type="hidden" name="memIDcard" value="<%=memberVO.getMemIDcard()%>">
+							<input type="hidden" name="memName" value="<%=memberVO.getMemName()%>">
+							<input type="hidden" name="memReg" value="<%=memberVO.getMemReg()%>">
+							<input type="hidden" name="action" value="update_from_mem">
+							<input type="hidden" name="memID" value="<%=memberVO.getMemID()%>">
+							<input type="submit" value="送出修改">
+						</FORM>
+		
+					<!--這邊結束自由發揮--> 
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-          <hr>
-          
-
-
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" name="form1" enctype="multipart/form-data">
-<table>
-	
-	<tr>
-		<td>會員姓名:</td>
-		<td><%=memberVO.getMemName()%></td>
-	</tr>
-	<tr>
-		<td>會員帳號:</td>
-		<td><%=memberVO.getMemAcc()%></td>
-	</tr>
-	
-	<tr>
-		<td>會員密碼:</td>
-		<td><input type="TEXT" name="memPsw" size="45" value="<%=memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
-	</tr>
-	<tr>
-		<td>會員電話:</td>
-		<td><input type="TEXT" name="memTel" size="45"	value="<%=memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
-	</tr>
-	<tr>
-		<td>會員地址 :</td>
-		<td><input type="TEXT" name="memAddr" size="45"	value="<%=memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
-	</tr>
-	<tr>
-		<td>會員技能:</td>
-		<td><input type="TEXT" name="memSkill" size="45" value="<%=memberVO.getMemSkill()%>" /></td>
-	</tr>
-	
-	
-	<tr>
-										<td>會員頭貼:</td>
-										<td>
-												<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" 
-													class="img-fluid" width="300px">
-										</td>
-	</tr>
-	<tr>
-										<td></td>
-										<td>
-										    <input type="file" name="memPic"  id="inputfile01">
-  										</td>
-	</tr>
-</table>
-<br>
-
-<input type="hidden" name="memAcc" value="<%=memberVO.getMemAcc()%>">
-<input type="hidden" name="memBirth" value="<%=memberVO.getMemBirth()%>">
-<input type="hidden" name="memEmail" value="<%=memberVO.getMemEmail()%>">
-<input type="hidden" name="memSex" value="<%=memberVO.getMemSex()%>">
-<input type="hidden" name="memState" value="<%=memberVO.getMemState()%>">
-<input type="hidden" name="memIDcard" value="<%=memberVO.getMemIDcard()%>">
-<input type="hidden" name="memName" value="<%=memberVO.getMemName()%>">
-<input type="hidden" name="memReg" value="<%=memberVO.getMemReg()%>">
-<input type="hidden" name="action" value="update_from_mem">
-<input type="hidden" name="memID" value="<%=memberVO.getMemID()%>">
-<input type="submit" value="送出修改">
-</FORM>
-		
-          <!--這邊結束自由發揮--> 
-       </div>
-       </div>
-       </div>
-       </div>
-      </div>
-
-  </div>
-<br>
-
-
-
-
-
-
-
-    
-
+  
+	<br>
 
 
     <!-- Footer尾巴 -->

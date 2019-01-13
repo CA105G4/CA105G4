@@ -1,58 +1,37 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.*"%>
 <%@page import="com.coupon.model.*"%>
 
 <%
-    CouponService cpnSvc =new CouponService();
-    
-    List<CouponVO>cpnList =cpnSvc.getAll();
-    
+    CouponService cpnSvc = new CouponService();
+    List<CouponVO>cpnList = cpnSvc.getAll();
     pageContext.setAttribute("cpnList",cpnList);
-    
-    
-    
-    %>
-
+%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <!-- 頁面標籤 -->
-<title>CA105G4-翔太山莊</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/animate.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/aos.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/front-end/css/style.css">
-<!--      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" /> -->
+	<title>Coupon</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+	<!--      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.10.3/sweetalert2.css" /> -->
 
 <style>
 .couponmargin {
@@ -70,7 +49,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +58,7 @@
 			<!--NavBar 右半部-->
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>

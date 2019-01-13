@@ -1,19 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>
-<%
-  RoomTypeService rtSvc =new RoomTypeService();
-  List<RoomTypeVO> rtList =rtSvc.getAll();
-  Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
-  pageContext.setAttribute("rtList",rtList);
-  pageContext.setAttribute("rtSet",rtSet);
-  
 
-  %>
-<jsp:useBean id="adSvc" scope="page"
-	class="com.activityDetail.model.ActivityDetailService" />
+<%
+	RoomTypeService rtSvc =new RoomTypeService();
+	List<RoomTypeVO> rtList =rtSvc.getAll();
+	Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
+	pageContext.setAttribute("rtList",rtList);
+	pageContext.setAttribute("rtSet",rtSet);
+%>
+
+<jsp:useBean id="adSvc" scope="page" class="com.activityDetail.model.ActivityDetailService" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +60,7 @@
 		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 		id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +69,7 @@
 			<!--NavBar 右半部-->
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
@@ -236,7 +234,7 @@
 											<li><strong>Bed Type:</strong> One bed</li>
 										</ul>
 										<p>
-											<a href="#" class="btn btn-primary py-3 px-5">Read More</a>
+											<a href="#" class="btn btn-primary py-3 px-5">Reservation</a>
 										</p>
 										<p>
 											<a href="#" class="btn btn-info py-3 px-5">Collect Room</a>

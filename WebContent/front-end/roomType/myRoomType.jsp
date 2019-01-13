@@ -8,14 +8,14 @@
 // List<RoomTypeVO>rtList = rtSvc.getAll();
 // pageContext.setAttribute("rtList", rtList);
 
-List<RoomTypeVO> rtList = (List<RoomTypeVO>) request.getAttribute("list");
+	List<RoomTypeVO> rtList = (List<RoomTypeVO>) request.getAttribute("list");
 %>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- 頁面標籤 -->
-    <title>CA105G4-翔太山莊</title>
+    <title>My RoomType</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -33,33 +33,43 @@ List<RoomTypeVO> rtList = (List<RoomTypeVO>) request.getAttribute("list");
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
   </head>
-  <body>
   
-
-
-
-    <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <!--NavBar 右半部-->
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-          <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item"><a href="Coupon.html" class="nav-link">Coupon</a></li>
-          <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item active"><a href="MyAccount.html" class="nav-link">My Account</a></li>
-          <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- END nav -->
+  
+<body>
+	<!-- NavBar -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<!--NavBar 右半部 -->
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
+<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
+					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<c:choose>
+						<c:when test="${memberVO == null}">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
   
 
 
@@ -100,33 +110,33 @@ List<RoomTypeVO> rtList = (List<RoomTypeVO>) request.getAttribute("list");
 
 
   <br>
-  <div class="container">
-      <div class="row">
-       <div class="col-xs-12 col-sm-3">
-           
-          <!-- Sidebar -->
-          <div class="list-group">
-              <a href="#" class="list-group-item "><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
-              <a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
-              <a href="#" class="list-group-item active"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
-          </div>
-          <!-- Sidebar -->
-          
-       </div>
-       <div class="col-xs-12 col-sm-9">
+  
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3">
+				<!-- Sidebar -->
+				<div class="list-group">
+					<a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item"><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item active"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+				</div>
+				<!-- Sidebar -->
+			</div>
+		
+		<div class="col-xs-12 col-sm-9">
             <!--這邊開始自由發揮-->
-<table class="myTable table table-bordered table-striped table-hover" style="width: 760px">
+			<table class="myTable table table-bordered table-striped table-hover" style="width: 760px">
 
-		<tr>
-						<th>分店編號</th>
-						<th>分店名稱</th>
-						<th>分店地址</th>
-						<th>房型名稱</th>
-						<th>房型簡介</th>
-		</tr>
+				<tr>
+					<th>分店編號</th>
+					<th>分店名稱</th>
+					<th>分店地址</th>
+					<th>房型名稱</th>
+					<th>房型簡介</th>
+				</tr>
 
 <c:forEach  var="rtVO"  items="${rtList}">
 		<tr>

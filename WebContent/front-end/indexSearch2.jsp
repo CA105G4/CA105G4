@@ -56,11 +56,9 @@ pageContext.setAttribute("bbList", bbList);
 
 <body>
     <!-- NavBar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -96,53 +94,49 @@ pageContext.setAttribute("bbList", bbList);
 
 
 <!-- 廣告瀏覽區 -->
- <div class="block-31" style="position: relative;">
-    <div class="owl-carousel loop-block-31 ">
-    <c:forEach var="bbVO"   varStatus="count"   items="${bbList}" >
-    	<c:set var="bbindex"  value="${count.index}"/>
-    	 <%
-   						 int index = (Integer) pageContext.getAttribute("bbindex");
-   	     				 String encodedText = null;
-   	     				 if(bbList.get(index).getpic() != null){
-   	     					 Base64.Encoder encoder = Base64.getEncoder();
-   	     					 encodedText = encoder.encodeToString(bbList.get(index).getpic());
-   	     					 pageContext.setAttribute("bb", new Integer(1));
-   	     				 }
-   	     				 else{pageContext.setAttribute("bb", new Integer(0));}
+	<div class="block-31" style="position: relative;">
+		<div class="owl-carousel loop-block-31 ">
+			<c:forEach var="bbVO" varStatus="count" items="${bbList}">
+				<c:set var="bbindex" value="${count.index}" />
+				<%
+					int index = (Integer) pageContext.getAttribute("bbindex");
+					String encodedText = null;
+					
+					if(bbList.get(index).getpic() != null){
+						Base64.Encoder encoder = Base64.getEncoder();
+						encodedText = encoder.encodeToString(bbList.get(index).getpic());
+						pageContext.setAttribute("bb", new Integer(1));
+					} else {
+						pageContext.setAttribute("bb", new Integer(0));
+					}
    				 %>
-    
-    	<c:if test="${bb == 1 && bbVO.bbStatus == 1 }">
-      <div class="block-30 item" style="background-image: url('data:image/png;base64, <%=encodedText %>'); min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-md-10">
-              <span class="subheading-sm">Welcome</span>
-              <h2 class="heading">Enjoy a Luxury Experience</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      </c:if>
-   </c:forEach>
-    
-    </div>
-  </div>
+				<c:if test="${bb == 1 && bbVO.bbStatus == 1 }">
+					<div class="block-30 item"
+						style="background-image: url('data:image/png;base64, <%=encodedText%>'); min-height: 600px; height: 80vh"
+						data-stellar-background-ratio="0.5">
+						<div class="container">
+							<div class="row align-items-center">
+								<div class="col-md-10">
+									<span class="subheading-sm">Welcome</span>
+									<h2 class="heading">Enjoy a Luxury Experience</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+	</div>
 
 
-
-
-
-<!-- 快速查房  style.css Line8464 -->
+	<!-- 快速查房  style.css Line8464 -->
   <div class="container">
       
       <div class="row mb-5">
         <div class="col-md-12">
           <div class="block-32">
-            <form METHOD="post"  action="<%=request.getContextPath() %>/roomType/roomType.do">
-              
+            <form METHOD="post" action="<%=request.getContextPath() %>/roomType/roomType.do">
               <div class="row">
-              
                 <div class="col-md-6 mb-3 mb-lg-0 col-lg-3">
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
@@ -175,9 +169,6 @@ pageContext.setAttribute("bbList", bbList);
                     </div>
                   
                   <jsp:useBean id="bchSvc" scope="page"  class="com.branch.model.BranchService" />
-                  
-                
-                  
                     <div class="col-md-6 mb-3 mb-md-0">
                       <label for="checkin">Branch</label>
                       <div class="field-icon-wrap">
@@ -189,9 +180,6 @@ pageContext.setAttribute("bbList", bbList);
                         </select>
                       </div>
                     </div>
-                    
-                    
-                    
                   </div>
                 </div>
                 

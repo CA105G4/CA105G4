@@ -7,41 +7,44 @@
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- 頁面標籤 -->
-    <title>CA105G4-翔太山莊</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
-<style type="text/css">
-   .list-group {
-     
-     margin:auto;
-     float:left;
-     padding-top:20px;
-    }
-    .lead {
-     
-     margin:auto;
-     left:0;
-     right:0;
-     padding-top:10%;
-    }
-</style>
-<style type="text/css">
+	<title>翔太山莊</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/magnific-popup.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/aos.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/ionicons.min.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/bootstrap-datepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/jquery.timepicker.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+
+	<style type="text/css">
+		.list-group {
+			margin:auto;
+			float:left;
+			padding-top:20px;
+		}
+		.lead {
+			margin:auto;
+			left:0;
+			right:0;
+			padding-top:10%;
+		}
+		
+	</style>
+	
+	<style type="text/css">
 		iframe{
             /*position: absolute;*/
             width: 100%; height: 500px;
@@ -73,35 +76,45 @@
 			opacity: 0.8;
         }
 
-		</style>
-  </head>
-  <body>
-  
+	</style>
+	
+</head>
 
-
-
+<body>
     <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <!--NavBar 右半部-->
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-          <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item active"><a href="Coupon.html" class="nav-link">Coupon</a></li>
-          <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item"><a href="account.html" class="nav-link">My Account</a></li>
-          <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- END nav -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<!--NavBar 右半部-->
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
+<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
+					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<c:choose>
+						<c:when test="${memberVO == null}">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
   
 
 

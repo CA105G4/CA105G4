@@ -22,50 +22,60 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
-<style type="text/css">
-   .list-group {
-     
-     margin:auto;
-     float:left;
-     padding-top:20px;
-    }
-    .lead {
-     
-     margin:auto;
-     left:0;
-     right:0;
-     padding-top:10%;
-    }
-</style>
+    
+	<style type="text/css">
+	   .list-group {
+	     
+	     margin:auto;
+	     float:left;
+	     padding-top:20px;
+	    }
+	    .lead {
+	     
+	     margin:auto;
+	     left:0;
+	     right:0;
+	     padding-top:10%;
+	    }
+	</style>
 
-  </head>
-  <body>
-  
+</head>
 
-
-
+<body>
     <!-- NavBar -->
-  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-      <a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="oi oi-menu"></span> Menu
-      </button>
-      <!--NavBar 右半部-->
-      <div class="collapse navbar-collapse" id="ftco-nav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="indexCustom.html" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="roomsC.html" class="nav-link">Rooms</a></li>
-          <li class="nav-item"><a href="Stay&Help.html" class="nav-link">Stay and Help</a></li>
-          <li class="nav-item active"><a href="Coupon.html" class="nav-link">Coupon</a></li>
-          <li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li>
-          <li class="nav-item"><a href="account.html" class="nav-link">My Account</a></li>
-          <li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <!-- END nav -->
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#ftco-nav" aria-controls="ftco-nav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+			<!--NavBar 右半部-->
+			<div class="collapse navbar-collapse" id="ftco-nav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
+<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
+					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<c:choose>
+						<c:when test="${memberVO == null}">
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
   
 
 
@@ -103,74 +113,38 @@
     </div>
   </div>
 
+	<br>
+	<br>
 
-
-  <div class="container">
+	<div class="container">
     <!--這邊開始自由發揮-->
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" name="form1" enctype="multipart/form-data">
-		
-<!-- 		改SESSION		 -->
-<%-- 		<input type="hidden" name="memid" value="<%= session.getAttribute("name")%>"> --%>
-		<input type="hidden" name="memid" value="${memberVO.memID}">
-		<input type="hidden" name="artpic">
-		<input type="hidden" name="artstate" value="1">
-		<textarea id="artexp" name="artexp"></textarea>
-		<input type="hidden" name="artdate" id="f_date1">
-		<input type="hidden" name="action" value="insert">
-		<input type="submit" class="btn btn-info" value="分享文章">
-		
-		<div>
-			<c:if test="${not empty errorMsgs}">
-<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color:red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
-		</div>
-</FORM>	
-
-
-
-
-
-
-
-
-
-
-
-
-    
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/article/article.do" name="form1" enctype="multipart/form-data">
+			
+	<!-- 		改SESSION		 -->
+	<%-- 		<input type="hidden" name="memid" value="<%= session.getAttribute("name")%>"> --%>
+			<input type="hidden" name="memid" value="${memberVO.memID}">
+			<input type="hidden" name="artpic">
+			<input type="hidden" name="artstate" value="1">
+			<textarea id="artexp" name="artexp"></textarea>
+			<input type="hidden" name="artdate" id="f_date1">
+			<input type="hidden" name="action" value="insert">
+			<input type="submit" class="btn btn-info" value="分享文章">
+			
+			<div>
+				<c:if test="${not empty errorMsgs}">
+	<!-- 				<font style="color:red">請修正以下錯誤:</font> -->
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color:red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+			</div>
+		</FORM>	
     <!--這邊結束自由發揮-->
-  </div>
-<br>
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-         
-
-
-
-
-
-
-
-    
-
-
+	</div>
+  
+	<br>
 
     <!-- Footer尾巴 -->
     <footer class="footer">
@@ -225,16 +199,16 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-  <script>
-    $(document).ready(function() {
   
-
-  $('.list-group-item').click(function(e) {
-    e.preventDefault();
-    $('.list-group-item').removeClass('active');
-    $(this).addClass('active');
-  });
-});
+  <script>
+	$(document).ready(function() {
+  
+	$('.list-group-item').click(function(e) {
+		e.preventDefault();
+    	$('.list-group-item').removeClass('active');
+    	$(this).addClass('active');
+		});
+	});
   </script>
   
 <!--   datetimepicker -->

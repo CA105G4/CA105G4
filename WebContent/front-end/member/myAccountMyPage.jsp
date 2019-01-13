@@ -1,6 +1,6 @@
-<%@page import="java.util.*"%>
+<%@ page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@page import="com.member.model.*"  %>
+<%@ page import="com.member.model.*"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
@@ -12,7 +12,7 @@
 <html lang="en">
 <head>
 	<!-- 頁面標籤 -->
-	<title>CA105G4-翔太山莊</title>
+	<title>My Account</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    
@@ -33,11 +33,9 @@
   
 <body>
     <!-- NavBar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -46,9 +44,9 @@
 			<!--NavBar 右半部-->
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a href="<%=request.getContextPath()%>/indexSearch2" class="nav-link">Home</a></li>
+					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
-					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
@@ -72,7 +70,7 @@
 
 
 
-<!-- 廣告瀏覽區 -->
+	<!-- 廣告瀏覽區 -->
 	<div class="block-31" style="position: relative;">
 		<div class="owl-carousel loop-block-31 ">
 			<div class="block-30 item"
@@ -101,7 +99,7 @@
 				<div class="container">
 					<div class="row align-items-center">
 						<div class="col-md-10">
-							<!-- <span class="subheading-sm">Welcome</span> -->
+							<span class="subheading-sm">Welcome</span>
 						</div>
 					</div>
 				</div>
@@ -114,114 +112,90 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-3">
-			<!-- Sidebar -->
+				<!-- Sidebar -->
 				<div class="list-group">
-					<a href="#" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
-					<a href="#" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
-					<a href="#" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-					<a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
-					<a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
-					<a href="#" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item"><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
-			<!-- Sidebar -->
+				<!-- Sidebar -->
           
 			</div>
-		<div class="col-xs-12 col-sm-9">
-            <!--這邊開始自由發揮-->
-<div class="container">
-         	<div class="row">
-         		<div class="col-xs-12 col-sm-8">
-         			 <h1 >會員資料</h1>
-         			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+			<div class="col-xs-12 col-sm-9">
+				<!--這邊開始自由發揮-->
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12 col-sm-8">
+							<h1>會員資料</h1>
+							<div class="container"
+								style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+							</div>
 							
-		</div>
-          <hr>
+							<hr>
           
+							<table border="1">
+								<tr>
+									<td>會員姓名:</td>
+									<td><%=memberVO.getMemName()%></td>
+								</tr>
+								<tr>
+									<td>會員帳號:</td>
+									<td><%=memberVO.getMemAcc()%></td>
+								</tr>
+								<tr>
+									<td>會員生日:</td>
+									<td><%=memberVO.getMemBirth()%></td>
+								</tr>
+								<tr>
+									<td>會員信箱:</td>
+									<td><%=memberVO.getMemEmail()%></td>
+								</tr>
+								<tr>
+									<td>會員電話:</td>
+									<td><%=memberVO.getMemTel()%></td>
+								</tr>
+								<tr>
+									<td>地址:</td>
+									<td><%=memberVO.getMemAddr()%></td>
+								</tr>
+								<tr>
+									<td>會員性別:</td>
+									<td>${memSexMap.get(memberVO.getMemSex())}	</td>
+								</tr>
+								<tr>
+									<td>會員技能:</td>
+									<td><%=memberVO.getMemSkill()%></td>
+								</tr>
+								<tr>
+									<td>會員頭貼:</td>
+									<td><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" width="400px"></td>		
+								</tr>
+								<tr>
+									<td>會員身分證字號:</td>
+									<td><%=memberVO.getMemIDcard()%></td>
+								</tr>
+							</table>
 
+							<br>
 
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" style="margin-bottom: 0px;">
+								<input type="submit" value="修改"> 
+								<input type="hidden" name="memID"      value="${memberVO.memID}">
+								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
+								<input type="hidden" name="action"	    value="getOne_For_Update_forMem">
+							</FORM>
 
-
-
-
-<table border="1">
-	<tr>
-		<td>會員姓名:</td>
-		<td><%=memberVO.getMemName()%></td>
-	</tr>
-	<tr>
-		<td>會員帳號:</td>
-		<td><%=memberVO.getMemAcc()%></td>
-	</tr>
-	<tr>
-		<td>會員生日:</td>
-		<td><%=memberVO.getMemBirth()%></td>
-	</tr>
-	<tr>
-		<td>會員信箱:</td>
-		<td><%=memberVO.getMemEmail()%></td>
-	</tr>
-	<tr>
-		<td>會員電話:</td>
-		<td><%=memberVO.getMemTel()%></td>
-	</tr>
-	<tr>
-		<td>地址:</td>
-		<td><%=memberVO.getMemAddr()%></td>
-	</tr>
-	<tr>
-		<td>會員性別:</td>
-		<td>${memSexMap.get(memberVO.getMemSex())}	</td>
-	</tr>
-	<tr>
-		<td>會員技能:</td>
-		<td><%=memberVO.getMemSkill()%></td>
-	</tr>
-	<tr>
-		<td>會員頭貼:</td>
-		<td><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" width="400px"></td>		
-	</tr>
-	<tr>
-		<td>會員身分證字號:</td>
-		<td><%=memberVO.getMemIDcard()%></td>
-	</tr>
-	
-
-
-
-
-
-
-
-    </table>
-    <tr>
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改"> 
-			     <input type="hidden" name="memID"      value="${memberVO.memID}">
-			     <input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
-			     <input type="hidden" name="action"	    value="getOne_For_Update_forMem"></FORM>
-			</td>
-
-	</tr>
-          <!--這邊結束自由發揮--> 
-       </div>
-       </div>
-       </div>
-       </div>
-      </div>
-
-  </div>
+						<!--這邊結束自由發揮--> 
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  	</div>
 <br>
-
-
-
-
-
-
-
-    
-
-
 
     <!-- Footer尾巴 -->
     <footer class="footer">

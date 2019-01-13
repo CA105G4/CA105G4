@@ -273,6 +273,12 @@
 		<servlet-name>CpnImgServlet</servlet-name>
 		<url-pattern>/front-end/coupon/cpn.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BBTimerServlet</servlet-name>
+		<servlet-class>com.billboard.controller.BBTimerServlet</servlet-class>
+		<load-on-startup>20</load-on-startup>
+	</servlet>
 	<!-- PO end -->
 
 	<!-- Wen -->
@@ -336,9 +342,13 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>MemLoginFilter</filter-name>
-		<url-pattern>/front-end/member/myAountMyPage.jsp</url-pattern>
+		<url-pattern>/front-end/coupon/coupon.jsp</url-pattern>
 		<url-pattern>/front-end/workExchangeRecord/addWER.jsp</url-pattern>
+		<url-pattern>/front-end/member/myAccountMyPage.jsp</url-pattern>
+		<url-pattern>/front-end/orders/myAccountorders.jsp</url-pattern>
+		<url-pattern>/front-end/orders/myAccountordersRecord.jsp</url-pattern>
 		<url-pattern>/front-end/coupon/myCoupon.jsp</url-pattern>
+		<url-pattern>/front-end/roomType/myRoomType.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

@@ -88,37 +88,41 @@
 
 
 <!-- 廣告瀏覽區 -->
-  <div class="block-31"  style="position: relative">
-    <div class="owl-carousel loop-block-31 ">
-      <div class="block-30 item" style="background-image: url('imagesCustom/workExchangebanner.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-md-10">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="block-30 item" style="background-image: url('imagesCustom/banner2.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-md-10">
-              <!-- <span class="subheading-sm">Welcome</span> -->
-              <h2 class="heading"></h2>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="block-30 item" style="background-image: url('imagesCustom/EastScenerybanner.jpg');; min-height: 150px;height: 30vh;" data-stellar-background-ratio="0.5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-md-10">
-              <!-- <span class="subheading-sm">Welcome</span> -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="block-31" style="position: relative;">
+		<div class="owl-carousel loop-block-31 ">
+			<div class="block-30 item"
+				style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/workExchangebanner.jpg'); min-height: 150px;height: 30vh"
+				data-stellar-background-ratio="0.5">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-10"></div>
+					</div>
+				</div>
+			</div>
+			<div class="block-30 item"
+				style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/banner2.jpg'); min-height: 150px;height: 30vh"
+				data-stellar-background-ratio="0.5">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-10">
+							<h2 class="heading"></h2>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="block-30 item"
+				style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/EastScenerybanner.jpg'); min-height: 150px;height: 30vh"
+				data-stellar-background-ratio="0.5">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-md-10">
+							<!-- <span class="subheading-sm">Welcome</span> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
