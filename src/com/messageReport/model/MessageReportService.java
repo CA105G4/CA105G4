@@ -9,7 +9,7 @@ public class MessageReportService {
 	private MessageReportDAO_interface dao;
 	
 	public MessageReportService() {
-		dao = new MessageReportJDBCDAO();
+		dao = new MessageReportDAO();
 	}
 	
 	public MessageReportVO addMessageReport(Integer artid,Integer msgid

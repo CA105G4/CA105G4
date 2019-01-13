@@ -175,7 +175,7 @@ public class ArticleServlet extends HttpServlet {
 				articleVO = articleService.updateAtricle(artid, memid, artpic, artexp, artstate, artdate);
 				
 				req.setAttribute("articleVO", articleVO); 
-				String url = "/front-end/article/myExperience.jsp";
+				String url = "/article/article.do?memid=" + memid + "&action=get_Member_Display";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
 
@@ -240,7 +240,7 @@ public class ArticleServlet extends HttpServlet {
 				
 				ArticleService articleService = new ArticleService();
 				articleVO = articleService.addArticle(memid, artpic, artexp, artstate, artdate);
-				String url = "/front-end/article/myExperience.jsp";
+				String url = "/article/article.do?memid=" + memid + "&action=get_Member_Display";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);				
 				

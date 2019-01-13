@@ -282,7 +282,7 @@
 	          }).then(
 	           function (result) {
 	           if(result){
-	        	   document.location.href='<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp';
+	        	   document.location.href='<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp';
 	           }
 	           });
 	    });

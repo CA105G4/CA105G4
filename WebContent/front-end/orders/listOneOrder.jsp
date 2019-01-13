@@ -66,18 +66,28 @@
 			<td>${odVO.checkOut}</td>
 	<jsp:useBean id="odSvc" scope="page" class="com.orderDetail.model.OrderDetailService" />
 	<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
-	<c:choose>
-		<c:when test="${ (odVO.evaluates == 0.0)}">
-			<td><span class="ratyli test" data-rate="0" data-ratemax="5" id="${odVO.odID}"></span> </td>
-		</c:when>
-		<c:when test="${ordSvc.getOneOrders(odSvc.getOneOrderDetail(odVO.odID).getOrdID()).getOrdState() == 3}">
-			<td>無法給評</td>
-		</c:when>
-		<c:otherwise>
-			<td><span class="ratyli test" data-rate="${odVO.evaluates}" data-ratemax="5" id="${odVO.odID}"></span> </td>
-		</c:otherwise>
-	</c:choose>
-			<td>${odVO.special}</td>
+			<c:if test="${odVO.evaluates == 0.0}">
+				<c:choose>
+					<c:when test="${ordSvc.getOneOrders(ordID).getOrdState() == 0}">
+						<td>尚無法給評</td>
+					</c:when>
+					<c:when test="${ordSvc.getOneOrders(ordID).getOrdState() == 1}">
+						<td>尚無法給評</td>
+					</c:when>
+					<c:when test="${ordSvc.getOneOrders(ordID).getOrdState() == 2}">
+						<td><span class="ratyli test" data-rate="0" data-ratemax="5" id="${odVO.odID}"></span> </td>
+					</c:when>
+					<c:otherwise>
+						<td>無法給評</td>
+					</c:otherwise>
+				</c:choose>
+			</c:if>
+
+			<c:if test="${odVO.evaluates != 0.0}">
+				<td><span class="ratyli test" data-rate="${odVO.evaluates}" data-ratemax="5" id="${odVO.odID}"></span> </td>
+			</c:if>
+			
+			<td>${specialMap.get(odVO.special)}</td>
 		</tr>
 	</c:forEach>
 </table>

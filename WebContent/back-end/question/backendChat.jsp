@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8"); %>
+<%response.setContentType("text/html;charset=UTF-8"); %>
+<%@page import="com.employee.model.EmployeeVO"%>
 <style>
 div {
 	font-size: 18px;
@@ -136,6 +138,11 @@ div {
 					<li class="breadcrumb-item active">客服</li>
 				</ol>
 
+<%	
+	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+	String emp = empVO.getEmpName();  
+	System.out.print(emp);
+%>
 				<!-- CHATROOM -->
 				<div class="card mb-3">
 					<div class="card-header">
@@ -154,8 +161,8 @@ div {
 								<div style="clear: both;" style="color:#00ff00">
 									<div id="msg"
 										style="background-color: #FFFFFF; height: 100px; width: 700px; overflow-y: scroll; border: 1px solid black; float: left;"></div>
-									<button id="send" class="btn btn-info" onclick="send();"
-										style="float: left; margin-top: 60px;">送出</button>
+									<button id="send" class="btn btn-info" onclick="send();" style="float: left; margin-top: 60px;">送出</button>
+									<button id="history" class="btn btn-info" onchange="history();" style="float: left; margin-top: 60px;">歷史訊息</button>
 								</div>
 							</div>
 
@@ -210,7 +217,6 @@ div {
 			</div>
 		</div>
 	</div>
-
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -235,10 +241,6 @@ div {
 		       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 		       format:'Y-m-d',         //format:'Y-m-d H:i:s',
 			   value: 'new Date()', // value:   new Date(),
-	           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	           //startDate:	            '2017/07/10',  // 起始日
-	           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-	           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 	        });
 	</script>
 	<!-- Bootstrap core JavaScript-->
@@ -308,24 +310,17 @@ div {
 	<!-- chatroom script -->
 	<script type="text/javascript"
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript">
+	<script type="text/javascript"  charset="UTF-8">
 	
     var ws;
-//     var userName = ${sessionScope.username};
-	var userName = '456';
-//     var url = "ws://localhost:8081/CA105G4/chatSocket?username=${sessionScope.username}";
-	var url = "ws://localhost:8081/CA105G4/chatSocket?username=456";
-	var historyMsgArray = [];
+	var userName = '<%=empVO.getEmpName()%>';
+	console.log("userName:" + userName);
+	var url = "ws://localhost:8081/CA105G4/question?username="+userName;
+	console.log("url:" + url);
     window.onload = function() {
-        if ('WebSocket' in window) {
-            ws = new WebSocket(url);
-        } else if ('MozWebSocket' in window) {
-            ws = new MozWebSocket(url);
-        } else {
-            alert('WebSocket is not supported by this browser.');
-            return;
-        }
-
+		ws = new WebSocket(url);
+		
+		
         ws.onmessage = function(event) {
             eval("var result=" + event.data);
 			console.log("event.data:" + event.data);
@@ -338,8 +333,6 @@ div {
                         function() {  
                         	console.log(result.names);                    
 	                            $("#userList").append(
-// 	                                    "<input type=checkbox value='"+this+"'/>"
-// 	                                            + this + "<br/>"
 										"<label class='container'>" + this + "<input type='checkbox' onchange='history()' value='" + this + "' /><span class='checkmark'></span></label>"								  
 	                             );  
                         });       		
@@ -350,28 +343,17 @@ div {
             	console.log("from :" + result.from);
                 $("#content").append(
                         "【" + result.from + "】" + "&nbsp;&nbsp;" + result.date + "：<br/>" + result.sendMsg); 
-//                 		+ result.sendMsg + "<br/>"); 
                 inputMessage.scrollTop = inputMessage.scrollHeight;
                 
             }
-//             else{
-//             	 $("#content").append(
-//             			 "【" + result.from + "】" + "&nbsp;&nbsp;" + result.date + "：<br/>" + result.sendMsg + "<br/>"
-//             			 );
-//             	 inputMessage.scrollTop = inputMessage.scrollHeight;
-//             }
 			
-            
-            
-//             var historyMsgArray = [];
+            var historyMsgArray = [];
             if (result.type == 3){
-//             	var historyMsgArray = [];
 				var jsonObj = JSON.parse(result.msg);
 				console.log("jsonObj: " + jsonObj);
 				for(var i = 0; i < jsonObj.length; i++){
 					eval("var historyMsg=" + jsonObj[i]);
 					historyMsgArray.push("【" + historyMsg.from + " to " + historyMsg.to + "】" + " : " + historyMsg.msg); 
-// 					console.log("historyMsgInside: " + historyMsg);
 				}
 				console.log("historyMsgArray: " + historyMsgArray);
 
@@ -384,21 +366,8 @@ div {
             		console.log("historylength: " + historyMsgArray.length);
             	});
 			}
-//             console.log("historyMsgArrayOutside: " + historyMsgArray);
-            
-//             $(document).ready(function(){
-//             	$('#history').click(function(){
-//             		$.each(historyMsgArray,function(index, val){
-//             			console.log(index, val)
-//             			$("#content").append(val);
-//             			historyMsgArray = [];
-//             		})
-//             	})
-//             })
         };
     };
-    
-	
     
     
     function formatDate(date) {

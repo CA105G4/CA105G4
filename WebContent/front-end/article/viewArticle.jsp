@@ -140,10 +140,10 @@
   </div>
 
 <%	
-	String memid = request.getParameter("memid");
-	request.getSession().setAttribute("memid",memid);
+	String art_memid = request.getParameter("memid");
+	request.getSession().setAttribute("art_memid",art_memid);
 %>
-memid<input width = "500" type="text" value="<%= session.getAttribute("memid") %>" size="100"/> <br>	
+memid<input width = "500" type="text" value="${memberVO.memName} %>" size="100"/> <br>	
   <div class="container">
     <!--這邊開始自由發揮-->
 
@@ -151,7 +151,7 @@ memid<input width = "500" type="text" value="<%= session.getAttribute("memid") %
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4"> 
-					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(sessionScope.memid).memAcc} ${sessionScope.memid}</b>	
+					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(art_memid).memAcc} </b>	
 																						
 				</div>
 				<div class="col-xs-12 col-sm-8"> 
@@ -171,7 +171,7 @@ memid<input width = "500" type="text" value="<%= session.getAttribute("memid") %
 									  
 <!-- 									  以後改SESSION  -->
 
-								      <input type="hidden" name="repmemid" value="M0001">
+								      <input type="hidden" name="repmemid" value="${memberVO.memID}">
 								      <input type="hidden" name="repstate" value="0">								
 								      <input type="hidden" name="repdate"  id="f_date1">								      
 								      <input type="hidden" name="action" value="insert">
@@ -214,7 +214,7 @@ memid<input width = "500" type="text" value="<%= session.getAttribute("memid") %
 								      <td><input id="msginput" type="text" name="msgcontent" size="80" required></td>
 								      <input type="hidden" name="artid" value="${param.artid}">
 								      <!--  以後改SESSION  -->
-								      <input type="hidden" name="msgmemid" value="M0002">
+								      <input type="hidden" name="msgmemid" value="${memberVO.memID}">
 								      <input type="hidden" name="msgstate" value="0">								
 								      <input type="hidden" name="msgdate"  id="f_date2">								      
 								      <input type="hidden" name="action" value="insert">
