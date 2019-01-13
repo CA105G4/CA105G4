@@ -15,11 +15,11 @@ import javax.sql.DataSource;
 
 public class BillboardDAO implements BillboardDAO_interface {
 
-	private static final String INSERT_SQL = "INSERT INTO Billboard(bbID,url,pic,bbStart,bbEnd) "
-			+ "VALUES(bb_seq.nextval,?,?,?,?)";
-	private static final String UPDATE = "UPDATE Billboard set url=?, pic=?, bbStart=?, bbEnd=? where bbID=?";
+	private static final String INSERT_SQL = "INSERT INTO Billboard(bbID,url,pic,bbStart,bbEnd,bbStatus) "
+			+ "VALUES(bb_seq.nextval,?,?,?,?,?)";
+	private static final String UPTimestamp = "Update Billboard set url=?, pic=?, bbStart=?, bbEnd=?,bbStatus=? where bbID=?";
 	private static final String DELETE = "DELETE FROM Billboard WHERE bbID=?";
-	private static final String GET_ONE_SQL = "SELECT bbID,url,pic,bbStart,bbEnd FROM Billboard WHERE bbID=?";
+	private static final String GET_ONE_SQL = "SELECT bbID,url,pic,bbStart,bbEnd,bbStatus FROM Billboard WHERE bbID=?";
 	private static final String GET_ALL_SQL = "SELECT * FROM Billboard ORDER BY bbID ";
 
 	private static DataSource ds = null;
@@ -43,8 +43,9 @@ public class BillboardDAO implements BillboardDAO_interface {
 			pstmt = con.prepareStatement(INSERT_SQL);
 			pstmt.setString(1, billboardVO.geturl());
 			pstmt.setBytes(2, billboardVO.getpic());
-			pstmt.setDate(3, billboardVO.getbbStart());
-			pstmt.setDate(4, billboardVO.getbbEnd());
+			pstmt.setTimestamp(3, billboardVO.getbbStart());
+			pstmt.setTimestamp(4, billboardVO.getbbEnd());
+			pstmt.setInt(5, billboardVO.getbbStatus());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -77,13 +78,14 @@ public class BillboardDAO implements BillboardDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(UPDATE);
+			pstmt = con.prepareStatement(UPTimestamp);
 
 			pstmt.setString(1, billboardVO.geturl());
 			pstmt.setBytes(2, billboardVO.getpic());
-			pstmt.setDate(3, billboardVO.getbbStart());
-			pstmt.setDate(4, billboardVO.getbbEnd());
-			pstmt.setInt(5, billboardVO.getbbID());
+			pstmt.setTimestamp(3, billboardVO.getbbStart());
+			pstmt.setTimestamp(4, billboardVO.getbbEnd());
+			pstmt.setInt(5, billboardVO.getbbStatus());
+			pstmt.setInt(6, billboardVO.getbbID());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -166,8 +168,9 @@ public class BillboardDAO implements BillboardDAO_interface {
 				billboardVO.setbbID(rs.getInt("bbID"));
 				billboardVO.seturl(rs.getString("url"));
 				billboardVO.setpic(rs.getBytes("pic"));
-				billboardVO.setbbStart(rs.getDate("bbStart"));
-				billboardVO.setbbEnd(rs.getDate("bbEnd"));
+				billboardVO.setbbStart(rs.getTimestamp("bbStart"));
+				billboardVO.setbbEnd(rs.getTimestamp("bbEnd"));
+				billboardVO.setbbStatus(rs.getInt("bbStatus"));
 			}
 
 		} catch (SQLException e) {
@@ -221,9 +224,9 @@ public class BillboardDAO implements BillboardDAO_interface {
 				billboardVO.setbbID(rs.getInt("bbID"));
 				billboardVO.seturl(rs.getString("URL"));
 				billboardVO.setpic(rs.getBytes("pic"));
-				billboardVO.setbbStart(rs.getDate("bbStart"));
-				billboardVO.setbbEnd(rs.getDate("bbEnd"));
-
+				billboardVO.setbbStart(rs.getTimestamp("bbStart"));
+				billboardVO.setbbEnd(rs.getTimestamp("bbEnd"));
+				billboardVO.setbbStatus(rs.getInt("bbStatus"));
 				list.add(billboardVO);
 			}
 		} catch (SQLException e) {

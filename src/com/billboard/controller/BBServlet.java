@@ -3,6 +3,8 @@ package com.billboard.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +36,8 @@ public class BBServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+				
+				/*************************** 1-1 URL **********************/
 				String url = req.getParameter("url");
 
 				String urlReg = "^[(?<http>(http:[/][/]|www.)([a-z]|[A-Z]|[0-9]|[/.]|[~])*)]";
@@ -43,24 +47,28 @@ public class BBServlet extends HttpServlet {
 				} else if (url.trim().matches(urlReg)) {
 					errorMsgs.add("URL開頭必須是http且為英文字母和數字的字串");
 				}
-
-				Date sDate = null;
-
+				
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				/*************************** 1-2 開始時間 **********************/
+				Timestamp bbup =null;
+				
 				try {
-					sDate = Date.valueOf(req.getParameter("bbStart"));
-				} catch (IllegalArgumentException e) {
-					sDate = new Date(System.currentTimeMillis());
+				java.util.Date sdate = sdf.parse(req.getParameter("bbStart"));		
+				bbup = Timestamp.valueOf(sdf.format(sdate));
+				}catch(IllegalArgumentException el) {
 					errorMsgs.add("請輸入廣告開始時間");
 				}
-
-				Date eDate = null;
+				
+				/*************************** 1-3 結束時間 **********************/
+				Timestamp bbdown =null;
 				try {
-					eDate = Date.valueOf(req.getParameter("bbEnd"));
-				} catch (IllegalArgumentException el) {
-					eDate = new Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入廣告結束時間");
-				}
-
+					java.util.Date edate = sdf.parse(req.getParameter("bbEnd"));		
+					bbdown = Timestamp.valueOf(sdf.format(edate));
+					}catch(IllegalArgumentException el) {
+						errorMsgs.add("請輸入廣告結束時間");
+					}
+				
+				/*************************** 1-4 輪播廣告照片 **********************/
 				byte[] pic = null;
 
 				Part bbPic = req.getPart("bbPic");
@@ -73,14 +81,15 @@ public class BBServlet extends HttpServlet {
 				if (bbPic.getSubmittedFileName().trim().length() == 0 || bbPic.getSubmittedFileName() == null) {
 					errorMsgs.add("請上傳輪播廣告圖片");
 				}
+				
 
 				BillboardVO bbVO = new BillboardVO();
 
 				bbVO.seturl(url);
-				bbVO.setbbStart(sDate);
-				bbVO.setbbEnd(eDate);
+				bbVO.setbbStart(bbup);
+				bbVO.setbbEnd(bbdown);
 				bbVO.setpic(pic);
-
+				
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bbVO", bbVO); // 含有輸入格式錯誤的braVO物件,也存入req
@@ -92,10 +101,25 @@ public class BBServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+				
+				
+				long up = bbup.getTime();
+				long down = bbdown.getTime();			
+				long now = System.currentTimeMillis();
+				Integer bbStatus = null;
+				if(  now > up && now < down   ) {
+					bbStatus  = 1; //上架
+				}
+				else if ( now < up ){
+					bbStatus  = 0; //待上架
+				}else {
+					bbStatus = 2; //下架
+				}
+				
 
 				/*************************** 2.開始新增資料 ***************************************/
 				BillboardService bbSvc = new BillboardService();
-				bbVO = bbSvc.addBB(url, pic, sDate, eDate);
+				bbVO = bbSvc.addBB(url, pic,  bbup, bbdown,bbStatus);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String urlBack = "/back-end/billboard/listAllBillBoard.jsp";
@@ -156,22 +180,24 @@ public class BBServlet extends HttpServlet {
 					errorMsgs.add("URL開頭必須是http且為英文字母和數字的字串");
 				}
 
-				Date sDate = null;
+				SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+				Timestamp bbup =null;
+				
 				try {
-					sDate = Date.valueOf(req.getParameter("bbStart"));
-				} catch (IllegalArgumentException el) {
-					sDate = new Date(System.currentTimeMillis());
+				java.util.Date sdate = sdf.parse(req.getParameter("bbStart"));		
+				bbup = Timestamp.valueOf(sdf.format(sdate));
+				}catch(IllegalArgumentException el) {
 					errorMsgs.add("請輸入廣告開始時間");
 				}
-
-				Date eDate = null;
+				
+				Timestamp bbdown =null;
 				try {
-					eDate = Date.valueOf(req.getParameter("bbEnd"));
-				} catch (IllegalArgumentException el) {
-					sDate = new Date(System.currentTimeMillis());
-					errorMsgs.add("請輸入廣告開始時間");
-				}
+					java.util.Date edate = sdf.parse(req.getParameter("bbEnd"));		
+					bbdown = Timestamp.valueOf(sdf.format(edate));
+					}catch(IllegalArgumentException el) {
+						errorMsgs.add("請輸入廣告結束時間");
+					}
 
 				byte[] pic = null;
 				Part bbPic = req.getPart("bbPic");
@@ -183,14 +209,29 @@ public class BBServlet extends HttpServlet {
 				if (bbPic.getSubmittedFileName() == null || bbPic.getSubmittedFileName().trim().length() == 0) {
 					errorMsgs.add("請上傳輪播廣告圖片");
 				}
-
+				
+				
 				BillboardVO bbVO = new BillboardVO();
 				bbVO.setbbID(bbID);
 				bbVO.seturl(url);
-				bbVO.setbbStart(sDate);
-				bbVO.setbbEnd(eDate);
+				bbVO.setbbStart(bbup);
+				bbVO.setbbEnd(bbdown);
 				bbVO.setpic(pic);
-
+				
+				
+				long up = bbup.getTime();
+				long down = bbdown.getTime();			
+				long now = System.currentTimeMillis();
+				Integer bbStatus = null;
+				if(  now > up && now < down   ) {
+					bbStatus  = 1; //上架
+				}
+				else if ( now < up ){
+					bbStatus  = 0; //待上架
+				}else {
+					bbStatus = 2; //下架
+				}
+				
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("bbVO", bbVO); // 含有輸入格式錯誤的braVO物件,也存入req
 
@@ -204,7 +245,7 @@ public class BBServlet extends HttpServlet {
 
 				/*************************** 2.開始修改資料 *****************************************/
 				BillboardService bbSvc = new BillboardService();
-				bbVO = bbSvc.updateBB(url, pic, sDate, sDate, bbID);
+				bbVO = bbSvc.updateBB(url, pic, bbup, bbdown, bbID,bbStatus);
 
 				/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 				req.setAttribute("bbVO", bbVO);// 資料庫update成功後,正確的的bbVO物件,存入req

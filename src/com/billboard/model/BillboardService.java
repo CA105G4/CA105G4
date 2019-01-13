@@ -1,6 +1,6 @@
 package com.billboard.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class BillboardService {
@@ -11,19 +11,20 @@ public class BillboardService {
 		dao =new BillboardDAO();
 	}
 	
-	public BillboardVO addBB(String url, byte[] pic, Date bbStart, Date bbEnd ) {
+	public BillboardVO addBB(String url, byte[] pic, Timestamp bbStart, Timestamp bbEnd,Integer bbStatus ) {
 		BillboardVO bbVO=new BillboardVO();
 		
 		bbVO.seturl(url);
 		bbVO.setpic(pic);
 		bbVO.setbbStart(bbStart);		
 		bbVO.setbbEnd(bbEnd);
+		bbVO.setbbStatus(bbStatus);
 		dao.insert(bbVO);
 		
 		return bbVO;
 	}
 	
-	public BillboardVO updateBB(String url, byte[] pic,Date bbStart,Date bbEnd,Integer bbID) {
+	public BillboardVO updateBB(String url, byte[] pic,Timestamp bbStart,Timestamp bbEnd,Integer bbID,Integer bbStatus) {
 		BillboardVO bbVO = new BillboardVO(); 
 	
 		bbVO.seturl(url);
@@ -31,6 +32,7 @@ public class BillboardService {
 		bbVO.setbbStart(bbStart);
 		bbVO.setbbEnd(bbEnd);
 		bbVO.setbbID(bbID);
+		bbVO.setbbStatus(bbStatus);
 		dao.update(bbVO);
 		return 	bbVO;
 	}

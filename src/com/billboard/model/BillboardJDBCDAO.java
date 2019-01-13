@@ -1,7 +1,6 @@
 package com.billboard.model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.BLOB;
 
 public class BillboardJDBCDAO implements BillboardDAO_interface{
 	private static final String DRIVER="oracle.jdbc.driver.OracleDriver";
@@ -43,8 +41,8 @@ public class BillboardJDBCDAO implements BillboardDAO_interface{
 			con =DriverManager.getConnection(URL, USER, PWD);
 			pstmt=con.prepareStatement(INSERT_SQL);
 			pstmt.setBytes(1,billboardVO.getpic());
-			pstmt.setDate(2, billboardVO.getbbStart());
-			pstmt.setDate(3, billboardVO.getbbEnd());
+			pstmt.setTimestamp(2, billboardVO.getbbStart());
+			pstmt.setTimestamp(3, billboardVO.getbbEnd());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -81,8 +79,8 @@ public class BillboardJDBCDAO implements BillboardDAO_interface{
 			con =DriverManager.getConnection(URL, USER, PWD);
 			pstmt=con.prepareStatement(UPDATE);
 			
-			pstmt.setDate(1,billboardVO.getbbStart());
-			pstmt.setDate(2, billboardVO.getbbEnd());
+			pstmt.setTimestamp(1,billboardVO.getbbStart());
+			pstmt.setTimestamp(2, billboardVO.getbbEnd());
 			pstmt.setInt(3,billboardVO.getbbID());
 			
 			pstmt.executeUpdate();
@@ -176,8 +174,8 @@ public class BillboardJDBCDAO implements BillboardDAO_interface{
 				billboardVO =new BillboardVO();
 				
 				billboardVO.setbbID(rs.getInt("bbID"));
-				billboardVO.setbbStart(rs.getDate("bbStart"));
-				billboardVO.setbbEnd(rs.getDate("bbEnd"));
+				billboardVO.setbbStart(rs.getTimestamp("bbStart"));
+				billboardVO.setbbEnd(rs.getTimestamp("bbEnd"));
 			}
 			
 		} catch (SQLException e) {
@@ -237,8 +235,8 @@ public class BillboardJDBCDAO implements BillboardDAO_interface{
 				billboardVO.setbbID(rs.getInt("bbID"));
 				billboardVO.seturl(rs.getString("URL"));
 				billboardVO.setpic(rs.getBytes("pic"));
-				billboardVO.setbbStart(rs.getDate("bbStart"));
-				billboardVO.setbbEnd(rs.getDate("bbEnd"));
+				billboardVO.setbbStart(rs.getTimestamp("bbStart"));
+				billboardVO.setbbEnd(rs.getTimestamp("bbEnd"));
 				
 				list.add(billboardVO);
 			}
