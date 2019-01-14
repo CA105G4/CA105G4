@@ -54,11 +54,8 @@
 </head>
 
 <body onload="connect();" onunload="disconnect();">
-
     <!-- NavBar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -75,15 +72,13 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
-					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
 						</c:otherwise>
 					</c:choose>
 				</ul>

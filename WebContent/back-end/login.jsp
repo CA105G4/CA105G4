@@ -33,7 +33,7 @@
 		<div class="card card-login mx-auto mt-5">
 			<div class="card-header">Login</div>
 			<div class="card-body">
-				<form METHOD="post" ACTION="Emplogin.do">
+				<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/Emplogin.do">
 					<c:if test="${not empty errorMsgs}">
 						<font color='red'>請修正以下錯誤:</font>
 						<ul>
