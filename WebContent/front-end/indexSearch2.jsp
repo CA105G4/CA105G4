@@ -1,6 +1,8 @@
 <%@page import="java.util.*"%>
 <%@page import="com.roomType.model.RoomTypeVO"%>
 <%@page import="com.billboard.model.*"%>
+<%@ page import="com.article.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -9,6 +11,12 @@
 	List<BillboardVO>bbList =bbSvc.getAll();
 	pageContext.setAttribute("bbList", bbList);
 %>
+<%
+	ArticleService articleService = new ArticleService();
+	List<ArticleVO> list = articleService.getLastestThree();
+	pageContext.setAttribute("list",list);
+%>
+
 
 
 <!DOCTYPE html>
@@ -48,6 +56,31 @@
 			z-index: 0; 
 		}
 	</style>
+	<style type="text/css">
+        .thumbnail iframe {
+                 width: 1440px;
+                 height: 1200px;
+        }
+        .thumbnail {
+               position: relative; 
+              -ms-zoom: 0.25;
+              -moz-transform: scale(0.25);
+              -moz-transform-origin: 0 0;
+              -o-transform: scale(0.25);
+              -o-transform-origin: 0 0;
+              -webkit-transform: scale(0.25);
+              -webkit-transform-origin: 0 0;
+        }
+        .thumbnail:after {
+              content: "";
+              display: block;
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+        }
+        </style>
     
 </head>
 
@@ -261,7 +294,9 @@
       </div>
     </div>
 
+    <jsp:useBean id="memberService" scope="page" class="com.member.model.MemberService" />
     <!-- 旅客回饋 -->
+<!--   <div class="owl-carousel"> -->
     <div class="site-section bg-light">
       <div class="container">
         <div class="row mb-5">
@@ -271,63 +306,33 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-4">
+        	<c:forEach var="articleVO" items="${list}">
+			<div class="col-md-6 col-lg-4">
 
-            <div class="block-33">
-              <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/SpongeBob.jpg" alt="Person here"></div>
-                <div class="name-text align-self-center">
-                  <h2 class="heading">ZHENG BO YUAN</h2>
-                  <span class="meta">Satisfied Customer</span>
-                </div>
-              </div>
-              <div class="text">
-                <blockquote>
-                  <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore dolores sunt. &ldquo;</p>
-                </blockquote>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6 col-lg-4">
-
-            <div class="block-33">
-              <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/Sandy.jpg" alt="Person here"></div>
-                <div class="name-text align-self-center">
-                  <h2 class="heading">LIU YAN JUN</h2>
-                  <span class="meta">Satisfied Customer</span>
-                </div>
-              </div>
-              <div class="text">
-                <blockquote>
-                  <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore dolores sunt.adipisicing elit. Fuga aliquid. Atque dolore  &ldquo;</p>
-                </blockquote>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-md-6 col-lg-4">
-
-            <div class="block-33">
-              <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/Patrick_Star.png" alt="Person here"></div>
-                <div class="name-text align-self-center">
-                  <h2 class="heading">CHEN YU XIANG</h2>
-                  <span class="meta">Satisfied Customer</span>
-                </div>
-              </div>
-              <div class="text">
-                <blockquote>
-                  <p>&rdquo; Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aliquid. Atque dolore esse veritatis iusto eaque perferendis non dolorem fugiat voluptatibus vitae error ad itaque inventore accusantium tempore dolores sunt. &ldquo;</p>
-                </blockquote>
-              </div>
-            </div>
-
-          </div>
+	            <div class="block-33">
+	              <div class="vcard d-flex mb-3">
+	                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${articleVO.memid}" alt="Person here"></div>
+	                <div class="name-text align-self-center">
+	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memAcc}</h2>
+	                </div>
+	              </div>
+          
+	              <div class="thumbnail" style="height: 300px">
+	                <a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}&memid=${articleVO.memid}">
+	                    <div style="position:absolute;z-index:500;height:1440px;width:1440px;""></div>
+	                    
+<%-- 	                     <iframe id="iFrame1" scrolling="no" frameborder="0" height="100%" width="100%" src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" onload="resizeIframe(this)"></iframe> --%>
+						<iframe src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" frameborder="0"></iframe>
+						
+	                </a>
+	              </div>
+			   </div>
+				
+           </div>
+       	   </c:forEach>
         </div>
       </div>
-    </div>
+    </div> 
 
     <!-- Footer尾巴 -->
     <footer class="footer">
