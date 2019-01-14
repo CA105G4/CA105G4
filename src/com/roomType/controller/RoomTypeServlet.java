@@ -2,6 +2,7 @@ package com.roomType.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.collectRoomType.model.*;
 import com.roomType.model.*;
@@ -334,6 +338,41 @@ public class RoomTypeServlet extends HttpServlet{
 			
 		}
 		
+		
+		
+		if("collect_room".equals(action)) {
+			List<String>errorMsgs =new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			CollectRoomTypeService crtSvc =new CollectRoomTypeService();
+			CollectRoomTypeVO  crtVO =new CollectRoomTypeVO();
+//			從會員session存取會員ID
+//			HttpSession session =  req.getSession();
+//			MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+//			String memID = memVO.getMemID();
+			try {
+			String memID ="M0010";
+			String rtID =req.getParameter("rtID");
+System.out.println(rtID);
+			crtVO=crtSvc.addCRT(memID, rtID);
+			
+			JSONObject obj = new JSONObject();
+			try {
+				obj.put("rtID", rtID);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(obj.toString());
+			out.flush();
+			out.close();
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+		}
 		
 		
 		

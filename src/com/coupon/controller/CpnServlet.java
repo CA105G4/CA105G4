@@ -19,6 +19,8 @@ import org.json.JSONObject;
 
 import com.coupon.model.CouponService;
 import com.coupon.model.CouponVO;
+import com.couponRecord.model.CouponRecordService;
+import com.couponRecord.model.CouponRecordVO;
 
 
 @MultipartConfig
@@ -243,7 +245,8 @@ public class CpnServlet extends HttpServlet {
 				
 			}
 			
-	if("get_coupon".equals(action)) {
+			//前端頁面選取優惠券
+			if("get_coupon".equals(action)) {
 				
 				
 				System.out.println(action);
@@ -251,11 +254,22 @@ public class CpnServlet extends HttpServlet {
 				List<String> errorMsgs =new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				CouponVO cpnVO =new CouponVO();
+				@SuppressWarnings("unused")
+				CouponRecordVO crVO =new CouponRecordVO();
 				Integer totalNow= null;
 				CouponService cpnSvc =new CouponService(); 
+				CouponRecordService crSvc =new CouponRecordService();
 				//1.傳送參數
 				String cpnID =req.getParameter("cpnID");
+//				String memID =req.getParameter("memID");
+				
+//				HttpSession session =  req.getSession();
+//				MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+//				String memID = memVO.getMemID();
+				String memID = "M0008";
+				
 				System.out.println(cpnID);
+				System.out.println(memID);
 				if(cpnID.trim().length()==0||cpnID==null) {
 					errorMsgs.add("傳輸產生錯誤");
 				}
@@ -263,27 +277,31 @@ public class CpnServlet extends HttpServlet {
 				
 				//1-1傳送參數，同時新增優惠券明細
 				
+				try {
+					crVO=crSvc.addCR(cpnID, memID,0);
 				
-				
-				
-				
-				//2.取出該優惠卷VO，修改資料
-				
-				cpnVO =cpnSvc.getOneByID(cpnID);
-				totalNow =cpnVO.getquantity()-1;     //領取減少的動作
-				
-				cpnVO= cpnSvc.updateCpn(totalNow, cpnID);  //更改優惠卷數量
-				
-				//2-1優惠卷取完後，回傳0
-				Integer balance=0;
-				
-				if(cpnVO.getquantity()<=0) {
-					cpnVO.setquantity(balance);
-					cpnVO=cpnSvc.updateCpn(balance, cpnID);
+					boolean isCollect = crSvc.isMemberCollectCoupon(cpnID, memID);  //檢查是否領取過優惠卷
+					
+					//2.取出該優惠卷VO，修改資料
+					
+					cpnVO =cpnSvc.getOneByID(cpnID);
+					totalNow =cpnVO.getquantity()-1;     //領取減少的動作
+					
+					cpnVO= cpnSvc.updateCpn(totalNow, cpnID);  //更改優惠卷數量
+					
+					//2-1優惠卷取完後，回傳0
+					Integer balance=0;
+					
+					if(cpnVO.getquantity()<=0) {
+						cpnVO.setquantity(balance);
+						cpnVO=cpnSvc.updateCpn(balance, cpnID);
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				
-				
-				
+
 				//3.使用JSONObject 回傳資料
 				JSONObject obj = new JSONObject();
 				try {
@@ -302,7 +320,36 @@ public class CpnServlet extends HttpServlet {
 				
 			}
 			
-	
+			if("get_member_displayCpn".equals(action)) {
+				List<String>errorMsgs =new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				CouponRecordService crSvc =new CouponRecordService();
+				CouponRecordVO crVO =new CouponRecordVO();
+				
+				try {
+				String memID =req.getParameter("memID");
+				List<CouponRecordVO >crList =crSvc.findByMemID(memID);
+				
+				req.setAttribute("crList", crList);
+				
+				String url = "/front-end/coupon/myCoupon.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+				
+				}catch(Exception e) {
+					errorMsgs.add("無法取得資料:" + e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/member/myAccountMyPage.jsp");
+					failureView.forward(req, res);
+				}
+				
+				
+				
+				
+			}
+			
+			
 	
 	
 	}

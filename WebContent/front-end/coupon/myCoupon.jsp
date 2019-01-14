@@ -1,6 +1,7 @@
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@page import="com.coupon.model.*"  %>
+<%@page import="com.couponRecord.model.*"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <% 
@@ -8,7 +9,7 @@
 // List<RoomTypeVO>rtList = rtSvc.getAll();
 // pageContext.setAttribute("rtList", rtList);
 
-	List<CouponVO> cpnList = (List<CouponVO>) request.getAttribute("cpnlist");
+	List<CouponRecordVO> crList = (List<CouponRecordVO>) request.getAttribute("crList");
 %>
 
 <!DOCTYPE html>
@@ -119,7 +120,7 @@
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
 					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
-					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/coupon/cpn.do?memID=${memberVO.memID}&action=get_member_displayCpn" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
 						<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
 				<!-- Sidebar -->
@@ -130,15 +131,21 @@
 <table class="myTable table table-bordered table-striped table-hover" style="width: 760px">
 
 		<tr>
-						<th>優惠卷圖片</th>
+						
 						<th>優惠卷金額</th>
+						<th>優惠券使用狀態</th>
+						<th>優惠卷圖片</th>
 		</tr>
 
-<c:forEach  var="cpnVO"  items="${cpnList }">
+<c:forEach  var="crVO"  items="${crList }">
+			<jsp:useBean id="cpnSvc" scope="page"
+								class="com.coupon.model.CouponService" />
+		
+		
 		<tr>
-
-						<td>${cpnVO.cpnPic}</td>
-						<td>${cpnVO.discount}</td>
+						<td>${cpnSvc.getOneByID(crVO.getCpnID()).getdiscount()}</td>
+						<td>${crVO.cpnState}</td>
+						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}"></td>
 		</tr>
 
 </c:forEach>

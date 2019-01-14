@@ -9,12 +9,12 @@ public class CouponRecordService {
 		dao = new CouponRecordDAO();
 	}
 
-	public CouponRecordVO addCR(String cpnID, String memID, Integer cpnState) {
+	public CouponRecordVO addCR(String cpnID, String memID,Integer Status) {
 		CouponRecordVO crVO = new CouponRecordVO();
 
 		crVO.setCpnID(cpnID);
 		crVO.setMemID(memID);
-		crVO.setCpnState(cpnState);
+		crVO.setCpnState(Status);
 		dao.insert(crVO);
 
 		return crVO;
@@ -34,6 +34,8 @@ public class CouponRecordService {
 	public List<CouponRecordVO>findByMemID(String memID){
 		return dao.findByMemID(memID);
 	}
-	
+	public boolean isMemberCollectCoupon(String memId, String cpnId) {
+		return dao.findByMemIdCpnId(memId, cpnId);
+	}
 	
 }

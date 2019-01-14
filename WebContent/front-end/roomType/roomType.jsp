@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.roomType.model.*"%>
+  <%@page import="com.member.model.*" %>  
 <%@page import="java.util.*"%>
 
 <%
@@ -9,6 +10,8 @@
 	Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
 	pageContext.setAttribute("rtList",rtList);
 	pageContext.setAttribute("rtSet",rtSet);
+	 MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+	  request.setAttribute("memberVO", memVO);
 %>
 
 <jsp:useBean id="adSvc" scope="page" class="com.activityDetail.model.ActivityDetailService" />
@@ -231,7 +234,7 @@
 											<a href="#" class="btn btn-primary py-3 px-5">Reservation</a>
 										</p>
 										<p>
-											<a href="#" class="btn btn-info py-3 px-5">Collect Room</a>
+											<button class="btn btn-info py-3 px-5" type="submit" value="${rtVO.rtID}">Collect Room</button>
 										</p>
 									</div>
 								</div>
@@ -263,8 +266,8 @@
 											<p>
 												<a href="#" class="btn btn-primary py-3 px-5">Read More</a>
 											</p>
-											<p style="width: 100px">
-												<a href="#" class="btn btn-info py-3 px-5">Collect Room</a>
+											<p>
+												<button class="btn btn-info py-3 px-5" type="submit" value="${rtVO.rtID}">Collect Room</button>
 											</p>
 										</div>
 									</div>
@@ -635,4 +638,37 @@ function getReload(event){
   
   
   </script>
+  
+  <script type="text/javascript">
+	$(document).ready(function(){
+		 $('button').click(function(){
+			 $.ajax({
+				 type: "GET",
+				 url: "<%=request.getContextPath() %>/back-end/roomType/roomType.do",
+				 data: creatQueryString($(this).val()),
+				 dataType: "json",
+				 success: function (){
+					 swal({
+	                		position: 'top-end',
+	                		type: 'success',
+	                		 title: 'Collect Room Successfully!!!',
+	                		 showConfirmButton: false,
+	                		 timer: 1500
+	                } );       
+			     },
+	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	         })
+		 })
+	
+	})
+	
+		function creatQueryString(rtID){
+		var queryString= {"action":"collect_room", "rtID":rtID};
+		console.log(queryString);
+		return queryString;
+	}
+  
+  </script>
+  
+  
 </html>
