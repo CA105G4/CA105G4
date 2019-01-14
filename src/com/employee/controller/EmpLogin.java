@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.authorityRecord.model.AuthorityRecordService;
 import com.employee.model.*;
 
 
@@ -99,7 +100,34 @@ public class EmpLogin extends HttpServlet {
 			error.forward(req, res);
 			
 		}else {
+			AuthorityRecordService authSvc = new AuthorityRecordService();
+			
+			System.out.println("empId = " + empID);
+			
+			List<String> authList = authSvc.getAuthIDByEmpIDList(empID);
+			
 			session.setAttribute("employeeVO", service.getOneEmp(empID));
+			session.setAttribute("authRecordList", authList); //將員工權限放入 session
+			
+			System.out.println(authList.size());
+			
+			for(int i = 0; i < authList.size(); i++) {
+				System.out.println(authList.contains("1001"));
+				System.out.println(authList.contains("1002"));
+				System.out.println(authList.contains("1003"));
+				System.out.println(authList.contains("1004"));
+				System.out.println(authList.contains("1005"));
+				System.out.println(authList.contains("1006"));
+				System.out.println(authList.contains("1007"));
+				System.out.println(authList.contains("1008"));
+				System.out.println(authList.contains("1009"));
+				System.out.println(authList.contains("1010"));
+				System.out.println(authList.contains("1011"));
+				System.out.println(authList.contains("1012"));
+				System.out.println(authList.contains("1013"));
+				System.out.println(authList.contains("1014"));
+			}
+			
 			try{
 				String location = (String) session.getAttribute("location");
 				if(location!=null) {
