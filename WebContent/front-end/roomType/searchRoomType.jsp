@@ -273,7 +273,7 @@
             <div class="block-34">
             
               <div class="image">
-                <a href="#"><img src="<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}" alt="Image placeholder"></a>
+                <a href="#"><img src="<%=request.getContextPath()%>/front-end/roomType/roomTypeImg.do?rtID=${rtVO.rtID}" alt="Image placeholder"></a>
               </div>
               <div class="text">
                 <h2 class="heading">${rtVO.rtName}</h2>

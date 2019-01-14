@@ -5,12 +5,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <% 
-BillboardService bbSvc = new BillboardService();
-
-List<BillboardVO>bbList =bbSvc.getAll();
-
-pageContext.setAttribute("bbList", bbList);
-
+	BillboardService bbSvc = new BillboardService();
+	List<BillboardVO>bbList =bbSvc.getAll();
+	pageContext.setAttribute("bbList", bbList);
 %>
 
 
