@@ -338,6 +338,8 @@ public class RoomTypeServlet extends HttpServlet{
 			
 		}
 		
+		
+		
 		if("collect_room".equals(action)) {
 			List<String>errorMsgs =new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
