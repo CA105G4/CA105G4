@@ -12,8 +12,6 @@ import com.employee.model.EmployeeService;
 import com.employee.model.EmployeeVO;
 
 
-;
-
 public class AuthorityRecordServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -103,6 +101,7 @@ public class AuthorityRecordServlet extends HttpServlet {
 			try {
 				/***************************1.�����ШD�Ѽ�****************************************/
 				String empID = new String(req.getParameter("empID"));
+				System.out.println(empID);
 				if (empID == null || empID.trim().length() == 0) {
 					errorMsgs.add("員工編號: 請勿空白");
 					}
@@ -118,8 +117,9 @@ public class AuthorityRecordServlet extends HttpServlet {
 				}
 				/***************************2.�}�l�d�߸��****************************************/
 				AuthorityRecordService authSvc = new AuthorityRecordService();
+				System.out.println("test");
 				AuthorityRecordVO authorityRecordVO = authSvc.getOneEmp(empID);
-								
+				System.out.println(authorityRecordVO == null);
 				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
 				req.setAttribute("authorityRecordVO", authorityRecordVO); 
 				String url = "/back-end/authorityRecord/update_auth_input.jsp";
