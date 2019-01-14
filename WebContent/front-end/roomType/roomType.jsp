@@ -18,8 +18,7 @@
 <head>
 	<title>Room Type</title>
 	<meta charset="utf-8">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	
 	<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -313,7 +312,7 @@
 
 							<div class="image">
 								<a href="#"><img
-									src="<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}"
+									src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}"
 									alt="Image placeholder"></a>
 							</div>
 							<div class="text">
@@ -372,7 +371,7 @@
 					<div class="block-33">
 						<div class="vcard d-flex mb-3">
 							<div class="image align-self-center">
-								<img src="imagesCustom/SpongeBob.jpg" alt="Person here">
+								<img src="<%=request.getContextPath()%>/roomType/imagesCustom/SpongeBob.jpg" alt="Person here">
 							</div>
 							<div class="name-text align-self-center">
 								<h2 class="heading">ZHENG BO YUAN</h2>
@@ -491,36 +490,24 @@
 
 
 	<script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/popper.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery.easing.1.3.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery.waypoints.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery.stellar.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/owl.carousel.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery.magnific-popup.min.js"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
 
 	<script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+	<script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
 	<script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-	<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js"
-		type="text/javascript"></script>
+	<script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
 	<!--   //sweet alert 引用 -->
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 
 </body>
 <style>
