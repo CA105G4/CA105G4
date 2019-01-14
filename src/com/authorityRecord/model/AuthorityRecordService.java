@@ -33,6 +33,23 @@ public class AuthorityRecordService {
 		return dao.findByPK(empID);
 	}
 
+	public AuthorityRecordVO getOneupdate(String empID,Integer authID) {
+
+		AuthorityRecordVO authorityRecordVO = new AuthorityRecordVO();
+		
+		
+		authorityRecordVO.setAuthID(authID);
+		authorityRecordVO.setEmpID(empID);
+		
+		dao.update(authorityRecordVO);
+		
+		
+		return authorityRecordVO;
+	}
+	
+	public AuthorityRecordVO getOneEmp(String empID) {
+		return dao.findByPK(empID);
+	}
 	public List<AuthorityRecordVO> getAll() {
 		return dao.getAll();
 	}
