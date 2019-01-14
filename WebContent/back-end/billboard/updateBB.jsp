@@ -256,10 +256,11 @@ if (bbVO.getpic() != null) {
 
 <% 
   java.sql.Date date = null;
+			java.sql.Timestamp time = null;
   try {
-	    date = bbVO.getbbStart();
+	  time = bbVO.getbbStart();
    } catch (Exception e) {
-	    date = new java.sql.Date(System.currentTimeMillis());
+	   time = new java.sql.Timestamp(System.currentTimeMillis());
    }
   
   String str = null;
