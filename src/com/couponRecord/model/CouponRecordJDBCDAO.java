@@ -63,7 +63,7 @@ public class CouponRecordJDBCDAO implements CouponRecord_interface{
 	}
 
 	@Override
-	public void update(String memId, String cpnId) {
+	public void update(String memID, String cpnID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -71,8 +71,8 @@ public class CouponRecordJDBCDAO implements CouponRecord_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
-			pstmt.setString(1, memId);
-			pstmt.setString(2, cpnId);
+			pstmt.setString(1, memID);
+			pstmt.setString(2, cpnID);
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -97,7 +97,7 @@ public class CouponRecordJDBCDAO implements CouponRecord_interface{
 	}
 
 	@Override
-	public List<CouponRecordVO> findByMemID(String memId) {
+	public List<CouponRecordVO> findByMemID(String memID) {
 		List<CouponRecordVO> list = new ArrayList<CouponRecordVO>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -107,14 +107,14 @@ public class CouponRecordJDBCDAO implements CouponRecord_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(FIND_MEMBER_RECORD_SQL);
 
-			pstmt.setString(1, memId);
+			pstmt.setString(1, memID);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				CouponRecordVO couponRecordVO = new CouponRecordVO();
 				
-				couponRecordVO.setMemID(rs.getString("memId"));
-				couponRecordVO.setCpnID(rs.getString("cpnId"));
+				couponRecordVO.setMemID(rs.getString("memID"));
+				couponRecordVO.setCpnID(rs.getString("cpnID"));
 				couponRecordVO.setCpnState(rs.getInt("cpnState"));
 				
 				list.add(couponRecordVO);
@@ -166,14 +166,20 @@ public class CouponRecordJDBCDAO implements CouponRecord_interface{
 //		System.out.println("------------------");
 		
 		// 找出會員全部的優惠券
-		String memId = "M0001";
-		List<CouponRecordVO> list = dao.findByMemID(memId);
-		System.out.println("會員編號 " + memId + " 所有的優惠券：");
+		String memID = "M0001";
+		List<CouponRecordVO> list = dao.findByMemID(memID);
+		System.out.println("會員編號 " + memID + " 所有的優惠券：");
 		for(CouponRecordVO aCouponRecord : list) {
 			System.out.print(aCouponRecord.getCpnID() + ", ");
 			System.out.println((aCouponRecord.getCpnState() == 1) ? "使用" : "未使用");
 		}
 		System.out.println("搜尋成功");
 		System.out.println("------------------");
+	}
+
+	@Override
+	public boolean findByMemIdCpnId(String memId, String cpnId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -3,11 +3,14 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.*"%>
 <%@page import="com.coupon.model.*"%>
+<%@page import="com.member.model.*" %>
 
 <%
     CouponService cpnSvc = new CouponService();
     List<CouponVO>cpnList = cpnSvc.getAll();
     pageContext.setAttribute("cpnList",cpnList);
+    MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+    request.setAttribute("memberVO", memVO);
 %>
 
 <!DOCTYPE html>
@@ -175,7 +178,7 @@
 								<p id="${cpnVO.cpnID}">${cpnVO.quantity}</p>
 							</div>
 							<br>
-							<button type="submit" class="btn-info" value="${cpnVO.cpnID }">Get Coupon!</button>
+							<button type="submit" class="btn-info disable" value="${cpnVO.cpnID }">Get Coupon!</button>
 						</div>
 					</div>
 				</div>
@@ -296,6 +299,9 @@
 		return queryString;
 	}
 
+	$('.disable').click(function(){
+		   $(this).prop('disabled', true);
+		});
 </script>
 
 	<script type="text/javascript">

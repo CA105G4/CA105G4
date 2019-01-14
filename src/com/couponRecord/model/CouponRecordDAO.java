@@ -1,7 +1,6 @@
 package com.couponRecord.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,8 +25,8 @@ private static DataSource ds =null;
 		} 
 	}
 
-	
-    private static final String INSERT_SQL = "INSERT INTO couponRecord (memID, cpnID) VALUES (?, ?)";
+	private static final String SELECT_SQL = "SELECT * FROM couponRecord WHERE memId = ? and cpnId = ?";
+    private static final String INSERT_SQL = "INSERT INTO couponRecord (memID, cpnID,cpnState) VALUES (?, ?,?)";
     private static final String UPDATE_SQL = "UPDATE couponRecord set cpnState = 1 where memID = ? and cpnID = ?";
     private static final String FIND_MEMBER_RECORD_SQL = "SELECT * from couponRecord where memID = ?";
     
@@ -43,11 +42,11 @@ private static DataSource ds =null;
 			
 			pstmt.setString(1, couponRecordVO.getMemID());
 			pstmt.setString(2, couponRecordVO.getCpnID());
-			
+			pstmt.setInt(3, couponRecordVO.getCpnState());
 			pstmt.executeUpdate();
 		
 		} catch (SQLException e) {
-			e.printStackTrace();
+		throw new RuntimeException();
 		} finally {
 			if(pstmt != null) {
 				try {
@@ -154,5 +153,45 @@ private static DataSource ds =null;
 		return list;
 	}
 
+	@Override
+	public boolean findByMemIdCpnId(String memId, String cpnId) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SELECT_SQL);
+			
+			pstmt.setString(1, memId);
+			pstmt.setString(2, cpnId);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 }
