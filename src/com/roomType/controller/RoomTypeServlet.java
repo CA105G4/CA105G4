@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.collectRoomType.model.*;
 import com.roomType.model.*;
 
 @MultipartConfig
@@ -305,7 +306,33 @@ public class RoomTypeServlet extends HttpServlet{
 		}
 		
 		
-		
+		if("get_member_displaycrt".equals(action)) {
+			List<String>errorMsgs =new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			CollectRoomTypeService crtSvc =new CollectRoomTypeService();
+			
+			try {
+			String memID =req.getParameter("memID").trim();
+			
+			if(memID==null||memID.trim().length()==0) {
+				errorMsgs.add("會員編號有誤");
+			}
+			
+			List<CollectRoomTypeVO>crtList = crtSvc.findByMemID(memID);
+			
+			req.setAttribute("crtList", crtList);
+			
+			String url = "/front-end/roomType/myRoomType.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); 
+			successView.forward(req, res);
+			}catch(Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/member/myAccountMyPage.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
 		
 		
 		

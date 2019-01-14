@@ -1,6 +1,7 @@
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@page import="com.roomType.model.*"  %>
+<%@page import="com.collectRoomType.model.*"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <% 
@@ -8,7 +9,7 @@
 // List<RoomTypeVO>rtList = rtSvc.getAll();
 // pageContext.setAttribute("rtList", rtList);
 
-	List<RoomTypeVO> rtList = (List<RoomTypeVO>) request.getAttribute("list");
+	List<CollectRoomTypeVO> crtList = (List<CollectRoomTypeVO>) request.getAttribute("crtList");
 %>
 
 <!DOCTYPE html>
@@ -119,7 +120,7 @@
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
 					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item"><i class="fa fa-book"></i> <span>My Coupon</span></a>
-					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item active"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+					<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item active"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
 				<!-- Sidebar -->
 			</div>
@@ -129,22 +130,20 @@
 			<table class="myTable table table-bordered table-striped table-hover" style="width: 760px">
 
 				<tr>
-					<th>分店編號</th>
-					<th>分店名稱</th>
-					<th>分店地址</th>
 					<th>房型名稱</th>
 					<th>房型簡介</th>
+					<th>房型價格</th>
+					
 				</tr>
 
-<c:forEach  var="rtVO"  items="${rtList}">
+<c:forEach  var="crtVO"  items="${crtList}">
 		<tr>
-		<jsp:useBean id="bchSvc" scope="page"
-								class="com.branch.model.BranchService" />
-						<td>${rtVO.braID}</td>
-						<td>${bchSvc.getOneByID(rtVO.getBraID()).getBraName()}</td>
-						<td>${bchSvc.getOneByID(rtVO.getBraID()).getBraAddr()}</td>
-						<td>${rtVO.rtName}</td>
-						<td>${rtVO.rtIntro}</td>
+		
+		<jsp:useBean id="rtSvc" scope="page"
+								class="com.roomType.model.RoomTypeService" />
+						<td>${rtSvc.getOneRoomType(crtVO.getRtID()).getRtName()}</td>
+						<td>${rtSvc.getOneRoomType(crtVO.getRtID()).getRtIntro()}</td>
+						<td>${rtSvc.findHollydaypriceByrtID(crtVO.getRtID())}</td>
 		</tr>
 
 </c:forEach>
