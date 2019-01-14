@@ -103,12 +103,10 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -152,6 +150,8 @@
       </div>
     </div>
   </div>
+
+<br>
 
 <jsp:useBean id="articleService" scope="page" class="com.article.model.ArticleService" />
   <div class="container">

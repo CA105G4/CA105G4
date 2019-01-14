@@ -79,20 +79,18 @@
 
 
 
-
-
-
-
-  <div class="block-30 block-30-sm item" style="background-image: url('imagesCustom/room.jpg'); min-height: 600px; height: 80vh" data-stellar-background-ratio="0.5">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-10">
-          <span class="subheading-sm">Rooms</span>
-          <h2 class="heading">Rooms &amp; Suites</h2>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="block-30 block-30-sm item"
+		style="background-image: url('<%=request.getContextPath()%>/front-end/imagesCustom/room.jpg'); min-height: 600px; height: 80vh"
+		data-stellar-background-ratio="0.5">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-10">
+					<span class="subheading-sm">Rooms</span>
+					<h2 class="heading">Rooms &amp; Suites</h2>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
   <!-- 複合查詢 -->
@@ -185,7 +183,7 @@
  		<c:when test="${status.index %2==0 }">
             
             <div class="block-3 d-md-flex ">
-              <div class="image" style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}')"></div>
+              <div class="image" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
               <div class="text">
 
                 <h2 class="heading">${rtVO.rtName}</h2>
@@ -209,7 +207,7 @@
  <div class="col-md-12 mb-5">
             
             <div class="block-3 d-md-flex ">
-              <div class="image order-2" style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}'); "></div>
+              <div class="image order-2" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}'); "></div>
               <div class="text order-1">
                 
                 <h2 class="heading">${rtVO.rtName}</h2>
@@ -268,7 +266,7 @@
             <div class="block-34">
             
               <div class="image">
-                <a href="#"><img src="<%=request.getContextPath()%>/front-end/roomType/roomTypeImg.do?rtID=${rtVO.rtID}" alt="Image placeholder"></a>
+                <a href="#"><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}" alt="Image placeholder"></a>
               </div>
               <div class="text">
                 <h2 class="heading">${rtVO.rtName}</h2>
@@ -321,7 +319,7 @@
 
             <div class="block-33">
               <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/SpongeBob.jpg" alt="Person here"></div>
+                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/SpongeBob.jpg" alt="Person here"></div>
                 <div class="name-text align-self-center">
                   <h2 class="heading">ZHENG BO YUAN</h2>
                   <span class="meta">Satisfied Customer</span>
@@ -339,7 +337,7 @@
 
             <div class="block-33">
               <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/Sandy.jpg" alt="Person here"></div>
+                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Sandy.jpg" alt="Person here"></div>
                 <div class="name-text align-self-center">
                   <h2 class="heading">LIU YAN JUN</h2>
                   <span class="meta">Satisfied Customer</span>
@@ -357,7 +355,7 @@
 
             <div class="block-33">
               <div class="vcard d-flex mb-3">
-                <div class="image align-self-center"><img src="imagesCustom/Patrick_Star.png" alt="Person here"></div>
+                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Patrick_Star.png" alt="Person here"></div>
                 <div class="name-text align-self-center">
                   <h2 class="heading">CHEN YU XIANG</h2>
                   <span class="meta">Satisfied Customer</span>
@@ -379,7 +377,7 @@
     <footer class="footer">
       <div class="container">
         <div class="row">
-          <div class="col-xs-12 col-md-4"><img src="imagesCustom/logoC.jpg" width="250px" height="200px">
+          <div class="col-xs-12 col-md-4"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/logoC.jpg" width="250px" height="200px">
           </div>
           <div class="col-xs-12 col-md-4">
             <!-- style.css Line7633 -->
