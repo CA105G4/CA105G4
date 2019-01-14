@@ -120,7 +120,6 @@
 
 
 
-	memberVO<input type="text" value="${memberVO.memID}" /><br>
 
   <br>
   
@@ -167,7 +166,7 @@
 					<c:forEach var="articleVO" items="${list}">
 					<tr>
 						<td>${articleVO.artid}</td>
-						<td><a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}&memid=${articleVO.memid}" class="tiptext">Content of Article
+						<td><a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}" class="tiptext">Content of Article
  							<iframe class="description" src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}"></iframe>
  							</a>
  						</td>

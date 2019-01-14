@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.message.model.*"%>
+<%@ page import="com.article.model.*"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -152,11 +153,7 @@
     </div>
   </div>
 
-<%	
-	String art_memid = request.getParameter("memid");
-	request.getSession().setAttribute("art_memid",art_memid);
-%>
-memid<input width = "500" type="text" value="${memberVO.memName} %>" size="100"/> <br>	
+<jsp:useBean id="articleService" scope="page" class="com.article.model.ArticleService" />
   <div class="container">
     <!--這邊開始自由發揮-->
 
@@ -164,7 +161,7 @@ memid<input width = "500" type="text" value="${memberVO.memName} %>" size="100"/
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4"> 
-					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者:${memberService.getOneMem(art_memid).memAcc} </b>	
+					<b class="text-warning" style="font-size: 15px;">文章編號: ${param.artid} &nbsp;&nbsp; 發文者: ${memberService.getOneMem(articleService.getOneArticle(param.artid).memid).memName}</b>	
 																						
 				</div>
 				<div class="col-xs-12 col-sm-8"> 
