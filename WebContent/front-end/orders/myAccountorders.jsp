@@ -125,8 +125,8 @@
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item active"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
 					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
-					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item"><i class="fa fa-book"></i> <span>My Coupon</span></a>
-					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+					<a href="<%=request.getContextPath()%>/coupon/cpn.do?memID=${memberVO.memID}&action=get_member_displayCpn" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
 				<!-- Sidebar -->
 			</div>
