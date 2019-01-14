@@ -100,7 +100,7 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
-					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
 							<li class="nav-item"><a class="nav-link"
@@ -205,11 +205,12 @@
 			</div>
 		</div>
 		<hr>
-  <%  	Integer artid = new Integer(request.getParameter("artid"));
-  		MessageService messageService = new MessageService();
-  	  	List<MessageVO> list = messageService.getArticleMessage(artid);
+	<%  	
+		Integer artid = new Integer(request.getParameter("artid"));
+		MessageService messageService = new MessageService();
+		List<MessageVO> list = messageService.getArticleMessage(artid);
   	  	pageContext.setAttribute("list",list);
-   %>	
+	%>	
   
 		<div class="container">
 			<div class="row">

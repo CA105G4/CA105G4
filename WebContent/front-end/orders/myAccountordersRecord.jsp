@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.orders.model.OrdersVO"%>
 <%@page import="com.orders.model.OrdersService"%>
@@ -5,9 +6,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 
 <%
+	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
 	OrdersService ordSvc = new OrdersService();
-	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState123("M0001");
+
+	List<OrdersVO> list = ordSvc.findOrdersBymemIDordState123(memVO.getMemID());
+	
 	pageContext.setAttribute("list", list);
+	System.out.println("myAccountOrder = " + memVO.getMemID());
 %>
 
 <!DOCTYPE html>
@@ -56,7 +61,7 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
-					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
 							<li class="nav-item"><a class="nav-link"
@@ -72,6 +77,7 @@
 		</div>
 	</nav>
 	<!-- END nav -->
+  
   
 
 

@@ -245,13 +245,29 @@
 			</div>
 		</li>
 		
+		<!-- 權限管理 1002 -->
+		<li class="nav-item dropdown" style="display: ${authRecordList.contains('1002') ? '' : 'none'}">
+			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown3" role="button" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">
+				<i class="fa fa-edit"></i>
+				<span>權限管理</span>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
+				<h6 class="dropdown-header">新增:</h6>
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/branch/addBra.jsp">新增分店</a>
+				<div class="dropdown-divider"></div>
+				<h6 class="dropdown-header">列表:</h6>
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp">分店列表</a>
+			</div>
+		</li>
+		
 		<!-- 分店管理 1001 -->
 		<li class="nav-item dropdown" style="display: ${authRecordList.contains('1001') ? '' : 'none'}">
 			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown3" role="button" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-edit"></i>
 				<span>分店管理</span>
-		</a>
+			</a>
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 				<h6 class="dropdown-header">新增:</h6>
 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/branch/addBra.jsp">新增分店</a>
@@ -263,7 +279,7 @@
 		
 		<!-- 客服Q&A 1014 -->
 		<li class="nav-item dropdown" style="display: ${authRecordList.contains('1014') ? '' : 'none'}">
-			<a class="nav-link" href="blank.html">
+			<a class="nav-link" href="<%=request.getContextPath()%>/back-end/question/backendChat.jsp">
 			<i class="fa fa-edit"></i> <span>客服Q&A</span>
 			</a>
 		</li>

@@ -342,13 +342,16 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>MemLoginFilter</filter-name>
-		<url-pattern>/front-end/coupon/coupon.jsp</url-pattern>
 		<url-pattern>/front-end/workExchangeRecord/addWER.jsp</url-pattern>
+		
 		<url-pattern>/front-end/member/myAccountMyPage.jsp</url-pattern>
 		<url-pattern>/front-end/orders/myAccountorders.jsp</url-pattern>
 		<url-pattern>/front-end/orders/myAccountordersRecord.jsp</url-pattern>
+		<url-pattern>/front-end/article/myExperience.jsp</url-pattern>
 		<url-pattern>/front-end/coupon/myCoupon.jsp</url-pattern>
 		<url-pattern>/front-end/roomType/myRoomType.jsp</url-pattern>
+		
+		<url-pattern>/front-end/question/frontChat.jsp</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

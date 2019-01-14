@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- 頁面標籤 -->
-    <title>CA105G4-翔太山莊</title>
+    <title>翔太山莊</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -45,7 +45,7 @@
     <!-- NavBar -->
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="indexCustom.html">Xiangtai village</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#ftco-nav" aria-controls="ftco-nav"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +60,7 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 <!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
-					<li class="nav-item"><a href="FAQ.html" class="nav-link">FAQ</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
 							<li class="nav-item"><a class="nav-link"
