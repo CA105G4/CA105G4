@@ -347,6 +347,7 @@
 		<url-pattern>/front-end/member/myAccountMyPage.jsp</url-pattern>
 		<url-pattern>/front-end/orders/myAccountorders.jsp</url-pattern>
 		<url-pattern>/front-end/orders/myAccountordersRecord.jsp</url-pattern>
+		<url-pattern>/front-end/article/myExperience.jsp</url-pattern>
 		<url-pattern>/front-end/coupon/myCoupon.jsp</url-pattern>
 		<url-pattern>/front-end/roomType/myRoomType.jsp</url-pattern>
 		
