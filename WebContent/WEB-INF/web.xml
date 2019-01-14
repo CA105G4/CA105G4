@@ -271,7 +271,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CpnImgServlet</servlet-name>
-		<url-pattern>/front-end/coupon/cpn.do</url-pattern>
+		<url-pattern>/coupon/cpnImg.do</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

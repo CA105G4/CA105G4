@@ -216,7 +216,7 @@
 								</c:forEach>
 								<div class="block-3 d-md-flex ">
 									<div class="image"
-										style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
+										style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
 									<div class="text">
 
 										<h2 class="heading">${rtVO.rtName}</h2>
@@ -248,7 +248,7 @@
 
 									<div class="block-3 d-md-flex ">
 										<div class="image order-2"
-											style="background-image: url('<%=request.getContextPath()%>/front-end/roomType/rtPic.do?rtID=${rtVO.rtID}'); "></div>
+											style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}'); "></div>
 										<div class="text order-1">
 
 											<h2 class="heading">${rtVO.rtName}</h2>

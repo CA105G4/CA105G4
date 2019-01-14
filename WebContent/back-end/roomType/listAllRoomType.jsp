@@ -99,8 +99,8 @@
 								<th>住房上限人數</th>
 								<th>平日價格</th>
 								<th>假日價格</th>
-								<th>房間剩餘數量</th>
-								<th>房型數量</th>
+<!-- 								<th>房間剩餘數量</th> -->
+								<th>總數量</th>
 								<th>修改</th>
 							</tr>
 							</thead>
@@ -115,15 +115,15 @@
 									
 									<c:set var="index"  value="${status.index}"/>
 									<%
-									int count = (Integer) pageContext.getAttribute("index");
-									String encodedText =null;
-									if(list.get(count).getRtPic()!=null){
-										Base64.Encoder encoder = Base64.getEncoder();
-										encodedText = encoder.encodeToString(list.get(count).getRtPic());
-										pageContext.setAttribute("icon_", new Integer(1));
-									}else{
-										pageContext.setAttribute("icon_", new Integer(0));
-									}
+										int count = (Integer) pageContext.getAttribute("index");
+										String encodedText =null;
+										if(list.get(count).getRtPic()!=null){
+											Base64.Encoder encoder = Base64.getEncoder();
+											encodedText = encoder.encodeToString(list.get(count).getRtPic());
+											pageContext.setAttribute("icon_", new Integer(1));
+										}else{
+											pageContext.setAttribute("icon_", new Integer(0));
+										}
 									%>
 									
 									
@@ -137,9 +137,7 @@
 									</c:when>
 									
 									<c:otherwise>
-						                	<td><img
-												src="<%=request.getContextPath()%>/image/noImage.jpg"
-												width="200" height="132"></td>
+						                	<td><img src="<%=request.getContextPath()%>/image/noImage.jpg" width="200" height="132"></td>
 									
 									</c:otherwise>
 									</c:choose>
@@ -150,10 +148,10 @@
 									<td>${roomTypeVO.rtLimit}</td>
 									<td>${roomTypeVO.weeklyPrice}</td>
 									<td>${roomTypeVO.holidayPrice}</td>
-									<td>${roomTypeVO.balance}</td>
+<%-- 									<td>${roomTypeVO.balance}</td> --%>
 									<td>${roomTypeVO.total}</td>
 									<td>
-									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" style="margin-bottom: 0px;">
+									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="修改" class="btn btn-info">
 									     <input type="hidden" name="rtID"  value="${roomTypeVO.rtID}">
 									     <input type="hidden" name="action"	value="GetOneUpdate"></FORM>

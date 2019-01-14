@@ -126,9 +126,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-9">
 				<!--這邊開始自由發揮-->
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 col-sm-8">
+			
 							<h1>會員資料</h1>
 							<div class="container"
 								style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
@@ -189,9 +187,7 @@
 							</FORM>
 
 						<!--這邊結束自由發揮--> 
-						</div>
-					</div>
-				</div>
+						
 			</div>
 		</div>
   	</div>
@@ -249,15 +245,6 @@
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
-  <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.list-group-item').click(function(e) {
-      e.preventDefault();
-      $('.list-group-item').removeClass('active');
-      $(this).addClass('active');
-    });
-    });
-  </script>  
+  <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script> 
   </body>
 </html>

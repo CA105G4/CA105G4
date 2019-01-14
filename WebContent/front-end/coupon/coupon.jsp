@@ -149,7 +149,7 @@
 
 								<div class="col-xs-12 col-sm-6">
 									<img
-										src="<%=request.getContextPath()%>/front-end/coupon/cpn.do?cpnID=${cpnVO.cpnID}"
+										src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${cpnVO.cpnID}"
 										width="500px" id="image">
 								</div>
 							</c:when>
