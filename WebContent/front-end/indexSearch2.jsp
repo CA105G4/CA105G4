@@ -17,8 +17,6 @@
 	pageContext.setAttribute("list",list);
 %>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
