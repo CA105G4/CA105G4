@@ -254,6 +254,7 @@ public class CpnServlet extends HttpServlet {
 				List<String> errorMsgs =new LinkedList<String>();
 				req.setAttribute("errorMsgs", errorMsgs);
 				CouponVO cpnVO =new CouponVO();
+				@SuppressWarnings("unused")
 				CouponRecordVO crVO =new CouponRecordVO();
 				Integer totalNow= null;
 				CouponService cpnSvc =new CouponService(); 
@@ -319,7 +320,36 @@ public class CpnServlet extends HttpServlet {
 				
 			}
 			
-	
+			if("get_member_displayCpn".equals(action)) {
+				List<String>errorMsgs =new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				CouponRecordService crSvc =new CouponRecordService();
+				CouponRecordVO crVO =new CouponRecordVO();
+				
+				try {
+				String memID =req.getParameter("memID");
+				List<CouponRecordVO >crList =crSvc.findByMemID(memID);
+				
+				req.setAttribute("crList", crList);
+				
+				String url = "/front-end/coupon/myCoupon.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); 
+				successView.forward(req, res);
+				
+				
+				}catch(Exception e) {
+					errorMsgs.add("無法取得資料:" + e.getMessage());
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/member/myAccountMyPage.jsp");
+					failureView.forward(req, res);
+				}
+				
+				
+				
+				
+			}
+			
+			
 	
 	
 	}
