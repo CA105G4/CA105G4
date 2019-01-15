@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.branch.model.*"%>
 <%@page import="java.util.*"%>
-
 <%
 	BranchService braSvc = new BranchService();
 	List<BranchVO> list = braSvc.getAll();
@@ -12,7 +11,6 @@
 	BranchVO bchVO = (BranchVO) request.getAttribute("bchVO");
 	String val = "";
 %>
-
 <!DOCTYPE html>
 <html>
 
