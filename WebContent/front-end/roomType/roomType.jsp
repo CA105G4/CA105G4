@@ -230,12 +230,8 @@
 											<li><strong>Size:</strong> 20m<sup>2</sup></li>
 											<li><strong>Bed Type:</strong> One bed</li>
 										</ul>
-										<p>
-											<a href="#" class="btn btn-primary py-3 px-5">Reservation</a>
-										</p>
-										<p>
-											<button class="btn btn-info py-3 px-5" type="submit" value="${rtVO.rtID}">Collect Room</button>
-										</p>
+<!-- 										<p><a href="#" class="btn btn-primary py-3 px-5">Reservation</a></p> -->
+										<p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
 									</div>
 								</div>
 							</c:when>
@@ -262,13 +258,8 @@
 												<li><strong>Size:</strong> 20m<sup>2</sup></li>
 												<li><strong>Bed Type:</strong> One bed</li>
 											</ul>
-
-											<p>
-												<a href="#" class="btn btn-primary py-3 px-5">Read More</a>
-											</p>
-											<p>
-												<button class="btn btn-info py-3 px-5" type="submit" value="${rtVO.rtID}">Collect Room</button>
-											</p>
+<!-- 											<p><a href="#" class="btn btn-primary py-3 px-5">Reservation</a></p> -->
+											<p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
 										</div>
 									</div>
 
@@ -335,21 +326,9 @@
 							</div>
 						</div>
 					</div>
-
-
-
-
-
 				</c:forEach>
 
 			</div>
-
-
-
-
-
-
-
 		</div>
 	</div>
 
@@ -359,91 +338,96 @@
 
 
 
-	<!-- 旅客回饋 -->
-	<div class="site-section bg-light">
-		<div class="container">
-			<div class="row mb-5">
-				<div class="col-md-7 section-heading">
-					<span class="subheading-sm">Reviews</span>
-					<h2 class="heading">Guest Reviews</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 col-lg-4">
+ 	<!-- 旅客回饋 -->
+<!-- 	<div class="site-section bg-light"> -->
+<!-- 		<div class="container"> -->
+<!-- 			<div class="row mb-5"> -->
+<!-- 				<div class="col-md-7 section-heading"> -->
+<!-- 					<span class="subheading-sm">Reviews</span> -->
+<!-- 					<h2 class="heading">Guest Reviews</h2> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-6 col-lg-4"> -->
 
-					<div class="block-33">
-						<div class="vcard d-flex mb-3">
-							<div class="image align-self-center">
-								<img src="<%=request.getContextPath()%>/roomType/imagesCustom/SpongeBob.jpg" alt="Person here">
-							</div>
-							<div class="name-text align-self-center">
-								<h2 class="heading">ZHENG BO YUAN</h2>
-								<span class="meta">Satisfied Customer</span>
-							</div>
-						</div>
-						<div class="text">
-							<blockquote>
-								<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-									iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-									error ad itaque inventore accusantium tempore dolores sunt.
-									&ldquo;</p>
-							</blockquote>
-						</div>
-					</div>
+<!-- 					<div class="block-33"> -->
+<!-- 						<div class="vcard d-flex mb-3"> -->
+<!-- 							<div class="image align-self-center"> -->
+<%-- 								<img src="<%=request.getContextPath()%>/front-end/imagesCustom/SpongeBob.jpg" alt="Person here"> --%>
+<!-- 							</div> -->
+<!-- 							<div class="name-text align-self-center"> -->
+<!-- 								<h2 class="heading">ZHENG BO YUAN</h2> -->
+<!-- 								<span class="meta">Satisfied Customer</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="text"> -->
+<!-- 							<blockquote> -->
+<!-- 								<p>&rdquo; Lorem ipsum dolor sit amet consectetur -->
+<!-- 									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis -->
+<!-- 									iusto eaque perferendis non dolorem fugiat voluptatibus vitae -->
+<!-- 									error ad itaque inventore accusantium tempore dolores sunt. -->
+<!-- 									&ldquo;</p> -->
+<!-- 							</blockquote> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
-				</div>
-				<div class="col-md-6 col-lg-4">
+<!-- 				</div> -->
+<!-- 				<div class="col-md-6 col-lg-4"> -->
 
-					<div class="block-33">
-						<div class="vcard d-flex mb-3">
-							<div class="image align-self-center">
-								<img src="imagesCustom/Sandy.jpg" alt="Person here">
-							</div>
-							<div class="name-text align-self-center">
-								<h2 class="heading">LIU YAN JUN</h2>
-								<span class="meta">Satisfied Customer</span>
-							</div>
-						</div>
-						<div class="text">
-							<blockquote>
-								<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-									iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-									error ad itaque inventore accusantium tempore dolores
-									sunt.adipisicing elit. Fuga aliquid. Atque dolore &ldquo;</p>
-							</blockquote>
-						</div>
-					</div>
+<!-- 					<div class="block-33"> -->
+<!-- 						<div class="vcard d-flex mb-3"> -->
+<!-- 							<div class="image align-self-center"> -->
+<%--  								<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Sandy.jpg" alt="Person here"> --%>
+<!-- 							</div> -->
+<!-- 							<div class="name-text align-self-center"> -->
+<!-- 								<h2 class="heading">LIU YAN JUN</h2> -->
+<!-- 								<span class="meta">Satisfied Customer</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="text"> -->
+<!-- 							<blockquote> -->
+<!-- 								<p>&rdquo; Lorem ipsum dolor sit amet consectetur -->
+<!-- 									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis -->
+<!-- 									iusto eaque perferendis non dolorem fugiat voluptatibus vitae -->
+<!-- 									error ad itaque inventore accusantium tempore dolores -->
+<!-- 									sunt.adipisicing elit. Fuga aliquid. Atque dolore &ldquo;</p> -->
+<!-- 							</blockquote> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
-				</div>
-				<div class="col-md-6 col-lg-4">
+<!-- 				</div> -->
+<!-- 				<div class="col-md-6 col-lg-4"> -->
 
-					<div class="block-33">
-						<div class="vcard d-flex mb-3">
-							<div class="image align-self-center">
-								<img src="imagesCustom/Patrick_Star.png" alt="Person here">
-							</div>
-							<div class="name-text align-self-center">
-								<h2 class="heading">CHEN YU XIANG</h2>
-								<span class="meta">Satisfied Customer</span>
-							</div>
-						</div>
-						<div class="text">
-							<blockquote>
-								<p>&rdquo; Lorem ipsum dolor sit amet consectetur
-									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis
-									iusto eaque perferendis non dolorem fugiat voluptatibus vitae
-									error ad itaque inventore accusantium tempore dolores sunt.
-									&ldquo;</p>
-							</blockquote>
-						</div>
-					</div>
+<!-- 					<div class="block-33"> -->
+<!-- 						<div class="vcard d-flex mb-3"> -->
+<!-- 							<div class="image align-self-center"> -->
+<%--  								<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Patrick_Star.png" alt="Person here"> --%>
+<!-- 							</div> -->
+<!-- 							<div class="name-text align-self-center"> -->
+<!-- 								<h2 class="heading">CHEN YU XIANG</h2> -->
+<!-- 								<span class="meta">Satisfied Customer</span> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="text"> -->
+<!-- 							<blockquote> -->
+<!-- 								<p>&rdquo; Lorem ipsum dolor sit amet consectetur -->
+<!-- 									adipisicing elit. Fuga aliquid. Atque dolore esse veritatis -->
+<!-- 									iusto eaque perferendis non dolorem fugiat voluptatibus vitae -->
+<!-- 									error ad itaque inventore accusantium tempore dolores sunt. -->
+<!-- 									&ldquo;</p> -->
+<!-- 							</blockquote> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+
+
+
+
 
 	<!-- Footer尾巴 -->
 	<footer class="footer">
@@ -513,72 +497,73 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 
 </body>
-<style>
-* {
-	font-family: "Encode Sans Condensed", sans-serif;
-}
-
-.flag-discount {
-	border-radius: 6px 0 0 6px;
-	color: #fff;
-	display: block;
-	float: right;
-	padding: 10px 20px;
-	background: #93274f;
-	font-size: 20px;
-	font-weight: 400;
-	position: relative;
-}
-
-.flag-discount::before, .flag-discount::after {
-	content: "";
-	position: absolute;
-	left: 100%;
-	width: 0;
-	height: 0;
-	border-style: solid;
-	display: block;
-}
-
-.flag-discount::before {
-	top: 0;
-	border-width: 22px 15px 0 0;
-	border-color: #93274f transparent transparent transparent;
-}
-
-.flag-discount::after {
-	bottom: 0;
-	border-width: 0 15px 22px 0;
-	border-color: transparent transparent #93274f transparent;
-}
+	<style>
+	* {
+		font-family: "Encode Sans Condensed", sans-serif;
+	}
+	
+	.flag-discount {
+		border-radius: 6px 0 0 6px;
+		color: #fff;
+		display: block;
+		float: right;
+		padding: 10px 20px;
+		background: #93274f;
+		font-size: 20px;
+		font-weight: 400;
+		position: relative;
+	}
+	
+	.flag-discount::before, .flag-discount::after {
+		content: "";
+		position: absolute;
+		left: 100%;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		display: block;
+	}
+	
+	.flag-discount::before {
+		top: 0;
+		border-width: 22px 15px 0 0;
+		border-color: #93274f transparent transparent transparent;
+	}
+	
+	.flag-discount::after {
+		bottom: 0;
+		border-width: 0 15px 22px 0;
+		border-color: transparent transparent #93274f transparent;
+	}
 </style>
 
 
 
 
 <script>
-  var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
-$('#checkin_date').datepicker({
-    uiLibrary: 'bootstrap4',
-    iconsLibrary: 'fontawesome',
-    format: 'yyyy-mm-dd',
-    minDate: today,
-    maxDate: function () {
+	var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+	$('#checkin_date').datepicker({
+    	uiLibrary: 'bootstrap4',
+    	iconsLibrary: 'fontawesome',
+    	format: 'yyyy-mm-dd',
+    	minDate: today,
+    	maxDate: function () {
         return $('#checkout_date').val();
-    }
-});
-$('#checkout_date').datepicker({
-    uiLibrary: 'bootstrap4',
-    iconsLibrary: 'fontawesome',
-    format: 'yyyy-mm-dd',
-    minDate: function () {
-        return $('#checkin_date').val();
-    }
-});
+		}
+	});
+	
+	$('#checkout_date').datepicker({
+	    uiLibrary: 'bootstrap4',
+	    iconsLibrary: 'fontawesome',
+	    format: 'yyyy-mm-dd',
+	    minDate: function () {
+	        return $('#checkin_date').val();
+	    }
+	});
   
-  </script>
-<script>
+</script>
 
+<script>
 function getReload(event){
 	var data = JSON.parse( event.data );
 	console.log(data.message);
@@ -595,13 +580,7 @@ function getReload(event){
 		closeOnConfirm : false,
 		closeOnCancel : false
 	})
-	
-	
-	
 }
-
-
-
 </script>
 
 <script>
@@ -634,17 +613,14 @@ function getReload(event){
 			console.log("WebSocket 已離線");
 		};
 	}
-  	
-  
-  
   </script>
   
-  <script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function(){
-		 $('button').click(function(){
+		 $('.collectRt').click(function(){
 			 $.ajax({
 				 type: "GET",
-				 url: "<%=request.getContextPath() %>/back-end/roomType/roomType.do",
+				 url: "<%=request.getContextPath() %>/roomType/roomType.do",
 				 data: creatQueryString($(this).val()),
 				 dataType: "json",
 				 success: function (){
@@ -656,7 +632,9 @@ function getReload(event){
 	                		 timer: 1500
 	                } );       
 			     },
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	             error: function(){    
+	            	 alert("沒有登入會員");     //暫時
+	             }
 	         })
 		 })
 	
@@ -667,8 +645,7 @@ function getReload(event){
 		console.log(queryString);
 		return queryString;
 	}
-  
-  </script>
+</script>
   
   
 </html>

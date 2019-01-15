@@ -12,6 +12,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import com.coupon.model.CouponService;
 import com.coupon.model.CouponVO;
 import com.couponRecord.model.CouponRecordService;
 import com.couponRecord.model.CouponRecordVO;
+import com.member.model.MemberVO;
 
 
 @MultipartConfig
@@ -263,10 +265,10 @@ public class CpnServlet extends HttpServlet {
 				String cpnID =req.getParameter("cpnID");
 //				String memID =req.getParameter("memID");
 				
-//				HttpSession session =  req.getSession();
-//				MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
-//				String memID = memVO.getMemID();
-				String memID = "M0008";
+				HttpSession session =  req.getSession();
+				MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+				String memID = memVO.getMemID();
+//				String memID = "M0008";
 				
 				System.out.println(cpnID);
 				System.out.println(memID);

@@ -48,9 +48,7 @@
 <body>
 
     <!-- NavBar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -70,12 +68,10 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -281,13 +277,24 @@
 				 data: creatQueryString($(this).val()),
 				 dataType: "json",
 				 success: function (data){
- 						var id = "#" + data.cpnID;
+ 					var id = "#" + data.cpnID;
  						
 					console.log(data.cpnVO);
 					console.log(data.cpnID);
- 						$(id).text(data.cpnVO);
+					
+ 					$(id).text(data.cpnVO);
+ 					
+ 					swal({
+ 						position: 'top-end',
+ 						type: 'success',
+ 						title: 'You got a perfect coupon!!!',
+ 						showConfirmButton: false,
+ 						timer: 1500
+ 		             });
 			     },
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	             error: function(){
+	            	 alert("沒有登入會員");     //暫時
+	             }
 	         })
 		 })
 	
@@ -302,27 +309,9 @@
 	$('.disable').click(function(){
 		   $(this).prop('disabled', true);
 		});
-</script>
-
-	<script type="text/javascript">
-
-
-	 $(function () {
-            $("button").click(function () {
-                //alert範例
-                swal({
-                		position: 'top-end',
-                		type: 'success',
-                		 title: 'You got a perfect coupon!!!',
-                		 showConfirmButton: false,
-                		 timer: 1500
-                }        
-                );
-
-            });
-        });
 	
-
 </script>
+
+
 </body>
 </html>

@@ -34,6 +34,7 @@ public class OrdersEchoServer {
 				session.getAsyncRemote().sendText(message+"Hello from WebSocket");
 			}
 		}
+//		System.out.println(message);
 		System.out.println("WebSocket push succeed.");
 	}
 	

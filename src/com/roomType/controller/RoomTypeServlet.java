@@ -11,12 +11,14 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.collectRoomType.model.*;
+import com.member.model.MemberVO;
 import com.roomType.model.*;
 
 @MultipartConfig
@@ -284,26 +286,26 @@ public class RoomTypeServlet extends HttpServlet{
 			
 			//1.接收查詢參數
 			try {
-			String checkinStr= req.getParameter("startdate");
-			
-			String checkoutStr =req.getParameter("enddate");
-			
-			String braID =req.getParameter("braID"); 
-			System.out.println(braID);
-			//2.找尋房間
-			RoomTypeCompositeQuery rtCQ =new RoomTypeCompositeQuery();
-			
-			List<RoomTypeVO>searchList =rtCQ.searchRoomTypeMinRoom(braID, checkinStr, checkoutStr);
-			
-			RoomTypeService rtSvc =new RoomTypeService();
-			Set<RoomTypeVO>searchSet =rtSvc.getAllInSet();
-			//3.轉交房型頁面
-			
-			req.setAttribute("searchList",searchList);
-			req.setAttribute("searchSet",searchSet);
-			String url ="/front-end/roomType/searchRoomType.jsp";
-			RequestDispatcher successView =req.getRequestDispatcher(url);
-			successView.forward(req, res);
+				String checkinStr= req.getParameter("startdate");
+				
+				String checkoutStr =req.getParameter("enddate");
+				
+				String braID =req.getParameter("braID"); 
+				System.out.println(braID);
+				//2.找尋房間
+				RoomTypeCompositeQuery rtCQ =new RoomTypeCompositeQuery();
+				
+				List<RoomTypeVO>searchList =rtCQ.searchRoomTypeMinRoom(braID, checkinStr, checkoutStr);
+				
+				RoomTypeService rtSvc =new RoomTypeService();
+				Set<RoomTypeVO>searchSet =rtSvc.getAllInSet();
+				//3.轉交房型頁面
+				
+				req.setAttribute("searchList",searchList);
+				req.setAttribute("searchSet",searchSet);
+				String url ="/front-end/roomType/searchRoomType.jsp";
+				RequestDispatcher successView =req.getRequestDispatcher(url);
+				successView.forward(req, res);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -345,40 +347,34 @@ public class RoomTypeServlet extends HttpServlet{
 			req.setAttribute("errorMsgs", errorMsgs);
 			CollectRoomTypeService crtSvc =new CollectRoomTypeService();
 			CollectRoomTypeVO  crtVO =new CollectRoomTypeVO();
-//			從會員session存取會員ID
-//			HttpSession session =  req.getSession();
-//			MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
-//			String memID = memVO.getMemID();
 			try {
-			String memID ="M0010";
-			String rtID =req.getParameter("rtID");
-System.out.println(rtID);
-			crtVO=crtSvc.addCRT(memID, rtID);
-			
-			JSONObject obj = new JSONObject();
-			try {
-				obj.put("rtID", rtID);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			
-			res.setContentType("text/plain");
-			res.setCharacterEncoding("UTF-8");
-			PrintWriter out = res.getWriter();
-			out.write(obj.toString());
-			out.flush();
-			out.close();
+	//			從會員session存取會員ID
+				HttpSession session =  req.getSession();
+				MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+				String memID = memVO.getMemID();
+				System.out.println(memID);
+	//			String memID = "M0010";
+				String rtID =req.getParameter("rtID");
+				System.out.println(rtID);
+				crtVO=crtSvc.addCRT(memID, rtID);
+				
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put("rtID", rtID);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				out.write(obj.toString());
+				out.flush();
+				out.close();
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
-			
 		}
-		
-		
-		
-		
-		
-		
 	}
 	
 }
