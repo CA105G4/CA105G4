@@ -166,7 +166,7 @@ public class ArticleServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("articleVO", articleVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/article/update_article_input.jsp");
+							.getRequestDispatcher("/front-end/article/update_article_input.jsp");
 					failureView.forward(req, res);
 					return; 
 				}
@@ -182,7 +182,7 @@ public class ArticleServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/article/update_article_input.jsp");
+						.getRequestDispatcher("/front-end/article/update_article_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
