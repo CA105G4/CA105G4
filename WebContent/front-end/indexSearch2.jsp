@@ -14,6 +14,7 @@
 <%
 	ArticleService articleService = new ArticleService();
 	List<ArticleVO> list = articleService.getLastestThree();
+	System.out.print(list);
 	pageContext.setAttribute("list",list);
 %>
 
@@ -315,7 +316,7 @@
 	              </div>
           
 	              <div class="thumbnail" style="height: 300px">
-	                <a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}&memid=${articleVO.memid}">
+	                <a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}">
 	                    <div style="position:absolute;z-index:500;height:1440px;width:1440px;""></div>
 						<iframe src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" frameborder="0"></iframe>
 	                </a>
