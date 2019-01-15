@@ -73,8 +73,16 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
+				<h1>輪播廣告</h1>
+				<hr>
+				<div class="container-fluid" align="right"  style="margin:0px  0px -25px 0px">
+					<button type="button" class="btn btn-info">
+						<a href="<%=request.getContextPath()%>/back-end/billboard/addBB.jsp"     style="color:#fff">新增輪播廣告</a>
+					</button>
+				</div>
+				
+				
 				<div class="container-fluid">
-					<caption>輪播廣告</caption>
 					<br>
 					<table class="table table-hover">
 
@@ -85,6 +93,7 @@
 								<th>開始時間</th>
 								<th >結束時間</th>
 								<th>廣告圖片</th>
+								<th>廣告狀態</th>
 								<th align="center">修改</th>
 								<th align="center">刪除</th>
 							</tr>
@@ -126,11 +135,11 @@
 										</c:otherwise>
 									</c:choose>
 
-
+									<td>${bbStatusMap.get(bbVO.getbbStatus())}</td>
 
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/billboard/bb.do"
+											ACTION="<%=request.getContextPath()%>/billboard/bb.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
 											<input type="hidden" name="bbID" value="${bbVO.bbID }">
@@ -144,7 +153,7 @@
 									
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/billboard/bb.do"
+											ACTION="<%=request.getContextPath()%>/billboard/bb.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">刪除</button>
 											<input type="hidden" name="bbID" value="${bbVO.bbID }">

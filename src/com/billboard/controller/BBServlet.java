@@ -238,7 +238,7 @@ public class BBServlet extends HttpServlet {
 					for (String s : errorMsgs) {
 						System.out.println(s);
 					}
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/billboard/addBB.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/billboard/updateBB.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -254,7 +254,7 @@ public class BBServlet extends HttpServlet {
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("修改資料失敗" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/branch/update_bra_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/billboard/updateBB.jsp");
 				failureView.forward(req, res);
 			}
 
