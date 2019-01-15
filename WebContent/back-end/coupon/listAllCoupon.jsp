@@ -89,8 +89,14 @@ width: 120px;
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
+				<h1>優惠券列表</h1>
+				<hr>
+				<div class="container-fluid" align="right"  style="margin:0px  0px -25px -63px">
+					<button type="button" class="btn btn-info">
+						<a href="<%=request.getContextPath()%>/back-end/coupon/addCoupon.jsp" style="color:#fff">新增優惠券</a>
+					</button>
+				</div>
 				<div class="container-fluid">
-					<caption>優惠卷列表</caption>
 					<br>
 					<table class="table table-hover">
 
@@ -159,7 +165,7 @@ width: 120px;
 											%>
 										<td>
 											<form METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/coupon/cpn.do"
+												ACTION="<%=request.getContextPath()%>/coupon/cpn.do"
 												style="margin-bottom: 0px;">
 												<button class="btn btn-info" type="submit">修改</button>
 												<input type="hidden" name="cpnID" value="${cpnVO.cpnID }">
@@ -176,7 +182,7 @@ width: 120px;
 										
 										<td>
 											<form METHOD="post"
-												ACTION="<%=request.getContextPath()%>/back-end/coupon/cpn.do"
+												ACTION="<%=request.getContextPath()%>/coupon/cpn.do"
 												style="margin-bottom: 0px;">
 												<button class="btn btn-info" type="submit">刪除</button>
 												<input type="hidden" name="cpnID" value="${cpnVO.cpnID }">
