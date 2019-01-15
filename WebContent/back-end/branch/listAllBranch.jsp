@@ -199,7 +199,7 @@ width: 120px;
 
 									<td>
 										<form METHOD="post"
-											ACTION="bra.do"
+											ACTION="<%=request.getContextPath() %>/branch/bra.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
 											<input type="hidden" name="braID" value="${bchVO.braID }">
