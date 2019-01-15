@@ -306,7 +306,6 @@
         <div class="row">
         	<c:forEach var="articleVO" items="${list}">
 			<div class="col-md-6 col-lg-4">
-
 	            <div class="block-33">
 	              <div class="vcard d-flex mb-3">
 	                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${articleVO.memid}" alt="Person here"></div>
@@ -318,10 +317,7 @@
 	              <div class="thumbnail" style="height: 300px">
 	                <a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}&memid=${articleVO.memid}">
 	                    <div style="position:absolute;z-index:500;height:1440px;width:1440px;""></div>
-	                    
-<%-- 	                     <iframe id="iFrame1" scrolling="no" frameborder="0" height="100%" width="100%" src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" onload="resizeIframe(this)"></iframe> --%>
 						<iframe src="<%=request.getContextPath()%>/article/oneArticle?artid=${articleVO.artid}" frameborder="0"></iframe>
-						
 	                </a>
 	              </div>
 			   </div>

@@ -175,18 +175,26 @@
 					  			<tbody>				
 								    <tr>
 								    <td>理由</td>
-								    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/report/report.do" >
-								      <td><input type="text" name="repreason" size="30" required></td>
-									  <input type="hidden" name="artid" value="${param.artid}">
-									  
-<!-- 									  以後改SESSION  -->
-
-								      <input type="hidden" name="repmemid" value="${memberVO.memID}">
-								      <input type="hidden" name="repstate" value="0">								
-								      <input type="hidden" name="repdate"  id="f_date1">								      
-								      <input type="hidden" name="action" value="insert">
-								      <td><input id="repreason" type="submit" value="送出" class="btn btn-info"></td>
-								    </FORM>
+								    <c:if test="${memberVO != null}">
+									    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/report/report.do" >
+									      <td><input type="text" name="repreason" size="30" required></td>
+										  <input type="hidden" name="artid" value="${param.artid}">
+										  
+	<!-- 									  以後改SESSION  -->
+	
+									      <input type="hidden" name="repmemid" value="${memberVO.memID}">
+									      <input type="hidden" name="repstate" value="0">								
+									      <input type="hidden" name="repdate"  id="f_date1">								      
+									      <input type="hidden" name="action" value="insert">
+									      <td><input id="repreason" type="submit" value="送出" class="btn btn-info"></td>
+									    </FORM>
+									 </c:if>
+									 <c:if test="${memberVO == null}">
+								    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
+								    		<td><input type="text" name="repreason" size="30"></td>
+								    		<td><input id="repreason" type="submit" value="送出" class="btn btn-info"></td>
+								    	</FORM>
+								    </c:if>
 								    </tr>
 								 </tbody>
 							</table>
@@ -220,18 +228,24 @@
 					  			<tbody>				
 								    <tr>
 								   	  <td>留言</td>
-								   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/message/message.do" >
-								      
-								      <td><input id="msginput" type="text" name="msgcontent" size="80" required></td>
-								      <input type="hidden" name="artid" value="${param.artid}">
-								      <!--  以後改SESSION  -->
-								      <input type="hidden" name="msgmemid" value="${memberVO.memID}">
-								      <input type="hidden" name="msgstate" value="0">								
-								      <input type="hidden" name="msgdate"  id="f_date2">								      
-								      <input type="hidden" name="action" value="insert">
-								      <td><input type="submit" value="送出" class="btn btn-info"></td>
-								      </FORM>
-								      
+								   	  <c:if test="${memberVO != null}">
+										   <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/message/message.do" >
+										      <td><input id="msginput" type="text" name="msgcontent" size="80" required></td>
+										      <input type="hidden" name="artid" value="${param.artid}">
+										      <!--  以後改SESSION  -->
+										      <input type="hidden" name="msgmemid" value="${memberVO.memID}">
+										      <input type="hidden" name="msgstate" value="0">								
+										      <input type="hidden" name="msgdate"  id="f_date2">								      
+										      <input type="hidden" name="action" value="insert">
+										      <td><input type="submit" value="送出" class="btn btn-info"></td>
+										    </FORM>
+								      </c:if>
+								      <c:if test="${memberVO == null}">
+									    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
+									    		<td><input id="msginput" type="text" name="msgcontent" size="80" ></td>
+									    		<td><input type="submit" value="送出" class="btn btn-info"></td>
+									    	</FORM>
+								   	  </c:if>
 								    </tr>
 								    
 								    <c:forEach var="messageVO" items="${list}" > 
@@ -247,14 +261,22 @@
 										  			<tbody>				
 													    <tr>
 													    <td>理由</td>
-													    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/messageReport/messageReport.do" >
-													      <td><input type="text" name="mrreason" size="20" required></td>
-														  <input type="hidden" name="artid" value="${param.artid}">
-														  <input type="hidden" name="msgid" value="${messageVO.msgid}">
-													      <input type="hidden" name="mrstate" value="0">																      
-													      <input type="hidden" name="action" value="insert">
-													      <td><input id="msgrepreason" type="submit" value="送出" class="btn btn-info"></td>
-													    </FORM>
+													     <c:if test="${memberVO != null}">
+														    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/messageReport/messageReport.do" >
+														      <td><input type="text" name="mrreason" size="20" required></td>
+															  <input type="hidden" name="artid" value="${param.artid}">
+															  <input type="hidden" name="msgid" value="${messageVO.msgid}">
+														      <input type="hidden" name="mrstate" value="0">																      
+														      <input type="hidden" name="action" value="insert">
+														      <td><input id="msgrepreason" type="submit" value="送出" class="btn btn-info"></td>
+														    </FORM>
+														  </c:if>
+														  <c:if test="${memberVO == null}">
+														    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
+														    		<td><input type="text" name="mrreason" size="20" ></td>
+														    		<td><input  id="msgrepreason" type="submit" value="送出" class="btn btn-info"></td>
+														    	</FORM>
+									   					  </c:if>
 													    </tr>
 													 </tbody>
 												</table>
