@@ -90,7 +90,6 @@
 								<th>活動開始時間</th>
 								<th>活動結束時間</th>
 								<th align="center">修改</th>
-								<th align="center">刪除</th>
 								<th align="center">查詢明細</th>
 							</tr>
 						</thead>
@@ -113,15 +112,7 @@
 											<input type="hidden" name="action" value="getOne_For_Update">
 										</form>
 									</td>
-									<td>
-										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/activity/act.do"
-											style="margin-bottom: 0px;">
-											<button class="btn btn-info" type="submit">刪除</button>
-											<input type="hidden" name="actID" value="${actVO.actID}">
-											<input type="hidden" name="action" value="delete">
-										</form>
-									</td>
+							
 									
 									<td>
 										<form METHOD="post"

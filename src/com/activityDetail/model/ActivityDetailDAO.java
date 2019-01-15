@@ -15,9 +15,9 @@ import javax.sql.DataSource;
 
 public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 
-	private static final String INSERT_SQL = "INSERT INTO ActivityDetail(actID,rtID,Discount) VALUES(?,?,?)";
-	private static final String UPDATE_SQL = "UPDATE ActivityDetail set Discount=? where actID=? and rtID=?";
-	private static final String DELETE_SQL = "DELETE FROM ActivityDetail where actID=?";
+	private static final String INSERT_SQL = "INSERT INTO ActivityDetail(actID,rtID,discount) VALUES(?,?,?)";
+	private static final String UPDATE_SQL = "UPDATE ActivityDetail set discount=? where actID=? and rtID=?";
+	private static final String DELETE_SQL = "DELETE FROM ActivityDetail where actID=? and rtID=?";
 	private static final String FIND_BY_PK ="SELECT * FROM ActivityDetail WHERE actID=?";
 	private static final String GET_ALL_SQL = "SELECT * FROM ActivityDetail ORDER BY actID";
 
@@ -41,9 +41,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_SQL);
 
-			pstmt.setString(1, activityDetailVO.getActID());
-			pstmt.setString(2, activityDetailVO.getRtID());
-			pstmt.setFloat(3, activityDetailVO.getDiscount());
+			pstmt.setString(1, activityDetailVO.getactID());
+			pstmt.setString(2, activityDetailVO.getrtID());
+			pstmt.setFloat(3, activityDetailVO.getdiscount());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -78,9 +78,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_SQL);
 
-			pstmt.setFloat(1, activityDetailVO.getDiscount());
-			pstmt.setString(2, activityDetailVO.getActID());
-			pstmt.setString(3, activityDetailVO.getRtID());
+			pstmt.setFloat(1, activityDetailVO.getdiscount());
+			pstmt.setString(2, activityDetailVO.getactID());
+			pstmt.setString(3, activityDetailVO.getrtID());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -107,7 +107,7 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 	}
 
 	@Override
-	public void delete(String actID) {
+	public void delete(String actID,String rtID) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -116,6 +116,7 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 			pstmt = con.prepareStatement(DELETE_SQL);
 
 			pstmt.setString(1, actID);
+			pstmt.setString(2, rtID);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -153,9 +154,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 			while(rs.next()) {
 				adVO =new ActivityDetailVO();
 				
-				adVO.setActID(rs.getString("actID"));
-				adVO.setRtID(rs.getString("rsID"));
-				adVO.setDiscount(rs.getFloat("discount"));
+				adVO.setactID(rs.getString("actID"));
+				adVO.setrtID(rs.getString("rsID"));
+				adVO.setdiscount(rs.getFloat("discount"));
 				
 			}
 			
@@ -212,9 +213,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 			while (rs.next()) {
 				adVO = new ActivityDetailVO();
 
-				adVO.setActID(rs.getString("actID"));
-				adVO.setRtID(rs.getString("rtID"));
-				adVO.setDiscount(rs.getFloat("Discount"));
+				adVO.setactID(rs.getString("actID"));
+				adVO.setrtID(rs.getString("rtID"));
+				adVO.setdiscount(rs.getFloat("discount"));
 
 				list.add(adVO);
 			}
@@ -245,6 +246,7 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 				}
 			}
 		}
+
 		return list;
 	}
 
@@ -255,9 +257,9 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 		
 		try {
 			pstmt =con.prepareStatement(INSERT_SQL);
-			pstmt.setString(1, adVO.getActID());
-			pstmt.setString(2, adVO.getRtID());
-			pstmt.setFloat(3, adVO.getDiscount());
+			pstmt.setString(1, adVO.getactID());
+			pstmt.setString(2, adVO.getrtID());
+			pstmt.setFloat(3, adVO.getdiscount());
 		
 			pstmt.executeUpdate();
 		
@@ -269,10 +271,12 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 					System.err.println("rolled back-由-ActivityDetailDAO");
 					con.rollback();
 				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
 				}
 			}
-			throw new RuntimeException("A database error occured. " + se.getMessage());
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
 		}finally {
 			if (pstmt != null) {
 				try {
@@ -282,7 +286,8 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 				}
 			}
 		}
+		
+		
 	}
 
-	
 }

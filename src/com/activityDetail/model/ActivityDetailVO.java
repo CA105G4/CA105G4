@@ -1,27 +1,28 @@
 package com.activityDetail.model;
 
 public class ActivityDetailVO implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	private String actID;
 	private String rtID;
-	private Float Discount;
+	private Float discount;
 	
-	public String getActID() {
+	public String getactID() {
 		return actID;
 	}
-	public void setActID(String actID) {
+	public void setactID(String actID) {
 		this.actID = actID;
 	}
-	public String getRtID() {
+	public String getrtID() {
 		return rtID;
 	}
-	public void setRtID(String rtID) {
+	public void setrtID(String rtID) {
 		this.rtID = rtID;
 	}
-	public Float getDiscount() {
-		return Discount;
+	public Float getdiscount() {
+		return discount;
 	}
-	public void setDiscount(Float discount) {
-		Discount = discount;
+	public void setdiscount(Float discount) {
+		this.discount = discount;
 	}
 	
 }

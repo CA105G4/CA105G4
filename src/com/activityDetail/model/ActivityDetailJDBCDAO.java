@@ -15,8 +15,8 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 	private static final String USER="CA105G4";
 	private static final String PASSWORD="123456";
 
-	private static final String INSERT_SQL ="INSERT INTO ActivityDetail(actID,rtID,Discount) VALUES(?,?,?)";
-	private static final String UPDATE_SQL="UPDATE ActivityDetail set Discount=? where actID=? and rtID=?";
+	private static final String INSERT_SQL ="INSERT INTO ActivityDetail(actID,rtID,discount) VALUES(?,?,?)";
+	private static final String UPDATE_SQL="UPDATE ActivityDetail set discount=? where actID=? and rtID=?";
 	private static final String DELETE_SQL="DELETE FROM ActivityDetail where actID=?";
 	private static final String GET_ALL_SQL="SELECT * FROM ActivityDetail ORDER BY actID";
 
@@ -37,9 +37,9 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			con =DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt=con.prepareStatement(INSERT_SQL);
 			
-			pstmt.setString(1,activityDetailVO.getActID());
-			pstmt.setString(2, activityDetailVO.getRtID());
-			pstmt.setFloat(3,activityDetailVO.getDiscount());
+			pstmt.setString(1,activityDetailVO.getactID());
+			pstmt.setString(2, activityDetailVO.getrtID());
+			pstmt.setFloat(3,activityDetailVO.getdiscount());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -76,9 +76,9 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE_SQL);
 			
-			pstmt.setFloat(1, activityDetailVO.getDiscount());
-			pstmt.setString(2,activityDetailVO.getActID());
-			pstmt.setString(3, activityDetailVO.getRtID());
+			pstmt.setFloat(1, activityDetailVO.getdiscount());
+			pstmt.setString(2,activityDetailVO.getactID());
+			pstmt.setString(3, activityDetailVO.getrtID());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -107,7 +107,7 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 	}
 
 	@Override
-	public void delete(String actID) {
+	public void delete(String actID,String rtID) {
 		Connection con = null;
 		PreparedStatement pstmt =null;
 		
@@ -154,9 +154,9 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			while(rs.next()) {
 			adVO =new ActivityDetailVO();
 			
-			adVO.setActID(rs.getString("actID"));
-			adVO.setRtID(rs.getString("rtID"));
-			adVO.setDiscount(rs.getFloat("Discount"));
+			adVO.setactID(rs.getString("actID"));
+			adVO.setrtID(rs.getString("rtID"));
+			adVO.setdiscount(rs.getFloat("discount"));
 			
 			list.add(adVO);
 			}
@@ -198,9 +198,9 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			//新增
 			ActivityDetailVO vo =new ActivityDetailVO();
 			
-			vo.setActID("A0003");
-			vo.setRtID("RT04");
-			vo.setDiscount(0.99f);
+			vo.setactID("A0003");
+			vo.setrtID("RT04");
+			vo.setdiscount(0.99f);
 			dao.insert(vo);
 			System.out.println("Insert Succesfully!");
 			System.out.println("===========");
@@ -208,23 +208,23 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 			
 			ActivityDetailVO vo2 =new ActivityDetailVO();
 			
-			vo2.setDiscount(0.55f);
-			vo2.setActID("A0001");
-			vo2.setRtID("RT01");
+			vo2.setdiscount(0.55f);
+			vo2.setactID("A0001");
+			vo2.setrtID("RT01");
 			dao.update(vo2);
 			System.out.println("Update Succesfully!");
 			System.out.println("===========");
 			//刪除
-			dao.delete("A0003");
+			dao.delete("A0003","RT03");
 			System.out.println("Delete Succesfully!");
 			System.out.println("===========");
 			//找全部
 			List<ActivityDetailVO> list =dao.getAll();
 			
 			for(ActivityDetailVO adVO:list) {
-				System.out.print(adVO.getActID()+" ");
-				System.out.print(adVO.getRtID()+" ");
-				System.out.println(adVO.getDiscount());
+				System.out.print(adVO.getactID()+" ");
+				System.out.print(adVO.getrtID()+" ");
+				System.out.println(adVO.getdiscount());
 			}
 			
 			
@@ -237,7 +237,7 @@ public class ActivityDetailJDBCDAO implements ActivityDetailDAO_interface{
 
 	@Override
 	public void insert2(ActivityDetailVO adVO, Connection con) {
+		// TODO Auto-generated method stub
 		
 	}
-	
 }

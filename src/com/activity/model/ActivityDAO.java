@@ -406,7 +406,7 @@ private static DataSource ds =null;
 				ActivityDetailDAO adDAO =new ActivityDetailDAO(); 
 				System.out.println(list.size());
 				for(ActivityDetailVO adVO:list) {
-					adVO.setActID(next_actID);
+					adVO.setactID(next_actID);
 					adDAO.insert2(adVO, con);
 				}
 				// 2●設定於 pstm.executeUpdate()之後
@@ -466,9 +466,9 @@ private static DataSource ds =null;
 			while(rs.next()) {
 				adVO = new ActivityDetailVO();
 				
-				adVO.setActID(rs.getString("actID"));
-				adVO.setRtID(rs.getString("rtID"));
-				adVO.setDiscount(rs.getFloat("discount"));
+				adVO.setactID(rs.getString("actID"));
+				adVO.setrtID(rs.getString("rtID"));
+				adVO.setdiscount(rs.getFloat("discount"));
 				
 				set.add(adVO);
 				

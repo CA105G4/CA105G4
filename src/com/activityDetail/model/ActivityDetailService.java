@@ -13,7 +13,8 @@ public class ActivityDetailService {
 	public ActivityDetailVO addAD(Float dis) {
 		ActivityDetailVO adVO =new ActivityDetailVO();
 		
-		adVO.setDiscount(dis);
+		
+		adVO.setdiscount(dis);
 		dao.insert(adVO);
 		
 		return adVO;
@@ -22,14 +23,14 @@ public class ActivityDetailService {
 	public ActivityDetailVO updateAD(Float dis) {
 		ActivityDetailVO adVO =new ActivityDetailVO();
 			
-		adVO.setDiscount(dis);
+		adVO.setdiscount(dis);
 		dao.update(adVO);
 		
 		return adVO;
 	}
 	
-	public void deleteAD(String actID) {
-		dao.delete(actID);
+	public void deleteAD(String actID,String rtID) {
+		dao.delete(actID,rtID);
 	}
 	
 	public ActivityDetailVO getOneByID(String actID) {
@@ -39,4 +40,16 @@ public class ActivityDetailService {
 	public List<ActivityDetailVO>getAll(){
 		return dao.getAll();
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
