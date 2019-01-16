@@ -9,6 +9,7 @@
 	List<RoomVO> list = roomSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,9 +93,9 @@ table, th, td {
 		 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
 			<table class="table table-bordered table-striped table-hover">
 				<tr>
-					<th class="text-center">房間編號</th>
-					<th class="text-center">房型</th>
+<!-- 					<th class="text-center">房間編號</th> -->
 					<th class="text-center">店別</th>
+					<th class="text-center">房型</th>
 					<th class="text-center">房號</th>
 					<th class="text-center">房間狀態</th>
 					<th class="text-center">旅客姓名</th>
@@ -106,11 +107,9 @@ table, th, td {
 				<c:forEach var="roomVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 					
 					<tr>
-						<td class="text-center">${roomVO.roomID}</td>
-						<td class="text-center">
-							${roomTypeSvc.getOneRoomType(roomVO.roomTypeID).rtName}
-						</td>
+<%-- 						<td class="text-center">${roomVO.roomID}</td> --%>
 						<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}</td>
+						<td class="text-center">${roomTypeSvc.getOneRoomType(roomVO.roomTypeID).rtName}</td>
 						<td class="text-center">${roomVO.roomNo}</td>
 						<td class="text-center">${roomStateMap.get(roomVO.roomState)}</td>
 						<td class="text-center">${roomVO.memName}</td>
@@ -143,7 +142,7 @@ table, th, td {
 
 		</div>
 		<!-- /.content-wrapper -->
-
+		</div>
 	</div>
 	<!-- /#wrapper -->
 

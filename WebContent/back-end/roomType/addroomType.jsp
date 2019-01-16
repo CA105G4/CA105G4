@@ -1,10 +1,15 @@
+<%@page import="com.employee.model.EmployeeVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.roomType.model.RoomTypeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
-	RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
+// 	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+
+// 	RoomTypeVO rtVO = (RoomTypeVO) request.getAttribute("rtVO");
+	
+	
 %>
 
 <!DOCTYPE html>
@@ -103,33 +108,23 @@
 							<div align="center">
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" name="form1" enctype="multipart/form-data">
 								<table>
-									<tr>
-										<td>分店編號:</td>
-										<td><input type="TEXT" name="braID" size="45" class="form-control"
-											 value="${(rtVO == null) ? "B01" : rtVO.braID }" /></td> 
-									</tr>
+<!-- 									<tr> -->
+<!-- 										<td>分店編號:</td> -->
+<!-- 										<td> -->
+<%-- 											${employeeVO.braID} --%>
+											
+<!-- 										</td>  -->
+<!-- 									</tr> -->
 									<tr>
 										<td>房型名稱:</td>
 										<td><input type="TEXT" name="rtName" size="45" class="form-control"
-											 value="${(rtVO == null) ? "自訂多人房" : rtVO.rtName}" /></td>
+											 value="${(rtVO == null) ? '自訂多人房' : rtVO.rtName}" /></td>
 									</tr>
 									<tr>
 										<td>房型照片:</td>
 										<td>
-											<c:choose>
-												<c:when test="${rtVO == null}">
-													<img src="<%=request.getContextPath()%>/back-end/roomType/images/nopic.jpg" id="previewpic" 
-													class="img-fluid" width="300px">
-												</c:when>
-												<c:otherwise>
-													<% 	byte[] picbyte = rtVO.getRtPic();
-														String src = null;
-														Base64.Encoder adapter = Base64.getEncoder();
-														src = adapter.encodeToString(picbyte); %>
-													<img src="data:image/jpeg;base64,<%= src %>" id="previewpic"
-													class="img-fluid" width="300px">
-												</c:otherwise>
-											</c:choose>
+											<img src="<%=request.getContextPath()%>/back-end/roomType/images/nopic.jpg" id="previewpic" 
+											class="img-fluid" width="300px">
 										</td>
 									</tr>
 									<tr>
@@ -141,35 +136,37 @@
 									<tr>
 										 <td>房型介紹:</td>
 										<td><input type="TEXT" name="rtIntro" size="45" class="form-control"
-											 value="${(rtVO == null) ? "自訂介紹" : rtVO.rtIntro}" /></td>
+											 value="${(rtVO == null) ? '自訂介紹' : rtVO.rtIntro}" /></td>
 									</tr>
 									<tr>
 										<td>一般住房人數:</td>
 										<td><input type="TEXT" name="rtMinimum" size="45" class="form-control"
-											 value="${(rtVO == null) ? "2" : rtVO.rtMinimum}" /></td>
+											 value="${(rtVO == null) ? '2' : rtVO.rtMinimum}" /></td>
 									</tr>
 									<tr>
 										<td>住房上限人數:</td>
 										<td><input type="TEXT" name="rtLimit" size="45" class="form-control"
-											 value="${(rtVO == null) ? "3" : rtVO.rtLimit }" /></td>
+											 value="${(rtVO == null) ? '3' : rtVO.rtLimit }" /></td>
 									</tr>
 									<tr>
 										<td>平日價格:</td>
 										<td><input type="TEXT" name="weeklyPrice" size="45" class="form-control"
-											 value="${(rtVO == null) ? "3000" : rtVO.weeklyPrice }" /></td>
+											 value="${(rtVO == null) ? '3000' : rtVO.weeklyPrice }" /></td>
 									</tr>
 									<tr>
 										<td>假日價格:</td>
 										<td><input type="TEXT" name="holidayPrice" size="45" class="form-control"
-											 value="${(rtVO == null) ? "3500" : rtVO.holidayPrice }" /></td>										
+											 value="${(rtVO == null) ? '3500' : rtVO.holidayPrice }" /></td>										
 									</tr>
 									<tr>
 										<td>房型數量:</td>
 										<td><input type="TEXT" name="total" size="45" class="form-control"
-											 value="${(rtVO == null) ? "10" : rtVO.total }" /></td>
+											 value="${(rtVO == null) ? '10' : rtVO.total }" /></td>
 									</tr>
 								</table>
 								<br>
+									<input type="hidden" name="braID" size="45" class="form-control" value="${employeeVO.braID}" />
+								
 									<input type="hidden" name="action" value="insert">
 									<input type="submit" value="送出新增" class="btn btn-info" >
 									<button type="button" class="btn btn-info">

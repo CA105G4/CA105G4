@@ -47,7 +47,7 @@
 		</div>
 
 		<li class="nav-item active">
-			<a class="nav-link" href="index.html">
+			<a class="nav-link" href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">
 				<i class="fa fa-home"></i>
 				<span>當日房況一覽</span>
 			</a>
@@ -134,7 +134,7 @@
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 				<h6 class="dropdown-header">新增/查詢:</h6>
 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/room/addRoom.jsp">新增房間</a>
-				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">查詢房間</a>
+<%-- 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/room/HomePage.jsp">查詢房間</a> --%>
 				<div class="dropdown-divider"></div>
 				<h6 class="dropdown-header">列表</h6>
 <!-- 				<a class="dropdown-item" href="blank.html">選擇日期</a> -->

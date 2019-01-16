@@ -1,4 +1,5 @@
-<%@page import="com.roomType.model.RoomTypeVO"%>
+<%@ page import="com.employee.model.EmployeeVO"%>
+<%@ page import="com.roomType.model.RoomTypeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -73,7 +74,7 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<h1>修改訂單資料</h1>
+				<h1>修改房型資料</h1>
 				<hr>
 				<div class="container-fluid" >
 				<br>
@@ -105,15 +106,18 @@
 							<div align="center">
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" name="form1" enctype="multipart/form-data">
 								<table>
-									<tr>
-										<td>房型編號:</td>
-										<td><%= rtVO.getRtID() %></td>
-									</tr>
-									<tr>
-										<td>分店編號:</td>
-										<td><input type="TEXT" name="braID" size="45" class="form-control"
-											 value="<%= rtVO.getBraID() %>" /></td> 
-									</tr>
+									<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
+<!-- 									<tr> -->
+<!-- 										<td>房型編號:</td> -->
+<%-- 										<td><%= rtVO.getRtID() %></td> --%>
+<!-- 									</tr> -->
+<!-- 									<tr> -->
+<!-- 										<td>分店名稱:</td> -->
+<!-- 										<td> -->
+<%-- 											${empVO.getBraID()} --%>
+<%-- 											<input type="hidden" name="braID" size="45" class="form-control" value="${rtVO.getRtID()}" /> --%>
+<!-- 										</td>  -->
+<!-- 									</tr> -->
 									<tr>
 										<td>房型名稱:</td>
 										<td><input type="TEXT" name="rtName" size="45" class="form-control"
@@ -165,6 +169,7 @@
 								<br>
 									<input type="hidden" name="action" value="update">
 									<input type="hidden" name="rtID" value="<%= rtVO.getRtID() %>">
+									<input type="hidden" name="braID" class="form-control" value="<%= rtVO.getBraID() %>" />
 									<input type="submit" value="送出修改" class="btn btn-info" >
 									<button type="button" class="btn btn-info">
 										<a href='<%=request.getContextPath()%>/back-end/roomType/select_roomType_page.jsp' style="color:#fff">返回</a>

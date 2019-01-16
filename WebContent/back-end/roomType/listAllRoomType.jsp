@@ -88,7 +88,7 @@
 						<table class="table table-bordered table-striped table-hover">
 							<thead>
 							<tr>
-								<th>房型編號</th>
+<!-- 								<th>房型編號</th> -->
 								<th>分店編號</th>
 								<th>房型名稱</th>
 								<th>房型照片</th>
@@ -107,8 +107,9 @@
 							<c:forEach var="roomTypeVO" items="${list}"  varStatus="status" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								
 								<tr>
-									<td>${roomTypeVO.rtID}</td>
-									<td>${roomTypeVO.braID}</td>
+<%-- 									<td>${roomTypeVO.rtID}</td> --%>
+								<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
+									<td>${braSvc.getOneByID(roomTypeVO.braID).getBraName()}</td>
 									<td>${roomTypeVO.rtName}</td>
 									
 									<c:set var="index"  value="${status.index}"/>

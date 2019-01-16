@@ -39,37 +39,32 @@
 <title>後台首頁-當日房況</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
-<style>
-.grid-container {
-	grid-template-columns: repeat(5, 20%);
-	text-align: right;
-}
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
-.flex-container {
-	justify-content: start;
-}
-
-.modal-backdrop {
-	display: none;
-}
-</style>
+	<style>
+		.grid-container {
+			grid-template-columns: repeat(5, 20%);
+			text-align: right;
+		}
+	
+		.flex-container {
+			justify-content: start;
+		}
+	
+		.modal-backdrop {
+			display: none;
+		}
+	</style>
+	
 </head>
 
 <body id="page-top">

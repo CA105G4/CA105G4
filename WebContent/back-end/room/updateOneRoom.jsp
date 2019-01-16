@@ -23,23 +23,16 @@
 <title>修改房間資料</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath() %>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath() %>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath() %>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath() %>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath() %>/back-end/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath() %>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath() %>/back-end/css/sb-admin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath() %>/back-end/css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -93,10 +86,16 @@
 						<table class="table table-bordered table-striped table-hover">
 						<jsp:useBean id="roomTypeSvc" class="com.roomType.model.RoomTypeService"/>
 						<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
-							<tr>
-						 		<td class="text-center">房間編號:</td>
-						 		<td class="text-center">${roomVO.roomID}</td>							
-							</tr>
+<!-- 							<tr> -->
+<!-- 						 		<td class="text-center">房間編號:</td> -->
+<%-- 						 		<td class="text-center">${roomVO.roomID}</td>							 --%>
+<!-- 							</tr> -->
+							<tr>	
+								<td class="text-center">店別:</td>
+								<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}
+									<input type="hidden" name="braID" value="${roomVO.braID}">
+								</td>
+							</tr>	
 							<tr>	
 								<td class="text-center">房型:</td>
 								<td class="text-center">
@@ -105,15 +104,9 @@
 								</td>
 							</tr>
 							<tr>	
-								<td class="text-center">店別:</td>
-								<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}
-								<input type="hidden" name="braID" value="${roomVO.braID}">
-								</td>
-							</tr>	
-							<tr>	
 								<td class="text-center">房號:</td>
 								<td class="text-center">${roomVO.roomNo}
-								<input type="hidden" name="roomNo" value="${roomVO.roomNo}">
+									<input type="hidden" name="roomNo" value="${roomVO.roomNo}">
 								</td>
 								
 							</tr>
