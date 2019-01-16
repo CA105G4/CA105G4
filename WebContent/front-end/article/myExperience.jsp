@@ -7,6 +7,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%
+// 	MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+// 	ArticleService articleService = new ArticleService();
+// 	List<ArticleVO> listByMember = articleService.getMemberArticle(memVO.getMemID());
+// 	pageContext.setAttribute("listByMember", listByMember);
+	
     List<ArticleVO> list = (List<ArticleVO>) request.getAttribute("list");
 %>
 
@@ -129,9 +134,9 @@
 					<a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item active"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
-					<a href="<%=request.getContextPath()%>/coupon/cpn.do?memID=${memberVO.memID}&action=get_member_displayCpn" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
-					<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/article/myExperience.jsp" class="list-group-item active"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
 				<!-- Sidebar -->
           
@@ -160,8 +165,11 @@
 						<th></th>
 					</tr>
 				</thead>
+				
+				<jsp:useBean id="articleService" scope="page" class="com.article.model.ArticleService" />
 				<tbody>
-					<c:forEach var="articleVO" items="${list}">
+					
+					<c:forEach var="articleVO" items="${articleService.getMemberArticle(memberVO.memID)}">
 					<tr>
 						<td>${articleVO.artid}</td>
 						<td><a href="<%=request.getContextPath()%>/front-end/article/viewArticle.jsp?artid=${articleVO.artid}" class="tiptext">Content of Article
