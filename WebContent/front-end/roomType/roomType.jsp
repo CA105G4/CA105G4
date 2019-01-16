@@ -585,7 +585,7 @@ function getReload(event){
 
 <script>
   
-  var MyPoint = "/MyEchoServer";
+  var MyPoint = "/ActEchoServer";
   var host = window.location.host;
   var path = window.location.pathname;
   var webCtx = path.substring(0, path.indexOf('/', 1));
