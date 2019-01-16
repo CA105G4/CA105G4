@@ -105,14 +105,12 @@ img {
 
 								<div class="form-row">
 									<div class="form-group">
-										<label for="aa">分店名稱:</label> <input type="text"
-											name="braName" id="braName" placeholder="請輸入分店店名"
+										<label >分店名稱:</label> <input type="text" name="braName"placeholder="請輸入分店店名"
 											class="form-control" style="width: 200px">
 									</div>
 
 									<div class="form-group" style="margin-left: 15px">
-										<label for="aa">分店電話:</label> <input type="text" name="phone"
-											id="aa" placeholder="分店註冊電話" class="form-control"
+										<label>分店電話:</label> <input type="text" name="phone" placeholder="分店註冊電話" class="form-control"
 											style="width: 200px">
 									</div>
 								</div>
@@ -120,8 +118,7 @@ img {
 
 								<div class="form-row">
 									<div class="form-group" style="margin-right: 15px">
-										<label for="aa">分店經度:</label> <input type="text" name="lng"
-											id="aa" placeholder="請輸入經度" class="form-control"
+										<label>分店經度:</label> <input type="text" name="lng"	placeholder="請輸入經度" class="form-control"
 											style="width: 140px">
 									</div>
 
@@ -129,15 +126,14 @@ img {
 
 
 									<div class="form-group">
-										<label for="aa">分店緯度:</label> <input type="text" name="lat"
-											id="aa" placeholder="請輸入緯度" class="form-control"
+										<label >分店緯度:</label> <input type="text" name="lat" placeholder="請輸入緯度" class="form-control"
 											style="width: 140px">
 									</div>
 
 								</div>
 
 								<div class="form-group">
-									<label for="inputAddress">分店地址:</label> <input type="text"
+									<label >分店地址:</label> <input type="text"
 										class="form-control" id="inputAddress" placeholder="請輸入分店地址"
 										style="margin-left: -4px" name="addr">
 								</div>
@@ -155,22 +151,12 @@ img {
 
 								</div>
 								<br>
-				
-
-
-
-
-
 
 								<div class="form-row">
-
-
 
 									<div class="form-row" style="margin-bottom: 15px">
 										<img id="blah" />
 									</div>
-
-
 
 									<div class="input-group mb-3 form-group">
 										<div class="custom-file">
@@ -190,16 +176,11 @@ img {
 
 								</div>
 
-
-
-
 								<div class="form-row">
 
 									<div class="form-row" style="margin-bottom: 15px">
 										<video id="vlah" width="377.8" height="250" controls></video>
 									</div>
-
-
 
 									<div class="input-group mb-3 form-group">
 										<div class="custom-file">
@@ -215,10 +196,6 @@ img {
 										</div>
 									</div>
 
-
-
-
-
 								</div>
 
 
@@ -228,32 +205,26 @@ img {
 									<div class="form-check form-check-inline form-group">
 										<input class="form-check-input" type="radio" name="braState"
 											id="inlineRadio1" value="1" checked="checked"> <label
-											class="form-check-label" for="inlineRadio1">營業中</label>
+											class="form-check-label">營業中</label>
 									</div>
 									<div class="form-check form-check-inline form-group">
 										<input class="form-check-input" type="radio" name="braState"
 											id="inlineRadio2" value="0"> <label
-											class="form-check-label" for="inlineRadio2">休息中</label>
+											class="form-check-label" >休息中</label>
 									</div>
 								</div>
 
 								<div class="col-12 text-center">
 									<input type="hidden" name="action" value="insert"> <input
 										class="btn btn-primary" type="submit" value="送出新增">
-									<button class="btn btn-primary">返回</button>
+									<button class="btn btn-primary">
+										<a href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp"   style="color:#fff">返回</a>
+									</button>
 								</div>
 
 							</form>
 
 							<!--解決按鈕置中的問題 https://stackoverflow.com/questions/41664991/bootstrap-4-how-do-i-center-align-a-button -->
-
-
-
-
-
-
-
-
 
 						</div>
 					</div>

@@ -7,8 +7,6 @@
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> list = rtSvc.getAll();
 	pageContext.setAttribute("list", list);
-	
-
 %>
 
 <!DOCTYPE html>

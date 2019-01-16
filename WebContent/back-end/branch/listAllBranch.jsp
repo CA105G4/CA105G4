@@ -8,7 +8,7 @@
 	List<BranchVO> list = braSvc.getAll();
 	pageContext.setAttribute("list", list);
 
-	BranchVO bchVO = (BranchVO) request.getAttribute("bchVO");
+	BranchVO braVO = (BranchVO) request.getAttribute("braVO");
 	String val = "";
 %>
 <!DOCTYPE html>
@@ -117,19 +117,19 @@ width: 120px;
 
 						<tbody>
 							<%@ include file="page1.file"%>
-							<c:forEach var="bchVO" items="${list}" varStatus="status"
+							<c:forEach var="braVO" items="${list}" varStatus="status"
 								begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								<tr>
-									<td>${bchVO.braID}</td>
-									<td>${bchVO.braName}</td>
+									<td>${braVO.braID}</td>
+									<td>${braVO.braName}</td>
 									
-	 								 <td class="scrollbar">${bchVO.braIntro}</td>
+	 								 <td class="scrollbar">${braVO.braIntro}</td>
 									
 									
-									<td>${bchVO.braTel}</td>
-									<td class="scrollbar1">${bchVO.braAddr}</td>
-									<td>${bchVO.braLng}</td>
-									<td>${bchVO.braLat}</td>
+									<td>${braVO.braTel}</td>
+									<td class="scrollbar1">${braVO.braAddr}</td>
+									<td>${braVO.braLng}</td>
+									<td>${braVO.braLat}</td>
 
 									<c:set var="index" value="${status.index}" />
 									<%
@@ -193,14 +193,14 @@ width: 120px;
 
 									</c:choose>
 
-									<td>${bchVO.braState}</td>
+									<td>${braStateMap.get(braVO.getBraState())}</td>
 
 									<td>
 										<form METHOD="post"
 											ACTION="<%=request.getContextPath() %>/branch/bra.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
-											<input type="hidden" name="braID" value="${bchVO.braID }">
+											<input type="hidden" name="braID" value="${braVO.braID }">
 											<input type="hidden" name="requestURL"
 												value="<%=request.getServletPath()%>">
 											<!--送出本網頁的路徑給Controller-->
