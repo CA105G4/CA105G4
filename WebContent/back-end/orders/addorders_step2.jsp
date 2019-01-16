@@ -9,6 +9,7 @@
 
 <%	
 	String getmemID = (String)request.getAttribute("memID");
+System.out.println("jsp收到的memID"+getmemID);
 	OrdersService odSvc = new OrdersService();
 	String ordID = odSvc.findNewOrderID(getmemID);
 	
@@ -159,7 +160,7 @@
 							<br>
 							<div align="center">
 								<button type="button" class="btn btn-info">
-									<a href='<%=request.getContextPath()%>/back-end/orders/listAllOrders.jsp' style="color: #fff">確認付款</a>
+									<button type="button" class="btn btn-info" id="confirmtoPay">確認付款</button>
 								</button>
 							</div>
 						</div>

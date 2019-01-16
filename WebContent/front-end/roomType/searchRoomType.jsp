@@ -197,7 +197,7 @@
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
 
-                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtVO.braID}" class="btn btn-primary py-3 px-5">Reservation</a></p>
+                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
 				<p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
 				
               </div>

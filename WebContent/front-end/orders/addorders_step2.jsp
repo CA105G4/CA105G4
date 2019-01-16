@@ -6,10 +6,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 	
 <%
-	
-
+	String getmemID = (String)request.getAttribute("memID");
+System.out.println("jsp收到的memID"+getmemID);
 	OrdersService odSvc = new OrdersService();
-	String ordID = odSvc.findNewOrderID("M0001");
+	String ordID = odSvc.findNewOrderID(getmemID);
 	
 	OrdersVO ordVO = odSvc.getOneOrders(ordID);
 	pageContext.setAttribute("ordVO", ordVO);
