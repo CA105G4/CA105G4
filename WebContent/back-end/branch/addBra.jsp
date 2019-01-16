@@ -98,7 +98,7 @@ img {
 					<div class="row">
 						<div class="col-sm-7 offset-sm-3 ">
 
-							<form method="post" action="bra.do" name="insertbraform"
+							<form method="post" action="<%=request.getContextPath() %>/branch/bra.do" name="insertbraform"
 								class="form-horizontal justify-content-center"
 								enctype="multipart/form-data">
 

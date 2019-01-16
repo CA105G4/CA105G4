@@ -5,7 +5,12 @@ import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.activity.model.*;
+import com.activityDetail.model.ActivityDetailService;
 import com.activityDetail.model.ActivityDetailVO;
 
 public class ActServlet extends HttpServlet {
@@ -119,8 +124,8 @@ public class ActServlet extends HttpServlet {
 						for(int i=0;i<rtID.length;i++) {
 							System.out.println(rtID[i]);
 							ActivityDetailVO adVO =new ActivityDetailVO();
-							adVO.setRtID(rtID[i]);
-							adVO.setDiscount(discount);
+							adVO.setrtID(rtID[i]);
+							adVO.setdiscount(discount);
 							adlist.add(adVO);
 						}
 					
@@ -240,31 +245,51 @@ public class ActServlet extends HttpServlet {
 			}
 		}
 
-		if ("delete".equals(action)) {
+		if ("delete_activitydetail".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			// 儲存錯誤訊息
 
 			req.setAttribute("errorMsgs", errorMsgs);
+			String requestURL = req.getParameter("requestURL");
 
 			try {
 				/*************************** 1.接收請求參數 ***************************************/
 				String actID = req.getParameter("actID");
+				String rtID = req.getParameter("rtID");
 				System.out.println(action);
 				System.out.println(actID);
+				System.out.println(rtID);
 				/*************************** 2.開始刪除資料 ***************************************/
-				ActivityService actSvc = new ActivityService();
-				actSvc.deleteAct(actID);
-				System.out.println("1");
+				ActivityDetailService adSvc = new ActivityDetailService();
+				
+				adSvc.deleteAD(actID,rtID);
 				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-				String url = "/back-end/activity/listAllActivity.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
-				successView.forward(req, res);
+				
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put("rtID", rtID);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				out.write(obj.toString());
+				out.flush();
+				out.close();
+				
+				
+//				String url = requestURL;
+//				req.setAttribute("trigger", actID);
+//				RequestDispatcher successView = req.getRequestDispatcher(url);
+//				successView.forward(req, res);
 
 			} catch (Exception e) {
 				System.out.println("2");
 				e.printStackTrace();
 //				errorMsgs.add("刪除資料失敗:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher(requestURL);
 				failureView.forward(req, res);
 			}
 

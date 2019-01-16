@@ -98,7 +98,7 @@ img {
 					<div class="row">
 						<div class="col-sm-7 offset-sm-3 ">
 
-							<form method="post" action="bb.do" name="insertbbform"
+							<form method="post" action="<%=request.getContextPath()%>/billboard/bb.do" name="insertbbform"
 								class="form-horizontal justify-content-center"
 								enctype="multipart/form-data">
 
@@ -118,7 +118,7 @@ img {
 									<div class="form-group" style="margin-right: 15px">
 										<label for="aa">開始時間:</label> <input type="text" name="bbStart"
 											id="f_date1" class="form-control"
-											style="width: 140px">
+											style="width: 190px">
 									</div>
 
 
@@ -127,7 +127,7 @@ img {
 									<div class="form-group">
 										<label for="aa">結束時間:</label> <input type="text" name="bbEnd"
 											id="f_date2"  class="form-control"
-											style="width: 140px">
+											style="width: 190px">
 									</div>
 
 								</div>
@@ -280,7 +280,7 @@ img {
        theme: '',              //theme: 'dark',
        timepicker:false,       //timepicker:true,
        step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+       format:'Y-m-d H:i:s',         //format:'Y-m-d H:i:s',
 	   value: '<%=date%> 	', // value:   new Date(),
 //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 //startDate:	            '2017/07/10',  // 起始日
@@ -291,7 +291,7 @@ $('#f_date2').datetimepicker({
 	theme : '', //theme: 'dark',
 	timepicker : false, //timepicker:true,
 	step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
-	format : 'Y-m-d', //format:'Y-m-d H:i:s',
+	format : 'Y-m-d H:i:s', //format:'Y-m-d H:i:s',
 	value :<%=str%>, // value:   new Date(),
 //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 //startDate:	            '2017/07/10',  // 起始日

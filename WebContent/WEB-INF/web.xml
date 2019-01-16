@@ -221,11 +221,11 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>BchServlet</servlet-name>
+		<servlet-name>braServlet</servlet-name>
 		<servlet-class>com.branch.controller.braServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>BchServlet</servlet-name>
+		<servlet-name>braServlet</servlet-name>
 		<url-pattern>/branch/bra.do</url-pattern>
 	</servlet-mapping>
 

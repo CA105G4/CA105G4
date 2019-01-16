@@ -107,6 +107,13 @@ public class Initialize_Map_Listener implements ServletContextListener {
 		memSexMap.put("F", "女");
 		context.setAttribute("memSexMap", memSexMap);
 		
+		//廣告狀態
+		Map<Integer, String> bbStatusMap = new HashMap<Integer, String>();
+		bbStatusMap.put(0, "未上架");
+		bbStatusMap.put(1, "上架");
+		bbStatusMap.put(2, "下架");
+		context.setAttribute("bbStatusMap", bbStatusMap);
+		
 	}
 	
 	public void contextDestroyed(ServletContextEvent event) {

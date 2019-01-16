@@ -2,10 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.activity.model.*"%>
+<%@ page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>
 
 <%
 	ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
+
+RoomTypeService rtSvc =new RoomTypeService();
+List<RoomTypeVO>rtList = rtSvc.getAll();
+pageContext.setAttribute("rtList", rtList);
+
 %>
 
 <!DOCTYPE html>
@@ -116,60 +122,18 @@
 									<tr>
 										<td>選擇房型</td>
 										<td class="form-inline">
+								<jsp:useBean id="bchSvc" scope="page" class="com.branch.model.BranchService" />
+										<c:forEach var="rtVO" items="${rtList}">
+									<c:forEach var="bchVO" items="${bchSvc.all}">
 										<div class="form-check form-check-inline">
+											<c:if test="${rtVO.braID==bchVO.braID}">
 											<input class="form-check-input" type="checkbox"
-												 name="roomType" value="RT01"> 
-												<label class="form-check-label" >RT01</label>
+												 name="roomType" value="${rtVO.rtID}"> 
+												<label class="form-check-label" >${rtVO.rtID}-${rtVO.rtName}-${bchVO.braName}</label>
+												</c:if>
 										</div>
-										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												 name="roomType"  value="RT02">
-												 <label class="form-check-label" >RT02</label>
-										</div>
-										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT03"> 
-												<label class="form-check-label" >RT03</label>
-										</div>		
-										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT04"> 
-												<label class="form-check-label" >RT04</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT05"> 
-												<label class="form-check-label" >RT05</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT06"> 
-												<label class="form-check-label" >RT06</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT07"> 
-												<label class="form-check-label" >RT07</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT08"> 
-												<label class="form-check-label" >RT08</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT09"> 
-												<label class="form-check-label" >RT09</label>
-										</div>										
-										<div class="form-check form-check-inline">
-											<input class="form-check-input" type="checkbox"
-												name="roomType"  value="RT10"> 
-												<label class="form-check-label" >RT10</label>
-										</div>
-
+										</c:forEach>
+										</c:forEach>
 
 										</td>
 									</tr>

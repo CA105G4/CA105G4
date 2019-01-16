@@ -6,9 +6,8 @@ import java.util.List;
 public interface ActivityDetailDAO_interface {
 	public  void insert(ActivityDetailVO activityDetailVO); 
 	public void update(ActivityDetailVO activityDetailVO);
-	public void delete(String actID);
+	public void delete(String actID,String rtID);
 	public ActivityDetailVO findByPK(String actID);
 	public List<ActivityDetailVO > getAll();
-	
 	public void insert2(ActivityDetailVO adVO, Connection con);
 }

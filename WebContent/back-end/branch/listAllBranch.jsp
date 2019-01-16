@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.branch.model.*"%>
 <%@page import="java.util.*"%>
-
 <%
 	BranchService braSvc = new BranchService();
 	List<BranchVO> list = braSvc.getAll();
@@ -12,7 +11,6 @@
 	BranchVO bchVO = (BranchVO) request.getAttribute("bchVO");
 	String val = "";
 %>
-
 <!DOCTYPE html>
 <html>
 
@@ -199,7 +197,7 @@ width: 120px;
 
 									<td>
 										<form METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/branch/bra.do"
+											ACTION="<%=request.getContextPath() %>/branch/bra.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
 											<input type="hidden" name="braID" value="${bchVO.braID }">
