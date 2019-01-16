@@ -340,8 +340,6 @@ public class RoomTypeServlet extends HttpServlet{
 			
 		}
 		
-		
-		
 		if("collect_room".equals(action)) {
 			List<String>errorMsgs =new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -375,6 +373,54 @@ public class RoomTypeServlet extends HttpServlet{
 				System.out.println(e.getMessage());
 			}
 		}
+		
+		//取消收藏房型 ，來自myRoomType.jsp的請求
+		if("delete_collectRT".equals(action)) {
+			List<String>errorMsgs =new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			CollectRoomTypeService crtSvc =new CollectRoomTypeService();
+			
+			//1.取參數
+			try{
+			String rtID =req.getParameter("rtID");
+			
+			if(rtID.trim().length()==0||rtID==null) {
+				errorMsgs.add("房型編號輸入錯誤");
+			}
+//			從會員session存取會員ID
+				HttpSession session =  req.getSession();
+				MemberVO memVO = (MemberVO)session.getAttribute("memberVO");
+				String memID = memVO.getMemID();
+				System.out.println(memID);
+			
+			//2.轉交參數給service
+				
+				crtSvc.deleteCRT(memID, rtID);
+				
+			//3.回傳myRoomType.jsp 的ajax success回覆
+			
+				JSONObject obj = new JSONObject();
+				try {
+					obj.put("rtID", rtID);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				
+				res.setContentType("text/plain");
+				res.setCharacterEncoding("UTF-8");
+				PrintWriter out = res.getWriter();
+				out.write(obj.toString());
+				out.flush();
+				out.close();
+			}catch(Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+		}
+		
+		
+		
+		
 	}
 	
 }

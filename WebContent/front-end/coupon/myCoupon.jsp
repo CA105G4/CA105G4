@@ -119,9 +119,9 @@
 					<a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
 					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-					<a href="<%=request.getContextPath()%>/article/article.do?memid=${memberVO.memID}&action=get_Member_Display" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
-					<a href="<%=request.getContextPath()%>/coupon/cpn.do?memID=${memberVO.memID}&action=get_member_displayCpn" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
-						<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/article/myExperience.jsp" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
+						<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
 				</div>
 				<!-- Sidebar -->
           
@@ -136,8 +136,9 @@
 						<th>優惠券使用狀態</th>
 						<th>優惠卷圖片</th>
 		</tr>
+<jsp:useBean id="couponRecordService" scope="page" class="com.couponRecord.model.CouponRecordService" />
 
-<c:forEach  var="crVO"  items="${crList }">
+<c:forEach  var="crVO"  items="${couponRecordService.findByMemID(memberVO.memID) }">
 			<jsp:useBean id="cpnSvc" scope="page"
 								class="com.coupon.model.CouponService" />
 		
@@ -145,7 +146,7 @@
 		<tr>
 						<td>${cpnSvc.getOneByID(crVO.getCpnID()).getdiscount()}</td>
 						<td>${crVO.cpnState}</td>
-						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}"></td>
+						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}" width="412px"  height="185px"></td>
 		</tr>
 
 </c:forEach>
