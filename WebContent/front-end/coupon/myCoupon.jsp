@@ -146,7 +146,7 @@
 		<tr>
 						<td>${cpnSvc.getOneByID(crVO.getCpnID()).getdiscount()}</td>
 						<td>${crVO.cpnState}</td>
-						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}"></td>
+						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}" width="412px"  height="185px"></td>
 		</tr>
 
 </c:forEach>
