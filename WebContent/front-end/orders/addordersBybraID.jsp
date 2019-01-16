@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.*"%>
 <%@page import="com.roomType.model.RoomTypeVO"%>
 <%@page import="com.roomType.model.RoomTypeService"%>
@@ -5,12 +6,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 	
-<%
-	String braID = "B01";
+<%	
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+	String chooseBraID = request.getParameter("braID");
+	String chooseRtID = request.getParameter("rtID");
+	pageContext.setAttribute("chooseBraID", chooseBraID);
+	pageContext.setAttribute("chooseRtID", chooseRtID);
+	
 	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
+	
 	RoomTypeService rtSvc = new RoomTypeService();
-	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(braID);
-	request.setAttribute("braID", braID);
+	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(chooseBraID);
+	pageContext.setAttribute("memberVO", memberVO);
 	request.setAttribute("rtlist", rtlist);
 %>
 	
@@ -170,7 +177,7 @@
 									<tr>
 										<th>會員編號:</th>
 										<td><input type="TEXT" name="memID" size="45" class="form-control"
-											 value="<%= (ordVO==null)? "M0001" : ordVO.getMemID() %>" readonly="true"/></td>
+											 value="${memberVO.memID}" readonly="true"/></td>
 									</tr>
 									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 									<tr>
@@ -179,7 +186,7 @@
 											<select size="1" name="braID" id="selectBranch" class="custom-select">
 												<option value="-1">請選擇</option>
 												<c:forEach var="brVO" items="${brSvc.all}">
-													<option value="${brVO.braID}" ${ (brVO.braID==braID) ? "selected='true'" : "" }>${brVO.braName}</option>
+													<option value="${brVO.braID}" ${ (brVO.braID==chooseBraID) ? "selected='true'" : "" }>${brVO.braName}</option>
 												</c:forEach>
 											</select>
 										</td>
@@ -221,7 +228,7 @@
 									<c:forEach var="rtVO" items="${rtlist}">
 										<tr>
 					        				<td>				        
-					        					<input class='form-check-input' type='checkbox' name='rtID' value='${rtVO.rtID}' id='defaultCheck<%= count %>' >
+					        					<input class='form-check-input' type='checkbox' name='rtID' value='${rtVO.rtID}' id='defaultCheck<%= count %>' ${(rtVO.rtID == chooseRtID) ? 'checked' : ''}>
 					       					</td>
 					       					<% count++; %>
 					        				<td>
