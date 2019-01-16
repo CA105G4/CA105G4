@@ -9,7 +9,7 @@ public class MemberService {
 	private MemberDAO_interface dao;
 
 	public MemberService() {
-		dao = new MemberJDBCDAO();
+		dao = new MemberDAO();
 }
 	public MemberVO addMem(String memName,String memAcc,String memPsw,Date memBirth,String memEmail,String memTel,String memAddr,String memSex,String memSkill,byte[]memPic,String memIDcard) {
 
@@ -70,4 +70,10 @@ public class MemberService {
 	public List<MemberVO> getAll() {
 		return dao.getAll();
 	}
+	
+	//Ivan 從需求名稱找出符合技能的會員
+	public List<MemberVO> getMemBySkill(String weName){
+		return dao.getMemBySkill(weName);
+	}
+	
 }

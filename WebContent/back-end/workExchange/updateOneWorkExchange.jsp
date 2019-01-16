@@ -44,6 +44,10 @@
   	table, th, td {
     	text-align:center;
   	}
+  td{
+  	width:680px;
+  }
+  
 </style>
 </head>
 
@@ -87,46 +91,46 @@
 			<Form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" enctype="multipart/form-data" style="margin-bottom: 0px;">	
 				<table class="table table-bordered table-striped table-hover">
 					<tr>
-						<th>需求編號:</th><td>${workExchangeVO.weID}</td>
+						<th>需求編號</th><td>${workExchangeVO.weID}</td>
 					</tr>
 					<tr>
-						<th>創建員工:</th><td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}
+						<th>創建員工</th><td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}
 						<input type="hidden" name="empID" value="${workExchangeVO.empID}"></td>
 					</tr>
 					<tr>
-						<th>會員姓名:</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}
+						<th>會員姓名</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}
 						<input type="hidden" name="memID" value="${workExchangeVO.memID}"></td>
 					</tr>
 					<tr>
-						<th>房型名稱:</th><td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}
+						<th>房型名稱</th><td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}
 						<input type="hidden" name="rtID" value="${workExchangeVO.rtID}"></td>
 					</tr>
 					<tr>
-						<th>需求名稱:</th><td>${workExchangeVO.weName}
+						<th>需求名稱</th><td>${workExchangeVO.weName}
 						<input type="hidden" name="weName" value="${workExchangeVO.weName}"></td>
 					</tr>
 					<tr>
-						<th>需求內容:</th><td>${workExchangeVO.weContent}
+						<th>需求內容</th><td>${workExchangeVO.weContent}
 						<input type="hidden" name="weContent" value="${workExchangeVO.weContent}"></td>
 					</tr>
 					<tr>
-						<th>需求照片:</th>
+						<th>需求照片</th>
 						<td><input type="file" name="wePic">
 <%-- 						<input type="hidden" name="wePic" value="${workExchangeVO.wePic}"> --%>
 						</td>
 					</tr>
 					<tr>
-						<th>需求影片:</th>
+						<th>需求影片</th>
 						<td><input type="file" name="weVideo">
 <%-- 						<input type="hidden" name="weVideo" value="${workExchangeVO.weVideo}"> --%>
 						</td>
 					</tr>
 					<tr>
-						<th>開始時間:</th><td>${workExchangeVO.weStart}
+						<th>開始時間</th><td>${workExchangeVO.weStart}
 						<input type="hidden" name="weStart" value="${workExchangeVO.weStart}"></td>
 					</tr>
 					<tr>
-						<th>結束時間:</th><td>${workExchangeVO.weEnd}
+						<th>結束時間</th><td>${workExchangeVO.weEnd}
 						<input type="hidden" name="weEnd" value="${workExchangeVO.weEnd}"></td>
 					</tr>
 				</table>

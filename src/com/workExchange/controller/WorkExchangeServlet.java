@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,8 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 import com.workExchange.model.WorkExchangeService;
 import com.workExchange.model.WorkExchangeVO;
+
+import sendEmail.MailService;
 
 @WebServlet("/workExchange.do")
 @MultipartConfig
@@ -68,6 +76,20 @@ public class WorkExchangeServlet extends HttpServlet {
 			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchange/updateOneWorkExchange.jsp");
 			success.forward(req,res);
 		}
+		
+//		System.out.println("沒進來");
+//		System.out.println(action);
+		//來自listWorkExchangeDET的請求 ----->發送打工邀請
+		if("search_Mem_By_WeName".equals(action)) {
+			String weName = req.getParameter("weName");
+			System.out.println(weName);
+			req.setAttribute("weName", weName);
+			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchange/listMemBySkill.jsp");
+			success.forward(req,res);
+		}
+		
+		
+		
 		
 		//來自updateOneWorkExchange的請求
 		if("confirm_Modify".equals(action)) {
@@ -215,7 +237,39 @@ public class WorkExchangeServlet extends HttpServlet {
 			success.forward(req,res);
 		}
 		
-		
+		System.out.println(action);
+		//來自listMemBySkill的請求
+		if("send_Email".equals(action)) {
+			System.out.println("進來了");
+			String memID = req.getParameter("memID");
+			System.out.println("===========\n"+memID);
+			MemberService memSvc = new MemberService();
+			MemberVO memberVO = memSvc.getOneMem(memID);
+			String memName = memberVO.getMemName();
+			String memEmail = memberVO.getMemEmail();
+			
+			MailService ms = new MailService();
+			String to = "superivanshang@gmail.com";
+			String subject = "打工換宿邀請";
+			String messageText = "親愛的"+memName+"會員您好，目前有新的打工需求，如有意願，我們都在這等您的到來^_^";
+			
+			ms.sendMail(to, subject, messageText);
+			JSONObject jobj = new JSONObject();
+			try {
+				jobj.put("memID", memID);
+				jobj.put("memName", memName);
+				jobj.put("memEmail", memEmail);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			
+			res.setContentType("text/plain");
+			res.setCharacterEncoding("UTF-8");
+			PrintWriter out = res.getWriter();
+			out.write(jobj.toString());
+			out.flush();
+			out.close();
+		}
 		
 	}
 

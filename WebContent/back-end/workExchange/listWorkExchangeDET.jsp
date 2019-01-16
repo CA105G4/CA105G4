@@ -44,7 +44,10 @@
 	table, th, td { 
     	border: 2px solid #CCCCFF;
     	text-align:center; 
-   	} 
+   	}
+   	td{
+  	  width:680px;
+    } 
 	</style>
 
 </head>
@@ -89,58 +92,59 @@
 			<Form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
 				<table class="table table-bordered table-striped table-hover">
 					<tr>
-						<th>需求編號:</th><td>${workExchangeVO.weID}</td>
+						<th>需求編號</th><td>${workExchangeVO.weID}</td>
 					</tr>
 					<tr>
-						<th>創建員工:</th><td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
+						<th>創建員工</th><td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
 					</tr>
 					<tr>
-						<th>會員姓名:</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
+						<th>會員姓名</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
 					</tr>
 					<tr>
-						<th>房型名稱:</th><td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}</td>
+						<th>房型名稱</th><td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}</td>
 					</tr>
 					<tr>
-						<th>需求名稱:</th><td>${workExchangeVO.weName}</td>
+						<th>需求名稱</th><td>${workExchangeVO.weName}</td>
 					</tr>
 					<tr>
-						<th>需求內容:</th><td>${workExchangeVO.weContent}</td>
+						<th>需求內容</th><td>${workExchangeVO.weContent}</td>
 					</tr>
 					<tr>
-						<th style="text-align:center">需求照片:</th>
+						<th style="text-aligncenter">需求照片</th>
 						<td>
 						<img src="<%=request.getContextPath()%>/workExchange/workExchangeImg.do?weID=${workExchangeVO.weID}" class="img-fluid" >
 						</td>
 					</tr>
 					<tr>
-						<th>需求影片:</th>
+						<th>需求影片</th>
 						<td>
 						<video width="500" height="350" controls><source src="<%=request.getContextPath()%>/workExchange/workExchangeVideo.do?weID=${workExchangeVO.weID}" type="video/mp4"></video>
 						</td>
 					</tr>
 					<tr>	
-						<th>開始時間:</th><td>${workExchangeVO.weStart}</td>
+						<th>開始時間</th><td>${workExchangeVO.weStart}</td>
 					</tr>
 					<tr>
-						<th>結束時間:</th><td>${workExchangeVO.weEnd}</td>
+						<th>結束時間</th><td>${workExchangeVO.weEnd}</td>
 					</tr>
 					<tr>
-						<td><a class="btn btn-info" href="<%=request.getContextPath()%>/back-end/workExchange/listAllWorkExchange.jsp">回首頁</a></td>
+						<td><a class="btn btn-info" href="<%=request.getContextPath()%>/back-end/workExchange/listAllWorkExchange.jsp">返回</a></td>
 						<td>
 							<input type="hidden" name="weID" value="${workExchangeVO.weID}">
 							<input type="submit" class="btn-danger form-control" value="修改">
 							<input type="hidden" name="action" value="getOne_For_Update">
 						</td>
 					</tr>
-					<tr>
-						<td>
-						<input type="button"class="btn btn-warning" value="發送打工邀請">
-						</td>
-					</tr>
 				</table>
 			</Form>
 			</div>
-			<div class="col-xs-12 col-sm-3"></div>
+			<div class="col-xs-12 col-sm-3">
+				<Form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
+					<input type="submit" class="btn btn-warning" value="發送打工邀請">
+					<input type="hidden" name="action" value="search_Mem_By_WeName">
+					<input type="hidden" name="weName" value="${workExchangeVO.weName}">
+				</Form>
+			</div>
 		</div>
      </div>
 	<!-- Page Content 這邊開始自由發揮結束-->
