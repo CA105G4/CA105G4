@@ -199,6 +199,7 @@
 		<servlet-name>WorkExchangeRecordImgServlet</servlet-name>
 		<url-pattern>/workExchangeRecord/workExchangeRecordImg.do</url-pattern>
 	</servlet-mapping>
+	
 	<!-- Ajax --> 
 	<servlet>
     	<servlet-name>AjaxResRoomServlet</servlet-name>
@@ -207,6 +208,16 @@
 	<servlet-mapping>
 	    <servlet-name>AjaxResRoomServlet</servlet-name>
 	    <url-pattern>/room/AjaxResRoom.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- MapAjax -->
+	<servlet>
+		<servlet-name>MapServlet</servlet-name>
+		<servlet-class>map.MapServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MapServlet</servlet-name>
+		<url-pattern>/MapServlet</url-pattern>
 	</servlet-mapping>
 	<!-- Ivan end -->
 
@@ -342,6 +353,8 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>MemLoginFilter</filter-name>
+				
+		<url-pattern>/front-end/orders/addordersBybraID.jsp</url-pattern>
 		<url-pattern>/front-end/workExchangeRecord/addWER.jsp</url-pattern>
 		
 		<url-pattern>/front-end/member/myAccountMyPage.jsp</url-pattern>
