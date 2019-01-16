@@ -101,8 +101,8 @@
 								<div class="form-row">
 									<div class="form-group">
 										<label >分店編號:<font color=red><b>*</b></font></label> 
-										<input type="text" name="braID" id="braID" placeholder=""
-											class="form-control" style="width: 200px" disabled="disabled"
+										<input type="text" name="braID" id="braID" 
+											class="form-control" style="width: 200px" 
 											value="<%=braVO.getBraID()%>">
 									</div>
 								</div>
@@ -307,7 +307,9 @@ if (braVO.getBraPic() != null) {
 										type="hidden" name="requestURL"
 										value="<%=request.getParameter("requestURL")%>">
 									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+									<input type="hidden" name="braID" value="<%= braVO.getBraID() %>">
 									<input class="btn btn-primary" type="submit" value="送出修改">
+									
 									<button class="btn btn-primary">
 										<a href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp"   style="color:#fff">返回</a>
 									</button>

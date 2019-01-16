@@ -107,8 +107,7 @@
 								<table>
 									<tr>
 										<td>房型編號:</td>
-										<td><input type="TEXT" name="rtID" size="45" class="form-control" 
-											 value="<%= rtVO.getRtID() %>" readonly="true"/></td>
+										<td><%= rtVO.getRtID() %></td>
 									</tr>
 									<tr>
 										<td>分店編號:</td>
