@@ -185,18 +185,18 @@
             <div class="block-3 d-md-flex ">
               <div class="image" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
               <div class="text">
+		<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />	
 
-                <h2 class="heading">${rtVO.rtName}</h2>
-                <div class="price"><sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub></div>
+                <h2 class="heading">${rtSvc.getOneRoomType(rtVO.getRtID()).rtName}</h2>
+                <div class="price"><sup>$</sup><span class="number">${rtSvc.getOneRoomType(rtVO.getRtID()).weeklyPrice}</span><sub>/per night</sub></div>
                 <ul class="specs mb-5">
-                  <li><strong>Adults:</strong> ${rtVO.rtLimit} </li>
-                  <li><strong>Total:</strong>  ${rtVO.total}</li>
-                  <li><strong>Introduction:</strong>${rtVO.rtIntro}</li>
+                  <li><strong>Adults:</strong> ${rtSvc.getOneRoomType(rtVO.getRtID()).rtLimit} </li>
+                  <li><strong>Total:</strong>  ${rtSvc.getOneRoomType(rtVO.getRtID()).total}</li>
+                  <li><strong>Introduction:</strong>${rtSvc.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                    <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
                   <li><strong>Size:</strong> 20m<sup>2</sup></li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
-		<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />	
                 <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
 				<p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
 				
@@ -211,18 +211,18 @@
               <div class="image order-2" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}'); "></div>
               <div class="text order-1">
                 
-                <h2 class="heading">${rtVO.rtName}</h2>
-                <div class="price"><sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub></div>
+		<jsp:useBean id="rtSvc2" scope="page" class="com.roomType.model.RoomTypeService" />	
+                <h2 class="heading">${rtSvc2.getOneRoomType(rtVO.getRtID()).rtName}</h2>
+                <div class="price"><sup>$</sup><span class="number">${rtSvc2.getOneRoomType(rtVO.getRtID()).weeklyPrice}</span><sub>/per night</sub></div>
                 <ul class="specs mb-5">
-                   <li><strong>Adults:</strong> ${rtVO.rtLimit} </li>
-                   <li><strong>Total:</strong>  ${rtVO.total}</li>
-                  <li><strong>Introduction:</strong> ${rtVO.rtIntro}</li>
+                   <li><strong>Adults:</strong> ${rtSvc2.getOneRoomType(rtVO.getRtID()).rtLimit} </li>
+                   <li><strong>Total:</strong>  ${rtSvc2.getOneRoomType(rtVO.getRtID()).total}</li>
+                  <li><strong>Introduction:</strong> ${rtSvc2.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
                   <li><strong>Size:</strong> 20m<sup>2</sup></li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
 
-		<jsp:useBean id="rtSvc2" scope="page" class="com.roomType.model.RoomTypeService" />	
                 <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc2.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
                 <p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
                 
