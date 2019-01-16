@@ -178,7 +178,7 @@
 										<th>會員名稱:</th>
 								<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 										<td>${memSvc.getOneMem(memberVO.getMemID()).getMemName()}
-											<input type='hidden' name='memID' value='${memberVO.memID}'>	 
+											<input type='hidden' name='memID' value='${memberVO.memID}'>	  
 										</td>
 									</tr>
 									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
