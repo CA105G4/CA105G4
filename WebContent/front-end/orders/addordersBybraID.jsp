@@ -12,7 +12,7 @@
 	String chooseRtID = request.getParameter("rtID");
 	pageContext.setAttribute("chooseBraID", chooseBraID);
 	pageContext.setAttribute("chooseRtID", chooseRtID);
-	
+	 
 	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
 	 
 	RoomTypeService rtSvc = new RoomTypeService();
