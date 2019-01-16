@@ -175,13 +175,15 @@
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" name="form1" autocomplete="off">
 								<table>
 									<tr>
-										<th>會員編號:</th>
-										<td><input type="TEXT" name="memID" size="45" class="form-control"
-											 value="${memberVO.memID}" readonly="true"/></td>
+										<th>會員名稱:</th>
+								<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
+										<td>${memSvc.getOneMem(memberVO.getMemID()).getMemName()}
+											<input type='hidden' name='memID' value='${memberVO.memID}'>	 
+										</td>
 									</tr>
 									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 									<tr>
-										<th>分店編號:</th>
+										<th>分店名稱:</th>
 										<td>
 											<select size="1" name="braID" id="selectBranch" class="custom-select">
 												<option value="-1">請選擇</option>
@@ -193,11 +195,8 @@
 									</tr>
 									<tr>
 										<th>訂單種類:</th>
-										<td><select size="1" name="ordType" class="custom-select">
-												<option value="0">線上</option>
-												<option value="1">臨櫃</option>
-												<option value="2">打工換宿</option>
-											</select></td>
+										<td><input type='hidden' name='ordType' value='0'>
+											線上訂單</td>
 									</tr>
 									<tr>
 										<th>入住人數:</th>

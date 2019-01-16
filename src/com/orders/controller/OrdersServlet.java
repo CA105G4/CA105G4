@@ -240,7 +240,12 @@ System.out.println("amount："+ amount);
 				
 				//用總金額去算出訂金
 				Integer bond =null;
-				bond = (int)(amount*0.3);
+				if(ordType == 0) {
+					bond = (int)(amount*0.3);
+				}else {
+					bond = 0;
+				}
+				
 System.out.println("bond："+ bond);
 				
 				Integer payment =null;
