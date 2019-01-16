@@ -178,6 +178,9 @@ public class OrdersServlet extends HttpServlet {
 					System.out.println("今天為星期幾:" + dayOfWeek);
 	
 					if (5 == dayOfWeek || 6 == dayOfWeek) {
+						
+//						System.out.println("1");
+						
 						for (int j = 0; j < rtIDList.size(); j++) {
 							RoomTypeService rtSvc = new RoomTypeService();
 							
@@ -193,6 +196,8 @@ public class OrdersServlet extends HttpServlet {
 							if (specialList.get(j) == 1) {// 有加床
 								int countprice = (rtprice * rtnum) + 500;
 	
+//								System.out.println("2");
+								
 								/**
 								 * 要判斷此房型的入住及退房日期是否有碰到促銷活動日期 入住時間,退房時間拿取上面的java.util.Date ckinDate ckoutDate 房型
 								 **/
@@ -211,6 +216,7 @@ public class OrdersServlet extends HttpServlet {
 							} else {
 								int countprice = (rtprice * rtnum);
 	
+//								System.out.println("3");
 								/**
 								 * 要判斷此房型的入住及退房日期是否有碰到促銷活動日期 入住時間,退房時間拿取上面的java.util.Date ckinDate ckoutDate 房型
 								 **/
@@ -218,7 +224,9 @@ public class OrdersServlet extends HttpServlet {
 								// 判斷當日日期及其房型是否有在促銷活動時間內
 								String splDate = new Date(ckinLong).toString();
 								System.out.println("splDate:" + splDate);
-								float todayCount = actSvc.getActivityDiscount(rtIDList.get(i), splDate);
+								System.out.println("test");
+								float todayCount = actSvc.getActivityDiscount(rtIDList.get(j), splDate);
+								System.out.println("todayCount = " + todayCount);
 								countprice = (int) (countprice * todayCount);
 								System.out.println("沒有加床假日當天總額:" + countprice);
 	
@@ -241,6 +249,7 @@ public class OrdersServlet extends HttpServlet {
 							if (specialList.get(j) == 1) {// 有加床
 								int countprice = (rtprice * rtnum) + 500;
 	
+//								System.out.println("4");
 								/**
 								 * 要判斷此房型的入住及退房日期是否有碰到促銷活動日期 入住時間,退房時間拿取上面的java.util.Date ckinDate ckoutDate 房型
 								 **/
@@ -258,6 +267,7 @@ public class OrdersServlet extends HttpServlet {
 							} else {
 								int countprice = (rtprice * rtnum);
 	
+//								System.out.println("5");
 								/**
 								 * 要判斷此房型的入住及退房日期是否有碰到促銷活動日期 入住時間,退房時間拿取上面的java.util.Date ckinDate ckoutDate 房型
 								 **/
@@ -359,6 +369,7 @@ public class OrdersServlet extends HttpServlet {
 				
 				writeText(res, success);
 			} catch(Exception ex) {
+				ex.printStackTrace();
 				writeText(res, success);
 			}
 		}

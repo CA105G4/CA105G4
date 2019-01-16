@@ -340,6 +340,7 @@ private static DataSource ds =null;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+			throw new RuntimeException();
 		} finally {
 			if (rs != null) {
 				try {
