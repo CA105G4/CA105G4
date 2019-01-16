@@ -14,7 +14,7 @@
 	pageContext.setAttribute("chooseRtID", chooseRtID);
 	
 	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
-	
+	 
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(chooseBraID);
 	pageContext.setAttribute("memberVO", memberVO);
