@@ -14,7 +14,6 @@
 <%
 	ArticleService articleService = new ArticleService();
 	List<ArticleVO> list = articleService.getLastestThree();
-	System.out.print(list);
 	pageContext.setAttribute("list",list);
 %>
 

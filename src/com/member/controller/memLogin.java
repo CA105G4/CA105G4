@@ -105,9 +105,16 @@ public class memLogin extends HttpServlet {
 					res.sendRedirect(location);
 					return;
 				}
+				String from = req.getParameter("from");
+				System.out.println("from:" + from);
+				if(from != "") {
+					res.sendRedirect(from);
+					return;
+				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+			
 			res.sendRedirect(req.getContextPath()+"/front-end/indexSearch2.jsp");//要跳轉的頁面
 		}
 		

@@ -141,6 +141,7 @@
 						<input type="password" name="memPsw" id="memPsw" 
 						class="form-control" value="${param.memPsw}">
 					</div>
+					<input type="hidden" name="from" value="${param.from}">
 					<table align="center">
 						<tr>
 							<th>

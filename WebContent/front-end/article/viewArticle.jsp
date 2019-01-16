@@ -192,6 +192,8 @@
 									 <c:if test="${memberVO == null}">
 								    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
 								    		<td><input type="text" name="repreason" size="30"></td>
+								    		<input type="hidden" name="from" value="${pageContext.request.requestURL}?${pageContext.request.queryString}">
+								    		<%System.out.println("request.getRequestURI())" + request.getRequestURL()); %>
 								    		<td><input id="repreason" type="submit" value="送出" class="btn btn-info"></td>
 								    	</FORM>
 								    </c:if>
@@ -243,6 +245,7 @@
 								      <c:if test="${memberVO == null}">
 									    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
 									    		<td><input id="msginput" type="text" name="msgcontent" size="80" ></td>
+									    		<input type="hidden" name="from" value="${pageContext.request.requestURL}?${pageContext.request.queryString}">
 									    		<td><input type="submit" value="送出" class="btn btn-info"></td>
 									    	</FORM>
 								   	  </c:if>
@@ -274,6 +277,7 @@
 														  <c:if test="${memberVO == null}">
 														    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
 														    		<td><input type="text" name="mrreason" size="20" ></td>
+														    		<input type="hidden" name="from" value="${pageContext.request.requestURL}?${pageContext.request.queryString}">
 														    		<td><input  id="msgrepreason" type="submit" value="送出" class="btn btn-info"></td>
 														    	</FORM>
 									   					  </c:if>
