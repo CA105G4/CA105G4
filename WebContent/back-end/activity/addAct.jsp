@@ -94,7 +94,7 @@ pageContext.setAttribute("rtList", rtList);
 								class="form-inline form-horizontal" name="insertform">
 								<table class="table table-hover">
 									<tr>
-										<td>促銷活動名稱</td>
+										<td style="width:170px">促銷活動名稱</td>
 										<td><input class="form-control " type="TEXT"
 											name="actName" placeholder="請新增一筆促銷活動"
 											value="<%=(actVO == null) ? "" : actVO.getActName()%>" /></td>
