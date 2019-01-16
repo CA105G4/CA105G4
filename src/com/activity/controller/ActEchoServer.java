@@ -1,4 +1,4 @@
-package com.activity.model;
+package com.activity.controller;
 import java.io.*;
 import java.util.*;
 
@@ -11,8 +11,8 @@ import javax.websocket.OnError;
 import javax.websocket.OnClose;
 import javax.websocket.CloseReason;
 
-@ServerEndpoint("/MyEchoServer")
-public class MyEchoServer {
+@ServerEndpoint("/ActEchoServer")
+public class ActEchoServer {
 	
 private static final Set<Session> allSessions = Collections.synchronizedSet(new HashSet<Session>());
 	
