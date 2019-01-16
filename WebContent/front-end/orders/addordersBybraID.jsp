@@ -211,7 +211,7 @@
 											</select>
 										</td>				
 									</tr>
-									<tr>
+									<tr> 
 										<th>入住日期:</th>
 										<td><input type="text" name="checkIn" id="start_date" size="45" class="form-control" /></td>
 									</tr>
@@ -231,8 +231,8 @@
 					       					</td>
 					       					<% count++; %>
 					        				<td>
-					        					<label class='form-check-label' for='defaultCheck'>
-					        						<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}' class='img-fluid showrtpic' width='200px'>
+					        					<label class='form-check-label' for='defaultCheck<%= count %>'>
+					        						<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}' class='img-fluid showrtpic' width='300px'>
 					        					</label>
 					        				</td>
 					        				<td>		        
