@@ -28,6 +28,9 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
 	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
 	
+	//Ivan 從需求名稱找出符合技能的會員
+	private static final String GET_BY_MEMSKILL = "select * from member where memskill like ";
+	
 	static {
     	try {
 			Class.forName(DRIVER);
@@ -307,9 +310,17 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				}
 			}	
 			return list;
-		
 	}
-
+	
+	@Override
+	public List<MemberVO> getMemBySkill(String weName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		MemberJDBCDAO dao = new MemberJDBCDAO(); 
 		
@@ -388,6 +399,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	
 	
 	}
+
+
 	
 	
 	

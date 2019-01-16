@@ -29,6 +29,10 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
 	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
+	
+	//Ivan 從需求名稱找出符合技能的會員
+	private static final String GET_BY_MEMSKILL = "select * from member where memskill like ";
+	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -312,5 +316,90 @@ pstmt = con.prepareStatement(FIND_BY_PK);
 			return list;
 		
 	}
+	
+	//Ivan
+	@Override
+	public List<MemberVO> getMemBySkill(String weName) {
+		List<MemberVO> list = new ArrayList<MemberVO>();
+		MemberVO memberVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int strlength = weName.length();
+		System.out.println(strlength);
+		int start = 0;
+		int end = 1 ;
+		String NEW_SQL ="";
+		String[] cut = new String[strlength];
+		for(int i = 0; i<strlength ; i++) {
+			cut[i] = weName.substring(start, end);
+//			System.out.println(cut[i]);
+			start++;
+			end++;
+			if(i == 0) {
+				NEW_SQL = GET_BY_MEMSKILL + "'%"+cut[i]+"%'";
+			}else {
+				NEW_SQL = NEW_SQL + " or  memskill like '%" +cut[i]+"%'";
+			}
+		}
+		System.out.println(NEW_SQL);
+		try {
+			System.out.println("進來了");
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(NEW_SQL);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				memberVO = new MemberVO();
+				
+				memberVO.setMemID(rs.getString("MemID"));
+				memberVO.setMemName(rs.getString("MemName"));
+				memberVO.setMemAcc(rs.getString("MemAcc"));
+				memberVO.setMemPsw(rs.getString("MemPsw"));
+				memberVO.setMemBirth(rs.getDate("MemBirth"));
+				memberVO.setMemEmail(rs.getString("MemEmail"));
+				memberVO.setMemTel(rs.getString("MemTel"));
+				memberVO.setMemAddr(rs.getString("MemAddr"));
+				memberVO.setMemSex(rs.getString("MemSex"));
+				memberVO.setMemReg(rs.getDate ("MemReg"));
+				memberVO.setMemSkill(rs.getString("MemSkill"));
+				memberVO.setMemState(rs.getInt("MemState"));
+				memberVO.setMemIDcard(rs.getString("MemIDcard"));
+				
+				list.add(memberVO);
+				System.out.println("查完了");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+		return list;
+	}
+	
 }
 

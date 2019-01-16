@@ -162,10 +162,10 @@ public class braServlet extends HttpServlet {
 
 				/*************************** 2.開始查詢資料 ****************************************/
 				BranchService bchSvc = new BranchService();
-				BranchVO bchVO = bchSvc.getOneByID(braID);
+				BranchVO braVO = bchSvc.getOneByID(braID);
 
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
-				req.setAttribute("bchVO", bchVO); // 資料庫取出的empVO物件,存入req
+				req.setAttribute("braVO", braVO); // 資料庫取出的empVO物件,存入req
 				String url = "/back-end/branch/update_bra_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
@@ -183,13 +183,13 @@ public class braServlet extends HttpServlet {
 		
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>(); // 儲存錯誤在list裡
-			req.setAttribute("erroeMsgs", errorMsgs);
+			req.setAttribute("errorMsgs", errorMsgs);
 System.out.println(action);			
 			String requestURL = req.getParameter("requestURL"); 	 // 送出修改的來源網頁路徑: 可能為【/branch/listAllBranch.jsp】
 			/*************************** * 1.接收請求參數- 輸入格式的錯誤處理 ****************************************/
 try {
 			String braID = req.getParameter("braID");
-			
+System.out.println(braID);			
 			String braName = req.getParameter("braName");
 
 			if (braName == null || braName.trim().length() == 0) {
@@ -261,7 +261,7 @@ try {
 			}
 
 			BranchVO braVO = new BranchVO();
-
+			braVO.setBraID(braID);
 			braVO.setBraName(braName);
 			braVO.setBraTel(phone);
 			braVO.setBraAddr(addr);
@@ -296,13 +296,12 @@ try {
 			errorMsgs.add("修改資料失敗"+ e.getMessage());
 			System.out.println(e.getMessage());
 			RequestDispatcher failureView =req.getRequestDispatcher("/back-end/branch/update_bra_input.jsp");
-			
+			failureView.forward(req, res);
+		
 			for(String s:errorMsgs) {
 				System.out.println(s);
 			}
 			
-			
-			failureView.forward(req, res);
 		}
 		
 		}

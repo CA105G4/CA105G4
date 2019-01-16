@@ -94,7 +94,7 @@ pageContext.setAttribute("rtList", rtList);
 								class="form-inline form-horizontal" name="insertform">
 								<table class="table table-hover">
 									<tr>
-										<td>促銷活動名稱</td>
+										<td style="width:170px">促銷活動名稱</td>
 										<td><input class="form-control " type="TEXT"
 											name="actName" placeholder="請新增一筆促銷活動"
 											value="<%=(actVO == null) ? "" : actVO.getActName()%>" /></td>
@@ -159,7 +159,6 @@ pageContext.setAttribute("rtList", rtList);
 								  <div class="panel input-area">
            							 <input id="userName" class="text-field" type="hidden" placeholder="使用者名稱" value="user"/>
             						<br>
-            						 <input id="message2"  class="text-field" type="text" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
             						<input type="submit" id="sendMessage" class="button" value="送出" onclick="sendMessage();"/>
 		   							 <input type="button" id="connect"     class="button" value="連線" onclick="connect();"/>
 		   							 <input type="button" id="disconnect"  class="button" value="離線" onclick="disconnect();"/>
@@ -298,7 +297,7 @@ pageContext.setAttribute("rtList", rtList);
 	//建立連線
 	function connect() {
 		// 建立 websocket 物件
-		webSocket = new WebSocket("ws://localhost:8081/CA105G4PO/MyEchoServer");
+		webSocket = new WebSocket("ws://localhost:8081/CA105G4/ActEchoServer");
 		
 		webSocket.onopen = function(event) {
 			console.log("WebSocket 成功連線");

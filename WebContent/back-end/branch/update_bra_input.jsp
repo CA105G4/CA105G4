@@ -5,7 +5,7 @@
 <%@page import="java.util.*"%>
 
 <%
-	BranchVO braVO = (BranchVO) request.getAttribute("braVO");//braServlet.java (Concroller) 存入req的bchVO物件 (包括幫忙取出的bchVO, 也包括輸入資料錯誤時的bchVO物件)
+	BranchVO braVO = (BranchVO) request.getAttribute("braVO");//braServlet.java (Concroller) 存入req的bchVO物件 (包括幫忙取出的bchVO, 也包括輸入資料錯誤時的braVO物件)
 %>
 
 <!DOCTYPE html>
@@ -100,9 +100,9 @@
 
 								<div class="form-row">
 									<div class="form-group">
-										<label for="aa">分店編號:<font color=red><b>*</b></font></label> 
-										<input type="text" name="braID" id="braID" placeholder=""
-											class="form-control" style="width: 200px"
+										<label >分店編號:<font color=red><b>*</b></font></label> 
+										<input type="text" name="braID" id="braID" 
+											class="form-control" style="width: 200px" 
 											value="<%=braVO.getBraID()%>">
 									</div>
 								</div>
@@ -111,15 +111,15 @@
 
 								<div class="form-row">
 									<div class="form-group">
-										<label for="aa">分店名稱:</label> <input type="text"
+										<label >分店名稱:</label> <input type="text"
 											name="braName" id="braName" placeholder=""
 											class="form-control" style="width: 200px"
 											value="<%=braVO.getBraName()%>">
 									</div>
 
 									<div class="form-group" style="margin-left: 15px">
-										<label for="aa">分店電話:</label> <input type="text" name="phone"
-											id="aa" placeholder="" class="form-control"
+										<label >分店電話:</label> <input type="text" name="phone"
+											 placeholder="" class="form-control"
 											style="width: 200px" value="<%=braVO.getBraTel()%>">
 									</div>
 								</div>
@@ -127,8 +127,8 @@
 
 								<div class="form-row">
 									<div class="form-group" style="margin-right: 15px">
-										<label for="aa">分店經度:</label> <input type="text" name="lng"
-											id="aa" placeholder="" class="form-control"
+										<label>分店經度:</label> <input type="text" name="lng"
+											 placeholder="" class="form-control"
 											style="width: 140px" value="<%=braVO.getBraLng()%>">
 
 									</div>
@@ -137,15 +137,15 @@
 
 
 									<div class="form-group">
-										<label for="aa">分店緯度:</label> <input type="text" name="lat"
-											id="aa" placeholder="" class="form-control"
+										<label >分店緯度:</label> <input type="text" name="lat"
+											 placeholder="" class="form-control"
 											style="width: 140px" value="<%=braVO.getBraLat()%>">
 									</div>
 
 								</div>
 
 								<div class="form-group">
-									<label for="inputAddress">分店地址:</label> <input type="text"
+									<label >分店地址:</label> <input type="text"
 										class="form-control" id="inputAddress" placeholder=""
 										style="margin-left: -4px" name="addr"
 										value="<%=braVO.getBraAddr()%>">
@@ -250,7 +250,7 @@ if (braVO.getBraPic() != null) {
 								<div class="form-row">
 									<c:choose>
 
-										<c:when test="${ braVideo==1}">
+										<c:when test="${braVideo==1}">
 											<div class="form-row" style="margin-bottom: 15px">
 												<video id="vlah" width="377.8" height="250" controls>
 													<source type="video/webm"
@@ -292,13 +292,13 @@ if (braVO.getBraPic() != null) {
 
 									<div class="form-check form-check-inline form-group">
 										<input class="form-check-input" type="radio" name="braState"
-											id="inlineRadio1" value="1" checked="checked"> <label
-											class="form-check-label" for="inlineRadio1">營業中</label>
+											value="1" checked="checked"> <label
+											class="form-check-label" >營業中</label>
 									</div>
 									<div class="form-check form-check-inline form-group">
 										<input class="form-check-input" type="radio" name="braState"
-											id="inlineRadio2" value="0"> <label
-											class="form-check-label" for="inlineRadio2">休息中</label>
+											 value="0"> <label
+											class="form-check-label" >休息中</label>
 									</div>
 								</div>
 
@@ -307,8 +307,12 @@ if (braVO.getBraPic() != null) {
 										type="hidden" name="requestURL"
 										value="<%=request.getParameter("requestURL")%>">
 									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+									<input type="hidden" name="braID" value="<%= braVO.getBraID() %>">
 									<input class="btn btn-primary" type="submit" value="送出修改">
-									<button class="btn btn-primary">返回</button>
+									
+									<button class="btn btn-primary">
+										<a href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp"   style="color:#fff">返回</a>
+									</button>
 								</div>
 
 							</form>

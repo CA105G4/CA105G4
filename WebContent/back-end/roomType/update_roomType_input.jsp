@@ -103,12 +103,11 @@
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div align="center">
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/roomType/roomType.do" name="form1" enctype="multipart/form-data">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" name="form1" enctype="multipart/form-data">
 								<table>
 									<tr>
 										<td>房型編號:</td>
-										<td><input type="TEXT" name="rtID" size="45" class="form-control" 
-											 value="<%= rtVO.getRtID() %>" readonly="true"/></td>
+										<td><%= rtVO.getRtID() %></td>
 									</tr>
 									<tr>
 										<td>分店編號:</td>
