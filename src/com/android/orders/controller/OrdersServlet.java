@@ -220,7 +220,7 @@ public class OrdersServlet extends HttpServlet {
 								System.out.println("splDate:" + splDate);
 								float todayCount = actSvc.getActivityDiscount(rtIDList.get(i), splDate);
 								countprice = (int) (countprice * todayCount);
-								System.out.println("有加床假日當天總額:" + countprice);
+								System.out.println("沒有加床假日當天總額:" + countprice);
 	
 								// 把前幾天累積的金額加上今日的金額
 								amount += countprice;
@@ -267,7 +267,7 @@ public class OrdersServlet extends HttpServlet {
 								System.out.println("splDate:" + splDate);
 								float todayCount = actSvc.getActivityDiscount(rtIDList.get(j), splDate);
 								countprice = (int) (countprice * todayCount);
-								System.out.println("有加床假日當天總額:" + countprice);
+								System.out.println("沒有加床假日當天總額:" + countprice);
 	
 								// 把前幾天累積的金額加上今日的金額
 								amount += countprice;
@@ -356,6 +356,7 @@ public class OrdersServlet extends HttpServlet {
 				ordSvc.insertwithOrderDetail(ordVO, odlist, rtIDandNumMap);
 				
 				success = "success";
+				
 				writeText(res, success);
 			} catch(Exception ex) {
 				writeText(res, success);

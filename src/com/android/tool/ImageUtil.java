@@ -28,7 +28,7 @@ public class ImageUtil {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA105G4");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CA105G4DB");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
