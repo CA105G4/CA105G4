@@ -251,7 +251,8 @@ public class WorkExchangeServlet extends HttpServlet {
 			MailService ms = new MailService();
 			String to = "superivanshang@gmail.com";
 			String subject = "打工換宿邀請";
-			String messageText = "親愛的"+memName+"會員您好，目前有新的打工需求，如有意願，我們都在這等您的到來^_^";
+			String messageText = "親愛的"+memName+"會員您好，目前有新的打工需求，如有意願，我們都在這等您的到來^_^b\n";
+			messageText = messageText + "http://localhost:8081" +req.getContextPath()+"/front-end/workExchange/listAllWE.jsp";
 			
 			ms.sendMail(to, subject, messageText);
 			JSONObject jobj = new JSONObject();

@@ -22,4 +22,7 @@ public interface RoomDAO_interface {
 	
 	//依PK去更新房間狀態(1/11更新)
 	public void updateRSByRoomID(Integer roomState, String roomID);
+	
+    //一次新增單個房型多個房間
+	public void addRoomsOneTime(String braID,String roomTypeID);
 }

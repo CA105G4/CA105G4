@@ -36,6 +36,13 @@ public class ArticleDAO implements ArticleDAO_interface{
 		private static final String GET_LATEST_THREE_STMT = 
 				"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where  rownum <=3 and artstate = 1 order by artid desc ";
 		
+		private static final String DELETE_MESSAGE = 
+				"DELETE FROM message where artid = ?";
+		private static final String DELETE_MESSAGEREPORT = 
+				"DELETE FROM messagereport where artid = ?";
+		private static final String DELETE_REPORT = 
+				"DELETE FROM report where artid = ?";
+		
 	@Override
 	public void insert(ArticleVO articleVO) {
 		Connection con = null;
@@ -124,25 +131,54 @@ public class ArticleDAO implements ArticleDAO_interface{
 	public void delete(Integer artid) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt_message = null;
+		PreparedStatement pstmt_report = null;
+		PreparedStatement pstmt_messagereport = null;
 
 		try {
 
 			con=ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
-
 			pstmt.setInt(1, artid);
-
+			
+			pstmt_message = con.prepareStatement(DELETE_MESSAGE);
+			pstmt_message.setInt(1, artid);
+			
+			pstmt_report = con.prepareStatement(DELETE_REPORT);
+			pstmt_report.setInt(1, artid);
+			
+			pstmt_messagereport = con.prepareStatement(DELETE_MESSAGEREPORT);
+			pstmt_messagereport.setInt(1, artid);
+			
+			con.setAutoCommit(false);
+			pstmt_messagereport.executeUpdate();
+			pstmt_report.executeUpdate();
+			pstmt_message.executeUpdate();
 			pstmt.executeUpdate();
+			
+			System.out.println("Delete Article Operation success!");
+			
+			con.commit();
 
 			// Handle any driver errors
 		} catch (SQLException se) {
+			try {
+				// 發生例外即進行rollback動作
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
+			if (pstmt != null ) {
 				try {
 					pstmt.close();
+					pstmt_message.close();
+					pstmt_report.close();
+					pstmt_messagereport.close();
+					
 				} catch (SQLException se) {
 					se.printStackTrace(System.err);
 				}

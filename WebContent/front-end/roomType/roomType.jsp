@@ -10,8 +10,8 @@
 	Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
 	pageContext.setAttribute("rtList",rtList);
 	pageContext.setAttribute("rtSet",rtSet);
-	 MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
-	  request.setAttribute("memberVO", memVO);
+	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
+	request.setAttribute("memberVO", memVO);
 %>
 
 <jsp:useBean id="adSvc" scope="page" class="com.activityDetail.model.ActivityDetailService" />
@@ -55,7 +55,7 @@
 
 </head>
 
-<body onload="connect();" onunload="disconnect();">
+<body>
     <!-- NavBar -->
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
@@ -72,15 +72,17 @@
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
-<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -108,8 +110,7 @@
 		<div class="row mb-5">
 			<div class="col-md-12">
 				<div class="block-32">
-					<form METHOD="post"
-						action="<%=request.getContextPath() %>/roomType/roomType.do">
+					<form METHOD="post" action="<%=request.getContextPath() %>/roomType/roomType.do">
 
 						<div class="row">
 
@@ -177,8 +178,7 @@
 							</div>
 
 							<div class="col-md-6 col-lg-3 align-self-end">
-								<button class="btn btn-primary btn-block icon-search"
-									type="submit">&nbsp;Search</button>
+								<button class="btn btn-primary btn-block icon-search" type="submit">&nbsp;Search</button>
 							</div>
 
 						</div>

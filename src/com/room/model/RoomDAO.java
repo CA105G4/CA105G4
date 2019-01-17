@@ -47,6 +47,10 @@ public class RoomDAO implements RoomDAO_interface{
 	//依房號去修改狀態
 	private static final String UPDATE_RoomState_By_RoomID = "Update Room set ROOMSTATE = ? where roomID = ?";
 	
+	//一次新增單個房型多個房間
+//	private static final String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),"
+//	+ roomTypeID+"," +braID + ",roomNo)" +"from room where braid='B01'";
+	
 	
 	@Override
 	public void insert(RoomVO roomVO) {
@@ -475,6 +479,43 @@ System.out.println("房間收到roomID:"+roomID);
 			pstmt.setInt(1, roomState);
 			pstmt.setString(2, roomID);
 			
+			pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void addRoomsOneTime(String braID, String roomTypeID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = ds.getConnection();
+			System.out.println("roomTypeID:"+roomTypeID);
+			System.out.println("braID:"+braID);
+			String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),'"+ roomTypeID+"','" +braID + "',roomNo " +"from room where braid='B01'";
+			pstmt = con.prepareStatement(Add_ROOMS_ONETIME);
+			
+//			pstmt.setString(1, roomTypeID);
+//			pstmt.setString(2, braID);
 			pstmt.executeUpdate();
 			
 			

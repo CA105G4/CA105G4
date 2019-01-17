@@ -5,7 +5,9 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
    <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
-    
+      <% 
+    List<RoomTypeVO>sList=(List<RoomTypeVO>)request.getAttribute("searchList");
+    %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -60,15 +62,17 @@
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
-<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
+							<li class="nav-item"><a class="nav-link"
+								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout</a>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -98,7 +102,7 @@
        <div class="row mb-5">
         <div class="col-md-12">
           <div class="block-32">
-            <form METHOD="post"  action="<%=request.getContextPath() %>/front-end/roomType/roomType.do">
+            <form METHOD="post"  action="<%=request.getContextPath() %>/roomType/roomType.do">
               
               <div class="row">
               
@@ -106,7 +110,7 @@
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control" name="startdate">
+                    <input type="text" id="checkin_date" class="form-control" name="startdate" required>
                   </div>
                 </div>
                 
@@ -114,7 +118,7 @@
                   <label for="checkin">Check Out</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text"  id="checkout_date" class="form-control" name="enddate">
+                    <input type="text"  id="checkout_date" class="form-control" name="enddate" required>
                   </div>
                 </div>
                 
@@ -194,7 +198,7 @@
                   <li><strong>Total:</strong>  ${rtSvc.getOneRoomType(rtVO.getRtID()).total}</li>
                   <li><strong>Introduction:</strong>${rtSvc.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                    <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
                 <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
@@ -219,7 +223,7 @@
                    <li><strong>Total:</strong>  ${rtSvc2.getOneRoomType(rtVO.getRtID()).total}</li>
                   <li><strong>Introduction:</strong> ${rtSvc2.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
 
@@ -278,7 +282,7 @@
                   <li><strong>Adults:</strong> 1</li>
                   <li><strong>Categories:</strong> Single</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
               </div>
@@ -423,6 +427,8 @@
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
+  
 </body>
 
 <script>
@@ -455,7 +461,7 @@
 		 $('.collectRt').click(function(){
 			 $.ajax({
 				 type: "GET",
-				 url: "<%=request.getContextPath() %>/back-end/roomType/roomType.do",
+				 url: "<%=request.getContextPath() %>/roomType/roomType.do",
 				 data: creatQueryString($(this).val()),
 				 dataType: "json",
 				 success: function (){
@@ -467,7 +473,9 @@
 	                		 timer: 1500
 	                } );       
 			     },
-	             error: function(){alert("AJAX-grade發生錯誤囉!")}
+	             error: function(){
+	            	 swal("請登入會員", "拜託惹~");
+	            	 }
 	         })
 		 })
 	

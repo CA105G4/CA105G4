@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.employee.model.EmployeeVO"%>
 <%@ page import="com.workExchange.model.*"%>
 <%@ page import="java.util.*"%>
 
-<% 
+<%  
+	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+	String braID = empVO.getBraID();
+	pageContext.setAttribute("braID",braID);
+	pageContext.setAttribute("empVO",empVO);	
 	WorkExchangeVO workExchangeVO = (WorkExchangeVO)(request.getAttribute("workExchangeVO"));
 %>
 <!DOCTYPE html>
@@ -72,7 +77,7 @@
 				<!-- Page Content 這邊開始自由發揮-->
 				<h1>新增打工需求</h1>
 				<hr>
-				<div class="container-fluid">
+				<div class="container">
 					<div class="row">
 						<jsp:useBean id="memberSvc" class="com.member.model.MemberService" />
 						<jsp:useBean id="employeeSvc"
@@ -83,35 +88,31 @@
 						<div class="col-xs-12 col-sm-10">
 							<Form method="post"
 								action="<%=request.getContextPath()%>/workExchange/workExchange.do"
-								enctype="multipart/form-data" style="margin-bottom: 0px;">
+								enctype="multipart/form-data" autocomplete="off" style="margin-bottom: 0px;">
 								<!-- 				<div class="form-group"> -->
 								<!-- 					<label for="weID">需求編號</label> -->
 								<!-- 					<input type="hidden" name="weID" id="weID" placeholder="系統自動幫您生成" class="form-control" readonly="true"> -->
 								<!-- 				</div> -->
 								<div class="form-group">
-									<label for="empID">創建員工</label> <select name="empID"
-										class="form-control">
-										<c:forEach var="empVO" items="${employeeSvc.all}">
-											<option value="${empVO.empID}">${employeeSvc.getOneEmp(empVO.empID).empName}</option>
-										</c:forEach>
-									</select>
+									<label for="empID">創建員工</label> 
+									<input type="hidden" name="empID" class="form-control" value="${empVO.empID}" size="18">
+									<input type="text" name="empID" class="form-control" value="${empVO.empName}" readOnly size="18">
 								</div>
 								<div class="form-group">
-									<label for="memID">會員姓名</label> <input class="form-control"
-										type="text" name="memID" readonly="true"
-										value="${workExchangeVO.memID}">${memberSvc.getOneMem(workExchangeVO.memID).memName}
+<!-- 									<label for="memID">會員姓名</label>  -->
+									<input class="form-control" type="hidden" name="memID" readOnly value="${workExchangeVO.memID}" size="18">
 								</div>
 								<div class="form-group">
 									<label for="rtID">房型名稱</label> <select name="rtID"
 										class="form-control">
-										<c:forEach var="roomTypeVO" items="${roomTypeSvc.all}">
-											<option value="${roomTypeVO.rtID}">${roomTypeSvc.getOneRoomType(roomTypeVO.rtID).rtName}
+										<c:forEach var="roomTypeVO" items="${roomTypeSvc.findRoomTypeByBraID(braID)}">
+											<option value="${roomTypeVO.rtID}">${roomTypeVO.rtName}
 										</c:forEach>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="weName">需求名稱</label> <input type="text"
-										class="form-control" name="weName" id="weName">
+										class="form-control" name="weName" id="weName" value="${param.weName}">
 									<div style="color: red">${errMsgs.weName}</div>
 								</div>
 								<div class="form-group">
@@ -122,21 +123,21 @@
 								</div>
 								<div class="form-group">
 									<label for="wePic">選擇照片</label> <input type="file"
-										class="form-control" name="wePic" id="wePic">
+										class="form-control" name="wePic" id="wePic" size="18">
 									<div style="color: red">${errMsgs.wePic}</div>
 								</div>
 								<div class="form-group">
 									<label for="weVideo">選擇影片</label> <input type="file"
-										class="form-control" name="weVideo" id="weVideo">
+										class="form-control" name="weVideo" id="weVideo" size="18">
 									<div style="color: red">${errMsgs.weVideo}</div>
 								</div>
 								<div class="form-group">
 									<label for="weStart">開始時間</label> <input type="text"
-										name="weStart" id="start">
+										name="weStart" id="start_date" required="required">
 								</div>
 								<div class="form-group">
 									<label for="weEnd">結束時間</label> <input type="text" name="weEnd"
-										id="end">
+										id="end_date" required="required">
 								</div>
 								<input type="submit" class="btn-success form-control"
 									value="確認新增"> <input type="hidden" name="action"
@@ -215,84 +216,29 @@
 </style>
 
 <script>
-	        $.datetimepicker.setLocale('zh');
-	        $('#start').datetimepicker({
-	           theme: '',              //theme: 'dark',
-	  	       timepicker:false,       //timepicker:true,
-	  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-	  		   value: '<%=weStart%>' 
-	  		   // value:   new Date(),
-	           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	           //startDate:	            '2017/07/10',  // 起始日
-	           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-	           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-	        });
-	        
-	        $.datetimepicker.setLocale('zh');
-	        $('#end').datetimepicker({
-	           theme: '',              //theme: 'dark',
-	  	       timepicker:false,       //timepicker:true,
-	  	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 	  		   value: '<%=weEnd%>', 	// value:   new Date(),
-	           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	           //startDate:	            '2017/07/10',  // 起始日
-	           //minDate:               '-1970-01-01', // 去除今日(不含)之前
-	           //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-	        });
-	        
-	        
-	   
-	        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
-	
-	        //      1.以下為某一天之前的日期無法選擇
-	        //      var somedate1 = new Date('2017-06-15');
-	        //      $('#f_date1').datetimepicker({
-	        //          beforeShowDay: function(date) {
-	        //        	  if (  date.getYear() <  somedate1.getYear() || 
-	        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-	        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-	        //              ) {
-	        //                   return [false, ""]
-	        //              }
-	        //              return [true, ""];
-	        //      }});
-	
-	        
-	        //      2.以下為某一天之後的日期無法選擇
-	        //      var somedate2 = new Date('2017-06-15');
-	        //      $('#f_date1').datetimepicker({
-	        //          beforeShowDay: function(date) {
-	        //        	  if (  date.getYear() >  somedate2.getYear() || 
-	        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-	        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	        //              ) {
-	        //                   return [false, ""]
-	        //              }
-	        //              return [true, ""];
-	        //      }});
-	
-	
-	        //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-	        //      var somedate1 = new Date('2017-06-15');
-	        //      var somedate2 = new Date('2017-06-25');
-	        //      $('#f_date1').datetimepicker({
-	        //          beforeShowDay: function(date) {
-	        //        	  if (  date.getYear() <  somedate1.getYear() || 
-	        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-	        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-	        //		             ||
-	        //		            date.getYear() >  somedate2.getYear() || 
-	        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-	        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	        //              ) {
-	        //                   return [false, ""]
-	        //              }
-	        //              return [true, ""];
-	        //      }});
-	        
-  </script>
+$.datetimepicker.setLocale('zh'); 
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  minDate: new Date(),
+	  maxDate: new Date(new Date().getTime() + 30*24*60*60*1000),
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+		   this.setOptions({
+		    minDate:$('#start_date').val()?$('#start_date').val():false
+		   })
+	  },
+	  maxDate: new Date(new Date().getTime() + 30*24*60*60*1000),
+	  timepicker:false
+	 });
+	 
+
+});
+</script>
 
 </html>
 

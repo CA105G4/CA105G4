@@ -44,9 +44,7 @@
 
 <body>
     <!-- NavBar -->
-	<nav
-		class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-		id="ftco-navbar">
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp">Xiangtai village</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -61,9 +59,9 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room Type</a></li>
 					<li class="nav-item active"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
-<!-- 					<li class="nav-item"><a href="Neighbourhood.html" class="nav-link">Neighbourhood</a></li> -->
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
 							<li class="nav-item"><a class="nav-link"
@@ -104,13 +102,14 @@
 			<div class="container">
 				<div class="row mb-5">
 					<!--ln8670-->
-					<div class="col-xs-12 col-sm-6 block-3">
-						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style="width: 100%">
-					</div>
-					<div class="col-xs-12 col-sm-6 head">
+					<div class="col-xs-12 col-sm-6">
+					<h1 style="border-bottom: 4px solid #ededed">Stay And Help</h1>
 					<p>想為你的人生增添色彩嗎?</p>
 					<p>想享受免費的房間設施嗎?</p>
 					<p>快看你是否擁有以下技能?</p>
+					</div>
+					<div class="col-xs-12 col-sm-6 block-3" style="padding-left: 0px;padding-right: 0px;">
+						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style=" max-width: 100%;">
 					</div>
 				</div>
 			</div>

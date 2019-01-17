@@ -283,7 +283,7 @@ public class RoomTypeServlet extends HttpServlet{
 		
 		if("search".equals(action)) {
 			
-			
+	System.out.println(action);		
 			//1.接收查詢參數
 			try {
 				String checkinStr= req.getParameter("startdate");
@@ -293,9 +293,9 @@ public class RoomTypeServlet extends HttpServlet{
 				String braID =req.getParameter("braID"); 
 				System.out.println(braID);
 				//2.找尋房間
-				RoomTypeCompositeQuery rtCQ =new RoomTypeCompositeQuery();
+//				RoomTypeCompositeQuery rtCQ =new RoomTypeCompositeQuery();
 				
-				List<RoomTypeVO>searchList =rtCQ.searchRoomTypeMinRoom(braID, checkinStr, checkoutStr);
+				List<RoomTypeVO>searchList =RoomTypeCompositeQuery.searchRoomTypeMinRoom(braID, checkinStr, checkoutStr);
 				
 				RoomTypeService rtSvc =new RoomTypeService();
 				Set<RoomTypeVO>searchSet =rtSvc.getAllInSet();
