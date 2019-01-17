@@ -23,23 +23,16 @@
 <title>新增員工資料</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
 
 </head>
@@ -95,11 +88,16 @@
 						</tr>
 						<tr>
 							<td>分店編號:</td>
-							<td><select name="braID" class="form-control">
-									<option value="B00">總管理處</option>
-									<option value="B01">福翔</option>
-									<option value="B02">麻翔</option>
-							</select></td>
+							<td>
+								<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+								<select name="braID" class="form-control">
+									<option value="-1">請選擇</option>
+									<c:forEach var="brVO" items="${brSvc.all}">
+										<option value="${brVO.getBraID()}" >${brVO.braName}</option>
+									</c:forEach>
+								</select>
+									
+							</td>
 						</tr>
 						<tr>
 							<td>職位:</td>

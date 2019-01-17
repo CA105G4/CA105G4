@@ -161,7 +161,7 @@ img {
 								<div class="col-12 text-center">
 									<input type="hidden" name="action" value="insert"> <input
 										class="btn btn-primary" type="submit" value="送出新增">
-									<button class="btn btn-primary">返回</button>
+<!-- 									<button class="btn btn-primary">返回</button> -->
 								</div>
 
 							</form>

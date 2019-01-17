@@ -120,8 +120,8 @@
 											<input type="TEXT" name="memIDcard" size="45" class="form-control" id="question" />
 										</td>
 									</tr>
-									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 									<tr>
+										<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 										<th>分店編號:</th>
 										<td>
 											<select size="1" name="braID" id="selectBranch" class="custom-select">

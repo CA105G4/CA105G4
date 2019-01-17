@@ -39,38 +39,40 @@ public class CpnServlet extends HttpServlet {
 			
 			
 			if("insert".equals(action)) {
-			List<String>errorMsgs =new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			//1.接收參數
-			try {
-			Integer discount =null;
-			
-			try {
-			discount=new Integer(req.getParameter("discount"));
-			}catch(NumberFormatException e) {
-				discount =0;
-				errorMsgs.add("優惠金額填入數字");
-			}
-			
-			Integer quantity =null;
-			try {
-				quantity =new Integer(req.getParameter("quantity"));
-			}catch(NumberFormatException e){
-				quantity =0;
-				errorMsgs.add("發行數量請填入數字");
-			}
-			
-			Integer appQuantity =null;
-			try {
-			appQuantity =new Integer(req.getParameter("appQuantity"));
-//				if(appQuantity!=quantity) {
-//					errorMsgs.add("發行數量與申請數量請一致");
+				List<String>errorMsgs =new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				//1.接收參數
+				try {
+				Integer discount =null;
+				
+				try {
+				discount=new Integer(req.getParameter("discount"));
+				}catch(NumberFormatException e) {
+					discount =0;
+					errorMsgs.add("優惠金額填入數字");
+				}
+				
+				Integer quantity =null;
+//				try {
+//					quantity =new Integer(req.getParameter("quantity"));
+//				}catch(NumberFormatException e){
+//					quantity =0;
+//					errorMsgs.add("發行數量請填入數字");
 //				}
+				
+				Integer appQuantity =null;
+				try {
+				appQuantity =new Integer(req.getParameter("appQuantity"));
+	//				if(appQuantity!=quantity) {
+	//					errorMsgs.add("發行數量與申請數量請一致");
+	//				}
 			
 			}catch(NumberFormatException e) {
 				appQuantity =0;
 				errorMsgs.add("申請數量請填數字");
 			}
+				
+			quantity = appQuantity;      //申請數量 = 剩餘數量
 				
 			System.out.println(quantity);System.out.println(appQuantity);
 			
@@ -146,10 +148,10 @@ public class CpnServlet extends HttpServlet {
 				String requestURL =req.getParameter("requestURL");
 				
 				try {
-				String cpnID =req.getParameter("cpnID");
-				
-				Integer discount =null;
-				
+					String cpnID =req.getParameter("cpnID");
+					
+					Integer discount =null;
+					
 				try {
 				discount =new Integer(req.getParameter("discount"));
 				}catch(NumberFormatException e) {

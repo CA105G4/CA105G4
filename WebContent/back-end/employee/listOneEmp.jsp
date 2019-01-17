@@ -72,7 +72,7 @@
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-table"></i> Data Table Example
+						<i class="fas fa-table"></i> 單筆員工資料
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -86,8 +86,8 @@
 										<th>員工職稱</th>
 										<th>連絡電話</th>
 										<th>員工帳號狀態</th>
-										<th>員工帳號</th>
-										<th>員工密碼</th>
+<!-- 										<th>員工帳號</th> -->
+<!-- 										<th>員工密碼</th> -->
 
 									</tr>
 								</thead>
@@ -99,21 +99,22 @@
 										<th>員工職稱</th>
 										<th>連絡電話</th>
 										<th>員工帳號狀態</th>
-										<th>員工帳號</th>
-										<th>員工密碼</th>
+<!-- 										<th>員工帳號</th> -->
+<!-- 										<th>員工密碼</th> -->
 
 									</tr>
 								</tfoot>
 								<tbody>
 									<tr>
-										<td><%=employeeVO.getEmpID()%></td>
-										<td><%=employeeVO.getBraID()%></td>
-										<td><%=employeeVO.getEmpName()%></td>
-										<td><%=employeeVO.getEmpJob()%></td>
-										<td><%=employeeVO.getEmpTel()%></td>
+									<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+										<td>${employeeVO.getEmpID()}</td>
+										<td>${brSvc.getOneByID(employeeVO.getBraID()).braName}</td>
+										<td>${employeeVO.getEmpName()}</td>
+										<td>${employeeVO.getEmpJob()}</td>
+										<td>${employeeVO.getEmpTel()}</td>
 										<td>${empStateMap.get(employeeVO.getEmpState())}</td>
-										<td><%=employeeVO.getEmpAcc()%></td>
-										<td><%=employeeVO.getEmpPsw()%></td>
+<%-- 										<td><%=employeeVO.getEmpAcc()%></td> --%>
+<%-- 										<td><%=employeeVO.getEmpPsw()%></td> --%>
 
 									</tr>
 
@@ -121,8 +122,7 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday
-						at 11:59 PM</div>
+					<div class="card-footer small text-muted"></div>
 				</div>
 				<li><a
 					href='<%=request.getContextPath()%>/back-end/employee/listAllEmp_1.jsp'>返回列表</a>

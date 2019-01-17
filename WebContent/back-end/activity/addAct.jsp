@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.activity.model.*"%>
 <%@ page import="com.roomType.model.*"%>
-<%@page import="java.util.*"%>
+<%@ page import="java.util.*"%>
 
 <%
 	ActivityVO actVO = (ActivityVO) request.getAttribute("actVO");
 
-RoomTypeService rtSvc =new RoomTypeService();
-List<RoomTypeVO>rtList = rtSvc.getAll();
-pageContext.setAttribute("rtList", rtList);
+	RoomTypeService rtSvc =new RoomTypeService();
+	List<RoomTypeVO>rtList = rtSvc.getAll();
+	pageContext.setAttribute("rtList", rtList);
 
 %>
 
@@ -90,7 +89,7 @@ pageContext.setAttribute("rtList", rtList);
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-7 offset-sm-3 ">
-							<form METHOD="post" ACTION="act.do"
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do"
 								class="form-inline form-horizontal" name="insertform">
 								<table class="table table-hover">
 									<tr>
@@ -124,15 +123,14 @@ pageContext.setAttribute("rtList", rtList);
 										<td class="form-inline">
 								<jsp:useBean id="bchSvc" scope="page" class="com.branch.model.BranchService" />
 										<c:forEach var="rtVO" items="${rtList}">
-									<c:forEach var="bchVO" items="${bchSvc.all}">
-										<div class="form-check form-check-inline">
-											<c:if test="${rtVO.braID==bchVO.braID}">
-											<input class="form-check-input" type="checkbox"
-												 name="roomType" value="${rtVO.rtID}"> 
-												<label class="form-check-label" >${rtVO.rtID}-${rtVO.rtName}-${bchVO.braName}</label>
+											<c:forEach var="bchVO" items="${bchSvc.all}">
+											<div class="form-check form-check-inline">
+												<c:if test="${rtVO.braID==bchVO.braID}">
+													<input class="form-check-input" type="checkbox" name="roomType" value="${rtVO.rtID}"> 
+													<label class="form-check-label" >${bchVO.braName} - ${rtVO.rtName} - ${rtVO.rtID}</label>
 												</c:if>
-										</div>
-										</c:forEach>
+											</div>
+											</c:forEach>
 										</c:forEach>
 
 										</td>
@@ -175,7 +173,7 @@ pageContext.setAttribute("rtList", rtList);
 			<footer class="sticky-footer">
 				<div class="container my-auto">
 					<div class="copyright text-center my-auto">
-						<span>Copyright © Your Website 2018</span>
+						<span>© M.C.P.I.G 2019</span>
 					</div>
 				</div>
 			</footer>

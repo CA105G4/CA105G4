@@ -25,23 +25,16 @@
 <title>會員列表</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
 </head>
 
@@ -75,7 +68,7 @@
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-table"></i> Data Table Example
+						<i class="fas fa-table"></i> 會員列表
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -85,18 +78,18 @@
 									<tr>
 										<th>會員編號</th>
 										<th>會員姓名</th>
-										<th>會員帳號</th>
-										<th>會員密碼</th>
+<!-- 										<th>會員帳號</th> -->
+<!-- 										<th>會員密碼</th> -->
 										<th>會員生日</th>
 										<th>郵件信箱</th>
 										<th>聯絡電話</th>
 										<th>地址</th>
 										<th>性別</th>
-										<th>註冊日期</th>
+<!-- 										<th>註冊日期</th> -->
 										<th>會員技能</th>
 										<th>會員狀態</th>
 										<th>身分證字號</th>
-										<th>查看</th>
+<!-- 										<th>查看</th> -->
 										<th>修改</th>
 
 									</tr>
@@ -105,18 +98,18 @@
 									<tr>
 										<th>會員編號</th>
 										<th>會員姓名</th>
-										<th>會員帳號</th>
-										<th>會員密碼</th>
+<!-- 										<th>會員帳號</th> -->
+<!-- 										<th>會員密碼</th> -->
 										<th>會員生日</th>
 										<th>郵件信箱</th>
 										<th>聯絡電話</th>
 										<th>地址</th>
 										<th>性別</th>
-										<th>註冊日期</th>
+<!-- 										<th>註冊日期</th> -->
 										<th>會員技能</th>
 										<th>會員狀態</th>
 										<th>身分證字號</th>
-										<th>查看</th>
+<!-- 										<th>查看</th> -->
 										<th>修改</th>
 
 									</tr>
@@ -125,35 +118,35 @@
 
 									<c:forEach var="memberVO" items="${list}">
 										<tr>
-											<td>${memberVO.memID}</td>
+<%-- 											<td>${memberVO.memID}</td> --%>
 											<td>${memberVO.memName}</td>
-											<td>${memberVO.memAcc}</td>
-											<td>${memberVO.memPsw}</td>
+<%-- 											<td>${memberVO.memAcc}</td> --%>
+<%-- 											<td>${memberVO.memPsw}</td> --%>
 											<td>${memberVO.memBirth}</td>
 											<td>${memberVO.memEmail}</td>
 											<td>${memberVO.memTel}</td>
 											<td>${memberVO.memAddr}</td>
 											<td>${memSexMap.get(memberVO.getMemSex())}</td>
-											<td>${memberVO.memReg}</td>
+<%-- 											<td>${memberVO.memReg}</td> --%>
 											<td>${memberVO.memSkill}</td>
 											<td>${memStateMap.get(memberVO.getMemState())}</td>
 											<td>${memberVO.memIDcard}</td>
 
 
-											<td>
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/member/mem.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="查看"> <input
-														type="hidden" name="memID" value="${memberVO.memID}">
-													<input type="hidden" name="requestURL"
-														value="<%=request.getServletPath()%>">
-													<!--送出本網頁的路徑給Controller-->
-													<!-- 目前尚未用到  -->
-													<input type="hidden" name="action"
-														value="getOne_For_Display">
-												</FORM>
-											</td>
+<!-- 											<td> -->
+<!-- 												<FORM METHOD="post" -->
+<%-- 													ACTION="<%=request.getContextPath()%>/member/mem.do" --%>
+<!-- 													style="margin-bottom: 0px;"> -->
+<!-- 													<input type="submit" value="查看"> <input -->
+<%-- 														type="hidden" name="memID" value="${memberVO.memID}"> --%>
+<!-- 													<input type="hidden" name="requestURL" -->
+<%-- 														value="<%=request.getServletPath()%>"> --%>
+<!-- 													送出本網頁的路徑給Controller -->
+<!-- 													目前尚未用到  -->
+<!-- 													<input type="hidden" name="action" -->
+<!-- 														value="getOne_For_Display"> -->
+<!-- 												</FORM> -->
+<!-- 											</td> -->
 
 											<td>
 												<FORM METHOD="post"
@@ -177,12 +170,11 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday
-						at 11:59 PM</div>
+					<div class="card-footer small text-muted"></div>
 				</div>
 
 				<p class="small text-center text-muted my-5">
-					<em>More table examples coming soon...</em>
+<!-- 					<em>More table examples coming soon...</em> -->
 				</p>
 
 			</div>

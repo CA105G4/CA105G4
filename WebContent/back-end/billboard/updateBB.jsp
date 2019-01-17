@@ -206,7 +206,7 @@ if (bbVO.getpic() != null) {
 										value="<%=request.getParameter("requestURL")%>">
 									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 									<input class="btn btn-primary" type="submit" value="送出修改">
-									<button class="btn btn-primary">返回</button>
+<!-- 									<button class="btn btn-primary">返回</button> -->
 								</div>
 
 							</form>

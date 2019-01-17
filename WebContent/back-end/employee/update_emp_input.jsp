@@ -5,6 +5,9 @@
 
 <%
 	EmployeeVO employeeVO = (EmployeeVO) request.getAttribute("employeeVO");
+
+	System.out.println(employeeVO.getBraID());
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,23 +24,16 @@
 <title>修改員工資料</title>
 
 <!-- Bootstrap core CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Custom fonts for this template-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
 <!-- Page level plugin CSS-->
-<link
-	href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
 
 
 </head>
@@ -92,13 +88,21 @@
 							<td><%=employeeVO.getEmpID()%></td>
 						</tr>
 						<tr>
+							<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 							<td>所屬分店:</td>
-							<td><select name="braID" class="form-control"
-								value="<%=employeeVO.getEmpName()%>">
-								<option value="B00" ${employeeVO.getBraID()=="B00" ? 'selected' : '' }>總管理處</option>
-								<option value="B01"${employeeVO.getBraID()=="B01" ? 'selected' : '' }>福翔</option>
-								<option value="B02"${employeeVO.getBraID()=="B02" ? 'selected' : '' }>麻翔</option>						
-							</select></td>
+							<td>
+<%-- 								<select name="braID" class="form-control" value="<%=employeeVO.getEmpName()%>"> --%>
+<%-- 									<option value="B00" ${employeeVO.getBraID()=="B00" ? 'selected' : '' }>總管理處</option> --%>
+<%-- 									<option value="B01"${employeeVO.getBraID()=="B01" ? 'selected' : '' }>福翔</option> --%>
+<%-- 									<option value="B02"${employeeVO.getBraID()=="B02" ? 'selected' : '' }>麻翔</option>						 --%>
+<!-- 								</select> -->
+								
+								<select name="braID" class="form-control">
+									<c:forEach var="braVO" items="${brSvc.all}">
+										<option value="${braVO.braID}" ${braVO.braID == employeeVO.braID ? 'selected' : '' }>${braVO.braName}</option>
+									</c:forEach>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td>員工姓名:</td>
@@ -117,11 +121,13 @@
 						</tr>
 						
 						<tr>
-								<td>帳號狀態 :</td>
-									<td><select name="empState" class="form-control">
-										<option value="1"${employeeVO.getEmpState()==1 ? 'selected' : '' }>在職</option>
-										<option value="0"${employeeVO.getEmpState()==0 ? 'selected' : '' }>離職</option>						
-										</select></td>
+							<td>帳號狀態 :</td>
+							<td>
+								<select name="empState" class="form-control">
+									<option value="1"${employeeVO.getEmpState()==1 ? 'selected' : '' }>在職</option>
+									<option value="0"${employeeVO.getEmpState()==0 ? 'selected' : '' }>離職</option>						
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td>員工帳號:</td>

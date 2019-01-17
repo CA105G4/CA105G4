@@ -108,7 +108,7 @@ iframe {
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-table"></i> Data Table Example
+						<i class="fas fa-table"></i> 文章檢舉
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -241,7 +241,7 @@ iframe {
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+					<div class="card-footer small text-muted"></div>
 				</div>
 
 			</div>

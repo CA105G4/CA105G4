@@ -110,7 +110,7 @@
 								<th>訂單狀態</th>
 								<th>下訂單時間</th>
 								<th>修改</th>
-								<th>刪除</th>
+								<th>取消訂單</th>
 							</tr>
 							<%@ include file="page1.file" %> 
 							<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

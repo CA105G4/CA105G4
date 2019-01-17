@@ -76,7 +76,7 @@
 				<!-- DataTables Example -->
 				<div class="card mb-3">
 					<div class="card-header">
-						<i class="fas fa-table"></i> Data Table Example
+						<i class="fas fa-table"></i> 員工列表
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -90,10 +90,10 @@
 										<th>員工職稱</th>
 										<th>連絡電話</th>
 										<th>員工帳號狀態</th>
-										<th>員工帳號</th>
-										<th>員工密碼</th>
+<!-- 										<th>員工帳號</th> -->
+<!-- 										<th>員工密碼</th> -->
 										<th>修改</th>
-										<th>查看</th>
+<!-- 										<th>查看</th> -->
 									</tr>
 								</thead>
 								<tfoot>
@@ -104,23 +104,24 @@
 										<th>員工職稱</th>
 										<th>連絡電話</th>
 										<th>員工帳號狀態</th>
-										<th>員工帳號</th>
-										<th>員工密碼</th>
+<!-- 										<th>員工帳號</th> -->
+<!-- 										<th>員工密碼</th> -->
 										<th>修改</th>
-										<th>查看</th>
+<!-- 										<th>查看</th> -->
 									</tr>
 								</tfoot>
 								<tbody>
 									<c:forEach var="employeeVO" items="${list}">
 										<tr>
-											<td>${employeeVO.empID}</td>
-											<td>${employeeVO.braID}</td>
+										<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+<%-- 											<td>${employeeVO.empID}</td> --%>
+											<td>${brSvc.getOneByID(employeeVO.braID).braName}</td> 
 											<td>${employeeVO.empName}</td>
 											<td>${employeeVO.empJob}</td>
 											<td>${employeeVO.empTel}</td>
 											<td>${empStateMap.get(employeeVO.getEmpState())}</td>
-											<td>${employeeVO.empAcc}</td>
-											<td>${employeeVO.empPsw}</td>
+<%-- 											<td>${employeeVO.empAcc}</td> --%>
+<%-- 											<td>${employeeVO.empPsw}</td> --%>
 
 											<td>
 												<FORM METHOD="post"
@@ -136,20 +137,20 @@
 														value="getOne_For_Update">
 												</FORM>
 											</td>
-											<td>
-												<FORM METHOD="post"
-													ACTION="<%=request.getContextPath()%>/employee/emp.do"
-													style="margin-bottom: 0px;">
-													<input type="submit" value="查看"> <input
-														type="hidden" name="empID" value="${employeeVO.empID}">
-													<input type="hidden" name="requestURL"
-														value="<%=request.getServletPath()%>">
-													<!--送出本網頁的路徑給Controller-->
-													<!-- 目前尚未用到  -->
-													<input type="hidden" name="action"
-														value="getOne_For_Display">
-												</FORM>
-											</td>
+<!-- 											<td> -->
+<!-- 												<FORM METHOD="post" -->
+<%-- 													ACTION="<%=request.getContextPath()%>/employee/emp.do" --%>
+<!-- 													style="margin-bottom: 0px;"> -->
+<!-- 													<input type="submit" value="查看"> <input -->
+<%-- 														type="hidden" name="empID" value="${employeeVO.empID}"> --%>
+<!-- 													<input type="hidden" name="requestURL" -->
+<%-- 														value="<%=request.getServletPath()%>"> --%>
+<!-- 													送出本網頁的路徑給Controller -->
+<!-- 													目前尚未用到  -->
+<!-- 													<input type="hidden" name="action" -->
+<!-- 														value="getOne_For_Display"> -->
+<!-- 												</FORM> -->
+<!-- 											</td> -->
 
 										</tr>
 									</c:forEach>
@@ -158,12 +159,11 @@
 							</table>
 						</div>
 					</div>
-					<div class="card-footer small text-muted">Updated yesterday
-						at 11:59 PM</div>
+					<div class="card-footer small text-muted"></div>
 				</div>
 
 				<p class="small text-center text-muted my-5">
-					<em>More table examples coming soon...</em>
+<!-- 					<em>More table examples coming soon...</em> -->
 				</p>
 
 			</div>

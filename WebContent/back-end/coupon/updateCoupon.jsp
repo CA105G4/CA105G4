@@ -93,16 +93,17 @@
 					<div class="row">
 						<div class="col-sm-7 offset-sm-3 ">
 
-							<form method="post" action="cpn.do" name="updateform"
+							<form method="post" action="<%=request.getContextPath()%>/coupon/cpn.do" name="updateform"
 								class="form-horizontal justify-content-center"
 								enctype="multipart/form-data">
 
 								<div class="form-row">
 									<div class="form-group">
-										<label for="aa">優惠卷編號:<font color=red><b>*</b></font></label> <input
-											type="text" name="cpnID" id="cpnID" placeholder=""
-											class="form-control" style="width: 200px"
-											value="<%=cpnVO.getcpnID()%>">
+										<label for="aa">優惠卷編號:<font color=red><b>*</b></font></label>
+<!-- 										<input type="text" name="cpnID" id="cpnID" placeholder=""  -->
+<!-- 											class="form-control" style="width: 200px" -->
+<%-- <%-- 											value="<%=cpnVO.getcpnID()%>"> --%> 
+											${ cpnVO.cpnID}"
 									</div>
 								</div>
 
@@ -121,7 +122,7 @@
 								<div class="form-row">
 									<div class="form-group" style="margin-right: 15px">
 										<label for="aa">數量:</label> <input type="text" name="quantity"
-											id="aa" placeholder="" class="form-control"
+											placeholder="" class="form-control"
 											style="width: 140px" value="<%=cpnVO.getquantity()%>">
 
 									</div>
@@ -188,12 +189,12 @@
 
 
 								<div class="col-12 text-center">
-									<input type="hidden" name="action" value="update"> <input
-										type="hidden" name="requestURL"
-										value="<%=request.getParameter("requestURL")%>">
+									<input type="hidden" name="cpnID" value="${cpnVO.cpnID}">
+									<input type="hidden" name="action" value="update">
+									<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>">
 									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 									<input class="btn btn-primary" type="submit" value="送出修改">
-									<button class="btn btn-primary">返回</button>
+<!-- 									<button class="btn btn-primary">返回</button> -->
 								</div>
 
 							</form>

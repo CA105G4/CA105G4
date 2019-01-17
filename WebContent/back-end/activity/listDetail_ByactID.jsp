@@ -33,7 +33,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top">    <!-- include 進來用 -->
 
 	<!-- Navbar -->
 
@@ -69,24 +69,27 @@
 						<thead>
 							<tr>
 								<th>促銷編號</th>
-								<th>房型編號</th>
+								<th>促銷活動名稱</th>
 								<th>房型名稱</th>
 								<th>折扣</th>
 								<th>刪除</th>
 							</tr>
 						</thead>
 						<tbody>
+							<jsp:useBean id="actSvc" scope="page" class="com.activity.model.ActivityService" />
+							
 							<c:forEach var="adVO" items="${listDetail_ByactID}">
 
 								<tr id="${adVO.rtID}">
+								
 									<td>${adVO.actID}</td>
+									<td>${actSvc.getOneByID(adVO.actID).actName}</td>
 
-									<td>${adVO.rtID}</td>
-
-									<td><c:forEach var="rtVO" items="${rtSvc.all}">
+									<td>
+										<c:forEach var="rtVO" items="${rtSvc.all}">
 											<c:if test="${rtVO.rtID==adVO.rtID}">
-									${rtVO.rtName}		
-								</c:if>
+												${rtVO.rtName}		
+											</c:if>
 										</c:forEach></td>
 									<td>${adVO.discount}</td>
 									

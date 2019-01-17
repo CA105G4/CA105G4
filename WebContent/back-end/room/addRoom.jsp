@@ -102,6 +102,16 @@
 						<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
 						<table class="table table-bordered table-striped table-hover">
 							<tr>	
+								<td class="text-center">店別:</td>
+								<td class="text-center">
+								<select name="braID" class="form-control">
+									<c:forEach var="branchVO" items="${braSvc.all}">
+									<option value="${branchVO.braID}">${branchVO.braName}</option>
+									</c:forEach>
+								</select>
+								</td>
+							</tr>	
+							<tr>	
 								<td class="text-center">房型:</td>
 								<td class="text-center">
 									<select size="1" name="roomTypeID" class="form-control">
@@ -112,16 +122,6 @@
 								</td>
 								<!--<input type="text" name="roomTypeID" value="${roomVO.roomTypeID}" class="form-control" size="45">-->
 							</tr>
-							<tr>	
-								<td class="text-center">店別:</td>
-								<td class="text-center">
-								<select name="braID" class="form-control">
-									<c:forEach var="branchVO" items="${braSvc.all}">
-									<option value="${branchVO.braID}">${branchVO.braName}</option>
-									</c:forEach>
-								</select>
-								</td>
-							</tr>	
 							<tr>	
 								<td class="text-center">房號:</td>
 								<td class="text-center"><input type="text" name="roomNo" value="${roomVO.roomNo}" class="form-control" size="20"></td>

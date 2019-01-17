@@ -63,7 +63,7 @@
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown">
 				<h6 class="dropdown-header">入住:</h6>
 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/checkIn.jsp">CheckIn</a>
-				<a class="dropdown-item" href="blank.html">新增會員</a>
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/member/addMember.jsp">新增會員</a>
 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/orders/addorders.jsp">新增訂單</a>
 				<div class="dropdown-divider"></div>
 				<h6 class="dropdown-header">退房:</h6>
@@ -180,7 +180,7 @@
 			<a class="nav-link dropdown-toggle" href="#" id="pagesDropdown3" role="button" data-toggle="dropdown"
 				aria-haspopup="true" aria-expanded="false">
 				<i class="fa fa-edit"></i>
-				<span>前台網頁管理</span>
+				<span>輪播廣告管理</span>
 			</a>
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 				<h6 class="dropdown-header">新增</h6>

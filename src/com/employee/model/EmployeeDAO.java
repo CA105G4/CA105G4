@@ -17,17 +17,16 @@ import tool.BLOB;
 
 public class EmployeeDAO implements EmployeeDAO_interface {
 	
-	
-	
-	
 	private static final String INSERT_SQL = 
     		"INSERT INTO Employee (empID,braID,empName,empJob,empTel, empAcc, empPsw,empPic)VALUES('E'||LPAD(to_char(emp_seq.NEXTVAL), 4, '0'), ?, ?, ?, ?, ?, ?, ?)";
     private static final String UPDATE_SQL = "UPDATE Employee set braID = ?,empName = ?,empJob = ?,empTel = ?,empState = ?,empAcc = ?,empPsw = ? where empID = ?";
     //可修改 分店ID 姓名 職稱 電話 狀態 帳號 密碼
-    private static final String GET_ALL_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empAcc, empPsw from Employee";
+    private static final String GET_ALL_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empAcc, empPsw from Employee where braID != 'B00'";
     private static final String FIND_BY_MEMACC = "SELECT * from Employee where empAcc = ?";
     private static final String GET_ONE_SQL = "SELECT empID, braID, empName, empJob, empTel, empState, empPic, empAcc, empPsw from Employee where empID = ?";
+    
     private static DataSource ds = null;
+    
     static {
 		try {
 			Context ctx = new InitialContext();
