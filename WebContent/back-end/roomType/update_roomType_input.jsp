@@ -125,8 +125,17 @@
 									</tr>
 									<tr>
 										<td>房型照片:</td>
-										<td><img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}" id="previewpic" 
-											 class="img-fluid" width="300px">
+										<td>
+												<c:choose>
+														<c:when test="${rtVO.rtPic == null}">
+																<img src="<%=request.getContextPath()%>/images/noImage.jpg" id="previewpic" 
+											 						class="img-fluid" width="300px">
+											 			</c:when>
+											 			<c:otherwise>
+																<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}" id="previewpic" 
+											 						class="img-fluid" width="300px">
+														</c:otherwise>
+												</c:choose>
   										</td>
 									</tr>
 									<tr>
