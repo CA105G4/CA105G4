@@ -229,14 +229,13 @@
 					        				<td>				        
 					        					<input class='form-check-input' type='checkbox' name='rtID' value='${rtVO.rtID}' id='defaultCheck<%= count %>' ${(rtVO.rtID == chooseRtID) ? 'checked' : ''}>
 					       					</td>
-					       					<% count++; %>
 					        				<td>
 					        					<label class='form-check-label' for='defaultCheck<%= count %>'>
 					        						<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}' class='img-fluid showrtpic' width='300px'>
 					        					</label>
-					        				</td>
+					        				</td><% count++; %>
 					        				<td>		        
-					        							 
+					        					${rtVO.rtName}		 
 					       					</td>
 					        				<td>			        
 					        					<select size='1' name='numOfRoom' class='custom-select rtNumClean' id='${rtVO.rtID}'>

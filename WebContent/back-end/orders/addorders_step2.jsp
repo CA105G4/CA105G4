@@ -159,9 +159,7 @@ System.out.println("jsp收到的memID"+getmemID);
 							</div>
 							<br>
 							<div align="center">
-								<button type="button" class="btn btn-info">
 									<button type="button" class="btn btn-info" id="confirmtoPay">確認付款</button>
-								</button>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-3">

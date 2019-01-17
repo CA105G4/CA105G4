@@ -316,8 +316,9 @@ System.out.println("=======================");
 				
 				
 				if(!errorMsgs.isEmpty()) {
+					String url = req.getParameter("requestURL");
 					req.setAttribute("ordVO", ordVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/orders/addorders.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("url");
 					failureView.forward(req, res);
 					return;
 				}
