@@ -37,9 +37,11 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 	private static final String GET_RoomState = "select COUNT(*) from Room where roomState = ? and braID= ?";
 	
 	//依房號去修改狀態
-		private static final String UPDATE_RoomState_By_RoomID = "Update Room set ROOMSTATE = ? where roomID = ?";
+	private static final String UPDATE_RoomState_By_RoomID = "Update Room set ROOMSTATE = ? where roomID = ?";
 	
-	
+	//一次新增單個房型多個房間
+	private static final String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) "
+			+ "select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),roomtypeid,braid,room_seq.nextVal from room where roomtypeid = ?";
 	
 	static {
 		try {
@@ -569,5 +571,12 @@ public class RoomJDBCDAO implements RoomDAO_interface{
 		
 		Integer total  = dao.getEachRoomState(3, "B01");
 		System.out.println(total);
+	}
+
+
+	@Override
+	public void addRoomsOneTime(String braID, String roomTypeID) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

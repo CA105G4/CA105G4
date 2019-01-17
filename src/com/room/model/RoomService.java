@@ -75,5 +75,10 @@ public class RoomService {
 		dao.updateRSByRoomID(roomState, roomID);
 	}
 	
+	//一次新增單個房型多個房間
+	public void addRoomsOneTime(String braID,String roomTypeID) {
+		dao.addRoomsOneTime(braID, roomTypeID);
+	};
+	
 	
 }

@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.employee.model.EmployeeVO"%>
 <%@ page import="com.room.model.*"%>
 <%@ page import="java.util.*"%>
 
-<% 
+<%  
+	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
+	String braID = empVO.getBraID();
+	pageContext.setAttribute("braID",braID);
 	RoomVO roomVO = (RoomVO)(request.getAttribute("roomVO"));
 %>
 <!DOCTYPE html>
@@ -102,50 +106,43 @@
 						<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
 						<table class="table table-bordered table-striped table-hover">
 							<tr>	
-								<td class="text-center">店別:</td>
-								<td class="text-center">
-								<select name="braID" class="form-control">
-									<c:forEach var="branchVO" items="${braSvc.all}">
-									<option value="${branchVO.braID}">${branchVO.braName}</option>
-									</c:forEach>
-								</select>
-								</td>
+								<th class="text-center">店別</th>
+								<td class="text-center"><input type="text" name="braID" value="${braID}" class="form-control" size="20" readOnly></td>
 							</tr>	
 							<tr>	
-								<td class="text-center">房型:</td>
+								<th class="text-center">房型</th>
 								<td class="text-center">
 									<select size="1" name="roomTypeID" class="form-control">
-										<c:forEach var="roomTypeVO" items="${roomTypeSvc.all}" begin="0" end="4">
-										<option value="${roomTypeVO.rtID}">${roomTypeSvc.getOneRoomType(roomTypeVO.rtID).rtName}
+										<c:forEach var="roomTypeVO" items="${roomTypeSvc.findRoomTypeByBraID(braID)}">
+										<option value="${roomTypeVO.rtID}">${roomTypeVO.rtName}
 										</c:forEach>
 									</select>
 								</td>
-								<!--<input type="text" name="roomTypeID" value="${roomVO.roomTypeID}" class="form-control" size="45">-->
 							</tr>
-							<tr>	
-								<td class="text-center">房號:</td>
-								<td class="text-center"><input type="text" name="roomNo" value="${roomVO.roomNo}" class="form-control" size="20"></td>
-							</tr>
+<!-- 							<tr>	 -->
+<!-- 								<th class="text-center">房號</th> -->
+<%-- 								<td class="text-center"><input type="text" name="roomNo" value="${roomVO.roomNo}" class="form-control" size="20"></td> --%>
+<!-- 							</tr> -->
+<!-- 							<tr> -->
+<!-- 								<th class="text-center">房間狀態</th> -->
+<!-- 								<td class="text-center"> -->
+<!-- 								<select name="roomState" class="form-control"> -->
+<%-- 								<c:forEach var="roomState" items="${roomStateMap}"> --%>
+<%-- 									<option value="${roomState.key}">${roomState.value}</option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 								</select>				 -->
+<!-- 								</td> -->
+<!-- 							</tr> -->
+<!-- 							<tr>	 -->
+<!-- 								<th class="text-center">旅客姓名</th> -->
+<%-- 								<td class="text-center"><input type="text" name="memName" value="${roomVO.memName}" class="form-control" size="20"></td> --%>
+<!-- 							</tr> -->
 							<tr>
-								<td class="text-center">房間狀態:</td>
-								<td class="text-center">
-								<select name="roomState" class="form-control">
-								<c:forEach var="roomState" items="${roomStateMap}">
-									<option value="${roomState.key}">${roomState.value}</option>
-								</c:forEach>
-								</select>				
-								</td>
-							<!--	<input type="text" name="roomState" value="${roomVO.roomState}" class="form-control"> -->
-							</tr>
-							<tr>	
-								<td class="text-center">旅客姓名:</td>
-								<td class="text-center"><input type="text" name="memName" value="${roomVO.memName}" class="form-control" size="20"></td>
-							</tr>
-							<tr>
-								<td></td>
+								<th class="text-center">新增多間房間</th>
 								<td class="text-center">
 									<input class="btn-info form-control" type="submit" value="送出">
 									<input type="hidden" name="action" value="confirm_Add">
+									<input type="hidden" name="roomState" value="1">
 								</td>
 							</tr>	
 						</table>
