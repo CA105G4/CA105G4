@@ -5,7 +5,7 @@
 <%@ page import="com.workExchange.model.*"%>
 <%@ page import="java.util.*"%>
 
-<% 
+<%  
 	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
 	String braID = empVO.getBraID();
 	pageContext.setAttribute("braID",braID);
