@@ -130,7 +130,7 @@
 										</c:when>
 										<c:otherwise>
 											<td><img
-												src="<%=request.getContextPath()%>/images/noImage.jpg"
+												src="<%=request.getContextPath()%>/back-end/images/mcPiglogo.jpg"
 												width="200" height="132"></td>
 										</c:otherwise>
 									</c:choose>
