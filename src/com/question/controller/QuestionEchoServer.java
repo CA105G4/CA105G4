@@ -58,6 +58,8 @@ public class QuestionEchoServer {
 	    if( !(this.username.equals("元元") || this.username.equals("商商")) ) {
 	    	System.out.println(this.username);
 	    	message.setAlert("會員"+this.username+"加入！！！");
+	    }else {
+	    	message.setAlert("管理員"+this.username+"上線！！！");
 	    }
 	    broadcast(sockets, gson.toJson(message) );
 	}
@@ -95,14 +97,14 @@ public class QuestionEchoServer {
 //			System.out.println("getType()==3 to:" + to);
 			String fromVO = vo.getFrom();
 
-			List<String> history = JedisMessage.getMsg(from, to);
+//			List<String> history = JedisMessage.getMsg(from, to);
 //			System.out.println("history:" + history);
-			String historyMsg = gson.toJson(history);
+//			String ChistoryMsg = gson.toJson(history);
 //			System.out.println("historyMsg:" + historyMsg);
-			QuestionRedisVO voHisotry = new QuestionRedisVO(to,fromVO,historyMsg,3);
+//			QuestionRedisVO voHisotry = new QuestionRedisVO(to,fromVO,historyMsg,3);
 //			System.out.println("voHisotry:" + voHisotry);
 			if(session != null && session.isOpen()) {
-				session.getAsyncRemote().sendText(gson.toJson(voHisotry));
+//				session.getAsyncRemote().sendText(gson.toJson(voHisotry));
 				return;
 			}
 		}
@@ -119,7 +121,7 @@ public class QuestionEchoServer {
 //            System.out.println("from:" + from);
             Session to_session = this.map.get(to);
             to_session.getAsyncRemote().sendText(gson.toJson(message));
-            JedisMessage.saveMessage(from, to, msg);    
+//            JedisMessage.saveMessage(from, to, msg);    
 		}
 		
 		

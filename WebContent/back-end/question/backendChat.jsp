@@ -162,7 +162,7 @@ div {
 									<div id="msg"
 										style="background-color: #FFFFFF; height: 100px; width: 700px; overflow-y: scroll; border: 1px solid black; float: left;"></div>
 									<button id="send" class="btn btn-info" onclick="send();" style="float: left; margin-top: 60px;">送出</button>
-									<button id="history" class="btn btn-info" onchange="history();" style="float: left; margin-top: 60px;">歷史訊息</button>
+<!-- 									<button id="history" class="btn btn-info" onchange="history();" style="float: left; margin-top: 60px;">歷史訊息</button> -->
 								</div>
 							</div>
 
@@ -390,6 +390,7 @@ div {
 	        console.log('to: ' + to);
 	        if (to == userName) {
 	            alert("不能送給自己");
+	            $("#msg").val(tinyMCE.activeEditor.setContent(''));
 	            return;
 	        }
 	        

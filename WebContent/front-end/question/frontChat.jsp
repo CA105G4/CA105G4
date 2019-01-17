@@ -271,17 +271,11 @@
         ws.onmessage = function(event) {
             eval("var result=" + event.data);
 			console.log(event.data);
-            if (result.names != undefined) {
-                $("#userList").html("");
-                $(result.names).each(   		
-                        function() {  
-                        	console.log(result.names);
-	                            $("#userList").append(
-	                                    "<input type=checkbox value='"+this+"'/>"
-	                                            + this + "<br/>"
-	                             );  
-                        });       		
-            }
+			 if (result.alert != undefined) {  
+				if (result.alert.includes("管理員") ) {
+	                $("#content").append(result.alert + "<br/>");
+	            }
+			 }
             var inputMessage = document.getElementById("content");
             
             if (result.from != undefined) {
