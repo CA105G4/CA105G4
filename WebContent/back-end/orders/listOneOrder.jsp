@@ -99,7 +99,7 @@
 	<c:forEach var="odVO" items="${odSet}">
 		<tr>
 			<td>${odVO.ordID}</td>
-	<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
+	<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 			<td>${rtSvc.getOneRoomType(odVO.getRtID()).rtName}</td>
 			<td>${odVO.checkIn}</td>
 			<td>${odVO.checkOut}</td>
