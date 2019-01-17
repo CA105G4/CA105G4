@@ -134,7 +134,7 @@
 						
 						<th>優惠卷金額</th>
 						<th>優惠券使用狀態</th>
-						<th>優惠卷圖片</th>
+						<th  style="text-align:center">優惠卷圖片</th>
 		</tr>
 <jsp:useBean id="couponRecordService" scope="page" class="com.couponRecord.model.CouponRecordService" />
 
@@ -144,8 +144,8 @@
 		
 		
 		<tr>
-						<td>${cpnSvc.getOneByID(crVO.getCpnID()).getdiscount()}</td>
-						<td>${crVO.cpnState}</td>
+						<td style="text-align:center">${cpnSvc.getOneByID(crVO.getCpnID()).getdiscount()}</td>
+						<td style="text-align:center">${cpnStateMap.get(crVO.getCpnState())}</td>
 						<td><img src="<%=request.getContextPath()%>/coupon/cpnImg.do?cpnID=${crVO.cpnID}" width="412px"  height="185px"></td>
 		</tr>
 
