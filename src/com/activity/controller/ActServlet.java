@@ -218,6 +218,7 @@ public class ActServlet extends HttpServlet {
 				}
 
 				ActivityVO actVO = new ActivityVO();
+				actVO.setActID(actID);
 				actVO.setActName(actName);
 				actVO.setActStart(actStart);
 				actVO.setActEnd(actEnd);

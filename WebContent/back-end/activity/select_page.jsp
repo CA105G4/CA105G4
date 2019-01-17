@@ -87,7 +87,7 @@
 							<a href='listAllActivity.jsp'>促銷活動列表</a> <br>
 							<br>
 
-							<form METHOD="post" ACTION="act.do" class="form-inline">
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do" class="form-inline">
 
 								<label>促銷活動編號:</label>
 								<!-- 						<span class="form-inline form-group">
@@ -112,7 +112,7 @@
 								class="com.activity.model.ActivityService" />
 
 
-							<form METHOD="post" ACTION="act.do">
+							<form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/act.do">
 								<label>促銷活動名稱:</label><br> <select size="1" name="actID">
 									<c:forEach var="actVO" items="${actSvc.all}">
 										<option value="${actVO.actID}">${actVO.actName}
