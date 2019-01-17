@@ -95,7 +95,7 @@
 		<th>退房日期</th>
 		<th>評價</th>
 		<th>加床</th>
-	</tr>
+	</tr> 
 	<c:forEach var="odVO" items="${odSet}">
 		<tr>
 			<td>${odVO.ordID}</td>
