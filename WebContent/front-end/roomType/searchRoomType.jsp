@@ -282,7 +282,7 @@
                   <li><strong>Adults:</strong> 1</li>
                   <li><strong>Categories:</strong> Single</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
               </div>
@@ -427,6 +427,8 @@
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
   <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
+  
 </body>
 
 <script>
@@ -459,7 +461,7 @@
 		 $('.collectRt').click(function(){
 			 $.ajax({
 				 type: "GET",
-				 url: "<%=request.getContextPath() %>/back-end/roomType/roomType.do",
+				 url: "<%=request.getContextPath() %>/roomType/roomType.do",
 				 data: creatQueryString($(this).val()),
 				 dataType: "json",
 				 success: function (){
@@ -471,7 +473,9 @@
 	                		 timer: 1500
 	                } );       
 			     },
-	             error: function(){alert("沒有登入會員")}
+	             error: function(){
+	            	 swal("請登入會員", "拜託惹~");
+	            	 }
 	         })
 		 })
 	
