@@ -6,6 +6,7 @@
 <%@ page import="com.message.model.*"%>
 <%@ page import="com.article.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page language="java" errorPage="error.jsp" %> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -193,7 +194,6 @@
 								    	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/Login.jsp" >
 								    		<td><input type="text" name="repreason" size="30"></td>
 								    		<input type="hidden" name="from" value="${pageContext.request.requestURL}?${pageContext.request.queryString}">
-								    		<%System.out.println("request.getRequestURI())" + request.getRequestURL()); %>
 								    		<td><input id="repreason" type="submit" value="送出" class="btn btn-info"></td>
 								    	</FORM>
 								    </c:if>

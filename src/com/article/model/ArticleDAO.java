@@ -32,7 +32,7 @@ public class ArticleDAO implements ArticleDAO_interface{
 		private static final String GET_UNIQUE_MEMBER = 
 			"SELECT distinct memid FROM article order by memid";
 		private static final String GET_MEMBER_ARTICLE = 
-			"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where memid = ?";
+			"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where memid = ? order by artid desc";
 		private static final String GET_LATEST_THREE_STMT = 
 				"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where  rownum <=3 and artstate = 1 order by artid desc ";
 		

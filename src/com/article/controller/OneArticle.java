@@ -20,12 +20,12 @@ public class OneArticle extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		
+		
 		ArticleService articleService = new ArticleService();
-		Integer artid = new Integer(req.getParameter("artid"));		
+		Integer artid = new Integer(req.getParameter("artid").trim());	
 		ArticleVO articleVO = articleService.getOneArticle(artid);
         res.setContentType("text/html;charset=UTF-8");
         res.getWriter().print(articleVO.getArtexp());
-		
         
 //        req.setAttribute("servletAttribute", 1);
 //        RequestDispatcher view = req.getRequestDispatcher("/servlet1.jsp");      
