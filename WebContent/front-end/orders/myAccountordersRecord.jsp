@@ -20,7 +20,7 @@
   <head>
     <!-- 頁面標籤 -->
     <title>Order Record</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
 <!-- <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet"> -->
