@@ -116,7 +116,7 @@
 							<%@ include file="page1.file" %> 
 							<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								
-								<tr>
+								<tr> 
 									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>&whichPage=<%=whichPage%>">${ordVO.ordID}</a></td>
 							<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 									<td>${memSvc.getOneMem(ordVO.memID).getMemName()}</td>
