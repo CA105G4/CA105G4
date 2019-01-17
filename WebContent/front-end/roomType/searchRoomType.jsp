@@ -5,7 +5,9 @@
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
    <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
-    
+      <% 
+    List<RoomTypeVO>sList=(List<RoomTypeVO>)request.getAttribute("searchList");
+    %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -108,7 +110,7 @@
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control" name="startdate">
+                    <input type="text" id="checkin_date" class="form-control" name="startdate" required>
                   </div>
                 </div>
                 
@@ -116,7 +118,7 @@
                   <label for="checkin">Check Out</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text"  id="checkout_date" class="form-control" name="enddate">
+                    <input type="text"  id="checkout_date" class="form-control" name="enddate" required>
                   </div>
                 </div>
                 
@@ -196,7 +198,7 @@
                   <li><strong>Total:</strong>  ${rtSvc.getOneRoomType(rtVO.getRtID()).total}</li>
                   <li><strong>Introduction:</strong>${rtSvc.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                    <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
                 <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
@@ -221,7 +223,7 @@
                    <li><strong>Total:</strong>  ${rtSvc2.getOneRoomType(rtVO.getRtID()).total}</li>
                   <li><strong>Introduction:</strong> ${rtSvc2.getOneRoomType(rtVO.getRtID()).rtIntro}</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
 

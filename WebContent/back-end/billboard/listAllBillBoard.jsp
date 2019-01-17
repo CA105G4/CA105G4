@@ -142,7 +142,7 @@
 											ACTION="<%=request.getContextPath()%>/billboard/bb.do"
 											style="margin-bottom: 0px;">
 											<button class="btn btn-info" type="submit">修改</button>
-											<input type="hidden" name="bbID" value="${bbVO.bbID }">
+											<input type="hidden" name="bbID" value="${bbVO.bbID}">
 											<input type="hidden" name="requestURL"
 												value="<%=request.getServletPath()%>">
 											<!--送出本網頁的路徑給Controller-->

@@ -6,6 +6,7 @@
 
 <%
 	BillboardVO bbVO = (BillboardVO) request.getAttribute("bbVO");//BBServlet.java (Concroller) 存入req的bbVO物件 (包括幫忙取出的bbVO, 也包括輸入資料錯誤時的bbVO物件)
+
 %>
 
 <!DOCTYPE html>
@@ -92,53 +93,47 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-7 offset-sm-3 ">
-
+								
+								
 							<form method="post" action="<%=request.getContextPath()%>/billboard/bb.do" name="updateform"
 								class="form-horizontal justify-content-center"
 								enctype="multipart/form-data">
-
+								
+								
 								<div class="form-row">
 									<div class="form-group">
-										<label for="aa">廣告編號:<font color=red><b>*</b></font></label> <input
-											type="text" name="bbID" id="bbID" placeholder=""
-											class="form-control" style="width: 200px"
-											value="<%=bbVO.getbbID()%>">
+										<label>廣告編號:<font color=red><b>*</b></font></label>
+										<%=bbVO.getbbID()%>
 									</div>
-									
-									<div class="form-group" style="margin-left: 15px">
-										<label for="aa">URL:</label> <input type="text" name="url"
-											id="aa" placeholder="" class="form-control"
-											style="width: 200px" value="<%=bbVO.geturl()%>">
-									</div>
-									
 								</div>
 
 							
-							
-							
-							
+								
+									<div class="form-row">
+									<div class="form-group" style="margin-left: 15px">
+										<label >URL:</label> <input type="text" name="url"
+											placeholder="" class="form-control"
+											style="width: 250px" value="<%=bbVO.geturl()%>">
+									</div>
+									
+								</div>
 
 								<div class="form-row">
 									<div class="form-group" style="margin-right: 15px">
 										<label for="aa">廣告開始時間:</label> <input type="text" name="bbStart"
 											id="f_date1" placeholder="" class="form-control"
-											style="width: 180px" value="<%=bbVO.getbbStart()%>">
+											style="width: 190px" value="<%=bbVO.getbbStart()%>">
 
 									</div>
-
-
 
 
 									<div class="form-group">
 										<label for="aa">廣告結束時間:</label> <input type="text" name="bbEnd"
 											id="f_date2" placeholder="" class="form-control"
-											style="width: 180px" value="<%=bbVO.getbbEnd()%>">
+											style="width: 190px" value="<%=bbVO.getbbEnd()%>">
 									</div>
 
 								</div>
-
-
-
 					
 								<br>
 
@@ -181,7 +176,6 @@ if (bbVO.getpic() != null) {
 									
 									
 									<div class="input-group mb-3 form-group">
-
 										<div class="custom-file">
 
 											<input class="custom-file-input" id="inputGroupFile01"
@@ -190,13 +184,11 @@ if (bbVO.getpic() != null) {
 												id="labelPicName">上傳輪播廣告 file</label>
 										</div>
 
-
 										<div class="input-group-append">
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 
 									</div>
-
 								</div>
 																	
 
@@ -204,6 +196,8 @@ if (bbVO.getpic() != null) {
 									<input type="hidden" name="action" value="update"> <input
 										type="hidden" name="requestURL"
 										value="<%=request.getParameter("requestURL")%>">
+ 										 <input type="hidden" name="bbID" value="<%=bbVO.getbbID()%>">
+										
 									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 									<input class="btn btn-primary" type="submit" value="送出修改">
 <!-- 									<button class="btn btn-primary">返回</button> -->

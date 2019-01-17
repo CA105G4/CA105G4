@@ -304,12 +304,10 @@ if (braVO.getBraPic() != null) {
 								</div>
 
 								<div class="col-12 text-center">
-									<input type="hidden" name="action" value="update"> <input
-										type="hidden" name="requestURL"
-										value="<%=request.getParameter("requestURL")%>">
-									<!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
+									<input type="hidden" name="action" value="update"> 
+									<input type="hidden" name="requestURL" value="<%=request.getParameter("requestURL")%>"><!--接收原送出修改的來源網頁路徑後,再送給Controller準備轉交之用-->
 									<input type="hidden" name="braID" value="<%= braVO.getBraID() %>">
-									<input class="btn btn-primary" type="submit" value="送出修改">
+									<input class="btn btn-primary"  type="submit" value="送出修改">
 									
 									<button class="btn btn-primary">
 										<a href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp"   style="color:#fff">返回</a>

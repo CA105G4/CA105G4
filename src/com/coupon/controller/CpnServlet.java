@@ -23,6 +23,8 @@ import com.coupon.model.CouponVO;
 import com.couponRecord.model.CouponRecordService;
 import com.couponRecord.model.CouponRecordVO;
 import com.member.model.MemberVO;
+import com.roomType.model.RoomTypeService;
+import com.roomType.model.RoomTypeVO;
 
 
 @MultipartConfig
@@ -177,17 +179,21 @@ public class CpnServlet extends HttpServlet {
 				}
 			
 				byte[]pic =null;
-				
 				Part cpnPic =req.getPart("cpnPic");
-				InputStream inP =cpnPic.getInputStream();
-				
-				pic =new byte[inP.available()];
-				inP.read(pic);
-				inP.close();
 				
 				if(cpnPic.getSubmittedFileName().trim().length()==0||cpnPic.getSubmittedFileName()==null) {
-					errorMsgs.add("請上傳優惠卷圖片");
+					CouponService cpnSvc = new CouponService();
+					CouponVO cpnVO = cpnSvc.getOneByID(cpnID);
+					pic = cpnVO.getcpnPic();
+				}else {
+					InputStream inP =  cpnPic.getInputStream();
+					pic = new byte[inP.available()];
+					inP.read(pic);
+					inP.close();
 				}
+				
+				
+				
 				
 				CouponVO cpnVO =new CouponVO();
 			

@@ -18,6 +18,8 @@ import javax.servlet.http.Part;
 
 import com.billboard.model.BillboardService;
 import com.billboard.model.BillboardVO;
+import com.branch.model.BranchService;
+import com.branch.model.BranchVO;
 
 @MultipartConfig
 public class BBServlet extends HttpServlet {
@@ -201,13 +203,20 @@ public class BBServlet extends HttpServlet {
 
 				byte[] pic = null;
 				Part bbPic = req.getPart("bbPic");
-				InputStream inP = bbPic.getInputStream();
-				pic = new byte[inP.available()];
-				inP.read(pic);
-				inP.close();
+//				InputStream inP = bbPic.getInputStream();
+//				pic = new byte[inP.available()];
+//				inP.read(pic);
+//				inP.close();
 
 				if (bbPic.getSubmittedFileName() == null || bbPic.getSubmittedFileName().trim().length() == 0) {
-					errorMsgs.add("請上傳輪播廣告圖片");
+					BillboardService bbSvc = new BillboardService();
+					BillboardVO bbVO = bbSvc.findByPK(bbID);
+					pic = bbVO.getpic();
+				}else {
+					InputStream inP =  bbPic.getInputStream();
+					pic = new byte[inP.available()];
+					inP.read(pic);
+					inP.close();
 				}
 				
 				
@@ -233,7 +242,7 @@ public class BBServlet extends HttpServlet {
 				}
 				
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("bbVO", bbVO); // 含有輸入格式錯誤的braVO物件,也存入req
+					req.setAttribute("bbVO", bbVO); // 含有輸入格式錯誤的bbVO物件,也存入req
 
 					for (String s : errorMsgs) {
 						System.out.println(s);

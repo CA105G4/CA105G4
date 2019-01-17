@@ -18,7 +18,7 @@ import com.branch.model.BranchVO;
 import com.roomType.model.RoomTypeService;
 import com.roomType.model.RoomTypeVO;
 
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold=1024*1024,maxFileSize = 5*1024*1024, maxRequestSize=5*5*1024*1024)
 
 public class braServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

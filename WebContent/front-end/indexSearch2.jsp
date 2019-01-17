@@ -169,7 +169,7 @@
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control" name="startdate">
+                    <input type="text" id="checkin_date" class="form-control" name="startdate" required>
                   </div>
                 </div>
                 
@@ -177,7 +177,7 @@
                   <label for="checkin">Check Out</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text"  id="checkout_date" class="form-control" name="enddate">
+                    <input type="text"  id="checkout_date" class="form-control" name="enddate" required>
                   </div>
                 </div>
                 
@@ -216,7 +216,7 @@
                 </div>
                 
               </div>
-              <input type="hidden" name="action" value="search" >
+              <input  name="action" value="search"  style="display: none">
               
             </form>
           </div>
@@ -419,5 +419,14 @@ $('#checkout_date').datepicker({
         return $('#checkin_date').val();
     }
 });
+
+//$(".msgAlert").blur(function(){
+//if($(this).val() === ''){
+//	swal("請記得輸入入住日期喔", "拜託惹~");
+//}else{
+//	$("form").submit();
+//}
+//});
+
   </script>
 </html>
