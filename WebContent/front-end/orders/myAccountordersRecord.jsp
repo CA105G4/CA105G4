@@ -151,7 +151,7 @@
 							<c:forEach var="ordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 								
 								<tr>
-									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>">${ordVO.ordID}</a></td>
+									<td><a href="<%=request.getContextPath()%>/orders/orders.do?ordID=${ordVO.ordID}&action=getAll_OrderDetail&requestURL=<%=request.getServletPath()%>&whichPage=<%=whichPage%>">${ordVO.ordID}</a></td>
 						<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
 									<td>${braSvc.getOneByID(ordVO.braID).getBraName()}</td>
 									<td>${ordVO.numOfRoom}</td>

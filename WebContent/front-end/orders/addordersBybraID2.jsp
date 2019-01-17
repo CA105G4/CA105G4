@@ -13,7 +13,7 @@
 	pageContext.setAttribute("chooseBraID", chooseBraID);
 	pageContext.setAttribute("chooseRtID", chooseRtID);
 	 
-// 	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
+	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
 	 
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(chooseBraID);
@@ -201,7 +201,7 @@
 									<tr>
 										<th>入住人數:</th>
 										<td><input type="TEXT" name="numOfGuest" size="45" class="form-control"
-											 value="${(ordVO==null)? "2" : ordVO.getNumOfGuest()}" /></td>
+											 value="<%= (ordVO==null)? "2" : ordVO.getNumOfGuest() %>" /></td>
 									</tr>
 									<tr>
 										<th>付款方式:</th>
@@ -238,7 +238,7 @@
 					        					${rtVO.rtName}		 
 					       					</td>
 					        				<td>			        
-					        					<select size='1' name='${rtVO.rtID}' class='custom-select rtNumClean' id='${rtVO.rtID}'>
+					        					<select size='1' name='numOfRoom' class='custom-select rtNumClean' id='${rtVO.rtID}'>
 					        						<option value='-1'>請選擇</option>
 					        					</select>
 					       					</td>
@@ -330,9 +330,6 @@
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 	
-	<!-- sweetalert-->
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	
   <script>
 		$.datetimepicker.setLocale('zh'); 
 		$(function(){
@@ -387,7 +384,7 @@
 					        							 	item.rtName+
 					       								 "</td>"+
 					        							 "<td>"+					        
-					        							 	"<select size='1' name='" + item.rtID + "' class='custom-select rtNumClean' id='" + item.rtID + "'>"+
+					        							 	"<select size='1' name='numOfRoom' class='custom-select rtNumClean' id='" + item.rtID + "'>"+
 					        							 		"<option value='-1'>請選擇</option>"+
 					        							 	"</select>"+
 					       								 "</td>"+
@@ -399,9 +396,7 @@
 					        labelcount++;
 			      	   });
 		     	  },
-		     error: function(){
-		    	 				swal("請選擇分店!", "請重新選擇入住的分店!","warning");
-		    	 			  }
+		     error: function(){alert("AJAX-grade發生錯誤囉!")}
 		     })
 	    })
 	}
@@ -447,10 +442,7 @@
 				       		
 			      	   });
 		     	  },
-		     error: function(){
-		    		swal("請選擇日期!", "請選擇入住及退房日期!","warning");
-	 				$('#end_date').val("");
-		    	 }
+		     error: function(){alert("AJAX-grade發生錯誤囉!")}
 		     })
 	    })
 	}

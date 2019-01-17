@@ -37,43 +37,45 @@ public class OrdersServlet extends HttpServlet{
 				String memID = req.getParameter("memID");
 System.out.println("memID："+ memID);
 				if(memID == null || memID.trim().length() == 0) {
-					errorMsgs.add("會員編號：請勿空白");
+					errorMsgs.add("會員編號：Session沒帶參數來啊!");
 				}
 				
 				String braID = req.getParameter("braID");
 System.out.println("braID："+ braID);
 				if("-1".equals(braID)) {
 					errorMsgs.add("分店：請選擇分店");
+					String url = req.getParameter("requestURL");
+System.out.println("傳進來的requestURL"+url);
+//					req.setAttribute("ordVO", ordVO);
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
+					failureView.forward(req, res);
+					return;
 				}
 				
 				//要使用name="roomnum"的值計算總房間數
 					//首先要先拿到rtID的數量
 				String[] rtIDlist = null;
 				rtIDlist = req.getParameterValues("rtID");	
-				System.out.println("rtIDlist.length:"+rtIDlist.length);
-					//取到所有的總房間數
-				String[] numOfRoomlistbefore = null;
+//				System.out.println("rtIDlist.length:"+rtIDlist.length);
+System.out.println("111");				
+					//計算總房間數
 				Integer numOfRoom = 0;
-				numOfRoomlistbefore = req.getParameterValues("numOfRoom");
-				
-//				for(int i=0; i<numOfRoomlistbefore.length; i++) {
-//					System.out.println("OLDnumOfRoomlist["+i+"]:"+ numOfRoomlistbefore[i]);
-//				}
-				
-					//篩選掉請選擇(-1)，在放入新的房間數陣列
+					//把取道的房型ID拿去取間數量的下拉選單
 				String[] numOfRoomlist = new String[rtIDlist.length];
 				int numOfRoomlistindex = 0;
-				for(int i=0; i<numOfRoomlistbefore.length; i++) {
-					String numOfRoomvalue = numOfRoomlistbefore[i];
-					if(!("-1".equals(numOfRoomvalue))) {
-						numOfRoomlist[numOfRoomlistindex]=numOfRoomlistbefore[i];
-						numOfRoomlistindex++;
+				for(int i=0; i<numOfRoomlist.length; i++) {
+					String getrtID = rtIDlist[i];
+					String getrtIDnum = req.getParameter(getrtID);
+					if("-1".equals(getrtIDnum)) {
+						errorMsgs.add("請選擇房間數：請選擇房間數!");
 					}
+					numOfRoomlist[numOfRoomlistindex]=req.getParameter(getrtID);
+					numOfRoomlistindex++;
 				}			
 					//算出房間總數
 				for(int i=0; i<numOfRoomlist.length; i++) {
 					numOfRoom += new Integer(numOfRoomlist[i]);
-					System.out.println("NEWnumOfRoomlist["+i+"]:"+ numOfRoomlist[i]);
+					System.out.println("numOfRoomlist["+i+"]:"+ numOfRoomlist[i]);
 				}
 System.out.println("numOfRoom："+ numOfRoom);					
 			
@@ -82,32 +84,26 @@ System.out.println("numOfRoom："+ numOfRoom);
 System.out.println("ordType："+ ordType);
 					
 				Integer numOfGuest = null;
-				try {
-					numOfGuest = new Integer(req.getParameter("numOfGuest").trim());
+				String numOfGuestStr = req.getParameter("numOfGuest").trim();
+				if(numOfGuestStr==null) {
+					errorMsgs.add("入住人數：請填寫入住人數!");
+				}else {
+					try {
+						numOfGuest = new Integer(numOfGuestStr);
 System.out.println("numOfGuest："+ numOfGuest);				
-				}catch(IllegalArgumentException e) {
-					numOfGuest = 1;
-					errorMsgs.add("人數：請填數字");
+					}catch(IllegalArgumentException e) {
+						numOfGuest = 1;
+						errorMsgs.add("人數：請填數字");
+					}
 				}
+
 				
 				//訂單總金額的運算
 				int amount = 0;
 				
 					//先取到明細所有的房型id	拿取前面的 rtIDlist
-				
-					//取到明細所有的特殊需求，但因為陣列會是全部送進來
-//				String[] speciallistbefore = null;
-//				speciallistbefore = req.getParameterValues("special");
-					//做篩選，篩選掉請選擇(-1)，再存到新的陣列中
 				String[] speciallist = new String[rtIDlist.length];
-//				int specialindex = 0;
-//				for(int i=0; i<speciallistbefore.length; i++) {
-//					String specialvalue = speciallistbefore[i];
-//					if(!("-1".equals(specialvalue))) {
-//						speciallist[specialindex] = speciallistbefore[i];
-//						specialindex++;
-//					}
-//				}
+
 					/**因最後決定不讓客人決定要不要加床，這邊全部直接存為不加床**/
 				for(int i=0; i<speciallist.length; i++) {
 					speciallist[i] = "0";
@@ -317,8 +313,9 @@ System.out.println("=======================");
 				
 				if(!errorMsgs.isEmpty()) {
 					String url = req.getParameter("requestURL");
+System.out.println("傳進來的requestURL"+url);
 					req.setAttribute("ordVO", ordVO);
-					RequestDispatcher failureView = req.getRequestDispatcher("url");
+					RequestDispatcher failureView = req.getRequestDispatcher(url);
 					failureView.forward(req, res);
 					return;
 				}
@@ -348,7 +345,8 @@ System.out.println("=======================");
 				/*------其他可能的錯誤處理------*/
 			}catch(Exception e) {
 				errorMsgs.add(e.getMessage()+"其他莫名其妙的錯誤處理");
-				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/orders/addorders.jsp");
+				String comeURI = req.getParameter("requestURL");
+				RequestDispatcher failureView = req.getRequestDispatcher(comeURI);
 				failureView.forward(req, res);				
 			}
 		}
@@ -649,7 +647,11 @@ System.out.println("修改訂單狀態成功");
 			
 			/*------準備轉交------*/
 			String comeURI = req.getParameter("requestURL");
-			System.out.println("comeURI：" + comeURI);
+System.out.println("comeURI：" + comeURI);
+			
+			String whichPage = req.getParameter("whichPage");
+			req.setAttribute("whichPage", whichPage); 
+System.out.println("whichPage：" + whichPage);
 			
 			RequestDispatcher successView = req.getRequestDispatcher(comeURI);
 			successView.forward(req, res);
