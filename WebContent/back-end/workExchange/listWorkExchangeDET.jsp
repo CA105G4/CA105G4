@@ -80,7 +80,7 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-			 <h1>打工需求詳情</h1>
+		 <h1>打工需求詳情</h1>
           <hr>
           <div class="container-fluid">
 			<div class="row">
@@ -97,9 +97,9 @@
 					<tr>
 						<th>創建員工</th><td>${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
 					</tr>
-					<tr>
-						<th>會員姓名</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
-					</tr>
+<!-- 					<tr> -->
+<%-- 						<th>會員姓名</th><td>${memberSvc.getOneMem(workExchangeVO.memID).memName}</td> --%>
+<!-- 					</tr> -->
 					<tr>
 						<th>房型名稱</th><td>${roomTypeSvc.getOneRoomType(workExchangeVO.rtID).rtName}</td>
 					</tr>

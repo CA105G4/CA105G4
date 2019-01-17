@@ -131,16 +131,17 @@
 						<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" id="sendForm" enctype="multipart/form-data">
 							<div class="form-group">
 								<font size="5px">需求編號</font>
-								<input type="text" class="form-control px-3 py-3" name="weID" value="${workExchangeVO.weID}" readonly="true">
+								<input type="text" class="form-control px-3 py-3" name="weID" value="${param.weID}" readonly="true">
 							</div>
 							<div class="form-group">
 								<font size="5px">需求名稱</font>
-								<input type="text" class="form-control px-3 py-3" name="weName" value="${workExchangeVO.weName}" readonly="true">
+								<input type="text" class="form-control px-3 py-3" name="weName" value="${param.weName}" readonly="true">
 							</div>
 							<div class="form-group">
 								<label for="memName"><font size="5px">您的大名</font></label>
-								<input type="text" class="form-control px-3 py-3" id="memName" name="memID" value="${workExchangeReVO.memID}" placeholder="Please enter your name">
-								<div>${errMsgs.memID}</div>
+								<input type="text" class="form-control px-3 py-3" id="memName" name="memName" value="${memberVO.memName}" readOnly>
+								<input type="hidden" class="form-control px-3 py-3" id="memID" name="memID" value="${memberVO.memID}">
+<%-- 								<div style="color:red">${errMsgs.memID}</div> --%>
 							</div>
 							<div class="form-group">
 <!-- 								<font size="5px">審核狀態</font> -->
@@ -155,7 +156,7 @@
 								<label for="weApp"><font size="5px">申請圖片</font></label>
 								<input type="file" class="form-control px-3 py-3" id="weApp" name="weApp">
 							</div>
-								<div>${errMsgs.weApp}</div>
+								<div style="color:red">${errMsgs.weApp}</div>
 							<div class="form-group" align="center">
               				<input type="button" class="btn btn-primary py-3 px-5" id="sendbtn" value="提交">
               				<input type="hidden" name="weID" value="${workExchangeVO.weID}">

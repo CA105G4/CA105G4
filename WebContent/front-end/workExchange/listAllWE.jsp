@@ -102,13 +102,14 @@
 			<div class="container">
 				<div class="row mb-5">
 					<!--ln8670-->
-					<div class="col-xs-12 col-sm-6 block-3">
-						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style="width: 100%">
-					</div>
-					<div class="col-xs-12 col-sm-6 head">
+					<div class="col-xs-12 col-sm-6">
+					<h1 style="border-bottom: 4px solid #ededed">Stay And Help</h1>
 					<p>想為你的人生增添色彩嗎?</p>
 					<p>想享受免費的房間設施嗎?</p>
 					<p>快看你是否擁有以下技能?</p>
+					</div>
+					<div class="col-xs-12 col-sm-6 block-3" style="padding-left: 0px;padding-right: 0px;">
+						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style=" max-width: 100%;">
 					</div>
 				</div>
 			</div>
