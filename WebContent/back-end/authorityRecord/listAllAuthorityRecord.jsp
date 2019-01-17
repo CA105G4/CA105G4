@@ -5,15 +5,39 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-AuthorityRecordService authSvc = new AuthorityRecordService();
-	List<AuthorityRecordVO> list = authSvc.getAll();
+	AuthorityRecordService authRecordSvc = new AuthorityRecordService();
+	List<AuthorityRecordVO> list = authRecordSvc.getAll();
 	pageContext.setAttribute("list",list);
 %>
     
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>員工權限明細</title>
+
+<!-- Bootstrap core CSS-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
+	
+</head>
+
+<body id="page-top">
 
 	<!-- Navbar -->
 
@@ -35,17 +59,16 @@ AuthorityRecordService authSvc = new AuthorityRecordService();
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Tables</li>
+			<li class="breadcrumb-item">
+				<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+			</li>
+            <li class="breadcrumb-item active">員工權限明細</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i>
-              Data Table Example</div>
+              <i class="fas fa-table"></i> 員工權限明細</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -65,8 +88,12 @@ AuthorityRecordService authSvc = new AuthorityRecordService();
                   <tbody>
 	<c:forEach var="authorityRecordVO" items="${list}">
 		<tr>
-			<td>${authorityRecordVO.empID}</td>
-			<td>${authorityRecordVO.authID}</td>
+			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
+			<jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
+			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
+<%-- 			<td>${authorityRecordVO.empID}</td> --%>
+<%-- 			<td>${authorityRecordVO.authID}</td> --%>
+			<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td>
 					
 					
 			
@@ -85,11 +112,11 @@ AuthorityRecordService authSvc = new AuthorityRecordService();
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted"></div>
           </div>
 
           <p class="small text-center text-muted my-5">
-            <em>More table examples coming soon...</em>
+<!--             <em>More table examples coming soon...</em> -->
           </p>
 
         </div>
@@ -99,13 +126,14 @@ AuthorityRecordService authSvc = new AuthorityRecordService();
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>© M.C.P.I.G 2019</span>
             </div>
           </div>
         </footer>
 
       </div>
       <!-- /.content-wrapper -->
+	</div>
 
     </div>
     <!-- /#wrapper -->

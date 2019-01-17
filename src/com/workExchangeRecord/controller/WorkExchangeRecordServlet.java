@@ -77,9 +77,9 @@ public class WorkExchangeRecordServlet extends HttpServlet {
 				Integer weID = new Integer(req.getParameter("weID"));
 				
 				String memID = req.getParameter("memID");
-				if(memID == null || memID.trim().length() == 0) {
-					errMsgs.put("memID", "會員姓名不得為空");
-				}
+//				if(memID == null || memID.trim().length() == 0) {
+//					errMsgs.put("memID", "會員姓名不得為空");
+//				}
 				Integer werState = new Integer(req.getParameter("werState"));
 				String orderID = req.getParameter("oderID");
 				

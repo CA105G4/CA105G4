@@ -12,8 +12,32 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
 
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title></title>
+
+<!-- Bootstrap core CSS-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Custom fonts for this template-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+<!-- Page level plugin CSS-->
+<link href="<%=request.getContextPath()%>/back-end/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
+	
+</head>
+
+<body id="page-top">
 	<!-- Navbar -->
 
 	<jsp:include page="/back-end/navbar.jsp" />
@@ -34,17 +58,16 @@
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Tables</li>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					</li>
+            <li class="breadcrumb-item active"> </li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i>
-              Data Table Example</div>
+              <i class="fas fa-table"></i> </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -85,11 +108,11 @@
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted"></div>
           </div>
 			<li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/listAllAuthorityRecord.jsp'>返回列表</a> <br><br></li>
           <p class="small text-center text-muted my-5">
-            <em>More table examples coming soon...</em>
+<!--             <em>More table examples coming soon...</em> -->
           </p>
 
         </div>
@@ -99,14 +122,13 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>© M.C.P.I.G 2019</span>
             </div>
           </div>
         </footer>
 
       </div>
       <!-- /.content-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 

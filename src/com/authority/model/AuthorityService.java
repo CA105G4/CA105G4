@@ -31,7 +31,7 @@ public class AuthorityService {
 	
 
 
-	public AuthorityVO getOneauth(Integer authID) {
+	public AuthorityVO getOneAuth(Integer authID) {
 		return dao.findByPK(authID);
 	}
 

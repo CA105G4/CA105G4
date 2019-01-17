@@ -1,13 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@page import="com.authority.model.AuthorityVO"%>
+<%@page import="com.authority.model.AuthorityService"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@page import="java.util.*"%>
-
-
 <%@ page import="com.authorityRecord.model.*"%>
+
 <%
-AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");
+	AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");
+
+	AuthorityService authSvc = new AuthorityService();
+	List<AuthorityVO> list = authSvc.getAll(); 
+	
+	pageContext.setAttribute("list", list);
 %>
 
 <!DOCTYPE html>
@@ -21,7 +25,7 @@ AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Blank Page</title>
+    <title>修改員工權限</title>
 
     <!-- Bootstrap core CSS-->
     <link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -59,10 +63,10 @@ AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					</li>
+            <li class="breadcrumb-item active">修改員工權限</li>
           </ol>
 
           <!-- Page Content 這邊開始自由發揮-->
@@ -81,28 +85,20 @@ AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" name="form1">
 <table>
 	<tr>
+		<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
 		<td>員工編號:</td>
-		<td><%=authorityRecordVO.getEmpID()%></td>
+		<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
 	</tr>
+	
+	<tr><td></td></tr>
 
 	<tr>
 		<td>權限選擇:</td>
 		<td>
-	<input type="checkbox" name="authID" value="1001">分店管理
-	<input type="checkbox" name="authID" value="1002" >權限管理<br>
-	<input type="checkbox" name="authID" value="1003" >前端網頁管理
-	<input type="checkbox" name="authID" value="1004" checked> 房型上架管理<br>
-	<input type="checkbox" name="authID" value="1005"  checked>住房登記管理
-	<input type="checkbox" name="authID" value="1006" checked>打工需求管理<br>
-	<input type="checkbox" name="authID" value="1007" >促銷活動管理
-	<input type="checkbox" name="authID" value="1008" >優惠券管理<br>
-	<input type="checkbox" name="authID" value="1009" >員工管理
-	<input type="checkbox" name="authID" value="1010" checked>會員管理<br>
-	<input type="checkbox" name="authID" value="1011" checked>房間管理
-	<input type="checkbox" name="authID" value="1012" checked>訂單管理<br>
-	<input type="checkbox" name="authID" value="1013" >檢舉管理
-	<input type="checkbox" name="authID" value="1014" checked>客服管理<br>
-	</td>
+			<c:forEach var="authVO" items="${list}">
+				<input type="checkbox" name="authID" value="${authVO.authID}">${authVO.authName}<br>
+			</c:forEach>
+		</td>
 	</tr>
 	
 	
@@ -125,7 +121,7 @@ AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>© M.C.P.I.G 2019</span>
             </div>
           </div>
         </footer>

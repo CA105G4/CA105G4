@@ -31,7 +31,7 @@
 
 	<div class="container">
 		<div class="card card-login mx-auto mt-5">
-			<div class="card-header">Login</div>
+			<div class="card-header">Employee Login</div>
 			<div class="card-body">
 				<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/Emplogin.do">
 					<c:if test="${not empty errorMsgs}">

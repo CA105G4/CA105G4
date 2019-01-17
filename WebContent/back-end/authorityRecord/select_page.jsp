@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Blank Page</title>
+    <title>員工權限查詢</title>
 
     <!-- Bootstrap core CSS-->
     <link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -50,15 +50,15 @@
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="index.html">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Blank Page</li>
+					<li class="breadcrumb-item">
+						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+					</li>
+            <li class="breadcrumb-item active">權限查詢</li>
           </ol>
 
           <!-- Page Content 這邊開始自由發揮-->
 
-<h3>資料查詢:</h3>
+<h3>權限查詢:</h3>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font color='red'>請修正以下錯誤:</font>
@@ -90,7 +90,7 @@
        <select size="1" name="empID">
          <c:forEach var="employeeVO" items="${empSvc.all}" > 
           <option value="${employeeVO.empID}">${employeeVO.empName}
-         </c:forEach>   
+         </c:forEach>
        </select>
        <input type="submit" value="送出">
        <input type="hidden" name="action" value="getOne_For_Update">
@@ -127,7 +127,7 @@
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>© M.C.P.I.G 2019</span>
             </div>
           </div>
         </footer>

@@ -158,6 +158,7 @@
 				  <div>
 					  <Form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
 					  <input type="submit" class="btn btn-primary py-3 px-5" value="申請">
+					  <input type="hidden" name="weName" value="${workExchangeVO.weName}">
 					  <input type="hidden" name="weID" value="${workExchangeVO.weID}">
 					  <input type="hidden" name="action" value="apply_WE">
 					  </Form>
