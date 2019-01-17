@@ -11,7 +11,11 @@
 
 	OrdersService ordSvc = new OrdersService();
 	java.util.Date udate = new java.util.Date();
-	java.sql.Date today = new java.sql.Date(udate.getTime());
+// 	java.sql.Date today = new java.sql.Date(udate.getTime());
+	
+	//測試用
+	java.sql.Date today = Date.valueOf("2018-12-11");
+	
 	List<OrdersCheckInOutVO> checkOutlist = ordSvc.findCheckOut_ByOrdJoinOD(today, empVO.getBraID());
 	pageContext.setAttribute("today", today);
 	pageContext.setAttribute("checkOutlist", checkOutlist);

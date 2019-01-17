@@ -24,6 +24,87 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    <style>
+    .all-bigtitle {
+	    padding: 34px 15px 25px 15px;
+	    background-color: #FFF;
+	    text-align: center;
+	}
+	.all-bigtitle .bigtitle-tw {
+	    margin-bottom: 5px;
+	    padding: 0 45px;
+	    display: inline-block;
+	    position: relative;
+	}
+	.clean {
+	    clear: both;
+	    line-height: 0;
+	    height: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before {
+    	left: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before, .all-bigtitle .bigtitle-tw:after {
+	    content: "";
+	    width: 32px;
+	    height: 1px;
+	    position: absolute;
+	    top: 50%;
+	    background-color: #231815;
+	}
+	.page-menu2 {
+	    padding: 17px 15px;
+	    text-align: center;
+	    background-color: #7a7d80;
+	}
+	.page-menu2 li {
+    	display: inline-block;
+    	font-family:"微軟正黑體";
+	}
+	.page-menu2 li a {
+	    padding: 0 10px;
+	    display: block;
+	    color: #fff;
+	    font-size: 24px;
+    }
+    .img-bg {
+	    display: inline-block;
+	    padding: 0 15px;
+ 	    background-color: #f2f2f2; 
+	    position: relative;
+	    z-index: 3;
+	}
+	.title02 {
+	    padding: 0 0 20px 0;
+	    text-align: center;
+	    position: relative;
+    }
+    .title02 .img-bg {
+	    display: inline-block;
+	    padding: 0 15px;
+	    background-color: #f2f2f2;
+	    position: relative;
+	    z-index: 3;
+	}
+	.title02 .img-bg h3 {
+	    color: #F05060;
+	    font-size: 24px;
+	    line-height: 30px;
+	    font-weight: normal;
+	}
+	.title01:after, .title02:after {
+	    content: "";
+	    width: 100%;
+	    height: 1px;
+	    background-color: #837d7b;
+	    position: absolute;
+	    left: 0;
+	    bottom: 42px;
+	}
+	.mb-5{
+    margin-bottom: 2rem !important;
+	}
+    </style>
   </head>
   <body>
   
@@ -104,104 +185,297 @@
       <ul class="page-menu" style="padding-bottom: 0px;">
         <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp">交通資訊</a></li>
         <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodFood.jsp">附近餐廳</a></li>
-        <li class="page-menu-on"><a class="menu-header" href="#">鄰近景點</a></li>
+        <li class="page-menu-on"><a class="menu-header" href="#">熱門景點</a></li>
       </ul>
-      <div class="text-center">
-        <h2>鄰近景點</h2>
+      <!--  標題  -->
+  	  <div class="all-bigtitle">
+		<p class="bigtitle-tw"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/hot.jpg" alt="熱們景點"></p>
+    	  <div class="clean"></div>
+    	<p class="bigtitle-img"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Hito.jpg" alt="熱們景點"></p>
       </div>
-      <div class="input-group">
-	  	<input id="searchtext" type="text" class="form-control" placeholder="想去哪裡呢...">
-        <input class="btn btn-success" type="button" onclick="mySearch();" value="GO!">
-      </div>
-      <div id="map"></div>
+  </div>
+<!--       <div class="text-center"> -->
+<!--         <h2>鄰近景點</h2> -->
+<!--       </div> -->
+<!--       <div class="input-group"> -->
+<!-- 	  	<input id="searchtext" type="text" class="form-control" placeholder="想去哪裡呢..."> -->
+<!--         <input class="btn btn-success" type="button" onclick="mySearch();" value="GO!"> -->
+<!--       </div> -->
+<!--       <div id="map"></div> -->
+   
+   <div class="page-menu2">
+    <li><a href="javascript:;" title="台北市商圈" onclick="go_where('show01');">台北市商圈</a></li>
+    <li><a href="javascript:;" title="台北市夜市" onclick="go_where('show02');">台北市夜市</a></li>
+    <li><a href="javascript:;" title="台北市景點" onclick="go_where('show03');">台北市景點</a></li>
+    <li><a href="javascript:;" title="台北市風景區" onclick="go_where('show04');">台北市風景區</a></li>
+   </div>
+   
+   
+   
+  <div class="site-section bg-light" style="background: #f1efed !important;padding-top: 50px;">    
+	  <div class="container">
+    <div class="title02" id="show01">
+      <div class="img-bg"><h3>台北市熱門商圈</h3></div>
+    </div>
+	  	<div class="row mb-5">
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+	      </div>
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+	      </div>
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+	      </div>
+  	</div>
   </div>
   
-	<!-- googleMap -->
-  <script>
-  var center; //中心點位置
-  var map;    
-  var infoWindow; //資訊視窗
-  var service;   
   
-  function initMap() {
-	  window.navigator.geolocation.getCurrentPosition(myPosition);
-  }
+  <div class="container">
+    <div class="title02" id="show02">
+      <div class="img-bg"><h3>台北市熱門夜市</h3></div>
+    </div>
+	  	<div class="row mb-5">
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+	      </div>
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+	      </div>
+	      <div class="col-lg-4 mb-5">
+	            <div class="block-34">
+	              <div class="image">
+	                <a href="#"><img src="images/img_1.jpg" alt="Image placeholder"></a>
+	              </div>
+	              <div class="text">
+	                <h2 class="heading">Bachelor Room</h2>
+	                <div class="price"><sup>$</sup><span class="number">156</span><sub>/per night</sub></div>
+	                <ul class="specs">
+	                  <li><strong>Adults:</strong> 1</li>
+	                  <li><strong>Categories:</strong> Single</li>
+	                  <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
+	                  <li><strong>Size:</strong> 20m<sup>2</sup></li>
+	                  <li><strong>Bed Type:</strong> One bed</li>
+	                </ul>
+	              </div>
+	            </div>
+  </div>
+	      </div>
+	    </div>
+	  </div>
   
-  function myPosition(branch){
-	  center = {lat:branch.coords.latitude, lng:branch.coords.longitude};
-	  map = new google.maps.Map(document.getElementById('map'),{
-		 center : center,
-		 zoom : 15
-	  });
-	  var marker = new google.maps.Marker({position:center, map:map});
-	  infoWindow = new google.maps.InfoWindow();
-	  service  = new google.maps.places.PlacesService(map); 
-  }
   
   
-  function mySearch(){
-	    for(var i = 0; i < markerArray.length; i++){
-	        markerArray[i].setMap(null);
-	    }
+  
+  
+  
+  
+  
+  
+  
+<!-- js -->
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="<%= request.getContextPath() %>/front-end/js/lity.min.js" type="text/javascript"></script>
+<script type="text/javascript">
 
-	    markerArray = [];
-	    service.nearbySearch({
-	        location: center,
-	        radius: 1500,
-	        //類型參考:https://developers.google.com/places/supported_types
-	        type: 'amusement_park',
-	        keyword: document.getElementById("searchtext").value
-	    }, callback);
-	    window.sessionStorage.lastSearch = document.getElementById("searchtext").value;   // sessionStorage    
-	}
-  
-  function callback(results, status){
-	  if (status == google.maps.places.PlacesServiceStatus.OK) {
-		    for (var i = 0; i < results.length; i++) {
-		      var place = results[i];
-		      createMarker(results[i]);
-		      console.log(results[i]);
-		    }
-		  }
+$(function() {
+  var view_width = parseInt($(document).width(),10);
+  if(view_width <= 768){$('.menu').addClass('menu-go');
+    initMenu();
   }
-  
-  var markerArray = [];
-  function createMarker(place) {
-      var placeLoc = place.geometry.location;
-      var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location,
-          icon: {
-              url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-              anchor: new google.maps.Point(10, 10),    
-              scaledSize: new google.maps.Size(20, 34)  // 調整大小
-          }
-      });
-      
-      markerArray.push(marker);
-      
-      google.maps.event.addListener(marker, 'click', function() {
-          msg = place.name + "<br>";
-          var open = JSON.stringify(place.opening_hours);
-          msg = msg + open + "<br>";
-          for(var i = 0; i < parseInt(place.rating);i++){
-              msg = msg + "\u261D";
-          }
-          infoWindow.setContent(msg);
-          infoWindow.open(map, this);
-      });
+  else{
+    $('.menu').removeClass('menu-go');
+    $('.menu li a').unbind('click');
   }
-  
-  //保存先前搜尋過的在seesionStorage
-  window.onload = function(){
-      if(window.sessionStorage.lastSearch != undefined){
-          document.getElementById("searchtext").value = window.sessionStorage.lastSearch; 
-      }  
-  };
-  
-  
-  </script>	
 
+  $(window).resize(function() {
+    var _width = $(window).width();
+    if (_width <= 768) {
+      $('.menu').addClass('menu-go');
+      initMenu();
+    } else {
+      $('.menu').removeClass('menu-go');
+      $('.menu li a').unbind('click');
+    }
+  });
+
+  $(window).scroll(function() {//顯示按鈕
+    if($(this).scrollTop() != 0) {
+      $('.gotop').fadeIn();
+    } else {
+      $('.gotop').fadeOut();
+    }
+  });
+});
+</script>
+  
+<!-- menu-->
+<script type="text/javascript" src="<%= request.getContextPath() %>/front-end/js/trunk.js"></script>
+<script type="text/javascript">
+function initMenu() {
+    $(".sub-menu").hide();
+    $(".current_page_item .sub-menu").show();
+    $('.menu-go li a').click(function() {
+        var checkElement = $(this).next();
+        if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+            return false;
+        }
+        if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+            console.log(checkElement.parentsUntil('.menu-go'));
+            $('.menu-go ul:visible').not(checkElement.parentsUntil('.menu-go')).slideUp('normal');
+            checkElement.slideDown('normal');
+            return false;
+        }
+    });
+}
+</script>
+
+<!--go top-->
+<script src="<%= request.getContextPath() %>/front-end/js/animatescroll.js"></script>
+<script type="text/javascript">
+  function getScrollTop() { // 取得捲軸位置
+    if (typeof pageYOffset != 'undefined') {
+      //most browsers except IE before #9
+      return pageYOffset;
+    } else {
+      var B = document.body; //IE 'quirks'
+      var D = document.documentElement; //IE with doctype
+      D = (D.clientHeight) ? D : B;
+      return D.scrollTop;
+    }
+  }
+  var pos, head_h, width_w;
+
+  function go_where(value) {
+    var where = document.getElementById(value);
+    pos = getScrollTop();
+    head_h = parseInt($('header').height(), 10);
+    width_w = parseInt($(document).width(), 10);
+    $(window).resize(function() {
+      pos = getScrollTop();
+      if (width_w <= 768) {
+        head_h = head_h - 2;
+        pos = pos + 1;
+      } else {
+        head_h = head_h + 37;
+      }
+    });
+    if (width_w <= 768) {
+      head_h = head_h - 2;
+      pos = pos + 1;
+    } else {
+      head_h = head_h + 37;
+    }
+    if (pos > 0) {
+      $(where).animatescroll({
+        padding: head_h,
+        scrollSpeed: 2000,
+        easing: 'easeInOutExpo'
+      });
+    } else {
+      $(where).animatescroll({
+        scrollSpeed: 2000,
+        easing: 'easeInOutExpo'
+      });
+    }
+  }
+  $(window).load(function() {
+    setAnchorPos();
+  });
+
+  function setAnchorPos() {
+    var hash = window.location.hash.substring(1);
+    if (hash.length > 0) {
+      //$('html,body').animate({
+      //    scrollTop: 0
+      //}, 1);
+      console.log(hash);
+      var target = $('#' + hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html,body').animate({
+          scrollTop: target.offset().top - 140
+        }, 1000);
+        return true;
+      }
+    }
+  }
+</script>
 
 
 
@@ -283,10 +557,8 @@
   <script src="<%=request.getContextPath()%>/front-end/js/bootstrap-datepicker.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/aos.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.animateNumber.min.js"></script>
-<!--   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
-<%--   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script> --%>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAb2lDof7yMn-TTXwt2hwVm4y92t1AqvyU&callback=initMap&libraries=places" async defer></script>
+  
     
   </body>
 </html>  

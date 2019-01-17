@@ -40,25 +40,34 @@ request.setAttribute("memberVO", memberVO);
 		height: 600px;
 		position: relative;
 	    width: 100%;
-/*	}
-    #right-panel { 
-         height: 600px; 
-         float: right; 
-         width: 390px; 
-         overflow: auto;  
-   } 
-   #map { 
-         margin-right: 400px; 
-   } 
-   #right-panel { 
-         font-family: 'Roboto','sans-serif'; 
-         line-height: 30px; 
-         padding-left: 10px; 
-    }
-    #right-panel {
-          float: none;
-          width: auto;
-    }*/  
+	}
+	.all-bigtitle {
+	    padding: 34px 15px 25px 15px;
+	    background-color: #FFF;
+	    text-align: center;
+	}
+	.all-bigtitle .bigtitle-tw {
+	    margin-bottom: 5px;
+	    padding: 0 45px;
+	    display: inline-block;
+	    position: relative;
+	}
+	.clean {
+	    clear: both;
+	    line-height: 0;
+	    height: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before {
+    	left: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before, .all-bigtitle .bigtitle-tw:after {
+	    content: "";
+	    width: 32px;
+	    height: 1px;
+	    position: absolute;
+	    top: 50%;
+	    background-color: #231815;
+	}
     </style>
     
   </head>
@@ -136,30 +145,33 @@ request.setAttribute("memberVO", memberVO);
 
 
 
-  
-  <div class="container">
-  	  <!-- 頁籤 -->
-      <ul class="page-menu" style="padding-bottom: 0px;">
-        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp">交通資訊</a></li>
-        <li class="page-menu-on"><a class="menu-header" href="#">附近餐廳</a></li>
-        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodScenery.jsp">鄰近景點</a></li>
-      </ul>
-      <div class="text-center">
-        <h2>附近餐廳</h2>
-      </div>
-      <div class="input-group">
-      <jsp:useBean id="braSvc" class="com.branch.model.BranchService"/>
-      <select class="branch">
-      		<option value="0">選擇分店</option>
-      	<c:forEach var="braVO" items="${braSvc.all}">
-      		<option id="${braVO.braID}" value="${braVO.braID}">${braVO.braName}</option>
-      	</c:forEach>
-      </select>
-	  	<input id="searchtext" type="text" class="form-control" placeholder="想吃點甚麼呢...">
-        <input class="btn btn-primary" type="button" onclick="mySearch();" value="搜尋Let's GO!">
-      </div>
-<!--       <div id="right-panel"></div> -->
-      <div id="map"></div>
+  <div style="padding-bottom: 30px;">
+	  <div class="container">
+	  	  <!-- 頁籤 -->
+	      <ul class="page-menu" style="padding-bottom: 0px;">
+	        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp">交通資訊</a></li>
+	        <li class="page-menu-on"><a class="menu-header" href="#">附近餐廳</a></li>
+	        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodScenery.jsp">熱門景點</a></li>
+	      </ul>
+	      <div class="all-bigtitle">
+			<p class="bigtitle-tw"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/foodie.jpg" alt="附近餐廳"></p>
+    	  <div class="clean"></div>
+    		<p class="bigtitle-img"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Hito.jpg" alt="附近餐廳"></p>
+     	 </div>
+	      <div class="input-group">
+	        <jsp:useBean id="braSvc" class="com.branch.model.BranchService"/>
+	        <select class="branch">
+	      		  <option value="0">選擇分店</option>
+	      	  <c:forEach var="braVO" items="${braSvc.all}">
+	      	  	  <option id="${braVO.braID}" value="${braVO.braID}">${braVO.braName}</option>
+	      	  </c:forEach>
+	        </select>
+		  	<input id="searchtext" type="text" class="form-control" placeholder="想吃點甚麼呢...">
+	        <input class="btn btn-primary" type="button" onclick="mySearch();" value="搜尋Let's GO!">
+	      </div>
+	<!--       <div id="right-panel"></div> -->
+	      <div id="map"></div>
+	  </div>
   </div>
   
   

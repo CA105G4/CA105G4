@@ -106,8 +106,8 @@ width: 120px;
 								<th>分店簡介</th>
 								<th style="width: 90px">電話</th>
 								<th>地址</th>
-								<th style="width: 85px">經度</th>
-								<th style="width: 80px">緯度</th>
+<!-- 								<th style="width: 85px">經度</th> -->
+<!-- 								<th style="width: 80px">緯度</th> -->
 								<th>分店圖片</th>
 								<th>分店影片</th>
 								<th style="width: 90px">狀態</th>
@@ -128,8 +128,8 @@ width: 120px;
 									
 									<td>${braVO.braTel}</td>
 									<td class="scrollbar1">${braVO.braAddr}</td>
-									<td>${braVO.braLng}</td>
-									<td>${braVO.braLat}</td>
+<%-- 									<td>${braVO.braLng}</td> --%>
+<%-- 									<td>${braVO.braLat}</td> --%>
 
 									<c:set var="index" value="${status.index}" />
 									<%

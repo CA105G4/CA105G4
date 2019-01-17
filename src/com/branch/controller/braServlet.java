@@ -15,6 +15,8 @@ import javax.servlet.annotation.MultipartConfig;
 
 import com.branch.model.BranchService;
 import com.branch.model.BranchVO;
+import com.roomType.model.RoomTypeService;
+import com.roomType.model.RoomTypeVO;
 
 @MultipartConfig
 
@@ -159,7 +161,7 @@ public class braServlet extends HttpServlet {
 			
 
 				String braID = req.getParameter("braID");
-
+				System.out.println(braID);
 				/*************************** 2.開始查詢資料 ****************************************/
 				BranchService bchSvc = new BranchService();
 				BranchVO braVO = bchSvc.getOneByID(braID);
@@ -232,24 +234,36 @@ System.out.println(braID);
 			byte[] pic =null;
 			Part braPic =req.getPart("braPic");
 			if (braPic.getSubmittedFileName().trim().length() == 0 || braPic.getSubmittedFileName() == null) {
-				errorMsgs.add("請上傳分店照片");
+				BranchService braSvc = new BranchService();
+				BranchVO braVO = braSvc.getOneByID(braID);
+				pic = braVO.getBraPic();
+			}else {
+				InputStream in =  braPic.getInputStream();
+				pic = new byte[in.available()];
+				in.read(pic);
+				in.close();
 			}
 			
-			InputStream inP= braPic.getInputStream();
+//			InputStream inP= braPic.getInputStream();
 			
-			pic = new byte[inP.available()];
-			inP.read(pic);
-			inP.close();
+//			pic = new byte[inP.available()];
+//			inP.read(pic);
+//			inP.close();
+			
+			
 			
 			byte[] video = null;
 			Part braVideo = req.getPart("braVideo");
-			InputStream inV = braVideo.getInputStream();
-			video = new byte[inV.available()];
-			inV.read(video);
-			inV.close();
 
 			if (braVideo.getSubmittedFileName().trim().length() == 0 && braVideo.getContentType() == null) {
-				errorMsgs.add("請上傳分店影片");
+				BranchService braSvc = new BranchService();
+				BranchVO braVO = braSvc.getOneByID(braID);
+				video = braVO.getBraVideo();
+			}else {
+				InputStream in =  braVideo.getInputStream();
+				video = new byte[in.available()];
+				in.read(video);
+				in.close();
 			}
 			
 			Integer bchStateChecked = null;

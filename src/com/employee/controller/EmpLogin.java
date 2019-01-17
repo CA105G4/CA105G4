@@ -111,22 +111,22 @@ public class EmpLogin extends HttpServlet {
 			
 			System.out.println(authList.size());
 			
-			for(int i = 0; i < authList.size(); i++) {
-				System.out.println(authList.contains("1001"));
-				System.out.println(authList.contains("1002"));
-				System.out.println(authList.contains("1003"));
-				System.out.println(authList.contains("1004"));
-				System.out.println(authList.contains("1005"));
-				System.out.println(authList.contains("1006"));
-				System.out.println(authList.contains("1007"));
-				System.out.println(authList.contains("1008"));
-				System.out.println(authList.contains("1009"));
-				System.out.println(authList.contains("1010"));
-				System.out.println(authList.contains("1011"));
-				System.out.println(authList.contains("1012"));
-				System.out.println(authList.contains("1013"));
-				System.out.println(authList.contains("1014"));
-			}
+//			for(int i = 0; i < authList.size(); i++) {
+//				System.out.println(authList.contains("1001"));
+//				System.out.println(authList.contains("1002"));
+//				System.out.println(authList.contains("1003"));
+//				System.out.println(authList.contains("1004"));
+//				System.out.println(authList.contains("1005"));
+//				System.out.println(authList.contains("1006"));
+//				System.out.println(authList.contains("1007"));
+//				System.out.println(authList.contains("1008"));
+//				System.out.println(authList.contains("1009"));
+//				System.out.println(authList.contains("1010"));
+//				System.out.println(authList.contains("1011"));
+//				System.out.println(authList.contains("1012"));
+//				System.out.println(authList.contains("1013"));
+//				System.out.println(authList.contains("1014"));
+//			}
 			
 			try{
 				String location = (String) session.getAttribute("location");

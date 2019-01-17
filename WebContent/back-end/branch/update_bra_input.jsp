@@ -101,9 +101,10 @@
 								<div class="form-row">
 									<div class="form-group">
 										<label >分店編號:<font color=red><b>*</b></font></label> 
-										<input type="text" name="braID" id="braID" 
-											class="form-control" style="width: 200px" 
-											value="<%=braVO.getBraID()%>">
+										${braVO.getBraID()}
+<!-- 										<input type="text" name="braID" id="braID"  -->
+<!-- 											class="form-control" style="width: 200px"  -->
+<%-- 											value="<%=braVO.getBraID()%>"> --%>
 									</div>
 								</div>
 

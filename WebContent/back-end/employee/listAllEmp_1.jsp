@@ -114,7 +114,7 @@
 									<c:forEach var="employeeVO" items="${list}">
 										<tr>
 										<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
-<%-- 											<td>${employeeVO.empID}</td> --%>
+											<td>${employeeVO.empID}</td>
 											<td>${brSvc.getOneByID(employeeVO.braID).braName}</td> 
 											<td>${employeeVO.empName}</td>
 											<td>${employeeVO.empJob}</td>

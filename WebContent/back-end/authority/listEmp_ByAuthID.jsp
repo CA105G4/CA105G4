@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.authorityRecord.model.*"%>
+
 <jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
-<jsp:useBean id="listEmps_ByAuthID" scope="request" type="java.util.Set<AuthorityRecordVO>" /> <!-- 於EL此行可省略 -->
+<%-- <jsp:useBean id="listEmps_ByAuthID" scope="request" type="java.util.Set<AuthorityRecordVO>" /> <!-- 於EL此行可省略 --> --%>
 <jsp:useBean id="authIDSvc" scope="page" class="com.authority.model.AuthorityService" />
 
 
@@ -81,7 +82,7 @@
                 </table>
               </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted"></div>
           </div>
 
           <p class="small text-center text-muted my-5">

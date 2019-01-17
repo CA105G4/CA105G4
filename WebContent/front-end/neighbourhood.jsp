@@ -42,6 +42,33 @@ request.setAttribute("memberVO", memberVO);
     	height: 500px;
     	width: 100%;
     }
+	.all-bigtitle {
+	    padding: 34px 15px 25px 15px;
+	    background-color: #FFF;
+	    text-align: center;
+	}
+	.all-bigtitle .bigtitle-tw {
+	    margin-bottom: 5px;
+	    padding: 0 45px;
+	    display: inline-block;
+	    position: relative;
+	}
+	.clean {
+	    clear: both;
+	    line-height: 0;
+	    height: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before {
+    	left: 0;
+	}
+	.all-bigtitle .bigtitle-tw:before, .all-bigtitle .bigtitle-tw:after {
+	    content: "";
+	    width: 32px;
+	    height: 1px;
+	    position: absolute;
+	    top: 50%;
+	    background-color: #231815;
+	}
   </style>
   <body>
   
@@ -123,10 +150,12 @@ request.setAttribute("memberVO", memberVO);
       <ul class="page-menu" style="padding-bottom: 0px;">
         <li class="page-menu-on"><a class="menu-header" href="#" id="traffic">交通位置</a></li>
         <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodFood.jsp">附近餐廳</a></li>
-        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodScenery.jsp">鄰近景點</a></li>
+        <li><a class="menu-header" href="<%=request.getContextPath()%>/front-end/neighbourhoodScenery.jsp">熱門景點</a></li>
       </ul>
-      <div class="text-center">
-        <h2>交通位置</h2>
+      <div class="all-bigtitle">
+		<p class="bigtitle-tw"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/addr.jpg" alt="交通位置"></p>
+    	<div class="clean"></div>
+    	<p class="bigtitle-img"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Hito.jpg" alt="交通位置"></p>
       </div>
       <div id="map"></div>
    </div>
@@ -134,7 +163,7 @@ request.setAttribute("memberVO", memberVO);
     
     
     
-    <!-- google map -->
+<!-- google map -->
     <script>
     var map;
     var centerMarker;
