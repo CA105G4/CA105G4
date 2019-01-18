@@ -28,6 +28,8 @@ public class AuthorityRecordJDBCDAO implements AuthorityRecordDAO_interface {
 	//用員工編號查權限編號
 	private static final String GET_AUTHID_BY_EMPID = "SELECT * FROM AUTHORITYRECORD WHERE EMPID = ? ORDER BY AUTHID";
 	
+	private static final String GET_ONE_BY_EMPID_AUTHID = "SELECT * FROM AUTHORITYRECORD WHERE EMPID = ? AND AUTHID = ?";
+	
 	static {
 		try {
 			Class.forName(DRIVER);
@@ -356,6 +358,60 @@ public class AuthorityRecordJDBCDAO implements AuthorityRecordDAO_interface {
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public AuthorityRecordVO getOneEmpAuth(String empID, String authID) {
+		AuthorityRecordVO authorityRecordVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_ONE_BY_EMPID_AUTHID);
+
+			pstmt.setString(1, empID);
+			pstmt.setString(2, authID);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				authorityRecordVO = new AuthorityRecordVO();
+
+				authorityRecordVO.setAuthID(rs.getInt("authID"));
+				authorityRecordVO.setEmpID(rs.getString("empID"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return authorityRecordVO;
 	}
 
 	public static void main(String[] args) {

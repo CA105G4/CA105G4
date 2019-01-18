@@ -4,7 +4,9 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%-- 取出 Concroller EmpServlet.java已存入request的EmpVO物件--%>
-<%AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");%>
+<%
+	AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");
+%>
 
 
 
@@ -21,7 +23,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title></title>
+<title>員工的權限</title>
 
 <!-- Bootstrap core CSS-->
 <link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +69,7 @@
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> </div>
+              <i class="fas fa-table"></i> 員工的權限</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -75,34 +77,41 @@
                     <tr>
                       <th>員工編號</th>
                       <th>權限編號</th>
+                      <th>刪除</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
                       <th>員工編號</th>
                       <th>權限編號</th>
+                      <th>刪除</th>                      
                     </tr>
                   </tfoot>
                   <tbody>
-                  	<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
-		<tr>
-			<td>${authorityRecordVO.empID}</td>
-			<td>${authorityRecordVO.authID}</td>
-			<td><c:forEach var="authorityVO" items="${authIDSvc.all}">
-                    <c:if test="${authorityRecordVO.authID==authorityVO.authID}">
-	                    ${authorityVO.authID}【<font color=orange>${authorityVO.authName}</font> 】
-                    </c:if>
-                </c:forEach>	
-		
+                  
+                  
+                <jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
+                <jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
+				<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
+				<tr>
+					<td>${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
+					<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td>
+<!-- 					<td> -->
+<%-- 						<c:forEach var="authorityVO" items="${authIDSvc.all}"> --%>
+<%-- 	                    <c:if test="${authorityRecordVO.authID==authorityVO.authID}"> --%>
+<%-- 							${authorityVO.authID}【<font color=orange>${authorityVO.authName}</font> 】 --%>
+<%-- 	                    </c:if> --%>
+<%-- 						</c:forEach>	 --%>
+<!-- 					</td> -->
 			
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empID"      value="${authorityRecordVO.empID}">
-			     <input type="hidden" name="action"     value="delete"></FORM>
-			</td>
-		</tr>
-	</c:forEach>
+					<td>
+					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" style="margin-bottom: 0px;">
+					     <input type="submit" value="刪除">
+					     <input type="hidden" name="empID"      value="${authorityRecordVO.empID}">
+					     <input type="hidden" name="action"     value="delete"></FORM>
+					</td>
+				</tr>
+				</c:forEach>
                    
                   </tbody>
                 </table>

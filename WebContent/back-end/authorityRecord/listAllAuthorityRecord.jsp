@@ -92,8 +92,8 @@
 			<jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
 			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
 <%-- 			<td>${authorityRecordVO.empID}</td> --%>
-<%-- 			<td>${authorityRecordVO.authID}</td> --%>
-			<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td>
+			<td>${authorityRecordVO.authID}</td>
+<%-- 			<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td> --%>
 					
 					
 			

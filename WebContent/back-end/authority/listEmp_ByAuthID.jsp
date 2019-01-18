@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>權限查詢員工</title>
+<title>用權限查詢員工</title>
 
 <!-- Bootstrap core CSS-->
 <link href="<%=request.getContextPath()%>/back-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -59,13 +59,13 @@
 					<li class="breadcrumb-item">
 						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-            <li class="breadcrumb-item active">權限查詢員工</li>
+            <li class="breadcrumb-item active">用權限查詢員工</li>
           </ol>
 
           <!-- DataTables Example -->
           <div class="card mb-3">
             <div class="card-header">
-              <i class="fas fa-table"></i> 權限查詢員工</div>
+              <i class="fas fa-table"></i> 用權限查詢員工</div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -89,12 +89,15 @@
 		<tr>
 			<td>${empSvc.getOneEmp(authorityRecordVO.empID).getEmpName()}</td>
 			
-			<td><c:forEach var="authorityVO" items="${authIDSvc.all}">
+			<td>
+				<c:forEach var="authorityVO" items="${authIDSvc.all}">
                     <c:if test="${authorityRecordVO.authID==authorityVO.authID}">
-	                    ${authorityVO.authID}【<font color=orange>${authorityVO.authName}</font> 】
+<%-- 	                    ${authorityVO.authID}【 --%>
+	                    <font color=orange>${authorityVO.authName}</font>
+<!-- 	                     】 -->
                     </c:if>
                 </c:forEach>	
-		
+			</td>
 			
 			
 		</tr>

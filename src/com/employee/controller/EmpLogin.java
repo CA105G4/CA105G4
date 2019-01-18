@@ -109,7 +109,7 @@ public class EmpLogin extends HttpServlet {
 			session.setAttribute("employeeVO", service.getOneEmp(empID));
 			session.setAttribute("authRecordList", authList); //將員工權限放入 session
 			
-			System.out.println(authList.size());
+//			System.out.println(authList.size());
 			
 //			for(int i = 0; i < authList.size(); i++) {
 //				System.out.println(authList.contains("1001"));

@@ -250,7 +250,7 @@
 			<div class="dropdown-menu" aria-labelledby="pagesDropdown3">
 				<h6 class="dropdown-header">新增/查詢:</h6>
 <%-- 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/authority/listEmp_ByAuthID.jsp">新增</a> --%>
-				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/authorityRecord/select_page.jsp">員工權限查詢</a>
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/authorityRecord/select_page.jsp">權限查詢與新增</a>
 <!-- 				<div class="dropdown-divider"></div> -->
 <!-- 				<h6 class="dropdown-header">列表:</h6> -->
 <%-- 				<a class="dropdown-item" href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp">分店列表</a> --%>

@@ -10,7 +10,7 @@ public class AuthorityRecordService {
 	private AuthorityRecordDAO_interface dao;
 
 	public AuthorityRecordService() {
-		dao = new AuthorityRecordJDBCDAO();
+		dao = new AuthorityRecordDAO();
 	}
 
 	public AuthorityRecordVO addAuth(Integer authID, String empID) {
@@ -65,12 +65,16 @@ public class AuthorityRecordService {
 		
 		for(int i = 0; i < list.size(); i++) {
 			authList.add(String.valueOf(list.get(i).getAuthID()));
-			System.out.println(authList.get(i));
+//			System.out.println(authList.get(i));
 		}
 		
 		return authList;
 		
 //		return dao.getAuthIdByEmpIdList(empId);
+	}
+
+	public AuthorityRecordVO getOneEmpAuth(String empID, String authID) {
+		return dao.getOneEmpAuth(empID, authID);
 	}
 	
 }

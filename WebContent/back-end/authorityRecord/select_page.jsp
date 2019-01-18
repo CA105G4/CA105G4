@@ -50,76 +50,83 @@
 
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
-					<li class="breadcrumb-item">
-						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
-					</li>
+			<li class="breadcrumb-item">
+				<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
+			</li>
             <li class="breadcrumb-item active">權限查詢</li>
           </ol>
 
           <!-- Page Content 這邊開始自由發揮-->
 
-<h3>權限查詢:</h3>
-<%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font color='red'>請修正以下錯誤:</font>
+		<h3>權限查詢:</h3>
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font color='red'>請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color:red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		
+		
+
+		<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
+		<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
+		<ul>
+<%-- 		  <li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/listAllAuthorityRecord.jsp'>List</a> all Emps. <br><br></li> --%>
+		  <li>
+		    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" >
+		        <b>選擇員工姓名:</b>
+
+			       <select size="1" name="empID">
+			         <c:forEach var="empVO" items="${empSvc.all}" >        <!-- 除總管理處的所有員工 -->
+			          <option value="${empVO.empID}">${empVO.getBraID()} - ${braSvc.getOneByID(empVO.getBraID()).braName} - ${empVO.empName}      
+			         </c:forEach>   
+			       </select>
+<!-- 		        <input type="text" name="empID"> -->
+		        <input type="submit" value="查詢">
+		        <input type="hidden" name="action" value="listAuths_ByEmpID_A">
+		    </FORM>
+		  </li>
+
+		  <jsp:useBean id="authIDSvc" scope="page" class="com.authority.model.AuthorityService" />
+		  <li>
+		     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authority/authority.do" >
+		       <b><font color=orange>選擇權限編號:</font></b>
+		       <select size="1" name="authID">
+		         <c:forEach var="authorityVO" items="${authIDSvc.all}" > 
+		          <option value="${authorityVO.authID}">${authorityVO.authName}
+		         </c:forEach>   
+		       </select>
+		       <input type="submit" value="查詢">
+		       <input type="hidden" name="action" value="listEmps_ByAuthID_A">
+		     </FORM>
+		  </li>
+		</ul>
+
+
+	<h3>權限管理</h3>
+	
 	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
+<%-- 	  <li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/addAuthorityRecord.jsp'>Add</a> a new Mem.</li> --%>
+	
+	  <li>
+	     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" >
+	     	<b>修改權限許可</b>
+	       <b>選擇員工姓名:</b>
+	       <select size="1" name="empID">
+	         <c:forEach var="employeeVO" items="${empSvc.all}" > 
+	          <option value="${employeeVO.empID}">${employeeVO.getBraID()} - ${braSvc.getOneByID(employeeVO.getBraID()).braName} - ${employeeVO.empName}   
+	         </c:forEach>
+	       </select>
+	       <input type="submit" value="修改">
+	       <input type="hidden" name="action" value="getOne_For_Update">
+	     </FORM>
+	  </li>
 	</ul>
-</c:if>
-
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/listAllAuthorityRecord.jsp'>List</a> all Emps. <br><br></li>
-  
-  <li>
-    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" >
-        <b>輸入員工編號 (如E0001):</b>
-        <input type="text" name="empID">
-        <input type="submit" value="送出">
-        <input type="hidden" name="action" value="listAuths_ByEmpID_A">
-    </FORM>
-  </li>
-
-
-   <jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
-  <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" >
-     	<b>修改權限許可</b>
-       <b>選擇員工姓名:</b>
-       <select size="1" name="empID">
-         <c:forEach var="employeeVO" items="${empSvc.all}" > 
-          <option value="${employeeVO.empID}">${employeeVO.empName}
-         </c:forEach>
-       </select>
-       <input type="submit" value="送出">
-       <input type="hidden" name="action" value="getOne_For_Update">
-     </FORM>
-  </li>
-  
-  
-  
-  <jsp:useBean id="authIDSvc" scope="page" class="com.authority.model.AuthorityService" />
-  <li>
-     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authority/authority.do" >
-       <b><font color=orange>選擇權限編號:</font></b>
-       <select size="1" name="authID">
-         <c:forEach var="authorityVO" items="${authIDSvc.all}" > 
-          <option value="${authorityVO.authID}">${authorityVO.authName}
-         </c:forEach>   
-       </select>
-       <input type="submit" value="送出">
-       <input type="hidden" name="action" value="listEmps_ByAuthID_A">
-     </FORM>
-  </li>
-</ul>
-
-
-<h3>權限管理</h3>
-
-<ul>
-  <li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/addAuthorityRecord.jsp'>Add</a> a new Mem.</li>
-</ul>
+	
+	
         </div>
         <!-- /.container-fluid -->
 

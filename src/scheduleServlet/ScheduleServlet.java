@@ -60,7 +60,8 @@ public class ScheduleServlet extends HttpServlet{
 		};
 		
 		timer = new Timer();
-		timer.scheduleAtFixedRate(task, cal.getTime(), 1 *24* 60 * 60 * 1000);	
+//		timer.scheduleAtFixedRate(task, cal.getTime(), 1 *24* 60 * 60 * 1000);	   //測試用, 會追朔
+		timer.schedule(task, cal.getTime(), 1 *24* 60 * 60 * 1000);	               //不會追朔
 		System.out.println("已建立排程!");
 		
 	}

@@ -106,8 +106,6 @@ public class AuthorityRecordServlet extends HttpServlet {
 					errorMsgs.add("員工編號: 請勿空白");
 					}
 				
-				
-				
 				if (!errorMsgs.isEmpty()) {
 					
 					RequestDispatcher failureView = req
@@ -120,8 +118,15 @@ public class AuthorityRecordServlet extends HttpServlet {
 				System.out.println("test");
 				AuthorityRecordVO authorityRecordVO = authSvc.getOneEmp(empID);
 				System.out.println(authorityRecordVO == null);
+								
 				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
-				req.setAttribute("authorityRecordVO", authorityRecordVO); 
+//				if(authorityRecordVO == null) {
+//					authorityRecordVO = new AuthorityRecordVO();
+//					req.setAttribute("authorityRecordVO", authorityRecordVO); 		
+//					
+//					System.out.println(authorityRecordVO == null);
+//				} 
+				
 				String url = "/back-end/authorityRecord/update_auth_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
@@ -214,19 +219,14 @@ public class AuthorityRecordServlet extends HttpServlet {
 				Integer [] authID1 = new Integer [authID.length];
 				AuthorityRecordVO authorityRecordVO = new AuthorityRecordVO();
 				AuthorityRecordService  authSvc = new AuthorityRecordService();
-				authSvc.deleteEmp(empID);
+				authSvc.deleteEmp(empID);   //將明細 某員工編號權限全部刪除
 
 				for(int i = 0; i < authID.length; i++) {
 					authID1[i] = Integer.parseInt(authID[i]);
 					authorityRecordVO.setAuthID(authID1[i]);
 					authorityRecordVO.setEmpID(empID);
-					authorityRecordVO = authSvc.addAuth(authID1[i], empID);
+					authorityRecordVO = authSvc.addAuth(authID1[i], empID);       //在加回去
 				}
-        		
-        	
-        		
-        		
-        		
         		
         		// Send the use back to the form, if there were errors
         		if (!errorMsgs.isEmpty()) {
@@ -242,7 +242,8 @@ public class AuthorityRecordServlet extends HttpServlet {
 				
 				//        		AuthorityRecordService  authSvc = new AuthorityRecordService();
         		
-        		
+//        		HttpSession session = req.getSession();
+//        		session.setAttribute("authRecordList", authList);
         		
         		/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
         		String url = "/back-end/authorityRecord/listAllAuthorityRecord.jsp";
