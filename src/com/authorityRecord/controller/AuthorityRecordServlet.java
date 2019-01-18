@@ -120,13 +120,14 @@ public class AuthorityRecordServlet extends HttpServlet {
 				System.out.println(authorityRecordVO == null);
 								
 				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
-//				if(authorityRecordVO == null) {
-//					authorityRecordVO = new AuthorityRecordVO();
-//					req.setAttribute("authorityRecordVO", authorityRecordVO); 		
-//					
-//					System.out.println(authorityRecordVO == null);
-//				} 
-				
+				if(authorityRecordVO == null) {
+					authorityRecordVO = new AuthorityRecordVO();
+					authorityRecordVO.setEmpID(empID);
+					req.setAttribute("authorityRecordVO", authorityRecordVO); 			
+					System.out.println(authorityRecordVO == null);
+				} else {					
+					req.setAttribute("authorityRecordVO", authorityRecordVO); 												
+				}
 				String url = "/back-end/authorityRecord/update_auth_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);

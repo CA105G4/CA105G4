@@ -8,7 +8,7 @@
 <%
 	AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");
 	
-	System.out.println("update = " + authorityRecordVO == null);
+	System.out.println("update = " + authorityRecordVO.getEmpID());
 
 	AuthorityService authSvc = new AuthorityService();
 	List<AuthorityVO> list = authSvc.getAll(); 
