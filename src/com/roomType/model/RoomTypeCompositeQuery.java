@@ -127,7 +127,9 @@ public static int getRoomByDate(int date, String balance) {
 			int minRooms = maxRooms.get(rtIndex);          //房型最小間數
 			if(totalDay == 1) {      //只住一天
 				roomsNum[0] = getRoomByDate(checkinDay, balance.get(rtIndex));   //撈出所有房型, 某日期區間, 判斷是否有房間
+				minRooms = roomsNum[0];
 				System.out.println("剩 " + roomsNum[0] + " 間");
+//				rtList.get(rtIndex).setBalance(String.valueOf(minRooms));     // 最少間數
 			} else {
 				for(int i = 0; i < roomsNum.length; i++) {   //記錄入區間的房間剩餘數量[]
 					
@@ -142,9 +144,10 @@ public static int getRoomByDate(int date, String balance) {
 				System.out.println("最少間數 " + minRooms);  
 			}
 			rtList.get(rtIndex).setBalance(String.valueOf(minRooms));     // 最少間數
+//			System.out.println(minRooms);
 		}
 		System.out.println("-----------------------------------------------------");
-		
+//		System.out.println(rtList.get(0).getBalance());
 		return rtList;
 	}
 	

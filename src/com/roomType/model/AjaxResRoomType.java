@@ -86,6 +86,7 @@ public class AjaxResRoomType extends HttpServlet{
 				try {
 					obj.put("rtID", rtVO.getRtID());
 					obj.put("balance", rtVO.getBalance());
+					System.out.println("minRooms = " + rtVO.getBalance());
 				} catch (JSONException e) {
 					System.out.println("json壞啦!");
 					e.printStackTrace();
