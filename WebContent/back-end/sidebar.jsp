@@ -43,7 +43,7 @@
 
 		<!-- LOGO pic Gina -->
 		<div class="profile_pic">
-			<img src="https://api.fnkr.net/testimg/1200x1200/00CED1/FFF/?text=img+placeholder" class="img-circle profile_img">
+			<img src="<%=request.getContextPath()%>/back-end/images/mcPiglogo.jpg" class="img-circle profile_img">
 		</div>
 
 		<li class="nav-item active">
