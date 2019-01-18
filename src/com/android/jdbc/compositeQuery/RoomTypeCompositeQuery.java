@@ -61,6 +61,7 @@ public class RoomTypeCompositeQuery {
 			int minRooms = room.get(rtIndex);          //房型最小間數
 			if(totalDay == 1) {      //只住一天
 				roomsNum[0] = ProcDate.getRoomByDate(checkinDay, balance.get(rtIndex));   //撈出所有房型, 某日期區間, 判斷是否有房間
+				minRooms = roomsNum[0];        //存最小間數
 				System.out.println("剩 " + roomsNum[0] + " 間");
 			} else {
 				for(int i = 0; i < roomsNum.length; i++) {   //記錄入區間的房間剩餘數量[]
