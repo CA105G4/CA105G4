@@ -106,7 +106,7 @@
 			<td>${odVO.evaluates}</td>
 			<td>${specialMap.get(odVO.getSpecial())}</td>
 			<td>
-				<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+				<jsp:useBean id="ordSvc" scope="page" class="com.orders.model.OrdersService" />
 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
 				<input type="submit" value="加床" ${ ordSvc.getOneOrders(ordID).getOrdState()==0 ? "class='btn btn-info'" : "class='btn btn-secondary' disabled"}>
 				<input type="hidden" name="odID"  value="${odVO.odID}">
