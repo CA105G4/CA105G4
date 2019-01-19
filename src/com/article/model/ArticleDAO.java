@@ -34,8 +34,8 @@ public class ArticleDAO implements ArticleDAO_interface{
 		private static final String GET_MEMBER_ARTICLE = 
 			"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where memid = ? order by artid desc";
 		private static final String GET_LATEST_THREE_STMT = 
-				"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where  rownum <=3 and artstate = 1 order by artid desc ";
-		
+//				"SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where  rownum <=3 and artstate = 1 order by artid desc ";
+				"select * from (SELECT artid,memid,artpic,artexp,artstate,to_char(artdate,'yyyy-mm-dd') artdate FROM article where   artstate = 1 order by artid desc) where rownum <=3";
 		private static final String DELETE_MESSAGE = 
 				"DELETE FROM message where artid = ?";
 		private static final String DELETE_MESSAGEREPORT = 

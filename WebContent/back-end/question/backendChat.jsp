@@ -275,16 +275,19 @@ div {
 		src="<%=request.getContextPath()%>/back-end/article/tinymce/tinymce.js"></script>
 	<script>
 	tinymce.init({
-		  selector:'#msg',
-		  plugins: 'image code link imagetools codesample emoticons textcolor table preview',
-		  toolbar1: 'undo redo |  bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons  | bullist numlist outdent indent | link image code |print preview media | codesample help  | insert styleselect ',
-		  menubar: false,
-	      inline: true,
-	      statusbar: false,
+		  selector:'#artexp',
+		  height: '500',
+		  plugins: 'image paste code link imagetools codesample emoticons textcolor table preview media',
+		  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code',
+	      toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
 		  image_title: true,
+		  menubar: false,
 		  paste_data_images: true,
 		  automatic_uploads: true,
-		  file_picker_types: 'image', 
+		  file_picker_types: 'image file media', 
+		  audio_template_callback: function(data) {
+			   return '<audio controls>' + '\n<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + '</audio>';
+			 },
 		  file_picker_callback: function(cb, value, meta) {
 		    var input = document.createElement('input');
 		    input.setAttribute('type', 'file');
