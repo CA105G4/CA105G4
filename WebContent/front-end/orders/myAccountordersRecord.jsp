@@ -145,6 +145,7 @@
 								<th>訂金</th>
 								<th>付款方式</th>
 								<th>下訂時間</th>
+								<th>訂單狀態</th>
 							
 							</tr>
 							<%@ include file="page1.file" %> 
@@ -160,7 +161,8 @@
 									<td>${ordVO.amount}</td>
 									<td>${ordVO.bond}</td>
 									<td>${paymentMap.get(ordVO.getPayment())}</td>
-									<td>${ordVO.ordTime}</td>									
+									<td>${ordVO.ordTime}</td>		
+									<td>${ordStateMap.get(ordVO.getOrdState())}</td>							
 								</tr>
 							</c:forEach>
 						</table>

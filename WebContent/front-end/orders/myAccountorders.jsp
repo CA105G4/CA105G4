@@ -147,6 +147,7 @@
 								<th>訂金</th>
 								<th>付款方式</th>
 								<th>下訂時間</th>
+								<th>訂單狀態</th>
 								<th></th>
 							</tr>
 							<%@ include file="page1.file" %> 
@@ -163,6 +164,7 @@
 									<td>${ordVO.bond}</td>
 									<td>${paymentMap.get(ordVO.getPayment())}</td>
 									<td>${ordVO.ordTime}</td>
+									<td>${ordStateMap.get(ordVO.getOrdState())}</td>
 									<td>
 									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="取消訂單" class="btn btn-info">

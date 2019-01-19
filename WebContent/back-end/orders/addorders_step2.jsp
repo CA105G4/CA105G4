@@ -140,7 +140,7 @@ System.out.println("jsp收到的memID"+getmemID);
 									<c:forEach var="rtIDandNum" items="${rtIDandNumMap.entrySet()}">
 										<tr>
 											<th>
-												<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtIDandNum.getKey()}" class="img-fluid showrtpic" width="300px" padding-right: 15px;>
+												<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtIDandNum.getKey()}" class="img-fluid showrtpic" style='border-radius: 50%; width:400px; padding-right: 15px;' >
 											</th>
 							<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 											<td>${rtSvc.getOneRoomType(rtIDandNum.getKey()).rtName} : </td>
@@ -159,7 +159,7 @@ System.out.println("jsp收到的memID"+getmemID);
 							</div>
 							<br>
 							<div align="center">
-									<button type="button" class="btn btn-info" id="confirmtoPay">確認付款</button>
+									<button type="button" class="btn btn-info" id="confirmtoPay">確認</button>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-3">

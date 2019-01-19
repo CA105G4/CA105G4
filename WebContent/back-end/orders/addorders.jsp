@@ -44,6 +44,7 @@
 <link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" 
 	rel="stylesheet" type="text/css" />
 
+
 </head>
 
 <body id="page-top">
@@ -110,8 +111,8 @@
 									<tr>
 										<td><input type="hidden" name="memID" id="memID" value=""></td>
 										<td>
-											<img id="image" src="" style="display: none;"></img>
-											<p id="answer"></p>	<p id="answer2"></p>
+											<img id="image" src="" style="display: none; border-radius: 50%; width:400px;"></img>
+											<div align="center"><p id="answer"></p>	<p id="answer2"></p></div>
 										</td>
 									</tr>
 									<tr>
@@ -136,7 +137,7 @@
 										<th>訂單種類:</th>
 										<td><select size="1" name="ordType" class="custom-select">
 												<option value="0">線上</option>
-												<option value="1">臨櫃</option>
+												<option value="1" selected>臨櫃</option>
 												<option value="2">打工換宿</option>
 											</select></td>
 									</tr>
@@ -163,6 +164,10 @@
 									</tr>
 								</table>
 								
+								<br>
+								<div align="center" id="saychoose"></div>
+								<br>	
+														
 								<!-- 以下為明細 -->
 								<table class="roomTypeList">
 										<!-- 明細在這 -->
@@ -288,7 +293,7 @@
 				dataType: 'json',
 				success: function(res){
 					console.log(res);
-					$('#answer').text(res.answer);
+					$('#answer').text('');
 					$('#answer2').text(res.answer2);
 					$('#image').attr('src', "<%=request.getContextPath()%>/member/memImg.do?memID="+res.answer).css('display', 'block');
 					$('#memID').attr('value' , res.answer);
@@ -317,6 +322,7 @@
 			      data:creatQueryString($(this).val()),
 			      dataType: "json",
 			      success: function (data){
+			    	   $('#saychoose').html("<span style='font-weight:bold;font-size:16px;'>請選擇以下房型及數量</span>");
 				       console.log(data);
 				       clearTable();
 				       var labelcount = 1;
@@ -327,7 +333,7 @@
 					       								 "</td>"+
 					        							 "<td>"+
 					        							 "<label class='form-check-label' for='defaultCheck" + labelcount + "'>"+
-					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' width='200px'>"+
+					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' style='border-radius: 50%; width:400px;' >"+
 					        							 "</label>"+
 					        							 "</td>"+
 					        							 "<td>"+					        
@@ -362,6 +368,7 @@
 	function clearTable(){
 		$('.roomTypeList').empty();	//清資料
 		$('.roomTypeList').append("");
+// 		$('#saychoose').html("<span style='font-weight:bold;font-size:16px;'></span>");
 	}
   </script>
   

@@ -43,7 +43,7 @@
 
 		<!-- LOGO pic Gina -->
 		<div class="profile_pic">
-			<img src="<%=request.getContextPath()%>/back-end/images/mcPiglogo.jpg" class="img-circle profile_img">
+			<img src="<%=request.getContextPath()%>/back-end/images/mcPiglogo.jpg" class="img-circle profile_img" width='800px'>
 		</div>
 
 		<li class="nav-item active">

@@ -142,7 +142,7 @@
   <div class="container">
     <!--這邊開始自由發揮-->
 
-				<h1>新增訂單</h1>
+				<h1>${memberVO.memName} 您好，歡迎預約</h1>
 				<hr>
 				<div class="container-fluid" >
 				<br>
@@ -174,6 +174,12 @@
 							<div align="center">
 								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/orders/orders.do" name="form1" autocomplete="off">
 								<table>
+									<tr>
+										<th></th>
+										<td>
+											<img id="image" src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" style="border-radius: 50%; width:400px;"></img>
+										</td>
+									</tr>
 									<tr>
 										<th>會員名稱:</th>
 								<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
@@ -220,6 +226,10 @@
 										<td><input type="text" name="checkOut" id="end_date" size="45" class="form-control" /></td>
 									</tr>
 								</table>
+								
+								<br>
+								<div align="center" id="saychoose"></div>
+								<br>	
 								
 								<!-- 以下為明細 -->
 								<table class="roomTypeList">
@@ -370,6 +380,7 @@
 			      data:creatQueryString($(this).val()),
 			      dataType: "json",
 			      success: function (data){
+			    	   $('#saychoose').html("<span style='font-weight:bold;font-size:16px;'>請選擇以下房型及數量</span>");
 				       console.log(data);
 				       clearTable();
 				       var labelcount = 1;
@@ -380,7 +391,7 @@
 					       								 "</td>"+
 					        							 "<td>"+
 					        							 "<label class='form-check-label' for='defaultCheck" + labelcount + "'>"+
-					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' width='200px'>"+
+					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' style='border-radius: 50%; width:400px;'>"+
 					        							 "</label>"+
 					        							 "</td>"+
 					        							 "<td>"+					        
