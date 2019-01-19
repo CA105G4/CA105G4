@@ -275,11 +275,11 @@ div {
 		src="<%=request.getContextPath()%>/back-end/article/tinymce/tinymce.js"></script>
 	<script>
 	tinymce.init({
-		  selector:'#artexp',
-		  height: '500',
+		  selector:'#msg',
 		  plugins: 'image paste code link imagetools codesample emoticons textcolor table preview media',
-		  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code',
-	      toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
+		  toolbar1: 'undo redo |  bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons  | bullist numlist outdent indent | link image code |print preview media | codesample help  | insert styleselect ',
+		  statusbar: false,
+	      inline: true,
 		  image_title: true,
 		  menubar: false,
 		  paste_data_images: true,

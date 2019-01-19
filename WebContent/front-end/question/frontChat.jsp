@@ -220,13 +220,14 @@
 	<script src="<%=request.getContextPath()%>/back-end/article/tinymce/tinymce.js"></script>
 	<script>
 	tinymce.init({
-		  selector:'#artexp',
+		  selector:'#msg',
 		  height: '500',
 		  plugins: 'image paste code link imagetools codesample emoticons textcolor table preview media',
-		  toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code',
-	      toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
+		  toolbar1: 'undo redo |  bold italic | alignleft aligncenter alignright alignjustify | forecolor backcolor emoticons  | bullist numlist outdent indent | link image code |print preview media | codesample help  | insert styleselect ',
+	      inline: true,
 		  image_title: true,
 		  menubar: false,
+		  statusbar: false,
 		  paste_data_images: true,
 		  automatic_uploads: true,
 		  file_picker_types: 'image file media', 
@@ -264,14 +265,15 @@
 	var userName = '${memberVO.memName}';
 	var url = "ws://localhost:8081/CA105G4/question?username=${memberVO.memName}";
     window.onload = function() {
-        if ('WebSocket' in window) {
-            ws = new WebSocket(url);
-        } else if ('MozWebSocket' in window) {
-            ws = new MozWebSocket(url);
-        } else {
-            alert('WebSocket is not supported by this browser.');
-            return;
-        }
+//         if ('WebSocket' in window) {
+//             ws = new WebSocket(url);
+//         } else if ('MozWebSocket' in window) {
+//             ws = new MozWebSocket(url);
+//         } else {
+//             alert('WebSocket is not supported by this browser.');
+//             return;
+//         }
+		ws = new WebSocket(url);
 
         ws.onmessage = function(event) {
             eval("var result=" + event.data);
@@ -310,7 +312,6 @@
 	    	var inputMessage = document.getElementById("content");
 	        var ss = $("#userList :checked");
 	        var to = "商商";
-	        var date = new Date();
 	        console.log('to: ' + to);
 	        if (to == userName) {
 	            alert("不能送給自己");
