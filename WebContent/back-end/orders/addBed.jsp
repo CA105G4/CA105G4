@@ -123,24 +123,16 @@
 											<th>退房時間</th>
 											<td>${odVO.checkOut}</td>
 										</tr>
-										<tr>
-											<td></td>
-											<td>
-												<input type="submit" value="確認" class="btn btn-info">											
-											    <input type="hidden" name="ordID" value="${ordVO.ordID}">
-											    <input type="hidden" name="odID" value="${odVO.odID}">
-											    <input type="hidden" name="comeURI" value="${comeURI}">
-											    <input type="hidden" name="action"	value="ChangeAmount">
-											    
-											    <button type="button" class="btn btn-info">
-													<a href='<%=request.getContextPath()%>/back-end/orders/checkIn.jsp' style="color:#fff">返回</a>
-												</button>
-											    
-										    </td>										
-										</tr>
 									</table>
+									<div align="center">
+										<input type="submit" value="確認" class="btn btn-info">											
+									    <input type="hidden" name="ordID" value="${ordVO.ordID}">
+									    <input type="hidden" name="odID" value="${odVO.odID}">
+									    <input type="hidden" name="comeURI" value="${comeURI}">
+									    <input type="hidden" name="action"	value="ChangeAmount">
+									</div>
 								</FORM>
-										<br>
+								<br>
 									
 												
 							</div>
