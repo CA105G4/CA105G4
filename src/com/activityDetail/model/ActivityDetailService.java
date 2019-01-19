@@ -37,7 +37,7 @@ public class ActivityDetailService {
 		return dao.findByPK(actID);
 	}
 	
-	public List<ActivityDetailVO>getAll(){
+	public List<ActivityDetailVO> getAll(){
 		return dao.getAll();
 	}
 	
