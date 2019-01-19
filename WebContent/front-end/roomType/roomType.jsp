@@ -73,7 +73,7 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/workExchange/listAllWE.jsp" class="nav-link">Stay and Help</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/coupon/coupon.jsp" class="nav-link">Coupon</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="nav-link">My Account</a></li>
-					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">F&Q</a></li>
+					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">FAQ</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
@@ -289,10 +289,7 @@
 			<div class="row mb-5 pt-5 justify-content-center">
 				<div class="col-md-7 text-center section-heading">
 					<h2 class="heading">More Rooms</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-						Reprehenderit, iusto, omnis! Quidem, sint, impedit? Dicta eaque
-						delectus tempora hic, corporis velit doloremque quod quam laborum,
-						nobis iusto autem culpa quaerat!</p>
+					<p>Xiangtai village is your best choice for accommodation whether you are on a business or tourist trip to Taichung. It is convenient for our guests to go to tourist, shopping and dining spots in the city. It is located at a convenient location with quick access to popular spots in the city.</p>
 				</div>
 			</div>
 
