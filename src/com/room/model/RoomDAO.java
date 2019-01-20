@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.roomType.model.RoomTypeService;
+import com.roomType.model.RoomTypeVO;
+
 public class RoomDAO implements RoomDAO_interface{
 	
 	private static DataSource ds = null;
@@ -48,8 +51,9 @@ public class RoomDAO implements RoomDAO_interface{
 	private static final String UPDATE_RoomState_By_RoomID = "Update Room set ROOMSTATE = ? where roomID = ?";
 	
 	//一次新增單個房型多個房間
-//	private static final String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),"
-//	+ roomTypeID+"," +braID + ",roomNo)" +"from room where braid='B01'";
+//	private static final String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) "
+//	+ " select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),'?','?',roomNo)" 
+//	+" from room where braid='B01'";
 	
 	
 	@Override
@@ -508,16 +512,25 @@ System.out.println("房間收到roomID:"+roomID);
 		PreparedStatement pstmt = null;
 		
 		try {
+			
 			con = ds.getConnection();
 			System.out.println("roomTypeID:"+roomTypeID);
 			System.out.println("braID:"+braID);
-			String Add_ROOMS_ONETIME = "insert into room (ROOMID,roomtypeid,braid,roomno) select 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),'"+ roomTypeID+"','" +braID + "',roomNo " +"from room where braid='B01'";
+			
+			String Add_ROOMS_ONETIME = "INSERT INTO room (ROOMID,roomtypeid,braid,roomno) SELECT 'R'||LPAD(to_char(room_seq.nextVal),5,'0'),'"+roomTypeID+"','"+braID + "',? FROM room where roomtypeid='RT01' and rownum =1";
 			pstmt = con.prepareStatement(Add_ROOMS_ONETIME);
 			
-//			pstmt.setString(1, roomTypeID);
-//			pstmt.setString(2, braID);
-			pstmt.executeUpdate();
+			RoomTypeService rtSvc = new RoomTypeService();
+			RoomTypeVO rtVO = rtSvc.getOneRoomType(roomTypeID);
+			int count = rtVO.getTotal();
+			System.out.println("此房型有"+count+"間");
 			
+			
+			for(int i = 0 ; i<count ; i++) {
+			pstmt.setInt(1, 101+i);
+			pstmt.addBatch();
+			}
+			pstmt.executeBatch();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -538,47 +551,4 @@ System.out.println("房間收到roomID:"+roomID);
 			}
 		}
 	}
-	
-	
-//	public static void main(String args[]) {
-//		RoomDAO dao = new RoomDAO();
-		//新增測試
-//		RoomVO roomVO1 = new RoomVO();
-//		roomVO1.setRoomTypeID("RT10");
-//		roomVO1.setBraID("B02");
-//		roomVO1.setRoomNo(150);
-//		roomVO1.setRoomState(2);
-//		roomVO1.setMemName("Ivan");
-//		dao.insert(roomVO1);
-//		System.out.println("Successfully Insert!");
-		
-		//修改
-//		RoomVO roomVO2 = new RoomVO();
-//		roomVO2.setRoomID("R00043");
-//		roomVO2.setRoomState(1);
-//		dao.update(roomVO2);
-//		System.out.println("Successfully Update!");
-		
-		//查詢單筆
-//		RoomVO roomVO3 = dao.findByPrimaryKey("R00030");
-//		System.out.println(roomVO3.getRoomTypeID());
-//		System.out.println(roomVO3.getBraID());
-//		System.out.println(roomVO3.getRoomNo());
-//		System.out.println(roomVO3.getRoomState());
-//		System.out.println(roomVO3.getMemName());
-//		System.out.println("Successfully Search!");
-		
-		//查詢全部
-//		List<RoomVO> rl = dao.getAll();
-//		for(RoomVO room : rl) {
-//			System.out.println(room.getRoomID());
-//			System.out.println(room.getRoomTypeID());
-//			System.out.println(room.getBraID());
-//			System.out.println(room.getRoomNo());
-//			System.out.println(room.getRoomState());
-//			System.out.println(room.getMemName());
-//			System.out.println("====================");
-//		}
-//		System.out.println("Successfully Search!");
-//	}	
 }
