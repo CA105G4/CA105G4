@@ -25,6 +25,17 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/flaticon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/icomoon.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/style.css">
+    
+    <style>
+    .block-6 .media-body .heading {
+        font-size:30px;
+    	font-family: Comic Sans MS, Comic Sans, cursive;
+	}
+	.block-6 .media-body p {
+    	font-size: 18px;
+    	font-family: Comic Sans MS, Comic Sans, cursive;
+	}
+    </style>
   </head>
   
   
@@ -156,7 +167,7 @@
 <%-- 						<tr><th>開始時間:</th><td>${workExchangeVO.weStart}</td></tr> --%>
 <%-- 						<tr><th>結束時間:</th><td>${workExchangeVO.weEnd}</td></tr> --%>
 <!-- 					</table>	 -->
-				  <div>
+				  <div align="center">
 					  <Form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
 					  <input type="submit" class="btn btn-primary py-3 px-5" value="申請">
 					  <input type="hidden" name="weName" value="${workExchangeVO.weName}">
