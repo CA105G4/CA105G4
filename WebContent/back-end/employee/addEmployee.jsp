@@ -96,7 +96,7 @@
 												value="<%=(employeeVO == null) ? "Tomdag" : employeeVO.getEmpName()%>" /></td>
 										</tr>
 										<tr>
-											<td>分店編號:</td>
+											<td>分店名稱:</td>
 											<td>
 												<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
 												<select name="braID" class="form-control">

@@ -115,7 +115,7 @@
 									<tr>
 										<td>促銷折扣</td>
 										<td><input name="discount" type="number"
-											class="form-control " min="0" max="1"  step="0.01" /> 折</td>
+											class="form-control " min="0" max="1"  step="0.01" /> %</td>
 									</tr>
 
 									<tr>

@@ -324,7 +324,7 @@
 		
 		webSocket.onmessage = function(event){
 			console.log(event.data);
-			alert("我重刷囉!");
+// 			alert("我重刷囉!");
 			window.location.reload();
 		};
 		

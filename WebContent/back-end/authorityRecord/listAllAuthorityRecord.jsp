@@ -91,12 +91,8 @@
 			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
 			<jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
 			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
-<%-- 			<td>${authorityRecordVO.empID}</td> --%>
-			<td>${authorityRecordVO.authID}</td>
-<%-- 			<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td> --%>
+			<td>${authSvc.getOneEmpAuth(authorityRecordVO.empID, authorityRecordVO.authID).authName}</td>
 					
-					
-			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
