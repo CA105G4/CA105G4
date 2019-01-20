@@ -38,6 +38,13 @@
 		.pic img{transform:scale(1,1);transition: all 1s ease-out;}
 		.pic img:hover{transform:scale(1.2,1.2);}
 		.head{text-shadow:2px 3px 5px #4d4d4d;font-size:40px;}
+		h1{
+			font-family:Brush Script MT;
+		}
+		#title{
+			font-size:23px;
+			font-family: Comic Sans MS, Comic Sans, cursive	;
+		}
 	</style>
 	
 </head>
@@ -104,10 +111,11 @@
 				<div class="row mb-5">
 					<!--ln8670-->
 					<div class="col-xs-12 col-sm-6">
-					<h1 style="border-bottom: 4px solid #ededed">Stay And Help</h1>
-					<p>想為你的人生增添色彩嗎?</p>
-					<p>想享受免費的房間設施嗎?</p>
-					<p>快看你是否擁有以下技能?</p>
+					<h1 style="border-bottom: 4px solid #ededed"><Strong>Stay And Help</Strong></h1>
+					<p id="title"><Strong>想為你的人生增添色彩嗎</Strong></p>
+					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想享受免費的房間設施嗎</Strong></p>
+					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;快看你是否擁有以下技能</Strong></p>
+					<p id="title">↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
 					</div>
 					<div class="col-xs-12 col-sm-6 block-3" style="padding-left: 0px;padding-right: 0px;">
 						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style=" max-width: 100%;">
