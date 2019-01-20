@@ -84,7 +84,7 @@
 										style="border-radius: 50%; width: 200px; height: 200px;">
 							</div>
 							<div>
-								${empSvc.getOneEmp(authorityRecordVO.empID).getEmpName()}
+								${empSvc.getOneEmp(authorityRecordVO.empID).getEmpName()} 
 							</div>
 						</div>
 					</c:forEach>
