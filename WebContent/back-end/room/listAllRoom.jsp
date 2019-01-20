@@ -92,45 +92,54 @@ table, th, td {
 <!-- 				</ul> -->
 <%-- 			</c:if> --%>
 		 <div class="container-fluid">
-		 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-			<table class="table table-bordered table-striped table-hover">
-				<tr>
-					<th class="text-center">房間編號</th>
-					<th class="text-center">店別</th>
-					<th class="text-center">房型</th>
-					<th class="text-center">房號</th>
-					<th class="text-center">房間狀態</th>
-					<th class="text-center">旅客姓名</th>
-					<th class="text-center">修改</th>
-				</tr>
-				<%@ include file="page1.file" %>
-				<jsp:useBean id="roomTypeSvc" scope="page" class="com.roomType.model.RoomTypeService" />
-				<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
-				<c:forEach var="roomVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-					
-					<tr>
-						<td class="text-center">${roomVO.roomID}</td>
-						<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}</td>
-						<td class="text-center">
-							${roomTypeSvc.getOneRoomType(roomVO.roomTypeID).rtName}
-						</td>
-						<td class="text-center">${roomVO.roomNo}</td>
-						<td class="text-center">${roomStateMap.get(roomVO.roomState)}</td>
-						<td class="text-center">${roomVO.memName}</td>
-						<td class="text-center">
-							<FORM method="post" action="<%=request.getContextPath()%>/room/room.do" style="margin-bottom: 0px;">
-								<input class="btn btn-danger text-center" type="submit" value="修改">
-								<input type="hidden" name="roomID" value="${roomVO.roomID}">
-								<input type="hidden" name="action" value="getOne_For_Update">
-							</FORM>
-						</td>
-					</tr>
-			
-				</c:forEach>
-			</table>
-			<%@ include file="page2.file" %>
-          <!-- Page Content 這邊開始自由發揮結束-->
-		 </div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-2">
+				
+					</div>
+					<div class="col-xs-12 col-sm-8">
+						<table class="table table-bordered table-striped table-hover">
+							<tr>
+								<th class="text-center">房間編號</th>
+								<th class="text-center">店別</th>
+								<th class="text-center">房型</th>
+								<th class="text-center">房號</th>
+								<th class="text-center">房間狀態</th>
+								<th class="text-center">旅客姓名</th>
+								<th class="text-center">修改</th>
+							</tr>
+							<%@ include file="page1.file" %>
+							<jsp:useBean id="roomTypeSvc" scope="page" class="com.roomType.model.RoomTypeService" />
+							<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
+							<c:forEach var="roomVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+								
+								<tr>
+									<td class="text-center">${roomVO.roomID}</td>
+									<td class="text-center">${braSvc.getOneByID(roomVO.braID).braName}</td>
+									<td class="text-center">
+										${roomTypeSvc.getOneRoomType(roomVO.roomTypeID).rtName}
+									</td>
+									<td class="text-center">${roomVO.roomNo}</td>
+									<td class="text-center">${roomStateMap.get(roomVO.roomState)}</td>
+									<td class="text-center">${roomVO.memName}</td>
+									<td class="text-center">
+										<FORM method="post" action="<%=request.getContextPath()%>/room/room.do" style="margin-bottom: 0px;">
+											<input class="btn btn-danger text-center" type="submit" value="修改">
+											<input type="hidden" name="roomID" value="${roomVO.roomID}">
+											<input type="hidden" name="action" value="getOne_For_Update">
+										</FORM>
+									</td>
+								</tr>
+						
+							</c:forEach>
+						</table>
+				<%@ include file="page2.file" %>
+					</div>
+					<div class="col-xs-12 col-sm-2">
+						
+					</div>
+				</div>
+	          <!-- Page Content 這邊開始自由發揮結束-->
+			 </div>
 		 </div>
         </div>
 			<!-- /.container-fluid -->
