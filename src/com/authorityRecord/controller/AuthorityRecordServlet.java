@@ -310,6 +310,7 @@ public class AuthorityRecordServlet extends HttpServlet {
 				}
 				/*************************** 3.�d�ߧ���,�ǳ����(Send the Success view) ************/
 				req.setAttribute("listEmps_ByAuthID", set);    // ��Ʈw���X��set����,�s�Jrequest
+				req.setAttribute("empID", str);
 
 				String url = null;
 				if ("listAuths_ByEmpID_A".equals(action))

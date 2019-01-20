@@ -89,7 +89,7 @@
 		        <input type="hidden" name="action" value="listAuths_ByEmpID_A">
 		    </FORM>
 		  </li>
-		  
+		  <br>
 		  <jsp:useBean id="authIDSvc" scope="page" class="com.authority.model.AuthorityService" />
 		  <li>
 		     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authority/authority.do" >

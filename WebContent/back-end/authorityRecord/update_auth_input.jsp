@@ -83,8 +83,10 @@
 			</c:forEach>
 		</ul>
 	</c:if>
+</div>	
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" name="form1">
+<div align="center">
 	<table>
 		<tr>
 			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
@@ -102,21 +104,18 @@
 				</c:forEach>
 			</td>
 		</tr>
-		
-		
-		
-		
-	
 	</table>
+</div>	
 	<br>
+	<div align="center">
 		<input type="hidden" name="empID" value="<%=authorityRecordVO.getEmpID()%>">
 		<input type="hidden" name="action" value="update">
 		<input type="submit" value="送出">
-		
+	</div>	
 	
 	
 	</FORM>
-</div>
+
         </div>
         <!-- /.container-fluid -->
 

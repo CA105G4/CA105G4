@@ -8,8 +8,7 @@
 	AuthorityRecordVO authorityRecordVO = (AuthorityRecordVO) request.getAttribute("authorityRecordVO");
 %>
 
-
-
+ <jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +35,15 @@
 
 <!-- Custom styles for this template-->
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
-	
+
+<style type="text/css">
+.grid-container {
+	grid-template-columns: repeat(3, 33.33%);
+	grid-gap: 10px;
+	margin-top: 5%;
+}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -65,50 +72,31 @@
 					</li>
             <li class="breadcrumb-item active"> </li>
           </ol>
-
-          <!-- DataTables Example -->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i> 員工的權限</div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>員工編號</th>
-                      <th>權限編號</th>
-                      <th>刪除</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>員工編號</th>
-                      <th>權限編號</th>
-                      <th>刪除</th>                      
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                  
-                  
-                <jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
-                <jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
-				<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
-				<tr>
-					<td>${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
-					<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td>
 			
-					<td>
-					  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" style="margin-bottom: 0px;">
-					     <input type="submit" value="刪除">
-					     <input type="hidden" name="empID"      value="${authorityRecordVO.empID}">
-					     <input type="hidden" name="action"     value="delete"></FORM>
-					</td>
-				</tr>
-				</c:forEach>
-                   
-                  </tbody>
-                </table>
-              </div>
+          <!-- DataTables Example -->
+          <div class="card mb-3" align="center">
+            <div class="card-header">
+              <i class="fas fa-table"></i> ${empSvc.getOneEmp(empID).empName} 員工的權限</div>
+            <div class="card-body">
+            		<img src="<%=request.getContextPath()%>/employee/empImg.do?empID=${empID}"
+										style="border-radius: 50%; width: 300px;">
+            	<div class="grid-container" style="display:grid">
+	                <jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
+						<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
+							<div>
+										<i class="fa fa-tags"></i>
+										</a> ${authSvc.getOneAuth(authorityRecordVO.authID).authName}
+		
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do"
+											style="margin-bottom: 0px;">
+											<input type="submit" value="刪除" class="btn btn-info"> <input type="hidden"
+												name="empID" value="${authorityRecordVO.empID}"> <input
+												type="hidden" name="action" value="delete">
+										</FORM>
+									</div>
+						</c:forEach>
+				</div>
             </div>
             <div class="card-footer small text-muted"></div>
           </div>
