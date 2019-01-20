@@ -36,6 +36,7 @@ iframe {
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
 
 <meta charset="utf-8">
@@ -283,5 +284,5 @@ iframe {
 		src="<%=request.getContextPath()%>/back-end/js/demo/chart-area-demo.js"></script>
 
 </body>
-  
+ 
 </html>

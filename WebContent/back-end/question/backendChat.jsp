@@ -217,6 +217,7 @@ div {
 			</div>
 		</div>
 	</div>
+
 	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 	<script
 		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
