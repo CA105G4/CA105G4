@@ -104,12 +104,13 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
 						<c:when test="${memberVO == null}">
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a>
+							<li class="nav-item">
+								<a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="nav-item"><a class="nav-link"
-								href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout&nbsp;&nbsp;<img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" style="border-radius: 50%; width:30px; height: 30px"></a>
+							<li class="nav-item">
+								<a class="nav-link" href="<%=request.getContextPath()%>/front-end/MemLogout.do">Logout&nbsp;&nbsp;
+								<img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" style="border-radius: 50%; width:30px; height: 30px"></a></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
