@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 import com.activity.model.ActivityService;
+import com.member.model.MemberService;
 import com.orderDetail.model.OrderDetailService;
 import com.orderDetail.model.OrderDetailVO;
 import com.orders.model.OrdersCheckInOutVO;
@@ -535,7 +536,9 @@ System.out.println("傳進來的roomState"+roomState);
 			
 			OrdersService ordSvc = new OrdersService();
 			OrdersVO ordVO =ordSvc.getOneOrders(ordID);
-			String memname = ordVO.getMemID();	/*------改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改ordVO.getMemName()------*/
+			String memID = ordVO.getMemID();	/*------改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改改ordVO.getMemName()------*/
+			MemberService memSvc = new MemberService();
+			String memname = memSvc.getOneMem(memID).getMemName();
 			System.out.println(ordID+"訂單的會員為:"+memname);
 			roomSvc.updateRoomState(2, memname, roomID); //房間狀態2，為"入住"的意思
 System.out.println("修改房間狀態及入住會員姓名成功");
@@ -590,7 +593,7 @@ System.out.println("修改訂單明細，加入房間編號成功");
 			ordSvc.updateOrdState(1, ordID); //訂單狀態1，為"入住"的意思
 System.out.println("修改訂單狀態成功");
 			
-			/*------成功修改訂單狀態後，通知checkIn.jsp去告知Endpoint推播房況，使其更新------*/	/*------新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增webSocket------*/
+			/*------成功修改訂單狀態後，通知checkIn.jsp去告知Endpoint推播房況，使其更新------*/	
 			req.setAttribute("refreshRoomState", "1");
 			
 			/*------以上方法皆結束，轉交回checkIn網頁------*/
@@ -622,7 +625,7 @@ System.out.println("修改訂單狀態成功");
 			/*------修改訂單的狀態------*/
 			ordSvc.updateOrdState(2, ordID); 
 			
-			/*------成功修改訂單狀態後，通知checkOut.jsp去告知Endpoint推播房況，使其更新------*/	/*------新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增新增webSocket------*/
+			/*------成功修改訂單狀態後，通知checkOut.jsp去告知Endpoint推播房況，使其更新------*/
 			req.setAttribute("refreshRoomState", "1");
 			
 			/*------以上方法皆結束，轉交回checkOut網頁------*/
