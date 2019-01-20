@@ -161,7 +161,7 @@
 									<tr>
 										<td>房型數量:</td>
 										<td><input type="TEXT" name="total" size="45" class="form-control"
-											 value="${(rtVO == null) ? '10' : rtVO.total }" /></td>
+											 value="${(rtVO == null) ? '5' : rtVO.total }" /></td>
 									</tr>
 								</table>
 								<br>
