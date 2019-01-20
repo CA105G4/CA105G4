@@ -1,11 +1,13 @@
+<%@page import="com.employee.model.EmployeeVO"%>
 <%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%
+<%	
+	EmployeeVO employeeVO = (EmployeeVO)session.getAttribute("employeeVO");
 	RoomTypeService rtSvc = new RoomTypeService();
-	List<RoomTypeVO> list = rtSvc.getAll();
+	List<RoomTypeVO> list = rtSvc.findRoomTypeByBraID(employeeVO.getBraID());
 	pageContext.setAttribute("list", list);
 %>
 
@@ -82,14 +84,15 @@
 					</button>
 				</div>
 				<div class="container-fluid">
-					<h2>listAllRoomType-所有房型資料</h2>
+				<jsp:useBean id="braSvc2" scope="page" class="com.branch.model.BranchService" />
+					<h2>${braSvc2.getOneByID(employeeVO.getBraID()).braName} 所有房型資料</h2>
 
 						<!--開始自由發揮-->
 						<table class="table table-bordered table-striped table-hover">
 							<thead>
 							<tr>
 <!-- 								<th>房型編號</th> -->
-								<th>分店編號</th>
+<!-- 								<th>分店名稱</th> -->
 								<th>房型名稱</th>
 								<th>房型照片</th>
 								<th>房型介紹</th>
@@ -108,47 +111,28 @@
 								
 								<tr>
 <%-- 									<td>${roomTypeVO.rtID}</td> --%>
-								<jsp:useBean id="braSvc" scope="page" class="com.branch.model.BranchService" />
-									<td>${braSvc.getOneByID(roomTypeVO.braID).getBraName()}</td>
+								<jsp:useBean id="rtSvc2" scope="page" class="com.roomType.model.RoomTypeService" />
+<%-- 									<td>${braSvc.getOneByID(roomTypeVO.braID).getBraName()}</td> --%>
 									<td>${roomTypeVO.rtName}</td>
-									
-									<c:set var="index"  value="${status.index}"/>
-									<%
-										int count = (Integer) pageContext.getAttribute("index");
-										String encodedText =null;
-										if(list.get(count).getRtPic()!=null){
-											Base64.Encoder encoder = Base64.getEncoder();
-											encodedText = encoder.encodeToString(list.get(count).getRtPic());
-											pageContext.setAttribute("icon_", new Integer(1));
-										}else{
-											pageContext.setAttribute("icon_", new Integer(0));
-										}
-									%>
-									
-									
-									
-									<c:choose>
-									<c:when test="${icon_==1}">
-									
-								<td ><img width="200"
-												src="data:image/png;base64, <%=encodedText%>"></td>
-									
-									</c:when>
-									
-									<c:otherwise>
-						                	<td><img src="<%=request.getContextPath()%>/image/noImage.jpg" width="200" height="132"></td>
-									
-									</c:otherwise>
-									</c:choose>
-									
-									
-									<td>${roomTypeVO.rtIntro}</td> 
-									<td>${roomTypeVO.rtMinimum}</td>
-									<td>${roomTypeVO.rtLimit}</td>
-									<td>${roomTypeVO.weeklyPrice}</td>
-									<td>${roomTypeVO.holidayPrice}</td>
+									<td >
+										<c:choose>
+												<c:when test="${rtSvc2.getOneRoomType(roomTypeVO.rtID).rtPic == null}">
+														<img src="<%=request.getContextPath()%>/images/noImage.jpg" id="previewpic" 
+									 						class="img-fluid" width="300px">
+									 			</c:when>
+									 			<c:otherwise>
+														<img src="<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${roomTypeVO.rtID}" id="previewpic" 
+									 						class="img-fluid" width="300px">
+												</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).rtIntro}</td> 
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).rtMinimum}</td>
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).rtLimit}</td>
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).weeklyPrice}</td>
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).holidayPrice}</td>
 <%-- 									<td>${roomTypeVO.balance}</td> --%>
-									<td>${roomTypeVO.total}</td>
+									<td>${rtSvc.getOneRoomType(roomTypeVO.rtID).total}</td>
 									<td>
 									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="修改" class="btn btn-info">

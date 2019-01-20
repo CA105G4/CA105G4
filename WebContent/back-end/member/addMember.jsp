@@ -87,97 +87,108 @@
 				</ol>
 
 				<!-- Page Content 這邊開始自由發揮-->
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12 col-sm-8">
-							<h1>新增會員</h1>
-							<hr>
-
-							<h3>資料新增:</h3>
-
-							<%-- ���~��C --%>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red">請修正以下錯誤:</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-
-							<FORM METHOD="post"
-								ACTION="<%=request.getContextPath()%>/member/mem.do"
-								name="form1" enctype="multipart/form-data">
-								<table>
-									<tr>
-										<td>會員姓名:</td>
-										<td><input type="TEXT" name="memName" size="45"
-											value="<%=(memberVO == null) ? "Tomdag" : memberVO.getMemName()%>" /></td>
-									</tr>
-									<tr>
-										<td>會員帳號:</td>
-										<td><input type="TEXT" name="memAcc" size="45"
-											value="<%=(memberVO == null) ? "overtom" : memberVO.getMemAcc()%>" /></td>
-									</tr>
-									<tr>
-										<td>會員密碼:</td>
-										<td><input type="TEXT" name="memPsw" size="45"
-											value="<%=(memberVO == null) ? "overdag" : memberVO.getMemPsw()%>" /></td>
-									</tr>
-									<tr>
-										<td>生日:</td>
-										<td><input type="TEXT" name="memBirth" id="f_date1"
-											size="45" /></td>
-									</tr>
-									<tr>
-										<td>會員信箱:</td>
-										<td><input type="TEXT" name="memEmail" size="45"
-											value="<%=(memberVO == null) ? "tomdog@gmail.com" : memberVO.getMemEmail()%>" /></td>
-									</tr>
-									<tr>
-										<td>會員電話:</td>
-										<td><input type="TEXT" name="memTel" size="45"
-											value="<%=(memberVO == null) ? "097853656" : memberVO.getMemTel()%>" /></td>
-									</tr>
-									<tr>
-										<td>地址:</td>
-										<td><input type="TEXT" name="memAddr" size="45"
-											value="<%=(memberVO == null) ? "台北市永和區明樂街59號10樓" : memberVO.getMemAddr()%>" /></td>
-									</tr>
-									<tr>
-										<td>性別:</td>
-										<td><input type="radio" name="memSex" value="M">男
-											<input type="radio" name="memSex" value="F">女<span
-											style="color: red;">※ </span><br></td>
-									</tr>
-									<tr>
-										<td>會員技能:</td>
-										<td><input type="TEXT" name="memSkill" size="45"
-											value="<%=(memberVO == null) ? "大胃王" : memberVO.getMemSkill()%>" /></td>
-									</tr>
-									<tr>
-										<td>身分字號:</td>
-										<td><input type="TEXT" name="memIDcard" size="45"
-											value="<%=(memberVO == null) ? "T123456789" : memberVO.getMemIDcard()%>" /></td>
-									</tr>
-									<tr>
-										<td>會員頭貼:</td>
-										<td><img
-											src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg"
-											id="previewpic" class="img-fluid" width="300px"></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td><input type="file" name="memPic" id="inputfile01">
-										</td>
-									</tr>
-
-
-								</table>
-								<br> <input type="hidden" name="action" value="insert">
-								<input type="submit" value="送出">
-							</FORM>
-						</div>
+				
+					<h1>新增會員資料</h1>
+					<hr>
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-12 col-sm-3">
+										
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										<div align="center">
+							
+											<%-- ���~��C --%>
+											<c:if test="${not empty errorMsgs}">
+												<font style="color: red">請修正以下錯誤:</font>
+												<ul>
+													<c:forEach var="message" items="${errorMsgs}">
+														<li style="color: red">${message}</li>
+													</c:forEach>
+												</ul>
+											</c:if>
+				
+											<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/member/mem.do"
+												name="form1" enctype="multipart/form-data">
+												<table>
+													<tr>
+														<td>會員姓名:</td>
+														<td><input type="TEXT" name="memName" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "Tomdag" : memberVO.getMemName()%>" /></td>
+													</tr>
+													<tr>
+														<td>會員帳號:</td>
+														<td><input type="TEXT" name="memAcc" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "overtom" : memberVO.getMemAcc()%>" /></td>
+													</tr>
+													<tr>
+														<td>會員密碼:</td>
+														<td><input type="TEXT" name="memPsw" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "overdag" : memberVO.getMemPsw()%>" /></td>
+													</tr>
+													<tr>
+														<td>生日:</td>
+														<td><input type="TEXT" name="memBirth" id="f_date1" class="form-control"
+															size="45" /></td>
+													</tr>
+													<tr>
+														<td>會員信箱:</td>
+														<td><input type="TEXT" name="memEmail" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "tomdog@gmail.com" : memberVO.getMemEmail()%>" /></td>
+													</tr>
+													<tr>
+														<td>會員電話:</td> 
+														<td><input type="TEXT" name="memTel" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "097853656" : memberVO.getMemTel()%>" /></td>
+													</tr>
+													<tr>
+														<td>地址:</td>
+														<td><input type="TEXT" name="memAddr" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "台北市永和區明樂街59號10樓" : memberVO.getMemAddr()%>" /></td>
+													</tr>
+													<tr>
+														<td>性別:</td>
+														<td><input type="radio" name="memSex" value="M">男
+															<input type="radio" name="memSex" value="F">女<span
+															style="color: red;">※ </span><br></td>
+													</tr>
+													<tr>
+														<td>會員技能:</td>
+														<td><input type="TEXT" name="memSkill" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "大胃王" : memberVO.getMemSkill()%>" /></td>
+													</tr>
+													<tr>
+														<td>身分字號:</td>
+														<td><input type="TEXT" name="memIDcard" size="45" class="form-control"
+															value="<%=(memberVO == null) ? "T123456789" : memberVO.getMemIDcard()%>" /></td>
+													</tr>
+													<tr>
+														<td>會員頭貼:</td>
+														<td><img
+															src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg"
+															id="previewpic" class="img-fluid" width="300px"></td>
+													</tr>
+													<tr>
+														<td></td>
+														<td><input type="file" name="memPic" id="inputfile01">
+														</td>
+													</tr>
+				
+				
+												</table>
+												<br> <input type="hidden" name="action" value="insert">
+												<input type="submit" value="送出" class="btn btn-info">
+											</FORM>
+										</div>
+									</div>
+									<div class="col-xs-12 col-sm-3">
+									
+									</div>
+								</div>
+							</div>
+											
+						
 						<!-- /.container-fluid -->
 
 						<!-- Sticky Footer -->
@@ -189,11 +200,11 @@
 							</div>
 						</footer>
 
-					</div>
-					<!-- /.content-wrapper -->
-
-				</div>
-				<!-- /#wrapper -->
+				
+				<!-- /.content-wrapper -->
+			</div>
+		</div>
+		<!-- /#wrapper -->
 
 				<!-- Scroll to Top Button-->
 				<a class="scroll-to-top rounded" href="#page-top"> <i

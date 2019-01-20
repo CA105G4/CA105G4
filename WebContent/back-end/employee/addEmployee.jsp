@@ -71,95 +71,95 @@
 						<hr>
 						
 						<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-12 col-sm-3">
-								
-							</div>
-							<div class="col-xs-12 col-sm-6">
-								<div align="center">
-								<c:if test="${not empty errorMsgs}">
-									<font style="color: red">請修正以下錯誤:</font>
-									<ul>
-										<c:forEach var="message" items="${errorMsgs}">
-											<li style="color: red">${message}</li>
-										</c:forEach>
-									</ul>
-								</c:if>
-				
-								<FORM METHOD="post"
-									ACTION="<%=request.getContextPath()%>/employee/emp.do" name="form1"
-									enctype="multipart/form-data">
-									<table>
-										<tr>
-											<td>員工姓名:</td>
-											<td><input type="TEXT" name="empName" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "Tomdag" : employeeVO.getEmpName()%>" /></td>
-										</tr>
-										<tr>
-											<td>分店編號:</td>
-											<td>
-												<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
-												<select name="braID" class="form-control">
-													<option value="-1">請選擇</option>
-													<c:forEach var="brVO" items="${brSvc.all}">
-														<option value="${brVO.getBraID()}" >${brVO.braName}</option>
-													</c:forEach>
-												</select>
-													
-											</td>
-										</tr>
-										<tr>
-											<td>職位:</td>
-											<td><input type="TEXT" name="empJob" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "警衛" : employeeVO.getEmpJob()%>" /></td>
-										</tr>
-										<tr>
-											<td>電話:</td>
-											<td><input type="TEXT" name="empTel" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "0978001235" : employeeVO.getEmpTel()%>" /></td>
-										</tr>
-										<tr>
-											<td>員工帳號:</td>
-											<td><input type="TEXT" name="empAcc" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "aaaaa" : employeeVO.getEmpAcc()%>" /></td>
-										</tr>
-										<tr>
-											<td>員工密碼:</td>
-											<td><input type="password" name="empPsw" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "123456" : employeeVO.getEmpPsw()%>" /></td>
-										</tr>
-										<tr>
-											<td>員工頭貼:</td>
-											<td>
-<!-- 												<div align="center"> -->
-													<img
-													src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg"
-													id="previewpic" class="img-fluid" width="300px">
-<!-- 												</div> -->
-											</td>
-										</tr>
-										<tr>
-											<td></td>
-											<td><input type="file" name="empPic" id="inputfile01">
-											</td>
-										</tr>
-				
-				
-									</table>
-									<br>
-									<div align="center">
-										<input type="hidden" name="action" value="insert" >
-										<input type="submit" value="送出" class="btn btn-info">
-									</div> 
+							<div class="row">
+								<div class="col-xs-12 col-sm-3">
 									
-								</FORM>
 								</div>
-							</div>
-							<div class="col-xs-12 col-sm-3">
-						
+								<div class="col-xs-12 col-sm-6">
+									<div align="center">
+									<c:if test="${not empty errorMsgs}">
+										<font style="color: red">請修正以下錯誤:</font>
+										<ul>
+											<c:forEach var="message" items="${errorMsgs}">
+												<li style="color: red">${message}</li>
+											</c:forEach>
+										</ul>
+									</c:if>
+					
+									<FORM METHOD="post"
+										ACTION="<%=request.getContextPath()%>/employee/emp.do" name="form1"
+										enctype="multipart/form-data">
+										<table>
+											<tr>
+												<td>員工姓名:</td>
+												<td><input type="TEXT" name="empName" size="45" class="form-control"
+													value="<%=(employeeVO == null) ? "Tomdag" : employeeVO.getEmpName()%>" /></td>
+											</tr>
+											<tr>
+												<td>分店編號:</td>
+												<td>
+													<jsp:useBean id="brSvc" scope="page" class="com.branch.model.BranchService" />
+													<select name="braID" class="form-control">
+														<option value="-1">請選擇</option>
+														<c:forEach var="brVO" items="${brSvc.all}">
+															<option value="${brVO.getBraID()}" >${brVO.braName}</option>
+														</c:forEach>
+													</select>
+														
+												</td>
+											</tr>
+											<tr>
+												<td>職位:</td>
+												<td><input type="TEXT" name="empJob" size="45" class="form-control"
+													value="<%=(employeeVO == null) ? "警衛" : employeeVO.getEmpJob()%>" /></td>
+											</tr>
+											<tr>
+												<td>電話:</td>
+												<td><input type="TEXT" name="empTel" size="45" class="form-control"
+													value="<%=(employeeVO == null) ? "0978001235" : employeeVO.getEmpTel()%>" /></td>
+											</tr>
+											<tr>
+												<td>員工帳號:</td>
+												<td><input type="TEXT" name="empAcc" size="45" class="form-control"
+													value="<%=(employeeVO == null) ? "aaaaa" : employeeVO.getEmpAcc()%>" /></td>
+											</tr>
+											<tr>
+												<td>員工密碼:</td>
+												<td><input type="password" name="empPsw" size="45" class="form-control"
+													value="<%=(employeeVO == null) ? "123456" : employeeVO.getEmpPsw()%>" /></td>
+											</tr>
+											<tr>
+												<td>員工頭貼:</td>
+												<td>
+	<!-- 												<div align="center"> -->
+														<img
+														src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg"
+														id="previewpic" class="img-fluid" width="300px">
+	<!-- 												</div> -->
+												</td>
+											</tr>
+											<tr>
+												<td></td>
+												<td><input type="file" name="empPic" id="inputfile01">
+												</td>
+											</tr>
+					
+					
+										</table>
+										<br>
+										<div align="center">
+											<input type="hidden" name="action" value="insert" >
+											<input type="submit" value="送出" class="btn btn-info">
+										</div> 
+										
+									</FORM>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-3">
+							
+								</div>
+						</div>
 					</div>
-				</div>
-			</div>
 			<!-- /.container-fluid -->
 
 			<!-- Sticky Footer -->
