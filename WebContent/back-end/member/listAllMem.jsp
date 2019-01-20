@@ -118,7 +118,7 @@
 
 									<c:forEach var="memberVO" items="${list}">
 										<tr>
-<%-- 											<td>${memberVO.memID}</td> --%>
+											<td>${memberVO.memID}</td>
 											<td>${memberVO.memName}</td>
 <%-- 											<td>${memberVO.memAcc}</td> --%>
 <%-- 											<td>${memberVO.memPsw}</td> --%>

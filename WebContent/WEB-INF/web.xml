@@ -390,6 +390,15 @@
 		<url-pattern>/front-end/MemLogout.do</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>MailBackServlet</servlet-name>
+		<servlet-class>com.member.model.MailBackServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MailBackServlet</servlet-name>
+		<url-pattern>/Mail.do</url-pattern>
+	</servlet-mapping>
+
 	<filter>
 		<filter-name>EmpLoginFilter</filter-name>
 		<filter-class>com.employee.controller.EmpLoginFliter</filter-class>
