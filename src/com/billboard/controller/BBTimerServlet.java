@@ -25,11 +25,11 @@ public class BBTimerServlet extends HttpServlet {
 //		System.out.println("已建立輪播廣告排程!");
 //	}
 
-	public void destroy() {
-		timer.cancel();
-		timer.purge();
-		System.out.println("已結束輪播廣告排程!");
-	}
+//	public void destroy() {
+//		timer.cancel();
+//		timer.purge();
+//		System.out.println("已結束輪播廣告排程!");
+//	}
 
 	public void bbStatusChecker() {
 		BillboardService bbSvc = new BillboardService();
