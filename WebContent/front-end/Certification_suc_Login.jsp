@@ -126,10 +126,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 offset-sm-3 col-lg-6 offset-lg-3">
-						<h1>認證成功</h1>
-
-					<tr><td>恭喜您，從現在起，您就是本站的一員了。</td></tr><br>
-					<a  href="<%=request.getContextPath()%>/front-end/Login.jsp"  style="color:red;">點選此處前往登入</a>
+					<h1>認證成功</h1>
+					恭喜您，從現在起，您就是本站的一員了。<br>
+					<a  href="<%=request.getContextPath()%>/front-end/Login.jsp?memAcc=${memAcc}&memPsw=${memPsw}" style="color:red;">點選此處前往登入</a>
 				</div>
 			</div> 
 		</div>

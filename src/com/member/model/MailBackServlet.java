@@ -33,13 +33,14 @@ public class MailBackServlet extends HttpServlet {
 		memberVO.setMemState(memState);
 		memberVO.setMemID(memID);
 
-//	System.out.println(memAcc);
-//    System.out.println(memID);
-//    System.out.println(memState);
+//		System.out.println(memAcc);
+//		System.out.println(memID);
+//		System.out.println(memState);
+		
 		memberVO = memSvc.updateMemStatus(1, memID);
 		req.setAttribute("memberVO", memberVO);
-
 		req.setAttribute("memPsw", memPsw);
+		req.setAttribute("memAcc", memAcc);
 		req.getRequestDispatcher("/front-end/Certification_suc_Login.jsp").forward(req, res);
 	}
 
