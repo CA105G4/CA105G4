@@ -228,12 +228,12 @@
   
   
   function initMap() {
-	  window.navigator.geolocation.getCurrentPosition(myPosition);
+	 myPosition();
   }
   
   function myPosition(bra){
 	  if(center == null){
-		  center = {lat:bra.coords.latitude, lng:bra.coords.longitude};
+		  center = {lat:24.967809,lng:121.191704};
 		  console.log("載入畫面時座標");
 		  console.log(center);
 	  }else{
