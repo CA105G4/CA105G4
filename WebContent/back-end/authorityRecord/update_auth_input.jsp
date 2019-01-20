@@ -75,47 +75,49 @@
           <h1>權限許可更新</h1>
 
 <%-- 錯誤表列 --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" name="form1">
-<table>
-	<tr>
-		<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
-		<td>員工編號:</td>
-		<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
-	</tr>
-	
-	<tr><td></td></tr>
-
-	<tr>
-		<td>權限選擇:</td>
-		<td>
-			<c:forEach var="authVO" items="${list}">
-				<input type="checkbox" name="authID" value="${authVO.authID}">${authVO.authName}<br>
+<div align="center">
+	<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color:red">${message}</li>
 			</c:forEach>
-		</td>
-	</tr>
-	
-	
-	
-	
+		</ul>
+	</c:if>
 
-</table>
-<br>
-	<input type="hidden" name="empID" value="<%=authorityRecordVO.getEmpID()%>">
-	<input type="hidden" name="action" value="update">
-	<input type="submit" value="送出">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" name="form1">
+	<table>
+		<tr>
+			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
+			<td>員工編號:</td>
+			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
+		</tr>
+		
+		<tr><td></td></tr>
 	
-
-
-</FORM>
+		<tr>
+			<td>權限選擇:</td>
+			<td>
+				<c:forEach var="authVO" items="${list}">
+					<input type="checkbox" name="authID" value="${authVO.authID}">${authVO.authName}<br>
+				</c:forEach>
+			</td>
+		</tr>
+		
+		
+		
+		
+	
+	</table>
+	<br>
+		<input type="hidden" name="empID" value="<%=authorityRecordVO.getEmpID()%>">
+		<input type="hidden" name="action" value="update">
+		<input type="submit" value="送出">
+		
+	
+	
+	</FORM>
+</div>
         </div>
         <!-- /.container-fluid -->
 

@@ -17,7 +17,7 @@ public class ScheduleServlet extends HttpServlet{
 	
 	public void init() throws ServletException {
 		
-		Calendar cal = new GregorianCalendar(2019,0,6,23,59,0);	//今天	2019,0,6,23,59,0
+		Calendar cal = new GregorianCalendar(2019,1,21,0,1,0);	//今天	2019,1,21,0,1,0
 		
 		TimerTask task = new TimerTask() {
 			public void run() {

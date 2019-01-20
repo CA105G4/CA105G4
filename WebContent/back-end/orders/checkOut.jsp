@@ -10,11 +10,11 @@
 	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");
 
 	OrdersService ordSvc = new OrdersService();
-	java.util.Date udate = new java.util.Date();
-	java.sql.Date today = new java.sql.Date(udate.getTime());
+// 	java.util.Date udate = new java.util.Date();
+// 	java.sql.Date today = new java.sql.Date(udate.getTime());
 	
 	//測試用
-// 	java.sql.Date today = Date.valueOf("2019-01-18");
+	java.sql.Date today = Date.valueOf("2019-01-24");
 	
 	List<OrdersCheckInOutVO> checkOutlist = ordSvc.findCheckOut_ByOrdJoinOD(today, empVO.getBraID());
 	pageContext.setAttribute("today", today);

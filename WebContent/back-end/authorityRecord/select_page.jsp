@@ -85,11 +85,11 @@
 			         </c:forEach>   
 			       </select>
 <!-- 		        <input type="text" name="empID"> -->
-		        <input type="submit" value="查詢">
+		        <input type="submit" value="查詢" class="btn btn-info">
 		        <input type="hidden" name="action" value="listAuths_ByEmpID_A">
 		    </FORM>
 		  </li>
-
+			<br>
 		  <jsp:useBean id="authIDSvc" scope="page" class="com.authority.model.AuthorityService" />
 		  <li>
 		     <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authority/authority.do" >
@@ -99,7 +99,7 @@
 		          <option value="${authorityVO.authID}">${authorityVO.authName}
 		         </c:forEach>   
 		       </select>
-		       <input type="submit" value="查詢">
+		       <input type="submit" value="查詢" class="btn btn-info">
 		       <input type="hidden" name="action" value="listEmps_ByAuthID_A">
 		     </FORM>
 		  </li>
@@ -120,7 +120,7 @@
 	          <option value="${employeeVO.empID}">${employeeVO.getBraID()} - ${braSvc.getOneByID(employeeVO.getBraID()).braName} - ${employeeVO.empName}   
 	         </c:forEach>
 	       </select>
-	       <input type="submit" value="修改">
+	       <input type="submit" value="修改" class="btn btn-info">
 	       <input type="hidden" name="action" value="getOne_For_Update">
 	     </FORM>
 	  </li>
