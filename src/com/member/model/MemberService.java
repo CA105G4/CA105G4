@@ -67,7 +67,7 @@ public class MemberService {
 		
 		return memberVO;
 	}
-
+ 
 	public MemberVO getOneMem(String memID) {
 		return dao.findByPK(memID);
 	}

@@ -28,7 +28,7 @@ public class MailBackServlet extends HttpServlet {
 //    String memID = req.getParameter("memID");	
     MemberService memSvc = new MemberService();
 	String memID = memSvc.getOneMemByAcc(memAcc);
-	
+	 
 	Integer memState = 1;
     
 	memberVO.setMemState(memState);

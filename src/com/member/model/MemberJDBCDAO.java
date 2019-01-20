@@ -24,7 +24,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE Member set memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =?,memReg=? where memID=?";
 	private static final String UPDATE_state = "UPDATE Member set memState=? where memID=?";
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
-
+ 
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
 	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
 	

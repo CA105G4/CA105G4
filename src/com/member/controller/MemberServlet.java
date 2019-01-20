@@ -498,7 +498,7 @@ public class MemberServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				
+				 
 				/***************************2..新增完成,準備轉交(***************************************/
 				System.out.println(errorMsgs);
 				MemberService memSvc = new MemberService();

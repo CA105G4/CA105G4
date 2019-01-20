@@ -222,7 +222,7 @@ pstmt = con.prepareStatement(FIND_BY_PK);
 			pstmt.setInt(1,memberVO.getMemState());
 			pstmt.setString(2,memberVO.getMemID());
 			
-			
+			 
 			
 			
 			

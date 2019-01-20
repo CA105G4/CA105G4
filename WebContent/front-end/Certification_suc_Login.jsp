@@ -128,7 +128,7 @@
 					<tr>  恭喜您，從現在起，您就是本站的一員了。</tr><br>
 					<a  href="<%=request.getContextPath()%>/front-end/Login.jsp"  style="color:red;">點選此處前往登入</a>
 				</div>
-			</div>
+			</div> 
 		</div>
 	</form>
 		

@@ -14,3 +14,4 @@ public interface MemberDAO_interface {
 	public List<MemberVO> getMemBySkill(String weName);
 
 }
+ 
