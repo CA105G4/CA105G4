@@ -10,7 +10,7 @@ public class AuthorityService {
 	private AuthorityDAO_interface dao;
 
 	public AuthorityService() {
-		dao = new AuthorityJDBCDAO();
+		dao = new AuthorityDAO();
 	}
 	public AuthorityVO addAuth(Integer authID,String authName ) {
 
@@ -29,8 +29,6 @@ public class AuthorityService {
 		return dao.getEmpsByAuthID(authID);
 	}
 	
-
-
 	public AuthorityVO getOneAuth(Integer authID) {
 		return dao.findByPK(authID);
 	}
@@ -38,4 +36,4 @@ public class AuthorityService {
 	public List<AuthorityVO> getAll() {
 		return dao.getAll();
 	}
-	}
+}

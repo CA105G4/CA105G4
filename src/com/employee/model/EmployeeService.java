@@ -8,7 +8,7 @@ public class EmployeeService {
 	private EmployeeDAO_interface dao;
 
 	public EmployeeService() {
-		dao = new EmployeeJDBCDAO();
+		dao = new EmployeeDAO();
 }
 	public EmployeeVO addEmp(String braID, String empName, String empJob,
 			String empTel,byte[] empPic, String empAcc, String empPsw) {

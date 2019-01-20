@@ -261,7 +261,7 @@ public class AuthorityRecordServlet extends HttpServlet {
         }
         if ("listAuths_ByEmpID_A".equals(action) ) {
         	
-        	System.out.println("test");
+        	System.out.println("action");
         	
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);

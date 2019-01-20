@@ -1,8 +1,7 @@
-<%@page import="com.authority.model.AuthorityVO"%>
-<%@page import="com.authority.model.AuthorityService"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="java.util.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.authority.model.*"%>
 <%@ page import="com.authorityRecord.model.*"%>
 
 <%

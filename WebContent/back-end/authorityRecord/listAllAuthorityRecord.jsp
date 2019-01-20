@@ -1,7 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.authority.model.*"%>
 <%@ page import="com.authorityRecord.model.*"%>
+
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
@@ -91,7 +93,7 @@
 			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
 			<jsp:useBean id="authSvc" scope="page" class="com.authority.model.AuthorityService" />
 			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
-			<td>${authSvc.getOneEmpAuth(authorityRecordVO.empID, authorityRecordVO.authID).authName}</td>
+			<td>${authSvc.getOneAuth(authorityRecordVO.authID).authName}</td>
 					
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do" style="margin-bottom: 0px;">
