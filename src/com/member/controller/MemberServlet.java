@@ -503,6 +503,24 @@ public class MemberServlet extends HttpServlet {
 				System.out.println(errorMsgs);
 				MemberService memSvc = new MemberService();
 				memberVO = memSvc.addMem(memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memSkill, memPic, memIDcard);
+				//信箱驗證
+				 String to = memEmail;
+			      
+			      String subject = "祥太山莊會員認證信";
+			        
+			
+			      String url1 = "http://localhost:8081/CA105G4C/Mail.do?memAcc=" + memAcc+"&memPsw="+memPsw;
+			      
+			      
+			      String messageText = memName+"請點擊下列網址已完成認證"+ "\n"+url1; 
+			      
+			       
+			     EmailService mailService = new EmailService();
+			      mailService.sendMail(to, subject, messageText);
+				
+			      HttpSession httpSession = req.getSession();
+			      httpSession.setAttribute(memAcc,memPsw);
+			      httpSession.setMaxInactiveInterval(600);
 				
 				/***************************3.�新增完成,準備轉交Send the Success view)***********/
 				

@@ -58,7 +58,15 @@ public class MemberService {
 		return memberVO;
 	}
 
-	
+	public MemberVO updateMemStatus(Integer memState, String memID) {
+		MemberVO memberVO = new MemberVO();
+
+		memberVO.setMemState(memState);
+		memberVO.setMemID(memID);
+		dao.update_state(memberVO);
+		
+		return memberVO;
+	}
 
 	public MemberVO getOneMem(String memID) {
 		return dao.findByPK(memID);

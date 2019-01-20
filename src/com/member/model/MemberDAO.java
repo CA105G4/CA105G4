@@ -26,7 +26,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE = "UPDATE Member set memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =?,memReg=? where memID=?";
 
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
-
+	private static final String UPDATE_state = "UPDATE Member set memState=? where memID=?";
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
 	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
 	
@@ -210,6 +210,46 @@ pstmt = con.prepareStatement(FIND_BY_PK);
 		}	
 		return memberVO;
 	}
+	
+	public void update_state(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_state);
+			
+			pstmt.setInt(1,memberVO.getMemState());
+			pstmt.setString(2,memberVO.getMemID());
+			
+			
+			
+			
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
 	
 	
 	public String findAcc(String memAcc) {

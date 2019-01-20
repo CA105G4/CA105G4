@@ -22,7 +22,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			+ "values('M'||LPAD(to_char(mem_seq.NEXTVAL),4, '0'),?,?,?,?,?,?,?,?,?,?,?)";
 
 	private static final String UPDATE = "UPDATE Member set memName =?,memAcc =?,memPsw =?,memBirth =?,memEmail =?,memTel =?,memAddr =?,memSex =?,memSkill =?,memState=?,memPic =?,memIDcard =?,memReg=? where memID=?";
-
+	private static final String UPDATE_state = "UPDATE Member set memState=? where memID=?";
 	private static final String FIND_ALL_STMT = "SELECT * from  Member";
 
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
@@ -110,6 +110,45 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			pstmt.setDate(13,memberVO.getMemReg());
 			pstmt.setString(14,memberVO.getMemID());
 		
+			
+			
+			
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	public void update_state(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_state);
+			
+			pstmt.setInt(1,memberVO.getMemState());
+			pstmt.setString(2,memberVO.getMemID());
+			
 			
 			
 			
