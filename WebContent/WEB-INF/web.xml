@@ -392,7 +392,7 @@
 
 	<servlet>
 		<servlet-name>MailBackServlet</servlet-name>
-		<servlet-class>com.member.controller.MailBackServlet</servlet-class>
+		<servlet-class>com.member.model.MailBackServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MailBackServlet</servlet-name>

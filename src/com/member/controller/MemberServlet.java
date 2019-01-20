@@ -6,9 +6,8 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-
-
 import com.member.model.*;
+
 @MultipartConfig
 public class MemberServlet extends HttpServlet {
 
@@ -506,10 +505,10 @@ public class MemberServlet extends HttpServlet {
 				//信箱驗證
 				 String to = memEmail;
 			      
-			      String subject = "祥太山莊會員認證信";
+			      String subject = "翔太山莊會員認證信";
 			        
 			
-			      String url1 = "http://localhost:8081/CA105G4C/Mail.do?memAcc=" + memAcc+"&memPsw="+memPsw;
+			      String url1 = "http://localhost:8081/CA105G4/Mail.do?memAcc=" + memAcc+"&memPsw="+memPsw;
 			      
 			      
 			      String messageText = memName+"請點擊下列網址已完成認證"+ "\n"+url1; 
