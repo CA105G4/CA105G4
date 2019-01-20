@@ -127,66 +127,67 @@
 			</div>
 			<div class="col-xs-12 col-sm-9">
 				<!--這邊開始自由發揮-->
-			
-							<h1>會員資料</h1>
-							<div class="container"
-								style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+							<div align="center">
+								<h1>會員資料</h1>
+								<div class="container"
+									style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+								</div>
+								
+								<hr>
 							</div>
-							
-							<hr>
-          
-							<table border="1">
-								<tr>
-									<td>會員姓名:</td>
-									<td><%=memberVO.getMemName()%></td>
-								</tr>
-								<tr>
-									<td>會員帳號:</td>
-									<td><%=memberVO.getMemAcc()%></td>
-								</tr>
-								<tr>
-									<td>會員生日:</td>
-									<td><%=memberVO.getMemBirth()%></td>
-								</tr>
-								<tr>
-									<td>會員信箱:</td>
-									<td><%=memberVO.getMemEmail()%></td>
-								</tr>
-								<tr>
-									<td>會員電話:</td>
-									<td><%=memberVO.getMemTel()%></td>
-								</tr>
-								<tr>
-									<td>地址:</td>
-									<td><%=memberVO.getMemAddr()%></td>
-								</tr>
-								<tr>
-									<td>會員性別:</td>
-									<td>${memSexMap.get(memberVO.getMemSex())}	</td>
-								</tr>
-								<tr>
-									<td>會員技能:</td>
-									<td><%=memberVO.getMemSkill()%></td>
-								</tr>
-								<tr>
-									<td>會員頭貼:</td>
-									<td><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" width="400px"></td>		
-								</tr>
-								<tr>
-									<td>會員身分證字號:</td>
-									<td><%=memberVO.getMemIDcard()%></td>
-								</tr>
-							</table>
-
+          					<div align="center">
+								<table border="1">
+									<tr>
+										<td>會員姓名:</td>
+										<td><%=memberVO.getMemName()%></td>
+									</tr>
+									<tr>
+										<td>會員帳號:</td>
+										<td><%=memberVO.getMemAcc()%></td>
+									</tr>
+									<tr>
+										<td>會員生日:</td>
+										<td><%=memberVO.getMemBirth()%></td>
+									</tr>
+									<tr>
+										<td>會員信箱:</td>
+										<td><%=memberVO.getMemEmail()%></td>
+									</tr>
+									<tr>
+										<td>會員電話:</td>
+										<td><%=memberVO.getMemTel()%></td>
+									</tr>
+									<tr>
+										<td>地址:</td>
+										<td><%=memberVO.getMemAddr()%></td>
+									</tr>
+									<tr>
+										<td>會員性別:</td>
+										<td>${memSexMap.get(memberVO.getMemSex())}	</td>
+									</tr>
+									<tr>
+										<td>會員技能:</td>
+										<td><%=memberVO.getMemSkill()%></td>
+									</tr>
+									<tr>
+										<td>會員頭貼:</td>
+										<td><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" style='border-radius: 50%; width:400px;'></td>		
+									</tr>
+									<tr>
+										<td>會員身分證字號:</td>
+										<td><%=memberVO.getMemIDcard()%></td>
+									</tr>
+								</table>
+							</div>
 							<br>
-
+							<div align="center">
 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" style="margin-bottom: 0px;">
-								<input type="submit" value="修改"> 
+								<input type="submit" value="修改" class="btn btn-info"> 
 								<input type="hidden" name="memID"      value="${memberVO.memID}">
 								<input type="hidden" name="requestURL"	value="<%=request.getServletPath()%>"><!--送出本網頁的路徑給Controller--><!-- 目前尚未用到  -->
 								<input type="hidden" name="action"	    value="getOne_For_Update_forMem">
 							</FORM>
-
+							</div>
 						<!--這邊結束自由發揮--> 
 						
 			</div>

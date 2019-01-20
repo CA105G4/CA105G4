@@ -113,105 +113,111 @@
            
           <!-- Sidebar -->
           <div class="list-group">
-              <a href="#" class="list-group-item"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
-              <a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item active"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
-              <a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
-              <a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item active"><i class="fa fa-book"></i> <span>My Coupon</span></a>
-              	<a href="<%=request.getContextPath()%>/roomType/roomType.do?memID=${memberVO.memID}&action=get_member_displaycrt" class="list-group-item active"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
-          </div>
+					<a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/article/myExperience.jsp" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+				</div>
           <!-- Sidebar -->
           
 		</div>
 		<div class="col-xs-12 col-sm-9">
             <!--這邊開始自由發揮-->
 			<div class="container">
-	         	<div class="row">
-	         		<div class="col-xs-12 col-sm-8">
-	         			 <h1 >修改會員資料</h1>
-	         			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
-							<div class="row">
-								<span>請注意「</span>
-								<span style="color:red;">※ </span>
-								<span>」為必填欄位。</span>
+	         			<h1 >修改會員資料</h1>
+		         			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
+								<div class="row">
+									<span>請注意「</span>
+									<span style="color:red;">※ </span>
+									<span>」為必填欄位。</span>
+								</div>
 							</div>
-						</div>
-						
 	          			<hr>
-	
-						<c:if test="${not empty errorMsgs}">
-							<font style="color:red">請修正以下錯誤:</font>
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color:red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
-	
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" name="form1" enctype="multipart/form-data">
-							<table>
-		
-								<tr>
-									<td>會員姓名:</td>
-									<td><%=memberVO.getMemName()%></td>
-								</tr>
-								<tr>
-									<td>會員帳號:</td>
-									<td><%=memberVO.getMemAcc()%></td>
-								</tr>
-								
-								<tr>
-									<td>會員密碼:</td>
-									<td><input type="TEXT" name="memPsw" size="45" value="<%=memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
-								</tr>
-								<tr>
-									<td>會員電話:</td>
-									<td><input type="TEXT" name="memTel" size="45"	value="<%=memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
-								</tr>
-								<tr>
-									<td>會員地址 :</td>
-									<td><input type="TEXT" name="memAddr" size="45"	value="<%=memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
-								</tr>
-								<tr>
-									<td>會員技能:</td>
-									<td><input type="TEXT" name="memSkill" size="45" value="<%=memberVO.getMemSkill()%>" /></td>
-								</tr>
-								<tr>
-									<td>會員頭貼:</td>
-									<td>
-										<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" class="img-fluid" width="300px">
-									</td>
-								</tr>
-								<tr>
-									<td></td>
-									<td>
-										<input type="file" name="memPic"  id="inputfile01">
-									</td>
-								</tr>
-							</table>
-							
-							<br>
-	
-							<input type="hidden" name="memAcc" value="<%=memberVO.getMemAcc()%>">
-							<input type="hidden" name="memBirth" value="<%=memberVO.getMemBirth()%>">
-							<input type="hidden" name="memEmail" value="<%=memberVO.getMemEmail()%>">
-							<input type="hidden" name="memSex" value="<%=memberVO.getMemSex()%>">
-							<input type="hidden" name="memState" value="<%=memberVO.getMemState()%>">
-							<input type="hidden" name="memIDcard" value="<%=memberVO.getMemIDcard()%>">
-							<input type="hidden" name="memName" value="<%=memberVO.getMemName()%>">
-							<input type="hidden" name="memReg" value="<%=memberVO.getMemReg()%>">
-							<input type="hidden" name="action" value="update_from_mem">
-							<input type="hidden" name="memID" value="<%=memberVO.getMemID()%>">
-							<input type="submit" value="送出修改">
-						</FORM>
-		
-					<!--這邊結束自由發揮--> 
-							</div>
+						<div align="center">
+							<c:if test="${not empty errorMsgs}">
+								<font style="color:red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color:red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 						</div>
-					</div>
-				</div>
+						<div align="center">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/mem.do" name="form1" enctype="multipart/form-data">
+								<table class="table table-bordered table-striped table-hover">
+			
+									<tr>
+										<td>會員姓名:</td>
+										<td><%=memberVO.getMemName()%></td>
+									</tr>
+									<tr>
+										<td>會員帳號:</td>
+										<td><%=memberVO.getMemAcc()%></td>
+									</tr>
+									
+									<tr>
+										<td>會員密碼:</td>
+										<td><input type="TEXT" name="memPsw" size="45" value="<%=memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
+									</tr>
+									<tr>
+										<td>會員電話:</td>
+										<td><input type="TEXT" name="memTel" size="45"	value="<%=memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
+									</tr>
+									<tr>
+										<td>會員地址 :</td>
+										<td><input type="TEXT" name="memAddr" size="45"	value="<%=memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
+									</tr>
+									<tr>
+										<td>會員技能:</td>
+										<td><input type="TEXT" name="memSkill" size="45" value="<%=memberVO.getMemSkill()%>" /></td>
+									</tr>
+									<tr>
+										<td>會員頭貼:</td>
+										<td>
+											<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
+											<c:choose>
+													<c:when test="${memSvc.getOneMem(memberVO.memID).memPic == null}">
+															<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" class="img-fluid" style='border-radius: 50%; width:400px;'>
+										 			</c:when>
+										 			<c:otherwise>
+															<img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" style='border-radius: 50%; width:400px;'>
+													</c:otherwise>
+											</c:choose>
+											
+										</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>
+											<input type="file" name="memPic"  id="inputfile01">
+										</td>
+									</tr>
+								</table>
+						</div>
+						<div align="center">	
+								<input type="hidden" name="memAcc" value="<%=memberVO.getMemAcc()%>">
+								<input type="hidden" name="memBirth" value="<%=memberVO.getMemBirth()%>">
+								<input type="hidden" name="memEmail" value="<%=memberVO.getMemEmail()%>">
+								<input type="hidden" name="memSex" value="<%=memberVO.getMemSex()%>">
+								<input type="hidden" name="memState" value="<%=memberVO.getMemState()%>">
+								<input type="hidden" name="memIDcard" value="<%=memberVO.getMemIDcard()%>">
+								<input type="hidden" name="memName" value="<%=memberVO.getMemName()%>">
+								<input type="hidden" name="memReg" value="<%=memberVO.getMemReg()%>">
+								<input type="hidden" name="action" value="update_from_mem">
+								<input type="hidden" name="memID" value="<%=memberVO.getMemID()%>">
+								<input type="submit" value="送出修改" class="btn btn-info">
+							</FORM>
+						</div>
+					<!--這邊結束自由發揮--> 
+							
+				
 			</div>
 		</div>
+		</div>
+	</div>
   
 	<br>
 
@@ -269,14 +275,5 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
-  <script>
-    $(document).ready(function() {
-      $('.list-group-item').click(function(e) {
-      e.preventDefault();
-      $('.list-group-item').removeClass('active');
-      $(this).addClass('active');
-    });
-    });
-  </script>  
   </body>
 </html>
