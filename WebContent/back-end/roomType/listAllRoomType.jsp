@@ -132,7 +132,7 @@
 									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).weeklyPrice}</td>
 									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).holidayPrice}</td>
 <%-- 									<td>${roomTypeVO.balance}</td> --%>
-									<td>${rtSvc.getOneRoomType(roomTypeVO.rtID).total}</td>
+									<td>${rtSvc2.getOneRoomType(roomTypeVO.rtID).total}</td>
 									<td>
 									  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/roomType/roomType.do" style="margin-bottom: 0px;">
 									     <input type="submit" value="修改" class="btn btn-info">
