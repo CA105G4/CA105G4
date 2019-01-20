@@ -94,7 +94,7 @@
 												name="empID" value="${authorityRecordVO.empID}"> <input
 												type="hidden" name="action" value="delete">
 										</FORM>
-									</div>
+							</div>
 						</c:forEach>
 				</div>
             </div>

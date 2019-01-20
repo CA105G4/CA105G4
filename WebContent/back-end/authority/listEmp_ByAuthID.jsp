@@ -32,7 +32,15 @@
 
 <!-- Custom styles for this template-->
 <link href="<%=request.getContextPath()%>/back-end/css/sb-admin.css" rel="stylesheet">
-	
+
+<style type="text/css">
+.grid-container {
+	grid-template-columns: repeat(3, 33.33%);
+	grid-gap: 10px;
+	margin-top: 5%;
+}
+</style>
+
 </head>
 
 <body id="page-top">
@@ -63,49 +71,25 @@
           </ol>
 
           <!-- DataTables Example -->
-          <div class="card mb-3">
+          <div class="card mb-3" align="center">
             <div class="card-header">
-              <i class="fas fa-table"></i> 用權限查詢員工</div>
+              <i class="fas fa-table"></i>有  ${authIDSvc.getOneAuth(authID).authName} 權限的員工</div>
             <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
+        		<div class="grid-container" style="display:grid">
+                  
+					<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
+						<div>
+							<div>
+								<img src="<%=request.getContextPath()%>/employee/empImg.do?empID=${authorityRecordVO.empID}"
+										style="border-radius: 50%; width: 200px; height: 200px;">
+							</div>
+							<div>
+								${empSvc.getOneEmp(authorityRecordVO.empID).getEmpName()}
+							</div>
+						</div>
+					</c:forEach>
                     
-                      <th>員工姓名</th>
-                      <th>權限編號</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                     
-                      <th>員工姓名</th>
-                       <th>權限編號</th>
-                      
-                    </tr>
-                  </tfoot>
-                  <tbody>
-	<c:forEach var="authorityRecordVO" items="${listEmps_ByAuthID}" >
-		<tr>
-			<td>${empSvc.getOneEmp(authorityRecordVO.empID).getEmpName()}</td>
-			
-			<td>
-				<c:forEach var="authorityVO" items="${authIDSvc.all}">
-                    <c:if test="${authorityRecordVO.authID==authorityVO.authID}">
-<%-- 	                    ${authorityVO.authID}【 --%>
-	                    <font color=orange>${authorityVO.authName}</font>
-<!-- 	                     】 -->
-                    </c:if>
-                </c:forEach>	
-			</td>
-			
-			
-		</tr>
-	</c:forEach>
-                    
-                  </tbody>
-                </table>
-              </div>
+                </div>
             </div>
             <div class="card-footer small text-muted"></div>
           </div>
