@@ -333,7 +333,7 @@
 					       								 "</td>"+
 					        							 "<td>"+
 					        							 "<label class='form-check-label' for='defaultCheck" + labelcount + "'>"+
-					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' style='border-radius: 50%; width:400px;' >"+
+					        								 "<img src='<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=" + item.rtID + "' class='img-fluid showrtpic' style='border-radius: 10%; width:400px;' >"+
 					        							 "</label>"+
 					        							 "</td>"+
 					        							 "<td>"+					        
