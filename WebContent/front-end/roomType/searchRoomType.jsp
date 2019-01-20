@@ -2,12 +2,15 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>   
-  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-   <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
-      <% 
-    List<RoomTypeVO>sList=(List<RoomTypeVO>)request.getAttribute("searchList");
-    %>
+<% 
+	List<RoomTypeVO> sList=(List<RoomTypeVO>)request.getAttribute("searchList");
+%>
+
+
+<jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -102,7 +105,7 @@
        <div class="row mb-5">
         <div class="col-md-12">
           <div class="block-32">
-            <form METHOD="post"  action="<%=request.getContextPath() %>/roomType/roomType.do">
+            <form METHOD="post"  action="<%=request.getContextPath() %>/roomType/roomType.do" autocomplete="off">
               
               <div class="row">
               
@@ -110,7 +113,7 @@
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control" name="startdate" required>
+                    <input type="text" id="checkin_date" class="form-control" name="startdate" value="${checkinDate}" required>
                   </div>
                 </div>
                 
@@ -118,7 +121,7 @@
                   <label for="checkin">Check Out</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text"  id="checkout_date" class="form-control" name="enddate" required>
+                    <input type="text"  id="checkout_date" class="form-control" name="enddate" value="${checkoutDate}" required>
                   </div>
                 </div>
                 
@@ -201,7 +204,7 @@
                   <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
-                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
+                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc.getOneRoomType(rtVO.getRtID()).getBraID()}&checkinDate=${checkinDate}" class="btn btn-primary py-3 px-5">Reservation</a></p>
 				<p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
 				
               </div>
@@ -227,7 +230,7 @@
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
 
-                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc2.getOneRoomType(rtVO.getRtID()).getBraID()}" class="btn btn-primary py-3 px-5">Reservation</a></p>
+                <p><a href="<%=request.getContextPath()%>/front-end/orders/addordersBybraID.jsp?rtID=${rtVO.rtID}&braID=${rtSvc2.getOneRoomType(rtVO.getRtID()).getBraID()}&checkinDate=${checkinDate}" class="btn btn-primary py-3 px-5">Reservation</a></p>
                 <p><button class="btn btn-info py-3 px-5 collectRt" type="submit" value="${rtVO.rtID}">Collect Room</button></p>
                 
               </div>
@@ -259,7 +262,7 @@
            <div class="row mb-5 pt-5 justify-content-center">
             <div class="col-md-7 text-center section-heading">
               <h2 class="heading">More Rooms</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, iusto, omnis! Quidem, sint, impedit? Dicta eaque delectus tempora hic, corporis velit doloremque quod quam laborum, nobis iusto autem culpa quaerat!</p>
+              <p>Xiangtai village is your best choice for accommodation whether you are on a business or tourist trip to Taichung. It is convenient for our guests to go to tourist, shopping and dining spots in the city. It is located at a convenient location with quick access to popular spots in the city.</p>
             </div>
           </div>
           <c:set var="index" value="${status.index}" />
@@ -282,7 +285,7 @@
                   <li><strong>Adults:</strong> 1</li>
                   <li><strong>Categories:</strong> Single</li>
                   <li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
-                  <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li>
+<%--                   <li><strong>Remaining Room:</strong> ${rtVO.getBalance()}</li> --%>
                   <li><strong>Bed Type:</strong> One bed</li>
                 </ul>
               </div>
@@ -295,11 +298,6 @@
     </div>
     
 
-
-
-
-
-  
 <!--     旅客回饋 -->
 <!--     <div class="site-section bg-light"> -->
 <!--       <div class="container"> -->

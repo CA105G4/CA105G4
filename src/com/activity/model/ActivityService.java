@@ -48,7 +48,7 @@ public class ActivityService {
 		return dao.findByName(actName);
 	}
 	
-	public List<ActivityVO>getAll(){
+	public List<ActivityVO> getAll(){
 		return dao.getAll();
 	}
 	
@@ -64,7 +64,7 @@ public class ActivityService {
 		return actVO;
 	}
 	
-	public Set<ActivityDetailVO>getDetailVOByactID(String actID){
+	public Set<ActivityDetailVO> getDetailVOByactID(String actID){
 		return dao.getDetailByactID(actID);
 	}
 }

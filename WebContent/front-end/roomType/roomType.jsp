@@ -1,15 +1,17 @@
+<%@ page import="com.activityDetail.model.ActivityDetailVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.roomType.model.*"%>
-  <%@page import="com.member.model.*" %>  
-<%@page import="java.util.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.roomType.model.*"%>
+<%@ page import="com.member.model.*" %>  
+<%@ page import="java.util.*"%>
 
 <%
-	RoomTypeService rtSvc =new RoomTypeService();
-	List<RoomTypeVO> rtList =rtSvc.getAll();
-	Set<RoomTypeVO>rtSet =rtSvc.getAllInSet();
-	pageContext.setAttribute("rtList",rtList);
-	pageContext.setAttribute("rtSet",rtSet);
+	RoomTypeService rtSvc = new RoomTypeService();
+	List<RoomTypeVO> rtList = rtSvc.getAll();
+	Set<RoomTypeVO> rtSet = rtSvc.getAllInSet();
+	pageContext.setAttribute("rtList", rtList);
+	pageContext.setAttribute("rtSet", rtSet);
 	MemberVO memVO = (MemberVO) session.getAttribute("memberVO");
 	request.setAttribute("memberVO", memVO);
 %>
@@ -110,7 +112,7 @@
 		<div class="row mb-5">
 			<div class="col-md-12">
 				<div class="block-32">
-					<form METHOD="post" action="<%=request.getContextPath() %>/roomType/roomType.do">
+					<form METHOD="post" action="<%=request.getContextPath() %>/roomType/roomType.do" autocomplete="off">
 
 						<div class="row">
 
@@ -153,10 +155,7 @@
 										</div>
 									</div>
 
-									<jsp:useBean id="bchSvc" scope="page"
-										class="com.branch.model.BranchService" />
-
-
+									<jsp:useBean id="bchSvc" scope="page" class="com.branch.model.BranchService" />
 
 									<div class="col-md-6 mb-3 mb-md-0">
 										<label for="checkin">Branch</label>
@@ -171,8 +170,6 @@
 											</select>
 										</div>
 									</div>
-
-
 
 								</div>
 							</div>
@@ -205,28 +202,26 @@
 						<c:choose>
 							<c:when test="${status.index %2==0 }">
 
-
 								<c:forEach var="adVO" items="${adSvc.all}" varStatus="">
 									<c:if test="${adVO.rtID==rtVO.rtID}">
-										<span class="flag-discount">${adVO.discount}折</span>
+										<span class="flag-discount">
+											<fmt:formatNumber type="number" value="${adVO.discount * 100}" maxFractionDigits="0"/>折
+										</span>
 									</c:if>
 								</c:forEach>
 								<div class="block-3 d-md-flex ">
-									<div class="image"
-										style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
+									<div class="image" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
 									<div class="text">
 
 										<h2 class="heading">${rtVO.rtName}</h2>
 										<div class="price">
-											<sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per
-												night</sub>
+											<sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub>
 										</div>
 										<ul class="specs mb-5">
 											<li><strong>Adults:</strong> ${rtVO.rtLimit}</li>
 											<li><strong>Total:</strong> ${rtVO.total}</li>
 											<li><strong>Introduction:</strong>${rtVO.rtIntro}</li>
-											<li><strong>Facilities:</strong> Closet with hangers, HD
-												flat-screen TV, Telephone</li>
+											<li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
 											<li><strong>Size:</strong> 20m<sup>2</sup></li>
 											<li><strong>Bed Type:</strong> One bed</li>
 										</ul>
@@ -246,15 +241,13 @@
 
 											<h2 class="heading">${rtVO.rtName}</h2>
 											<div class="price">
-												<sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per
-													night</sub>
+												<sup>$</sup><span class="number">${rtVO.weeklyPrice}</span><sub>/per night</sub>
 											</div>
 											<ul class="specs mb-5">
 												<li><strong>Adults:</strong> ${rtVO.rtLimit}</li>
 												<li><strong>Total:</strong> ${rtVO.total}</li>
 												<li><strong>Introduction:</strong> ${rtVO.rtIntro}</li>
-												<li><strong>Facilities:</strong> Closet with hangers,
-													HD flat-screen TV, Telephone</li>
+												<li><strong>Facilities:</strong> Closet with hangers, HD flat-screen TV, Telephone</li>
 												<li><strong>Size:</strong> 20m<sup>2</sup></li>
 												<li><strong>Bed Type:</strong> One bed</li>
 											</ul>
@@ -533,8 +526,6 @@
 		border-color: transparent transparent #93274f transparent;
 	}
 </style>
-
-
 
 
 <script>

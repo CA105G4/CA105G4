@@ -301,6 +301,9 @@ public class RoomTypeServlet extends HttpServlet{
 				Set<RoomTypeVO>searchSet =rtSvc.getAllInSet();
 				//3.轉交房型頁面
 				
+				req.setAttribute("checkinDate", checkinStr);
+				req.setAttribute("checkoutDate", checkoutStr);
+				
 				req.setAttribute("searchList",searchList);
 				req.setAttribute("searchSet",searchSet);
 				String url ="/front-end/roomType/searchRoomType.jsp";
