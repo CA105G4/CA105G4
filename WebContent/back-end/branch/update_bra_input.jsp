@@ -200,7 +200,7 @@ if (braVO.getBraPic() != null) {
 
 										<c:otherwise> 
 											<img id="icon_preview" width="377.8" height="250" 
-												src="<%=request.getContextPath()%>/image/noImage.jpg"> 
+												src="<%=request.getContextPath()%>/back-end/images/mcPiglogo.jpg"> 
 										</c:otherwise>
 
 

@@ -21,7 +21,7 @@ public class BBTimerServlet extends HttpServlet {
 				bbStatusChecker();
 			}
 		};
-		timer.scheduleAtFixedRate(task, 1000,   24*60*60* 1000);
+		timer.scheduleAtFixedRate(task, 1000,   30*1000);
 		System.out.println("已建立輪播廣告排程!");
 	}
 

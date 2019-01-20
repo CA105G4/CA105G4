@@ -1,5 +1,7 @@
 package com.branch.controller;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -254,7 +256,7 @@ System.out.println(braID);
 			
 			byte[] video = null;
 			Part braVideo = req.getPart("braVideo");
-
+			int i;
 			if (braVideo.getSubmittedFileName().trim().length() == 0 && braVideo.getContentType() == null) {
 				BranchService braSvc = new BranchService();
 				BranchVO braVO = braSvc.getOneByID(braID);

@@ -57,7 +57,7 @@
 
 </head>
 
-<body>
+<body onload="connect();" onunload="disconnect();">
     <!-- NavBar -->
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 		<div class="container">
