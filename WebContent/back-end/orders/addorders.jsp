@@ -116,7 +116,7 @@
 										</td>
 									</tr>
 									<tr>
-										<th>會員身分證字號:</th>
+										<th>會員身分證字號:</th> 
 										<td>
 											<input type="TEXT" name="memIDcard" size="45" class="form-control" id="question" />
 										</td>
