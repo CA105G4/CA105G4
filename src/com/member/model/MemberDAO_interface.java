@@ -10,6 +10,8 @@ public interface MemberDAO_interface {
 	public List<MemberVO> getAll(); //取得全部會員之列表
 	public String findAcc(String memAcc);
 	public void update_state(MemberVO memberVO);
+	public String findIDcard(String memIDcard);
+
 	//Ivan 從需求名稱找出符合技能的會員
 	public List<MemberVO> getMemBySkill(String weName);
 

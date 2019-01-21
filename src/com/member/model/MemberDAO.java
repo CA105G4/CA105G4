@@ -29,7 +29,8 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE_state = "UPDATE Member set memState=? where memID=?";
 	private static final String FIND_BY_PK = "SELECT memID, memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memReg, memSkill, memState,memPic,memIDcard from Member where memID = ?";
 	private static final String FIND_BY_MEMACC = "SELECT * from Member where memAcc = ?";
-	
+	private static final String FIND_BY_MEMIDCARD = "SELECT * from Member where memIDcard  = ?";
+
 	//Ivan 從需求名稱找出符合技能的會員
 	private static final String GET_BY_MEMSKILL = "select * from member where memskill like ";
 	
@@ -250,7 +251,44 @@ pstmt = con.prepareStatement(FIND_BY_PK);
 		
 	}
 	
-	
+	public String findIDcard(String memIDcard) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String memID =null;
+		
+		try {
+			con=ds.getConnection();
+			pstmt = con.prepareStatement(FIND_BY_MEMIDCARD);
+			
+			pstmt.setString(1,memIDcard );
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				memID=rs.getString("memID");
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return memID ;
+	}	
 	
 	public String findAcc(String memAcc) {
 		Connection con = null;

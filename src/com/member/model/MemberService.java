@@ -74,7 +74,9 @@ public class MemberService {
 	public String getOneMemByAcc(String memAcc) {
 		return dao.findAcc(memAcc);
 	}
-
+	public String getOneMemByIDcard(String memIDcard) {
+		return dao.findIDcard(memIDcard);
+	}
 	public List<MemberVO> getAll() {
 		return dao.getAll();
 	}

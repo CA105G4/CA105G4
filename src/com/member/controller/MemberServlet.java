@@ -456,6 +456,29 @@ public class MemberServlet extends HttpServlet {
 //				
 //				}
 
+				MemberService memSvc = new MemberService();
+				try {
+					memID=memSvc.getOneMemByIDcard(memIDcard);
+					
+				}catch(RuntimeException re) {
+					System.out.println(re.getMessage());
+					log(re.getMessage());
+				}
+				if(memID!=null) {
+					errorMsgs.add("身份證字號已註冊被註冊");
+				}
+				try {
+					memID=memSvc.getOneMemByAcc(memAcc);
+				
+					}catch(RuntimeException re) {
+				System.out.println(re.getMessage());
+				log(re.getMessage());
+					}
+				if(memID!=null) {
+				errorMsgs.add("此帳號已註冊，請輸入其他帳號");
+				}				
+				
+				
 				MemberVO memberVO = new MemberVO();
 
 				memberVO.setMemName(memName);
@@ -483,7 +506,7 @@ public class MemberServlet extends HttpServlet {
 				 * 2..新增完成,準備轉交(
 				 ***************************************/
 				System.out.println(errorMsgs);
-				MemberService memSvc = new MemberService();
+				
 				memberVO = memSvc.addMem(memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memSkill,
 						memPic, memIDcard);
 				// 信箱驗證
@@ -593,7 +616,31 @@ public class MemberServlet extends HttpServlet {
 //					in.close();
 //				
 //				}
+				
+				MemberService memSvc = new MemberService();
+				try {
+					memID=memSvc.getOneMemByIDcard(memIDcard);
+					
+				}catch(RuntimeException re) {
+					System.out.println(re.getMessage());
+					log(re.getMessage());
+				}
+				if(memID!=null) {
+					errorMsgs.add("身份證字號已註冊被註冊");
+				}
+				try {
+					memID=memSvc.getOneMemByAcc(memAcc);
+				
+					}catch(RuntimeException re) {
+				System.out.println(re.getMessage());
+				log(re.getMessage());
+					}
+				if(memID!=null) {
+				errorMsgs.add("此帳號已註冊，請輸入其他帳號");
+				}
 
+				
+				
 				MemberVO memberVO = new MemberVO();
 
 				memberVO.setMemName(memName);
@@ -621,7 +668,7 @@ public class MemberServlet extends HttpServlet {
 				 * 2..新增完成,準備轉交(
 				 ***************************************/
 				System.out.println(errorMsgs);
-				MemberService memSvc = new MemberService();
+				
 				memberVO = memSvc.addMem(memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memSkill,
 						memPic, memIDcard);
 
