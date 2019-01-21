@@ -120,8 +120,11 @@
 						</tr>
 						<tr>
 							<td>會員狀態:</td>
-							<td><input type="TEXT" name="memState" size="45"
-								value="<%=memberVO.getMemState()%>" /></td>
+							<td>
+								<select name="memState" class="form-control">
+									<option value="1"${memberVO.getMemState()==1 ? 'selected' : '' }>認證</option>
+									<option value="0"${memberVO.getMemState()==0 ? 'selected' : '' }>未認證</option>						
+								</select></td>
 						</tr>
 						<tr>
 							<td>會員頭貼:</td>
