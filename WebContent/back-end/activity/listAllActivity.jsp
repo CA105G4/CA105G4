@@ -140,7 +140,7 @@
 					<%} %>
 					
 					<br>
-					<a href="select_page.jsp">回選取頁面</a>
+					<a href="<%=request.getContextPath()%>/back-end/activity/select_page.jsp">回選取頁面</a>
 				</div>
 
 				<!-- Page Content 這邊開始自由發揮結束-->

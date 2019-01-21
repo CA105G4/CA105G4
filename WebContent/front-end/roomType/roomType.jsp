@@ -53,6 +53,32 @@
 			position: relative;
 			z-index: 0; 
 		}
+		
+		@import url(https://fonts.googleapis.com/css?family=Oswald:700);
+		
+		.badge {
+  			font-family: oswald, sans-serif;
+  			font-size: 32px;
+  			transform: rotate(45deg);
+  			margin: 50px auto;
+  			background: #6c2d66;
+  			width: 80px;
+  			height: 80px;
+  			line-height: 80px;
+  			text-align: center;
+  			text-transform: uppercase;
+  			border-radius: 8px;
+  			color: #FFFFFF;
+  			text-shadow: 0 1px 1px rgba(0,0,0,.3);
+			}
+			
+.badge span {
+  			display: block;
+ 			transform: rotate(-45deg);
+ 			 opacity: .9;
+}
+		
+
 	</style>
 
 </head>
@@ -124,7 +150,7 @@
 										<span class="icon-calendar"></span>
 									</div>
 									<input type="text" id="checkin_date" class="form-control"
-										name="startdate">
+										name="startdate" required="required">
 								</div>
 							</div>
 
@@ -135,7 +161,7 @@
 										<span class="icon-calendar"></span>
 									</div>
 									<input type="text" id="checkout_date" class="form-control"
-										name="enddate">
+										name="enddate" required="required">
 								</div>
 							</div>
 
@@ -210,6 +236,7 @@
 										</span>
 									</c:if>
 								</c:forEach>
+								
 								<div class="block-3 d-md-flex ">
 									<div class="image" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
 									<div class="text">
@@ -238,6 +265,14 @@
 									<div class="block-3 d-md-flex ">
 										<div class="image order-2"
 											style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}'); "></div>
+									
+									<c:forEach var="adVO" items="${adSvc.all}" varStatus="">
+										<c:if test="${adVO.rtID==rtVO.rtID}">
+										<div class="badge fmt">
+  											<span><fmt:formatNumber type="number" value="${adVO.discount * 100}" maxFractionDigits="0"/>折</span>
+										</div>
+										</c:if>
+									</c:forEach>
 										<div class="text order-1">
 
 											<h2 class="heading">${rtVO.rtName}</h2>

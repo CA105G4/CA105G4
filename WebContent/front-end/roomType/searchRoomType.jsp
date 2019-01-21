@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page import="com.roomType.model.*"%>
 <%@page import="java.util.*"%>   
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <% 
 	List<RoomTypeVO> sList=(List<RoomTypeVO>)request.getAttribute("searchList");
+	
 %>
 
-
-<jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" />
+<jsp:useBean id="adSvc" scope="page" class="com.activityDetail.model.ActivityDetailService" />
+<%-- <jsp:useBean id="searchList" scope="request" type="java.util.List<RoomTypeVO>" /> --%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +46,30 @@
 			position: relative;
 			z-index: 0; 
 		}
+		
+			.badge {
+  			font-family: oswald, sans-serif;
+  			font-size: 28px;
+  			transform: rotate(45deg);
+  			margin: 50px auto;
+  			background: #6c2d66;
+  			width: 80px;
+  			height: 80px;
+  			line-height: 80px;
+  			text-align: center;
+  			text-transform: uppercase;
+  			border-radius: 8px;
+  			color: #FFFFFF;
+  			text-shadow: 0 1px 1px rgba(0,0,0,.3);
+			}
+			
+			.badge span {
+  			display: block;
+  			transform: rotate(-45deg);
+ 			 opacity: .9;
+			}
+		
+		
 	</style>    
     
 </head>
@@ -114,7 +140,7 @@
                   <label for="checkin">Check In</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text" id="checkin_date" class="form-control" name="startdate" value="${checkinDate}" required>
+                    <input type="text" id="checkin_date" class="form-control" name="startdate" value="${checkinDate}"  required="required">
                   </div>
                 </div>
                 
@@ -122,7 +148,7 @@
                   <label for="checkin">Check Out</label>
                   <div class="field-icon-wrap">
                     <div class="icon"><span class="icon-calendar"></span></div>
-                    <input type="text"  id="checkout_date" class="form-control" name="enddate" value="${checkoutDate}" required>
+                    <input type="text"  id="checkout_date" class="form-control" name="enddate" value="${checkoutDate}"  required="required">
                   </div>
                 </div>
                 
@@ -186,10 +212,19 @@
           
           <div class="col-md-12 mb-5">
             
-           
  <c:choose>
  		<c:when test="${status.index %2==0 }">
-            
+ 		
+            				<c:forEach var="adVO" items="${adSvc.all}" varStatus="">
+            				
+									<c:if test="${adVO.rtID==rtVO.rtID && adVO.actID==actVOInTime.actID}">
+										
+										<span class="flag-discount">
+											<fmt:formatNumber type="number" value="${adVO.discount * 100}" maxFractionDigits="0"/>折
+										</span>
+									</c:if>
+								</c:forEach>
+							
             <div class="block-3 d-md-flex ">
               <div class="image" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}')"></div>
               <div class="text">
@@ -217,6 +252,15 @@
             
             <div class="block-3 d-md-flex ">
               <div class="image order-2" style="background-image: url('<%=request.getContextPath()%>/roomType/roomTypeImg.do?rtID=${rtVO.rtID}'); "></div>
+              		<c:forEach var="adVO" items="${adSvc.all}" varStatus="">
+										<c:if test="${adVO.rtID==rtVO.rtID&& adVO.actID==actVOInTime.actID}">
+										<div class="badge">
+  											<span><fmt:formatNumber type="number" value="${adVO.discount * 100}" maxFractionDigits="0"/>折</span>
+										</div>
+										</c:if>
+					</c:forEach>
+              
+              
               <div class="text order-1">
                 
 		<jsp:useBean id="rtSvc2" scope="page" class="com.roomType.model.RoomTypeService" />	
@@ -429,6 +473,45 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
   
 </body>
+<style>
+	* {
+		font-family: "Encode Sans Condensed", sans-serif;
+	}
+	
+	.flag-discount {
+		border-radius: 6px 0 0 6px;
+		color: #fff;
+		display: block;
+		float: right;
+		padding: 10px 20px;
+		background: #93274f;
+		font-size: 20px;
+		font-weight: 400;
+		position: relative;
+	}
+	
+	.flag-discount::before, .flag-discount::after {
+		content: "";
+		position: absolute;
+		left: 100%;
+		width: 0;
+		height: 0;
+		border-style: solid;
+		display: block;
+	}
+	
+	.flag-discount::before {
+		top: 0;
+		border-width: 22px 15px 0 0;
+		border-color: #93274f transparent transparent transparent;
+	}
+	
+	.flag-discount::after {
+		bottom: 0;
+		border-width: 0 15px 22px 0;
+		border-color: transparent transparent #93274f transparent;
+	}
+</style>
 
 <script>
 	var today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());

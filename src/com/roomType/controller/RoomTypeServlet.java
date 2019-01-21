@@ -3,6 +3,7 @@ package com.roomType.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.*;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ import javax.servlet.http.Part;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.activity.model.*;
 import com.collectRoomType.model.*;
 import com.member.model.MemberVO;
 import com.roomType.model.*;
@@ -287,11 +289,32 @@ public class RoomTypeServlet extends HttpServlet{
 			//1.接收查詢參數
 			try {
 				String checkinStr= req.getParameter("startdate");
-				
 				String checkoutStr =req.getParameter("enddate");
+				/******判斷活動時間******/
+				Date checkin = Date.valueOf(checkinStr);
+				Date checkout = Date.valueOf(checkoutStr);
+System.out.println(checkin  + "  " + checkin.getTime());
+System.out.println(checkout + "  " + checkout.getTime());	
+				ActivityService actSvc =new ActivityService();
+				List<ActivityVO> actList =actSvc.getAll();
 				
+				for(ActivityVO actVO:actList) {
+					long in = checkin.getTime();    //入住時間
+//					long out =checkout.getTime();
+					long actStart=actVO.getActStart().getTime();
+					long actEnd=actVO.getActEnd().getTime();
+System.out.println(actStart + "  " + actVO.getActStart().getTime());		
+System.out.println(actEnd + "  " + actVO.getActEnd().getTime());		
+					if(in>actStart && in<actEnd) {
+						req.setAttribute("actVOInTime", actVO);
+					}
+					
+				}
+				
+				
+				/******判斷活動時間******/
 				String braID =req.getParameter("braID"); 
-				System.out.println(braID);
+System.out.println(braID);
 				//2.找尋房間
 //				RoomTypeCompositeQuery rtCQ =new RoomTypeCompositeQuery();
 				
