@@ -115,7 +115,7 @@
 					<p id="title"><Strong>想為你的人生增添色彩嗎</Strong></p>
 					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想享受免費的房間設施嗎</Strong></p>
 					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;快看你是否擁有以下技能</Strong></p>
-					<p id="title">↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓</p>
+					<p>⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇</p>
 					</div>
 					<div class="col-xs-12 col-sm-6 block-3" style="padding-left: 0px;padding-right: 0px;">
 						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style=" max-width: 100%;">

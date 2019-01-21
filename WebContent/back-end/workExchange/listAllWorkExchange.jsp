@@ -1,3 +1,6 @@
+<%@page import="com.roomType.model.RoomTypeVO"%>
+<%@page import="com.roomType.model.RoomTypeService"%>
+<%@page import="com.employee.model.EmployeeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -5,6 +8,13 @@
 <%@ page import="java.util.*"%>
 
 <% 
+	EmployeeVO empVO = (EmployeeVO)session.getAttribute("employeeVO");	
+	String braID = empVO.getBraID();
+	RoomTypeService rtSvc = new RoomTypeService();
+	List<RoomTypeVO> rtlist= rtSvc.findRoomTypeByBraID(braID);
+	pageContext.setAttribute("rtlist", rtlist);
+	
+	
 	WorkExchangeService weSvc = new WorkExchangeService();
 	List<WorkExchangeVO> list = weSvc.getAll();
 	pageContext.setAttribute("list", list);
@@ -101,6 +111,8 @@ table, th, td {
 					<jsp:useBean id="roomTypeSvc" class="com.roomType.model.RoomTypeService" />
 					
 					<c:forEach var="workExchangeVO" items="${list}">
+					<c:forEach var="rtVO" items="${rtlist}">
+					<c:if test="${rtVO.getRtID() == (workExchangeVO.getRtID())}">
 						<tr>
 							<td class="text-center">${workExchangeVO.weID}</td>
 							<td class="text-center">${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
@@ -133,6 +145,8 @@ table, th, td {
 <!-- 							</form> -->
 <!-- 							</td> -->
 						</tr>
+					</c:if>
+					</c:forEach>
 					</c:forEach>
 				  </table>
 				</div>
