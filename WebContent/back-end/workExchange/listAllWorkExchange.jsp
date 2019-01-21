@@ -113,7 +113,7 @@ table, th, td {
 					<c:forEach var="workExchangeVO" items="${list}">
 					<c:forEach var="rtVO" items="${rtlist}">
 					<c:if test="${rtVO.getRtID() == (workExchangeVO.getRtID())}">
-						<tr>
+					     <tr>
 							<td class="text-center">${workExchangeVO.weID}</td>
 							<td class="text-center">${employeeSvc.getOneEmp(workExchangeVO.empID).empName}</td>
 							<td class="text-center">${memberSvc.getOneMem(workExchangeVO.memID).memName}</td>
