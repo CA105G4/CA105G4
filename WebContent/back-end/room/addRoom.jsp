@@ -1,3 +1,4 @@
+<%@page import="com.roomType.model.RoomTypeService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -100,14 +101,18 @@
 						</ul>	
 					</c:if>
 					</div>
-					<div class="col-xs-12 col-sm-8">
+					<div class="col-xs-12 col-sm-8 col-lg-6 offset-lg-1">
 					<form method="post" action="<%=request.getContextPath()%>/room/room.do" style="margin-bottom: 0px;">
 						<jsp:useBean id="roomTypeSvc" class="com.roomType.model.RoomTypeService"/>
 						<jsp:useBean id="braSvc" class="com.branch.model.BranchService" />
 						<table class="table table-bordered table-striped table-hover">
 							<tr>	
-								<th class="text-center">店別</th>
-								<td class="text-center"><input type="text" name="braID" value="${braID}" class="form-control" size="20" readOnly></td>
+								<th class="text-center">分店編號</th>
+								<td class="text-center"><input type="text" name="braID" value="${braID}" class="form-control" readOnly></td>
+							</tr>	
+							<tr>	
+								<th class="text-center">分店名稱</th>
+								<td class="text-center"><input type="text" name="braName" value="${braSvc.getOneByID(braID).braName}" class="form-control" size="5" readOnly></td>
 							</tr>	
 							<tr>	
 								<th class="text-center">房型</th>
@@ -119,24 +124,6 @@
 									</select>
 								</td>
 							</tr>
-<!-- 							<tr>	 -->
-<!-- 								<th class="text-center">房號</th> -->
-<%-- 								<td class="text-center"><input type="text" name="roomNo" value="${roomVO.roomNo}" class="form-control" size="20"></td> --%>
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<th class="text-center">房間狀態</th> -->
-<!-- 								<td class="text-center"> -->
-<!-- 								<select name="roomState" class="form-control"> -->
-<%-- 								<c:forEach var="roomState" items="${roomStateMap}"> --%>
-<%-- 									<option value="${roomState.key}">${roomState.value}</option> --%>
-<%-- 								</c:forEach> --%>
-<!-- 								</select>				 -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr>	 -->
-<!-- 								<th class="text-center">旅客姓名</th> -->
-<%-- 								<td class="text-center"><input type="text" name="memName" value="${roomVO.memName}" class="form-control" size="20"></td> --%>
-<!-- 							</tr> -->
 							<tr>
 								<th class="text-center">新增多間房間</th>
 								<td class="text-center">
@@ -152,6 +139,23 @@
 				</div>
 			  </div>
 			</div>	
+			
+			
+			<div class="w3-border">
+  <div class="w3-grey" style="height:24px;width:20%"></div>
+</div>
+			
+			
+			<script type="text/javascript">
+			
+			</script>
+			
+			
+			
+			
+			
+			
+			
 				<!-- Page Content 這邊開始自由發揮結束-->
 			</div>
 			<!-- /.container-fluid -->
