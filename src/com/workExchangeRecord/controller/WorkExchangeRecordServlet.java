@@ -19,6 +19,9 @@ import javax.servlet.http.Part;
 
 import com.workExchangeRecord.model.WorkExchangeRecordService;
 import com.workExchangeRecord.model.WorkExchangeRecordVO;
+
+import sendEmail.MailService;
+
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 import com.orderDetail.model.OrderDetailVO;
@@ -70,6 +73,41 @@ public class WorkExchangeRecordServlet extends HttpServlet {
 			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchangeRecord/listWER.jsp");
 			success.forward(req, res);
 		}
+		
+		//來自Send_Email的請求
+		if("Send_Email".equals(action)) {
+			Integer weID = new Integer(req.getParameter("weID"));
+			String memID = req.getParameter("memID");
+			
+			WorkExchangeService weSvc = new WorkExchangeService();
+			WorkExchangeVO workExchangeVO = weSvc.getOneWE(weID);
+			String weName = workExchangeVO.getWeName();
+			
+			
+			WorkExchangeRecordService werSvc = new WorkExchangeRecordService();
+			WorkExchangeRecordVO workExchangeRecordVO= werSvc.getOneWER(weID, memID);
+			req.setAttribute("workExchangeRecordVO", workExchangeRecordVO);
+			
+			MemberService memberSvc = new MemberService();
+			MemberVO mVO = memberSvc.getOneMem(memID);
+			String memberName = mVO.getMemName();
+			
+			MailService mSvc = new MailService();
+			String to = "superivanshang@gmail.com";
+		    String subject = "打工審核通知函";
+		    String messageText = "親愛的"+memberName+"您好，這裡是翔太山莊，您所申請的"+weName+"已經審核通過，請抱持著愉快的心情前來，如有任何問題請來電，謝謝\n";
+		    messageText = messageText + "http://www.google.com.tw";
+			mSvc.sendMail(to, subject, messageText);
+			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchangeRecord/listWER.jsp");
+			success.forward(req, res);
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		//來自addWER的請求
 		if("confirm_Apply".equals(action)) {

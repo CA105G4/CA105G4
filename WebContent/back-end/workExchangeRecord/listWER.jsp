@@ -94,6 +94,7 @@
 						<th>申請圖片</th>
 						<th>審核狀況</th>
 						<th class="text-center">審核</th>
+						<th class="text-center">發信</th>
 					</tr>
 					<jsp:useBean id="memberSvc" class="com.member.model.MemberService"/>
 					<jsp:useBean id="weSvc" class="com.workExchange.model.WorkExchangeService"/>
@@ -115,10 +116,18 @@
 								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
 								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
 								<input type="hidden" name="werState" value="1">
-								<input type="submit" ${(workExchangeRecordVO.werState == 1) ? "class='btn-success'" : "class='btn-danger'"} 
+								<input type="submit" ${(workExchangeRecordVO.werState == 1) ? "class='btn btn-success'" : "class='btn btn-danger'"} 
 								${(workExchangeRecordVO.werState == 1) ? "value='成立訂單'" : "value='通過'"}>
 								<input type="hidden" name="action" ${(workExchangeRecordVO.werState == 1) ? "value='add_WEOrder'" : "value='OK'"}>
 							</form>
+							</td>
+							<td>
+							<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" style="margin-bottom: 0px;">
+								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
+								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
+								<input type="submit" class="btn btn-warning" value="送信" disabled=disabled>
+								<input type="hidden" name="action" value="Send_Email">
+							</form>	
 							</td>
 						</tr>
 					</c:forEach>
