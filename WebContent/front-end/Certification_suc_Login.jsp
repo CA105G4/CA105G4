@@ -62,7 +62,7 @@
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/question/frontChat.jsp" class="nav-link">Q&A</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/neighbourhood.jsp" class="nav-link">About Us</a></li>
 					<c:choose>
-						<c:when test="${memberVO == null}">
+						<c:when test="${session.memberVO == null}">
 							<li class="nav-item active">
 								<a class="nav-link" href="<%=request.getContextPath()%>/front-end/Login.jsp">Login</a></li>
 						</c:when>
