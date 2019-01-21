@@ -106,12 +106,12 @@ img {
 								<div class="form-row">
 									<div class="form-group">
 										<label >分店名稱:</label> <input type="text" name="braName"placeholder="請輸入分店店名"
-											class="form-control" style="width: 200px">
+											class="form-control" style="width: 200px" id="braName">
 									</div>
 
 									<div class="form-group" style="margin-left: 15px">
 										<label>分店電話:</label> <input type="text" name="phone" placeholder="分店註冊電話" class="form-control"
-											style="width: 200px">
+											style="width: 200px" id="phone">
 									</div>
 								</div>
 
@@ -119,7 +119,7 @@ img {
 								<div class="form-row">
 									<div class="form-group" style="margin-right: 15px">
 										<label>分店經度:</label> <input type="text" name="lng"	placeholder="請輸入經度" class="form-control"
-											style="width: 140px">
+											style="width: 140px" id="lng">
 									</div>
 
 
@@ -127,15 +127,15 @@ img {
 
 									<div class="form-group">
 										<label >分店緯度:</label> <input type="text" name="lat" placeholder="請輸入緯度" class="form-control"
-											style="width: 140px">
+											style="width: 140px" id="lat">
 									</div>
 
 								</div>
 
 								<div class="form-group">
 									<label >分店地址:</label> <input type="text"
-										class="form-control" id="inputAddress" placeholder="請輸入分店地址"
-										style="margin-left: -4px" name="addr">
+										class="form-control"  placeholder="請輸入分店地址"
+										style="margin-left: -4px" name="addr" id="addr">
 								</div>
 
 
@@ -146,7 +146,7 @@ img {
 											<span class="input-group-text">分店介紹</span>
 										</div>
 										<textarea class="form-control" aria-label="With textarea"
-											Cols="25" Rows="5" name="intro"></textarea>
+											Cols="25" Rows="5" name="intro" id="intro"></textarea>
 									</div>
 
 								</div>
@@ -220,6 +220,8 @@ img {
 									<button class="btn btn-primary">
 										<a href="<%=request.getContextPath()%>/back-end/branch/listAllBranch.jsp"   style="color:#fff">返回</a>
 									</button>
+									<button class="btn btn-primary" id="magic" type="button">小鈕</button>
+									
 								</div>
 
 							</form>
@@ -322,7 +324,20 @@ img {
 
 	});
 </script>
+<script>
+$(document).ready(function(){
+	  $("#magic").click(function(){
+	    $("#braName").val("大翔");
+	    $("#phone").val("03777777");
+	    $("#lng").val("121.15");
+	    $("#lat").val("24.967");
+	    $("#addr").val("桃園市中壢區中大路300號");
+	    $("#intro").val("翔翔老闆於2019年決定將企業盈餘回饋鄉里，選定桃園中壢發跡之地，增加第三家分店，希望可以造福社區，促進地方經濟發展");
+	    
+	  });
+	});
 
 
+</script>
 
 </html>

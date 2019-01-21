@@ -118,7 +118,7 @@
 									<tr>
 										<td>房型名稱:</td>
 										<td><input type="TEXT" name="rtName" size="45" class="form-control"
-											 value="${(rtVO == null) ? '自訂多人房' : rtVO.rtName}" /></td>
+											 value="${(rtVO == null) ? '超霸氣12人房' : rtVO.rtName}" /></td>
 									</tr>
 									<tr>
 										<td>房型照片:</td>
@@ -136,32 +136,32 @@
 									<tr>
 										 <td>房型介紹:</td>
 										<td><input type="TEXT" name="rtIntro" size="45" class="form-control"
-											 value="${(rtVO == null) ? '自訂介紹' : rtVO.rtIntro}" /></td>
+											 value="${(rtVO == null) ? '適合HomeParty的好所在' : rtVO.rtIntro}" /></td>
 									</tr>
 									<tr>
 										<td>一般住房人數:</td>
 										<td><input type="TEXT" name="rtMinimum" size="45" class="form-control"
-											 value="${(rtVO == null) ? '2' : rtVO.rtMinimum}" /></td>
+											 value="${(rtVO == null) ? '12' : rtVO.rtMinimum}" /></td>
 									</tr>
 									<tr>
 										<td>住房上限人數:</td>
 										<td><input type="TEXT" name="rtLimit" size="45" class="form-control"
-											 value="${(rtVO == null) ? '3' : rtVO.rtLimit }" /></td>
+											 value="${(rtVO == null) ? '20' : rtVO.rtLimit }" /></td>
 									</tr>
 									<tr>
 										<td>平日價格:</td>
 										<td><input type="TEXT" name="weeklyPrice" size="45" class="form-control"
-											 value="${(rtVO == null) ? '3000' : rtVO.weeklyPrice }" /></td>
+											 value="${(rtVO == null) ? '15000' : rtVO.weeklyPrice }" /></td>
 									</tr>
 									<tr>
 										<td>假日價格:</td>
 										<td><input type="TEXT" name="holidayPrice" size="45" class="form-control"
-											 value="${(rtVO == null) ? '3500' : rtVO.holidayPrice }" /></td>										
+											 value="${(rtVO == null) ? '29999' : rtVO.holidayPrice }" /></td>										
 									</tr>
 									<tr>
 										<td>房型數量:</td>
 										<td><input type="TEXT" name="total" size="45" class="form-control"
-											 value="${(rtVO == null) ? '5' : rtVO.total }" /></td>
+											 value="${(rtVO == null) ? '1' : rtVO.total }" /></td>
 									</tr>
 								</table>
 								<br>

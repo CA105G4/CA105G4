@@ -254,7 +254,8 @@ System.out.println(braID);
 			
 			
 			
-			byte[] video = null;
+		    byte[] video = null;
+			
 			Part braVideo = req.getPart("braVideo");
 			int i;
 			if (braVideo.getSubmittedFileName().trim().length() == 0 && braVideo.getContentType() == null) {
@@ -262,7 +263,16 @@ System.out.println(braID);
 				BranchVO braVO = braSvc.getOneByID(braID);
 				video = braVO.getBraVideo();
 			}else {
+		
 				InputStream in =  braVideo.getInputStream();
+//				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//				video = new byte[in.available()];
+//				
+//				while ((i = in.read(video)) != -1) {
+//					baos.write(video, 0, i);
+//				}
+//				baos.close();
+//				in.close();
 				video = new byte[in.available()];
 				in.read(video);
 				in.close();
