@@ -311,7 +311,7 @@
 	              <div class="vcard d-flex mb-3">
 	                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${articleVO.memid}" alt="Person here"></div>
 	                <div class="name-text align-self-center">
-	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memAcc}</h2>
+	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memName}</h2>
 	                </div>
 	              </div>
           
