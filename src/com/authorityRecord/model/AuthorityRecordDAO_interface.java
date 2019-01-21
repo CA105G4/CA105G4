@@ -16,5 +16,8 @@ public interface AuthorityRecordDAO_interface {
 	//用員工編號查權限編號
 	public List<AuthorityRecordVO> getAuthIdByEmpIdList(String empId);
 	
-	public AuthorityRecordVO getOneEmpAuth(String empID, String authID);
+	public AuthorityRecordVO getOneEmpAuth(String empID, Integer authID);
+	
+	//單筆刪除
+	public void deleteByEmpIdAuthId(String empID, Integer authID);
 }

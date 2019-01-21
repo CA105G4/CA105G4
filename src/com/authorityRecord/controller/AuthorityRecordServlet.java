@@ -188,7 +188,7 @@ public class AuthorityRecordServlet extends HttpServlet {
 				
 				
 				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-				String url = "/back-end/authorityRecord/listAllAuthorityRecord.jsp";
+				String url = "/back-end/authorityRecord/listOneAuthorityRecord.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);				
 				
@@ -239,15 +239,19 @@ public class AuthorityRecordServlet extends HttpServlet {
         		}
 //        		
 //        		/***************************2.�}�l�s�W���***************************************/
-        	
+				AuthorityRecordService empIDSvc = new AuthorityRecordService();
 				
-				//        		AuthorityRecordService  authSvc = new AuthorityRecordService();
-        		
-//        		HttpSession session = req.getSession();
-//        		session.setAttribute("authRecordList", authList);
+				Set<AuthorityRecordVO> set = empIDSvc.getAuthIDByEmpID(empID);
+				
+				req.setAttribute("listEmps_ByAuthID", set); 
+        		req.setAttribute("empID", empID);
+//				AuthorityRecordService empIDSvc = new AuthorityRecordService();
+//				Set<AuthorityRecordVO> set = empIDSvc.getAuthIDByEmpID(empID);
+//				req.setAttribute("authorityRecordVO", set);
         		
         		/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-        		String url = "/back-end/authorityRecord/listAllAuthorityRecord.jsp";
+        		String url = "/back-end/authorityRecord/listOneAuthorityRecord.jsp";
+      
         		RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
         		successView.forward(req, res);				
         		
@@ -261,7 +265,6 @@ public class AuthorityRecordServlet extends HttpServlet {
         }
         if ("listAuths_ByEmpID_A".equals(action) ) {
         	
-        	System.out.println("action");
         	
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -269,6 +272,7 @@ public class AuthorityRecordServlet extends HttpServlet {
 			try {
 				/*************************** 1.�����ШD�Ѽ� ****************************************/
 				String str = req.getParameter("empID");
+				System.out.println(str);
 				if (str == null || (str.trim()).length() == 0) {
 					errorMsgs.add("請輸入員工編號");
 				}
@@ -339,14 +343,23 @@ public class AuthorityRecordServlet extends HttpServlet {
 			try {
 				/***************************1.�����ШD�Ѽ�***************************************/
 				String empID = new String(req.getParameter("empID"));
+				int authID = new Integer(req.getParameter("authID"));
+				
+				System.out.println(empID);
+				System.out.println(authID);
 				
 				/***************************2.�}�l�R�����***************************************/
 				AuthorityRecordService authSvc = new AuthorityRecordService();
+				AuthorityRecordService empIDSvc = new AuthorityRecordService();
 				
-				authSvc.deleteEmp(empID);
+				Set<AuthorityRecordVO> set = empIDSvc.getAuthIDByEmpID(empID);
+				authSvc.deleteByEmpIdAuthId(empID, authID);
 				
+				req.setAttribute("listEmps_ByAuthID", set); 
+        		req.setAttribute("empID", empID);
+        		
 				/***************************3.�R������,�ǳ����(Send the Success view)***********/
-				String url = "/back-end/authorityRecord/listAllAuthorityRecord.jsp";
+				String url = "/back-end/authorityRecord/listOneAuthorityRecord.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 				

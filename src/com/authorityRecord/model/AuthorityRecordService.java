@@ -73,8 +73,12 @@ public class AuthorityRecordService {
 //		return dao.getAuthIdByEmpIdList(empId);
 	}
 
-	public AuthorityRecordVO getOneEmpAuth(String empID, String authID) {
+	public AuthorityRecordVO getOneEmpAuth(String empID, Integer authID) {
 		return dao.getOneEmpAuth(empID, authID);
+	}
+	
+	public void deleteByEmpIdAuthId(String empID, Integer authID) {
+		dao.deleteByEmpIdAuthId(empID, authID);
 	}
 	
 }

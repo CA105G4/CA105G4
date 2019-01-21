@@ -12,9 +12,11 @@
 	List<AuthorityVO> list = authSvc.getAll(); 
 	
 	pageContext.setAttribute("list", list);
+	
+	//沒在用
 %>
 
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="en">
 
   <head>

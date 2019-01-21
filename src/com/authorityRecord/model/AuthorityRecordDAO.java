@@ -31,7 +31,8 @@ public class AuthorityRecordDAO implements AuthorityRecordDAO_interface {
 	private static final String GET_AUTHID_BY_EMPID = "SELECT * FROM AUTHORITYRECORD WHERE EMPID = ? ORDER BY AUTHID";
 	
 	private static final String GET_ONE_BY_EMPID_AUTHID = "SELECT * FROM AUTHORITYRECORD WHERE EMPID = ? AND AUTHID = ?";
-	
+	private static final String DELETE_ONE_BY_EMPID_AUTHID = "DELETE AUTHORITYRECORD WHERE EMPID = ? AND AUTHID = ?";
+
 	
 	private static DataSource ds = null;
 	static {
@@ -365,7 +366,7 @@ public class AuthorityRecordDAO implements AuthorityRecordDAO_interface {
 	}
 	
 	@Override
-	public AuthorityRecordVO getOneEmpAuth(String empID, String authID) {
+	public AuthorityRecordVO getOneEmpAuth(String empID, Integer authID) {
 		AuthorityRecordVO authorityRecordVO = null;
 
 		Connection con = null;
@@ -377,7 +378,7 @@ public class AuthorityRecordDAO implements AuthorityRecordDAO_interface {
 			pstmt = con.prepareStatement(GET_ONE_BY_EMPID_AUTHID);
 
 			pstmt.setString(1, empID);
-			pstmt.setString(2, authID);
+			pstmt.setInt(2, authID);
 
 			rs = pstmt.executeQuery();
 
@@ -417,4 +418,42 @@ public class AuthorityRecordDAO implements AuthorityRecordDAO_interface {
 		}
 		return authorityRecordVO;
 	}
+	
+	@Override
+	public void deleteByEmpIdAuthId(String empID, Integer authID) {
+		AuthorityRecordVO authorityRecordVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(DELETE_ONE_BY_EMPID_AUTHID);
+
+			pstmt.setString(1, empID);
+			pstmt.setInt(2, authID);
+
+			pstmt.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 }

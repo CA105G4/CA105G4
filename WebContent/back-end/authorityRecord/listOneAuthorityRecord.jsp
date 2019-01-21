@@ -91,9 +91,10 @@
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/authorityRecord/authorityRecord.do"
 											style="margin-bottom: 0px;">
-											<input type="submit" value="刪除" class="btn btn-info"> <input type="hidden"
-												name="empID" value="${authorityRecordVO.empID}"> <input
-												type="hidden" name="action" value="delete">
+											<input type="submit" value="刪除" class="btn btn-info"> 
+											<input type="hidden" name="empID" value="${empID}"> 
+											<input type="hidden" name="authID" value="${authorityRecordVO.authID}">
+											<input type="hidden" name="action" value="delete">
 										</FORM>
 							</div>
 						</c:forEach>
