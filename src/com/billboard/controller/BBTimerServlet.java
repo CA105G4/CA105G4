@@ -13,23 +13,23 @@ public class BBTimerServlet extends HttpServlet {
 	Timer timer;
 	TimerTask task;
 
-//	public void init() throws ServletException {
-//		timer = new Timer();
-//		task = new TimerTask() {
-//			public void run() {
+	public void init() throws ServletException {
+		timer = new Timer();
+		task = new TimerTask() {
+			public void run() {
 //				System.out.println("開始執行");
-//				bbStatusChecker();
-//			}
-//		};
-//		timer.scheduleAtFixedRate(task, 1000,   30*1000);
-//		System.out.println("已建立輪播廣告排程!");
-//	}
+				bbStatusChecker();
+			}
+		};
+		timer.scheduleAtFixedRate(task, 1000, 30*1000);
+		System.out.println("已建立輪播廣告排程!");
+	}
 
-//	public void destroy() {
-//		timer.cancel();
-//		timer.purge();
-//		System.out.println("已結束輪播廣告排程!");
-//	}
+	public void destroy() {
+		timer.cancel();
+		timer.purge();
+		System.out.println("已結束輪播廣告排程!");
+	}
 
 	public void bbStatusChecker() {
 		BillboardService bbSvc = new BillboardService();
