@@ -239,7 +239,7 @@
             <div class="icon"><span class="flaticon-double-bed"></span></div>
             <div class="media-body">
               <h3 class="heading">Luxury Rooms</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <p>More than 100 rooms and super fancy facilities like sauna, gym, swimming pool, hot spring, etc.</p>
             </div>
           </div>      
         </div>
@@ -248,7 +248,7 @@
             <div class="icon"><span class="flaticon-wifi"></span></div>
             <div class="media-body">
               <h3 class="heading">Fast &amp; Free Wifi</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <p>Don't worry about the internet, even there is no signal in our village, we provide free wifi, speed is higher than you think.</p>
             </div>
           </div>
         </div>
@@ -257,7 +257,7 @@
             <div class="icon"><span class="flaticon-customer-service"></span></div>
             <div class="media-body">
               <h3 class="heading">Call Us 24/7</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <p>We are duty bound to provide service to our customers, so don't be hesitate if you have any question!</p>
             </div>
           </div>
         </div>
@@ -266,8 +266,8 @@
           <div class="media block-6">
             <div class="icon"><span class="flaticon-taxi"></span></div>
             <div class="media-body">
-              <h3 class="heading">Travel Accomodation</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <h3 class="heading">Travel Accommodation</h3>
+              <p>We suggest you drive your car to our village, but if you can't , just take the public transportation be here.</p>
             </div>
           </div>      
         </div>
@@ -276,19 +276,19 @@
             <div class="icon"><span class="flaticon-credit-card"></span></div>
             <div class="media-body">
               <h3 class="heading">Accepts Credit Card</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <p>Cash or Credit Card is accepted, we also accept Apple Pay or Line Pay.</p>
             </div>
           </div>
         </div>
-<!--         <div class="col-md-6 col-lg-4">
+         <div class="col-md-6 col-lg-4">
           <div class="media block-6">
             <div class="icon"><span class="flaticon-dinner"></span></div>
             <div class="media-body">
               <h3 class="heading">Restaurant</h3>
-              <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic.</p>
+              <p>We don't have  a fancy restaurant but we have special meals, only travelers have change to taste it.</p>
             </div>
           </div>
-        </div> -->
+        </div> 
 
       </div>
     </div>
@@ -311,7 +311,7 @@
 	              <div class="vcard d-flex mb-3">
 	                <div class="image align-self-center"><img src="<%=request.getContextPath()%>/member/memImg.do?memID=${articleVO.memid}" alt="Person here"></div>
 	                <div class="name-text align-self-center">
-	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memAcc}</h2>
+	                  <h2 class="heading">${memberService.getOneMem(articleVO.memid).memName}</h2>
 	                </div>
 	              </div>
           

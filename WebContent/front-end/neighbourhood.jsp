@@ -161,6 +161,7 @@ request.setAttribute("memberVO", memberVO);
     	<p class="bigtitle-img"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/Hito.jpg" alt="交通位置"></p>
       </div>
       <div id="map"></div>
+      <jsp:useBean id ="braSvc" class="com.branch.model.BranchService"/>
    </div>
     </div>
     
@@ -169,7 +170,7 @@ request.setAttribute("memberVO", memberVO);
 <!-- google map -->
     <script>
     var map;
-    var centerMarker;
+    var centerPosition;
     var bra1 ;
     var bra2 ;
     var bra1M;
@@ -178,21 +179,23 @@ request.setAttribute("memberVO", memberVO);
     
       function initMap() { 
     	  //中心點位置
-         centerMarker = {lat: 23.100204, lng: 121.204421}; 
+         centerPosition = {lat: 23.432260, lng: 121.013020};
 		 //兩家分店位置
-    	 bra1 = {lat:22.614089, lng:121.005167};
-    	 bra2 = {lat:23.376220, lng:121.432036};
+// 		 b1lat = ${braSvc.getOneByID("B01").getBraLat()}
+// 		 b1lng = ${braSvc.getOneByID("B01").getBraLng()}
+    	 bra1 = {lat:${braSvc.getOneByID("B01").getBraLat()}, lng:${braSvc.getOneByID("B01").getBraLng()}};
+    	 bra2 = {lat:${braSvc.getOneByID("B02").getBraLat()}, lng:${braSvc.getOneByID("B02").getBraLng()}};
          map = new google.maps.Map(document.getElementById('map'), { 
-         	center: centerMarker, 
-         	zoom: 9 
+         	center: centerPosition, 
+         	zoom: 8 
          });
          infoWindow = new google.maps.InfoWindow();
          
 
         // 放置中心點的Marker
-//         centerMarker = new google.maps.Marker({ 
+//         centerPosition = new google.maps.Marker({ 
 //           map: map, 
-//           position: centerMarker, 
+//           position: centerPosition, 
 //          }); 
         bra1M = new google.maps.Marker({ 
           map: map, 
@@ -203,17 +206,27 @@ request.setAttribute("memberVO", memberVO);
         bra2M = new google.maps.Marker({ 
           map: map, 
           position: bra2,
-//           icon:'',
           animation: google.maps.Animation.BOUNCE
          }); 
-        
+        if(${braSvc.getAll().size()} >= 3){
+	       	bra3M = new google.maps.Marker({ 
+	               map: map, 
+	               position: {lat:23.513967, lng:120.891145},
+	               animation: google.maps.Animation.DROP,
+	               label: 'New'
+	              }); 
+   	   		bra3M.addListener('click', function() {
+   	   		infoWindow.setContent('<h4>大翔山莊</h4>');
+   	    	infoWindow.open(map, bra3M);
+   	   		});
+        }
 
    	   bra1M.addListener('click', function() {
-   	   		infoWindow.setContent('<h4>麻翔山莊</h4>');
+   	   		infoWindow.setContent('<h4>福翔山莊</h4>');
    	    	infoWindow.open(map, bra1M);
    	   });
    	   bra2M.addListener('click', function() {
-   	   		infoWindow.setContent('<h4>翔泰山莊</h4>');
+   	   		infoWindow.setContent('<h4>麻翔山莊</h4>');
    	    	infoWindow.open(map, bra2M);
         });
       }
@@ -225,8 +238,8 @@ request.setAttribute("memberVO", memberVO);
          <div class="row">
          	<div>
          	  <h3 style="padding-bottom: 20px;">如何前往</h3>
-		      <p>位於台北市中心的閑靜社區中，Folio大安坐擁鬧中取靜的絕佳位置。<br>
-	       	    台北東區及信義區近在咫尺，往來桃園機場/松山機場、台北最新熱門去處、或是我們提供的私房景點，皆十分便捷順暢。<br>
+		      <p>福翔山莊位於台東市太麻里鄉，第二間分店麻翔山莊則是位於花蓮車站，坐擁鬧中取靜的絕佳位置。<br>
+	       	    兩間分店都有個共同點，火車站近在咫尺，往來台東市區、花蓮市區、或是我們所提供的私房景點，皆十分便捷順暢。<br>
 		             本飯店未提供停車場服務，請利用大眾運輸工具或周邊停車場。不便之處敬請見諒。</p>
          	</div>
        	 </div>
@@ -235,8 +248,8 @@ request.setAttribute("memberVO", memberVO);
 					<img src="<%=request.getContextPath()%>/front-end/imagesCustom/icon_car.png"><span>汽車</span>
 				</a>
 				<div class="collapse" id="cc1">
-					<p>行駛國道一號於圓山交流道駛離國道一號，接建國高架道路後由信義路匣口下至建國南路一段，前行約100公尺後於信義路三段左轉並靠右側直行，過復興南路後於第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。
-						行駛國道三號下安坑交流道往台北方向接環河路，直行順接水源快速道路，下基隆路出口接基隆路高架道路，於辛亥路出口後，左轉辛亥路三段並靠慢車道直行，於復興南路一段右轉，直行後於信義路四段右轉(捷運大安站)，並於右手邊第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。</p>
+					<p>福翔:從平鎮區出發行駛國道一號，沿國道一號和國道3號前往南州鄉。從國道3號的 424-南州 號出口下交流道，沿屏鵝公路/縱貫公路/台1線和南迴公路前往目的地太麻里鄉，到達金崙站後，再從南迴公路接到富山產業道路，沿途經過富之山溫泉民宿後，就可以看到我們福翔山莊。<br><br>
+					麻翔:走國道一號，沿國道一號和國道5號前往蘇澳的馬賽路/宜42鄉道，沿台9線和蘇花公路前往花蓮市的花19鄉道，即可看到山莊緊鄰美崙山生態展示館。</p>
 				</div>
 			</div><br>
 			<div>
@@ -244,8 +257,8 @@ request.setAttribute("memberVO", memberVO);
 					<img src="<%=request.getContextPath()%>/front-end/imagesCustom/icon_bus.png"><span>公車</span>
 				</a>
 				<div class="collapse" id="cc2">
-					<p>行駛國道一號於圓山交流道駛離國道一號，接建國高架道路後由信義路匣口下至建國南路一段，前行約100公尺後於信義路三段左轉並靠右側直行，過復興南路後於第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。
-						行駛國道三號下安坑交流道往台北方向接環河路，直行順接水源快速道路，下基隆路出口接基隆路高架道路，於辛亥路出口後，左轉辛亥路三段並靠慢車道直行，於復興南路一段右轉，直行後於信義路四段右轉(捷運大安站)，並於右手邊第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。</p>
+					<p>福翔:先步行到公車站 ，搭乘公車132，到達中壢火車站後，搭乘自強號 ，到達板橋車站，由於福翔過於偏僻，這邊建議搭乘高鐵到新左營站，山莊會提供補助，最後再從新左營站搭乘火車到達金崙車站，再步行14分鐘途經富山產業道路即可到達。<br><br>
+					麻翔:先步行到公車站 ，搭乘公車132，到達中壢火車站後，搭乘自強號 ，經過3個小時後，即可到達花蓮火車站 ，再步行16分鐘即可到達目的地。</p>
 				</div>
 			</div><br>
 			<div>
@@ -253,8 +266,7 @@ request.setAttribute("memberVO", memberVO);
 					<img src="<%=request.getContextPath()%>/front-end/imagesCustom/icon_parking.png"><span>停車資訊</span>
 				</a>
 				<div class="collapse" id="cc3">
-					<p>行駛國道一號於圓山交流道駛離國道一號，接建國高架道路後由信義路匣口下至建國南路一段，前行約100公尺後於信義路三段左轉並靠右側直行，過復興南路後於第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。
-						行駛國道三號下安坑交流道往台北方向接環河路，直行順接水源快速道路，下基隆路出口接基隆路高架道路，於辛亥路出口後，左轉辛亥路三段並靠慢車道直行，於復興南路一段右轉，直行後於信義路四段右轉(捷運大安站)，並於右手邊第一條巷子(信義路四段30巷)右轉，前行100公尺即達Folio大安，正門口於左手邊位置。</p>
+					<p>雖然說山莊都沒有附設停車場，但是山莊附近空地很多，所以只要看到有位置都可以停，距離飯店步行不到5分鐘，若有老人或小孩，需要接駁服務，可以馬上聯絡我們，我們會派服務人員接駁。</p>
 				</div>
 			</div><br>
        </div>   
