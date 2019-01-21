@@ -52,7 +52,7 @@
 				<span class="oi oi-menu"></span> Menu
 			</button>
 			<!--NavBar 右半部-->
-			<div class="collapse navbar-collapse" id="ftco-nav">
+			<div class="collapse navbar-collapse" id="ftco-nav" >
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/indexSearch2.jsp" class="nav-link">Home</a></li>
 					<li class="nav-item"><a href="<%=request.getContextPath()%>/front-end/roomType/roomType.jsp" class="nav-link">Room</a></li>
