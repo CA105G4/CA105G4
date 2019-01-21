@@ -209,7 +209,7 @@
 <tr>
 		<td>會員頭貼:</td>
 		<td>
-			<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" 
+			<img src="<%=request.getContextPath()%>/front-end/member/images/nopic.jpg" id="previewpic" 
 													class="img-fluid" width="300px">
 		</td>
 	</tr>
