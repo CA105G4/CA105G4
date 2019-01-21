@@ -71,7 +71,8 @@
           </ol>
 
           <!-- DataTables Example -->
-          <div class="card mb-3" align="center">
+<div  align="center">
+          <div class="card mb-3" style="width: 1200px">
             <div class="card-header">
               <i class="fas fa-table"></i>有  ${authIDSvc.getOneAuth(authID).authName} 權限的員工</div>
             <div class="card-body">
@@ -93,11 +94,9 @@
             </div>
             <div class="card-footer small text-muted"></div>
           </div>
-
-          <p class="small text-center text-muted my-5">
-<!--             <em>More table examples coming soon...</em> -->
-          </p>
-
+</div>
+		<li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/select_page.jsp'>返回</a> <br><br></li>
+		
         </div>
         <!-- /.container-fluid -->
 

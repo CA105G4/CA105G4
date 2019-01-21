@@ -70,11 +70,12 @@
 					<li class="breadcrumb-item">
 						<a href="<%=request.getContextPath()%>/back-end/room/roomState.jsp">首頁</a>
 					</li>
-            <li class="breadcrumb-item active"> </li>
+            <li class="breadcrumb-item active"> 員工的權限 </li>
           </ol>
 			
           <!-- DataTables Example -->
-          <div class="card mb-3" align="center">
+ <div  align="center">
+          <div class="card mb-3" style="width: 1200px">
             <div class="card-header">
               <i class="fas fa-table"></i> ${empSvc.getOneEmp(empID).empName} 員工的權限</div>
             <div class="card-body">
@@ -100,10 +101,8 @@
             </div>
             <div class="card-footer small text-muted"></div>
           </div>
-			<li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/listAllAuthorityRecord.jsp'>返回列表</a> <br><br></li>
-          <p class="small text-center text-muted my-5">
-<!--             <em>More table examples coming soon...</em> -->
-          </p>
+</div>          
+			<li><a href='<%=request.getContextPath()%>/back-end/authorityRecord/select_page.jsp'>返回</a> <br><br></li>
 
         </div>
         <!-- /.container-fluid -->
