@@ -125,7 +125,7 @@
 							<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" style="margin-bottom: 0px;">
 								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
 								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
-								<input type="submit" class="btn btn-warning" value="送信" disabled=disabled>
+								<input type="submit" class="btn btn-warning" value="送信" ${(workExchangeRecordVO.werState == 1)?'' : "disabled=disabled"}>
 								<input type="hidden" name="action" value="Send_Email">
 							</form>	
 							</td>

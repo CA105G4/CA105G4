@@ -85,7 +85,7 @@
 						<jsp:useBean id="roomTypeSvc"
 							class="com.roomType.model.RoomTypeService" />
 						<div class="col-xs-12 col-sm-1"></div>
-						<div class="col-xs-12 col-sm-10">
+						<div class="col-xs-12 col-sm-10 col-lg-6 offset-lg-2">
 							<Form method="post"
 								action="<%=request.getContextPath()%>/workExchange/workExchange.do"
 								enctype="multipart/form-data" autocomplete="off" style="margin-bottom: 0px;">
@@ -139,9 +139,11 @@
 									<label for="weEnd">結束時間</label> <input type="text" name="weEnd"
 										id="end_date" required="required">
 								</div>
-								<input type="submit" class="btn-success form-control"
-									value="確認新增"> <input type="hidden" name="action"
-									value="confirm_Add">
+								<div class="text-center">
+								<input type="submit" class="btn btn-success" value="確認新增"> 
+								<input type="hidden" name="action" value="confirm_Add">
+								<button id="magic" class="btn btn-warning" type="button">按我</button>
+								</div>
 							</Form>
 						</div>
 						<div class="col-xs-12 col-sm-1"></div>
@@ -149,6 +151,18 @@
 					<!-- Page Content 這邊開始自由發揮結束-->
 				</div>
 				<!-- /.container-fluid -->
+				
+				
+				<script>
+				$(document).ready(function(){
+		  			$("#magic").click(function(){
+		    		$("#weName").val("抓蟲");
+		    		$("#weContent").val("蚊蟲肆虐，需要人才來幫忙滅蟲，不論蟑螂、蜈蚣、喇牙、大至專題報告的蟲，有意願的都可以來電諮詢。");
+		  			});
+				});
+				</script>
+				
+				
 
 				<!-- Sticky Footer -->
 				<footer class="sticky-footer">
