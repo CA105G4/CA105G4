@@ -256,7 +256,7 @@
 								    
 								    <c:forEach var="messageVO" items="${list}" > 
           							 <tr>
-          								<td>會員: ${memberService.getOneMem(messageVO.msgmemid).memAcc}</td>
+          								<td>會員: ${memberService.getOneMem(messageVO.msgmemid).memName}</td>
 <%--           								 - ${messageVO.msgid} --%>
           							  	<td>${messageVO.msgcontent}</td>
           							  	<td>
