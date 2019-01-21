@@ -128,7 +128,7 @@
 											<select size="1" name="braID" id="selectBranch" class="custom-select">
 												<option value="-1">請選擇</option>
 												<c:forEach var="brVO" items="${brSvc.all}">
-													<option value="${brVO.braID}" ${(brVO.braID)==(employeeVO.braID)? 'selected' : '' } >${brVO.braName}</option>
+													<option value="${brVO.braID}" >${brVO.braName}</option>
 												</c:forEach>
 											</select>
 										</td>
@@ -177,7 +177,7 @@
 									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									<input type="submit" value="送出新增" class="btn btn-info" >
 									<button type="button" class="btn btn-info">
-										<a href='<%=request.getContextPath()%>/back-end/orders/select_orders_page.jsp' style="color:#fff">返回</a>
+										<a href='<%=request.getContextPath()%>/back-end/room/roomState.jsp' style="color:#fff">返回</a>
 									</button>
 								</FORM>	
 														
