@@ -48,11 +48,13 @@ public class MemberServlet extends HttpServlet {
     		String password = jsonObject.get("password").getAsString();
     		String outputStr = memberSvc.isMember(account, password);
     		writeText(res, outputStr);                          //有 回傳會員編號; 無 回傳nothing => 送出的結果
+    		
     	} else if("getMemberInfoByMemId".equals(action)) {       //用會員編號, 找出會員資料
     		String memId = jsonObject.get("memId").getAsString();
     		MemberVO memberVO = memberSvc.getMemberInfo(memId);
     		String outputStr = gson.toJson(memberVO);
     		writeText(res, outputStr);
+    		
     	} else if("getMemberImageByMemId".equals(action)) {            // 取會員圖片
     		OutputStream os = res.getOutputStream();
     		String memId = jsonObject.get("memId").getAsString();

@@ -365,7 +365,9 @@ public class OrdersServlet extends HttpServlet {
 				OrdersService ordSvc = new OrdersService();
 				ordSvc.insertwithOrderDetail(ordVO, odlist, rtIDandNumMap);
 				
-				success = "success";
+				String ordID = ordSvc.findNewOrderID(memId);    //用會員編號 查詢最新一筆的訂單紀錄
+				OrdersVO ordersVO = ordSvc.getOneOrders(ordID); //用訂單編號查詢訂單資訊
+				success = gson.toJson(ordersVO);                //訂房成功, 回傳訂單紀錄
 				
 				writeText(res, success);
 			} catch(Exception ex) {

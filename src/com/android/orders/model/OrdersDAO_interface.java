@@ -30,4 +30,7 @@ public interface OrdersDAO_interface {
 	
 	//找出要 checkin 的會員
 	public OrdersCheckInOutVO findCheckinMember(String memId, Date checkin);
+	
+	//找出最新一筆的會員訂單紀錄
+	public String findNewOrderID(String memID);
 }

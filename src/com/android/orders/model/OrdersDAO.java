@@ -49,6 +49,10 @@ public class OrdersDAO implements OrdersDAO_interface {
 	//修改訂單總金額 => 用訂單明細查詢
 	private static final String UPDATE_ORDER_AMOUNT_SQL = "UPDATE ORDERS SET AMOUNT = ? WHERE ORDID = ?";
 	
+	//找出最新一筆的會員訂單紀錄
+	private static final String SELECT_NEWORDERID_ByMemID = "SELECT ORDID FROM ORDERS WHERE MEMID=? ORDER BY ORDID DESC";
+
+	
 	@Override
 	public void insert(OrdersVO ordersVO) {
 		Connection con = null;
@@ -700,5 +704,45 @@ System.out.println("訂單收到ordID:"+ordID);
 			}
 		}
 		return ordCheckInOutVO;
+	}
+	
+	public String findNewOrderID(String memID) {
+		String ordID="";
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SELECT_NEWORDERID_ByMemID);	//SELECT * FROM ORDERS
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ordID = rs.getString(1);
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException("A database error occured. " + e.getMessage());
+			// Clean up JDBC resources
+		}finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}	
+
+		return ordID;
 	}
 }

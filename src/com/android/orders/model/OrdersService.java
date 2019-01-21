@@ -95,5 +95,8 @@ public class OrdersService {
 		return dao.findCheckinMember(memId, checkin);
 	}
 	
-	
+	//找出最新一筆的會員訂單紀錄
+	public String findNewOrderID(String memID) {
+		return dao.findNewOrderID(memID);
+	};
 }
