@@ -128,7 +128,7 @@
 											<select size="1" name="braID" id="selectBranch" class="custom-select">
 												<option value="-1">請選擇</option>
 												<c:forEach var="brVO" items="${brSvc.all}">
-													<option value="${brVO.braID}">${brVO.braName}</option>
+													<option value="${brVO.braID}" ${(brVO.braID)==(employeeVO.braID)? 'selected' : '' } >${brVO.braName}</option>
 												</c:forEach>
 											</select>
 										</td>

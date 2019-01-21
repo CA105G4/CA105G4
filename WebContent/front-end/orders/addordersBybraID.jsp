@@ -10,8 +10,11 @@
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 	String chooseBraID = request.getParameter("braID");
 	String chooseRtID = request.getParameter("rtID");
+	String checkinDate = request.getParameter("checkinDate");
+	
 	pageContext.setAttribute("chooseBraID", chooseBraID);
 	pageContext.setAttribute("chooseRtID", chooseRtID);
+	pageContext.setAttribute("checkinDate", checkinDate);
 	 
 // 	OrdersVO ordVO = (OrdersVO) request.getAttribute("ordVO");
 	 
@@ -220,7 +223,10 @@
 									</tr>
 									<tr> 
 										<th>入住日期:</th>
-										<td><input type="text" name="checkIn" id="start_date" size="45" class="form-control" /></td>
+										<td><input type="text" name="checkIn" id="start_date" size="45" class="form-control" 
+										value="${(checkinDate!=null)? checkinDate : '' }"/>
+										
+										</td>
 									</tr>
 									<tr>
 										<th>退房日期:</th>
