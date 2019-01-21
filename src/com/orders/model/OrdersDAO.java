@@ -44,22 +44,22 @@ public class OrdersDAO implements OrdersDAO_interface {
 	private static final String SELECT_NEWORDERID_ByMemID = "SELECT ORDID FROM ORDERS WHERE MEMID=? ORDER BY ORDID DESC";
 	
 	//用分店查找訂單
-	private static final String SELECT_ORDERS_BybraID = "SELECT * FROM ORDERS WHERE BRAID=?";
+	private static final String SELECT_ORDERS_BybraID = "SELECT * FROM ORDERS WHERE BRAID=? ORDER BY ORDID DESC";
 	
 	//用分店及訂單種類ordType(0線上,1臨櫃)查找訂單
-	private static final String SELECT_ORDERS_ByordType01 = "SELECT * FROM ORDERS WHERE BRAID=? AND (ordType=0 OR ordType=1)";
+	private static final String SELECT_ORDERS_ByordType01 = "SELECT * FROM ORDERS WHERE BRAID=? AND (ordType=0 OR ordType=1) ORDER BY ORDID DESC";
 	
 	//用分店及訂單種類ordType(2打工換宿)查找訂單
-	private static final String SELECT_ORDERS_ByordType2 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordType=2";
+	private static final String SELECT_ORDERS_ByordType2 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordType=2 ORDER BY ORDID DESC";
 	
 	//用分店及訂單狀態ordState(3退訂)查找訂單
-	private static final String SELECT_ORDERS_ByordState3 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordState=3";
+	private static final String SELECT_ORDERS_ByordState3 = "SELECT * FROM ORDERS WHERE BRAID=? AND ordState=3 ORDER BY ORDID DESC";
 	
 	//用會員memID及訂單狀態ordState(0預訂)查找訂單
-	private static final String SELECT_ORDERS_BymemIDordSta0 = "SELECT * FROM ORDERS WHERE MEMID=? AND ordState=0";
+	private static final String SELECT_ORDERS_BymemIDordSta0 = "SELECT * FROM ORDERS WHERE MEMID=? AND ordState=0 ORDER BY ORDID DESC";
 	
 	//用會員memID及訂單狀態ordState(1入住2退房3退房)查找訂單
-	private static final String SELECT_ORDERS_BymemIDordSta123 = "SELECT * FROM ORDERS WHERE MEMID=? AND (ordState=1 OR ordState=2 OR ordState=3)";
+	private static final String SELECT_ORDERS_BymemIDordSta123 = "SELECT * FROM ORDERS WHERE MEMID=? AND (ordState=1 OR ordState=2 OR ordState=3) ORDER BY ORDID DESC";
 	
 	//[Gina]{加床}加床要更改訂單總金額
 	private static final String UPDATE_AMOUNT_ByOrdID = "UPDATE ORDERS SET amount=? WHERE ordID = ?";
