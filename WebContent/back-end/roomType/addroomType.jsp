@@ -118,7 +118,7 @@
 									<tr>
 										<td>房型名稱:</td>
 										<td><input type="TEXT" name="rtName" size="45" class="form-control"
-											 value="${(rtVO == null) ? '超霸氣12人房' : rtVO.rtName}" /></td>
+											 value="${(rtVO == null) ? '超霸氣9人房' : rtVO.rtName}" /></td>
 									</tr>
 									<tr>
 										<td>房型照片:</td>
@@ -141,12 +141,12 @@
 									<tr>
 										<td>一般住房人數:</td>
 										<td><input type="TEXT" name="rtMinimum" size="45" class="form-control"
-											 value="${(rtVO == null) ? '12' : rtVO.rtMinimum}" /></td>
+											 value="${(rtVO == null) ? '9' : rtVO.rtMinimum}" /></td>
 									</tr>
 									<tr>
 										<td>住房上限人數:</td>
 										<td><input type="TEXT" name="rtLimit" size="45" class="form-control"
-											 value="${(rtVO == null) ? '20' : rtVO.rtLimit }" /></td>
+											 value="${(rtVO == null) ? '9' : rtVO.rtLimit }" /></td>
 									</tr>
 									<tr>
 										<td>平日價格:</td>

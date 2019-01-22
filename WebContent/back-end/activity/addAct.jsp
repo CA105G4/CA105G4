@@ -284,18 +284,17 @@
 
 <script>
     
-    var MyPoint = "/MyEchoServer";
+    var MyPoint = "/ActEchoServer";
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
     var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-    
 	var webSocket;
 	
 	//建立連線
 	function connect() {
 		// 建立 websocket 物件
-		webSocket = new WebSocket("ws://localhost:8081/CA105G4/ActEchoServer");
+		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
 			console.log("WebSocket 成功連線");
