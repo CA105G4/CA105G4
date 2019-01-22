@@ -155,7 +155,7 @@ public class ActivityDetailDAO implements ActivityDetailDAO_interface {
 				adVO =new ActivityDetailVO();
 				
 				adVO.setactID(rs.getString("actID"));
-				adVO.setrtID(rs.getString("rsID"));
+				adVO.setrtID(rs.getString("rtID"));
 				adVO.setdiscount(rs.getFloat("discount"));
 				
 			}

@@ -140,9 +140,10 @@ public class ActServlet extends HttpServlet {
 
 				/*************************** 2.開始新增資料 ***************************************/
 				ActivityService actSvc = new ActivityService();
-				actVO = actSvc.addAct(actName, date1, date2);
-				actVO =actSvc.insertWithDetail(actVO, adlist);
-				
+//				actVO = actSvc.addAct(actName, date1, date2);
+				actVO = actSvc.insertWithDetail(actVO, adlist);
+//				ActivityDAO actDAO =new ActivityDAO();
+//				actDAO.insertWithDetail(actVO, adlist);
 
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
 				String url = "/back-end/activity/listAllActivity.jsp";
