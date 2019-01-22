@@ -319,7 +319,11 @@ div {
     var ws;
 	var userName = '<%=empVO.getEmpName()%>';
 	console.log("userName:" + userName);
-	var url = "ws://localhost:8081/CA105G4/question?username="+userName;
+// 	var url = "ws://localhost:8081/CA105G4/question?username="+userName;
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0,path.indexOf('/',1));
+	var url = "ws://" + window.location.host + webCtx + "/question?username="+userName;
 	console.log("url:" + url);
     window.onload = function() {
 		ws = new WebSocket(url);

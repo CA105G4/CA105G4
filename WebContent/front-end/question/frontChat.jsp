@@ -264,7 +264,12 @@
 	
     var ws;
 	var userName = '${memberVO.memName}';
-	var url = "ws://localhost:8081/CA105G4/question?username=${memberVO.memName}";
+	var host = window.location.host;
+	var path = window.location.pathname;
+	var webCtx = path.substring(0,path.indexOf('/',1));
+	var url = "ws://" + window.location.host + webCtx + "/question?username="+userName;
+	console.log("url:" + url);
+// 	var url = "ws://localhost:8081/CA105G4/question?username="+userName;
     window.onload = function() {
 //         if ('WebSocket' in window) {
 //             ws = new WebSocket(url);
