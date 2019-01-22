@@ -140,7 +140,7 @@
 													<tr>
 														<td>會員電話:</td> 
 														<td><input type="TEXT" name="memTel" size="45" class="form-control"
-															value="<%=(memberVO == null) ? "097853656" : memberVO.getMemTel()%>" /></td>
+															value="<%=(memberVO == null) ? "0978953656" : memberVO.getMemTel()%>" /></td>
 													</tr>
 													<tr>
 														<td>地址:</td>
