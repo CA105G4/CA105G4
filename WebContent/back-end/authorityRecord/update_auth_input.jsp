@@ -89,6 +89,10 @@
 <div align="center">
 	<table>
 		<tr>
+			<td rowspan="3">
+				<img src="<%=request.getContextPath()%>/employee/empImg.do?empID=${authorityRecordVO.empID}"
+										style="border-radius: 50%; width: 300px;">
+			</td>
 			<jsp:useBean id="empSvc" scope="page" class="com.employee.model.EmployeeService" />
 			<td>員工編號:</td>
 			<td>${authorityRecordVO.empID} - ${empSvc.getOneEmp(authorityRecordVO.empID).empName}</td>
@@ -110,7 +114,7 @@
 	<div align="center">
 		<input type="hidden" name="empID" value="<%=authorityRecordVO.getEmpID()%>">
 		<input type="hidden" name="action" value="update">
-		<input type="submit" value="送出">
+		<input type="submit" value="送出" class="btn btn-info">
 	</div>	
 	
 	
