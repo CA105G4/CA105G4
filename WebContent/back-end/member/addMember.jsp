@@ -136,7 +136,7 @@
 														<td>會員信箱:</td>
 														<td><input type="TEXT" name="memEmail" size="45" class="form-control"
 															value="<%=(memberVO == null) ? "tomdog@gmail.com" : memberVO.getMemEmail()%>" /></td>
-													</tr>
+													</tr> 
 													<tr>
 														<td>會員電話:</td> 
 														<td><input type="TEXT" name="memTel" size="45" class="form-control"
