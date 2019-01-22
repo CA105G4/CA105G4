@@ -45,6 +45,9 @@
 			font-size:23px;
 			font-family: Comic Sans MS, Comic Sans, cursive	;
 		}
+		blockquote .small:before, blockquote footer:before, blockquote small:before {
+    		content: '\2014 \00A0';
+		}
 	</style>
 	
 </head>
@@ -115,7 +118,7 @@
 					<p id="title"><Strong>想為你的人生增添色彩嗎</Strong></p>
 					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想享受免費的房間設施嗎</Strong></p>
 					<p id="title"><Strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;快看你是否擁有以下技能</Strong></p>
-					<p>⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇	⬇	⬇	⬇⬇</p>
+					<footer class="text-right" style="font-size:20px"><Strong>by <cite>Hsiang</cite></Strong></footer>
 					</div>
 					<div class="col-xs-12 col-sm-6 block-3" style="padding-left: 0px;padding-right: 0px;">
 						<img src="<%=request.getContextPath()%>/front-end/imagesCustom/Ryze.jpg" style=" max-width: 100%;">
