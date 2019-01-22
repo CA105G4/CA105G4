@@ -133,7 +133,7 @@ table, th, td {
 							<form method="post" action="<%=request.getContextPath()%>/workExchange/workExchange.do" style="margin-bottom: 0px;">
 								<input type="hidden" name="weID" value="${workExchangeVO.weID}">
 								<input type="submit" ${(workExchangeVO.memID == null) ? "class='btn btn-warning'" : "class='btn btn-success'"} 
-								${(workExchangeVO.memID == null) ? "value='審核'"  : "value='完成'"}>  <!--disabled='disabled'-->
+								${(workExchangeVO.memID == null) ? "value='審核'"  : "value='完成'"}>
 								<input type="hidden" name="action" value="choose_member">
 							</form>
 							</td>

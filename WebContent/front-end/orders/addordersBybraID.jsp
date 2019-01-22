@@ -21,7 +21,7 @@
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(chooseBraID);
 	pageContext.setAttribute("memberVO", memberVO);
-	request.setAttribute("rtlist", rtlist);
+	request.setAttribute("rtlist", rtlist); 
 %>
 	
 <!DOCTYPE html>
@@ -217,7 +217,7 @@
 										<th>付款方式:</th>
 										<td><select size="1" name="payment" class="custom-select">
 												<option value="0">現金</option>
-												<option value="1">信用卡</option>
+												<option value="1" selected>信用卡</option>
 											</select>
 										</td>				
 									</tr>
