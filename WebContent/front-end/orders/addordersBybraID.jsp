@@ -269,9 +269,6 @@
 									<input type="hidden" name="action" value="insert">
 									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
 									<input type="submit" value="送出新增" class="btn btn-info" >
-									<button type="button" class="btn btn-info">
-										<a href='<%=request.getContextPath()%>/back-end/orders/select_orders_page.jsp' style="color: #AAAAAA">返回</a>
-									</button>
 								</FORM>	
 														
 							</div>
