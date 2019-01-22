@@ -31,7 +31,7 @@ public class OrdersJDBCDAO implements OrdersDAO_interface {
 	private static final String UPDATE_ordState_ByordID = "UPDATE ORDERS SET ORDSTATE=? WHERE ORDID=?";
 	
 	//找出要 checkin 的會員 => checin時間 + 會員編號
-	private static final String GET_CHECKIN_BY_MEMID_SQL = "SELECT * FROM ORDERS LEFT JOIN ORDERDETAIL ON ORDERS.ORDID = ORDERDETAIL.ORDID WHERE MEMID = ? AND CHECKIN = ?";
+	private static final String GET_CHECKIN_BY_MEMID_SQL = "SELECT * FROM ORDERS LEFT JOIN ORDERDETAIL ON ORDERS.ORDID = ORDERDETAIL.ORDID WHERE MEMID = ? AND CHECKIN = ? ORDER BY ORDERS.ORDID DESC";
 	
 	//修改訂單總金額 => 用訂單明細查詢
 	private static final String UPDATE_ORDER_AMOUNT_SQL = "UPDATE ORDERS SET AMOUNT = ? WHERE ORDID = ?";
@@ -891,8 +891,11 @@ public class OrdersJDBCDAO implements OrdersDAO_interface {
 //			System.out.println("===================");
 //		}
 		
-		java.util.Date uDate = new java.util.Date();
-		Date today = new Date(uDate.getTime());
+//		java.util.Date uDate = new java.util.Date();
+//		Date today = new Date(uDate.getTime());
+		
+		Date today = Date.valueOf("2019-01-01");
+		
 //		System.out.println(today);
 		String memId = "M0002";
 		OrdersCheckInOutVO ordcheckIn = dao.findCheckinMember(memId, today);
