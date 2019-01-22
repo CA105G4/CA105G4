@@ -180,7 +180,7 @@
 											<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 											<c:choose>
 													<c:when test="${memSvc.getOneMem(memberVO.memID).memPic == null}">
-															<img src="<%=request.getContextPath()%>/back-end/member/images/nopic.jpg" id="previewpic" class="img-fluid" style='border-radius: 50%; width:400px;'>
+															<img src="<%=request.getContextPath()%>/front-end/member/images/nopic.jpg" id="previewpic" class="img-fluid" style='border-radius: 50%; width:400px;'>
 										 			</c:when>
 										 			<c:otherwise>
 															<img src="<%=request.getContextPath()%>/member/memImg.do?memID=${memberVO.memID}" class="img-fluid" style='border-radius: 50%; width:400px;'>
