@@ -106,7 +106,7 @@
 							<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memSkill}</td>
 <%-- 							<td>${workExchangeRecordVO.orderID}</td> --%>
 							<td>
-							<img src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}" class="img-fluid">
+							<img src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}" class="img-fluid" style="width:300px">
 							</td>
 							<td>
 								${werStateMap.get(workExchangeRecordVO.getWerState())}
@@ -125,7 +125,7 @@
 							<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" style="margin-bottom: 0px;">
 								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
 								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
-								<input type="submit" class="btn btn-warning" value="送信" ${(workExchangeRecordVO.werState == 1)?'' : "disabled=disabled"}>
+								<input type="submit" id="send" class="btn btn-warning" value="送信" ${(workExchangeRecordVO.werState == 1)?'' : "disabled=disabled"}>
 								<input type="hidden" name="action" value="Send_Email">
 							</form>	
 							</td>
@@ -151,7 +151,6 @@
 
 	</div>
 	<!-- /#wrapper -->
-
 	<!-- Scroll to Top Button-->
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>

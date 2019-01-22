@@ -108,7 +108,7 @@
 							<td>${memberSvc.getOneMem(workExchangeRecordVO.memID).memSkill}</td>	
 <%-- 							<td>${workExchangeRecordVO.orderID}</td> --%>
 							<td>
-							<img src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}" class="img-fluid">
+							<img src="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecordImg.do?weID=${workExchangeRecordVO.weID}&memID=${workExchangeRecordVO.memID}" class="img-fluid" style="width:300px">
 							</td>
 							<td>
 								${werStateMap.get(workExchangeRecordVO.getWerState())}
@@ -120,14 +120,14 @@
 								<input type="hidden" name="werState" value="1">
 								<input type="submit" ${(workExchangeRecordVO.werState == 1) ? "class='btn btn-success'" : "class='btn btn-danger'"} 
 								${(workExchangeRecordVO.werState == 1) ? "value='成立訂單'" : "value='通過'"}>
-								<input type="hidden" name="action" value="OK">
+								<input type="hidden" name="action" ${(workExchangeRecordVO.werState == 1) ? "value='add_WEOrder'" : "value='OK'"}>
 							</form>
 							</td>
 							<td>
 							<form method="post" action="<%=request.getContextPath()%>/workExchangeRecord/workExchangeRecord.do" style="margin-bottom: 0px;">
 								<input type="hidden" name="weID" value="${workExchangeRecordVO.weID}">
 								<input type="hidden" name="memID" value="${workExchangeRecordVO.memID}">
-								<input type="submit" class="btn btn-warning" value="送信">
+								<input type="submit" class="btn btn-warning" value="送信" ${(workExchangeRecordVO.werState == 1)? "disabled=disabled" : '' }>
 								<input type="hidden" name="action" value="Send_Email">
 							</form>	
 							</td>

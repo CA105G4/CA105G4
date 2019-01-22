@@ -84,21 +84,22 @@ public class WorkExchangeRecordServlet extends HttpServlet {
 			String weName = workExchangeVO.getWeName();
 			
 			
-			WorkExchangeRecordService werSvc = new WorkExchangeRecordService();
-			WorkExchangeRecordVO workExchangeRecordVO= werSvc.getOneWER(weID, memID);
-			req.setAttribute("workExchangeRecordVO", workExchangeRecordVO);
+//			WorkExchangeRecordService werSvc = new WorkExchangeRecordService();
+//			WorkExchangeRecordVO workExchangeRecordVO= werSvc.getOneWER(weID, memID);
+			req.setAttribute("workExchangeVO", workExchangeVO);
 			
 			MemberService memberSvc = new MemberService();
 			MemberVO mVO = memberSvc.getOneMem(memID);
 			String memberName = mVO.getMemName();
+			String memberEmail = mVO.getMemEmail();
 			
 			MailService mSvc = new MailService();
-			String to = "superivanshang@gmail.com";
-		    String subject = "打工審核通知函";
+			String to = memberEmail;
+		    String subject = "打工申請審核通知函";
 		    String messageText = "親愛的"+memberName+"您好，這裡是翔太山莊，您所申請的"+weName+"已經審核通過，請抱持著愉快的心情前來，如有任何問題請來電，謝謝\n";
-		    messageText = messageText + "http://www.google.com.tw";
+		    messageText = messageText + "http://www.xiangtai.changeip.com:8081/CA105G4/front-end/neighbourhood.jsp";
 			mSvc.sendMail(to, subject, messageText);
-			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchangeRecord/listWER.jsp");
+			RequestDispatcher success = req.getRequestDispatcher("/back-end/workExchangeRecord/listWorkExchangeRecordByWE.jsp");
 			success.forward(req, res);
 		}
 		
