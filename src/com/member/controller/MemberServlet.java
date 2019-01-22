@@ -514,7 +514,7 @@ public class MemberServlet extends HttpServlet {
 
 				String subject = "翔太山莊會員認證信";
 				String url1 = "http://localhost:8081/CA105G4/Mail.do?memAcc=" + memAcc + "&memPsw=" + memPsw;
-				String messageText = memName + "請點擊下列網址已完成認證" + "\n" + url1;
+				String messageText = memName + "請點擊下列網址以完成認證" + "\n" + url1;
 
 				EmailService mailService = new EmailService();
 				mailService.sendMail(to, subject, messageText);
@@ -525,7 +525,7 @@ public class MemberServlet extends HttpServlet {
 
 				/*************************** 3.�新增完成,準備轉交Send the Success view) ***********/
 
-				String url = "/front-end/Login.jsp";
+				String url = "/front-end/Suc_register.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
