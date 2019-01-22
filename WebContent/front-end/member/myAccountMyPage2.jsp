@@ -114,12 +114,12 @@
            
           <!-- Sidebar -->
           <div class="list-group">
-              <a href="#" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
-              <a href="#" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i> <span>My Experience</span></a>
-              <a href="#" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
-              <a href="#" class="list-group-item "><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
+             <a href="<%=request.getContextPath()%>/front-end/member/myAccountMyPage.jsp" class="list-group-item active"><i class="glyphicon glyphicon-user"></i> <span>My Page</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountorders.jsp" class="list-group-item"><i class="fa fa-credit-card"></i> <span>Orders</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/orders/myAccountordersRecord.jsp" class="list-group-item"><i class="fa fa-question-circle"></i> <span>Order Record</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/article/myExperience.jsp" class="list-group-item"><i class="fa fa-arrow-circle-o-left"></i><span>My Experience</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/coupon/myCoupon.jsp" class="list-group-item "><i class="fa fa-book"></i> <span>My Coupon</span></a>
+					<a href="<%=request.getContextPath()%>/front-end/roomType/myRoomType.jsp" class="list-group-item"><i class="glyphicon glyphicon-heart"></i> <span>My RoomType</span></a>
           </div>
           <!-- Sidebar -->
           

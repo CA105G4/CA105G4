@@ -361,7 +361,7 @@ public class MemberServlet extends HttpServlet {
 				 * 3.�ק粒��,�ǳ����(Send the Success view)
 				 *************/
 				req.setAttribute("memberVO", memberVO);
-				String url = "/front-end/member/myAccountMyPage2.jsp";
+				String url = "/front-end/member/myAccountMyPage.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
