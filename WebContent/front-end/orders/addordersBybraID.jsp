@@ -21,7 +21,7 @@
 	RoomTypeService rtSvc = new RoomTypeService();
 	List<RoomTypeVO> rtlist = rtSvc.findRoomTypeByBraID(chooseBraID);
 	pageContext.setAttribute("memberVO", memberVO);
-	request.setAttribute("rtlist", rtlist);
+	request.setAttribute("rtlist", rtlist); 
 %>
 	
 <!DOCTYPE html>
