@@ -352,8 +352,8 @@ public class AuthorityRecordServlet extends HttpServlet {
 				AuthorityRecordService authSvc = new AuthorityRecordService();
 				AuthorityRecordService empIDSvc = new AuthorityRecordService();
 				
-				Set<AuthorityRecordVO> set = empIDSvc.getAuthIDByEmpID(empID);
 				authSvc.deleteByEmpIdAuthId(empID, authID);
+				Set<AuthorityRecordVO> set = empIDSvc.getAuthIDByEmpID(empID);
 				
 				req.setAttribute("listEmps_ByAuthID", set); 
         		req.setAttribute("empID", empID);
