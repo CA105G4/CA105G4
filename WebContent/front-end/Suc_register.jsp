@@ -131,6 +131,7 @@
 					
 					請前往填寫的信箱收取認證信<br>
 					<a  style="color:red;">如果您填寫的是yahoo或是pchome、gmail等提供的免費信箱，若是信件夾找不到，有可能是被系統分類到"垃圾郵件"或"廣告郵件"裡，請到這幾個信件夾找尋認證信。</a>
+					<br><a style="color:white;"href="<%=request.getContextPath()%>/front-end/Login.jsp?memAcc=${memAcc}&memPsw=${memPsw}" >其實不認證也沒關係~直接登入ㄅ</a>
 				</div>
 			</div> 
 		</div>
