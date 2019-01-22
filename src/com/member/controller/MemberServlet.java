@@ -506,7 +506,7 @@ public class MemberServlet extends HttpServlet {
 				 * 2..新增完成,準備轉交(
 				 ***************************************/
 				System.out.println(errorMsgs);
-				
+				 
 				memberVO = memSvc.addMem(memName, memAcc, memPsw, memBirth, memEmail, memTel, memAddr, memSex, memSkill,
 						memPic, memIDcard);
 				// 信箱驗證

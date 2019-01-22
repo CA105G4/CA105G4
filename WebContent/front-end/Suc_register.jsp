@@ -11,7 +11,7 @@
 	<title>翔太山莊-會員登入/註冊</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-   
+    
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/open-iconic-bootstrap.min.css">
 	<link rel="stylesheet" href="<%=request.getContextPath()%>/front-end/css/animate.css">
