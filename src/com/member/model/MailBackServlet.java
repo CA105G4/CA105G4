@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MailBackServlet extends HttpServlet {
 
@@ -13,14 +14,14 @@ public class MailBackServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String memAcc = req.getParameter("memAcc");
 		if (memAcc == null) {
-			req.getRequestDispatcher("/front-end/test.jsp").forward(req, res);
+			req.getRequestDispatcher("/front-end/Certification_unsuc.jsp").forward(req, res);
 			return;
 		}
 
 		String memPsw = (String) req.getSession().getAttribute(memAcc);
 
 		if (memPsw == null || memPsw.equals("")) {
-			req.getRequestDispatcher("/front-end/test.jsp").forward(req, res);
+			req.getRequestDispatcher("/front-end/Certification_unsuc.jsp").forward(req, res);
 			return;
 		}
 		MemberVO memberVO = new MemberVO();
@@ -36,12 +37,13 @@ public class MailBackServlet extends HttpServlet {
 //		System.out.println(memAcc);
 //		System.out.println(memID);
 //		System.out.println(memState);
-		
+
 		memberVO = memSvc.updateMemStatus(1, memID);
 		req.setAttribute("memberVO", memberVO);
 		req.setAttribute("memPsw", memPsw);
 		req.setAttribute("memAcc", memAcc);
 		req.getRequestDispatcher("/front-end/Certification_suc_Login.jsp").forward(req, res);
+		
 	}
 
 	@Override

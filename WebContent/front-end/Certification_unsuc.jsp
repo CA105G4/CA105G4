@@ -126,12 +126,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 offset-sm-3 col-lg-6 offset-lg-3">
-					<h1>已註冊成功</h1>
-					<h2>認證信已發送</h2>
+					<h1>你的認證信已過期了QAQ</h1>
+					<h2>別難過</h2>
 					
-					請前往填寫的信箱收取認證信<br>
-					<a  style="color:red;">如果您填寫的是yahoo或是pchome、gmail等提供的免費信箱，若是信件夾找不到，有可能是被系統分類到"垃圾郵件"或"廣告郵件"裡，請到這幾個信件夾找尋認證信。</a>
-					<br><a style="color:white;"href="<%=request.getContextPath()%>/front-end/Login.jsp" >其實不認證也沒關係~直接登入ㄅ</a>
+					其實沒認證也可以登入的(´・ω・`)<br>
+					母湯跟別人說歐(つ >ω●)つ<br>
+					點擊下面連結前往登入吧ヾ(｀・ω・´)ノ
+					
+				
+					<br><a style="color:blue;" href="<%=request.getContextPath()%>/front-end/Login.jsp" >直接登入</a>
 				</div>
 			</div> 
 		</div>
