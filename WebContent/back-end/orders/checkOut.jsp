@@ -106,10 +106,10 @@
 						<!--開始自由發揮-->
 						<table class="table table-bordered table-striped table-hover">
 							<tr>
-								<th>訂單編號</th>
+								<th>房號</th>
 								<th>會員姓名</th>
 								<th>房型</th>
-								<th>房號</th>
+								<th>訂單編號</th>
 								<th>房間數</th>
 								<th>人數</th>
 								<th>入住時間</th>
@@ -119,13 +119,13 @@
 					
 							<c:forEach var="ordcheckInVO" items="${checkOutlist}">
 								<tr>
-									<td>${ordcheckInVO.ordID}</td>
+							<jsp:useBean id="roomSvc" scope="page" class="com.room.model.RoomService" />
+									<td>${roomSvc.getOneRoom(ordcheckInVO.getRoomID()).getRoomNo()}</td>
 							<jsp:useBean id="memSvc" scope="page" class="com.member.model.MemberService" />
 									<td>${memSvc.getOneMem(ordcheckInVO.getMemID()).getMemName()}</td>
 							<jsp:useBean id="rtSvc" scope="page" class="com.roomType.model.RoomTypeService" />
 									<td>${rtSvc.getOneRoomType(ordcheckInVO.getRtID()).getRtName()}</td>
-							<jsp:useBean id="roomSvc" scope="page" class="com.room.model.RoomService" />
-									<td>${roomSvc.getOneRoom(ordcheckInVO.getRoomID()).getRoomNo()}</td>
+									<td>${ordcheckInVO.ordID}</td>
 									<td>${ordcheckInVO.numOfRoom}</td>
 									<td>${ordcheckInVO.numOfGuest}</td> 
 									<td>${ordcheckInVO.checkIn}</td>
