@@ -289,7 +289,6 @@
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
     var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
-    
 	var webSocket;
 	
 	//建立連線
