@@ -145,11 +145,21 @@
 					<input type="hidden" name="from" value="${param.from}">
 					<table align="center">
 						<tr>
+						<th></th>
 							<th>
 								<button type="submit" name="button" class="btn btn-info" value="login">登入</button>
 							</th>
 							<th>
 								<button type="submit" name="button" class="btn btn-info" value="insert">註冊</button>
+							</th>
+							<th>	
+								<span class="btn" id="pingWei"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/tool.png" style="width: 30px;height: 30px;"></span>
+							</th>
+							<th>	
+								<span class="btn" id="bigWu"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/teacher.png" style="width: 30px;height: 30px;"></span>
+							</th>
+							<th>
+								<span class="btn" id="seafood"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/seafood.png" style="width: 30px;height: 30px;"></span>
 							</th>
 						</tr>
 					</table>
@@ -157,6 +167,10 @@
 			</div>
 		</div>
 	</form>
+	
+
+	
+	
 		
   <script src="<%=request.getContextPath()%>/front-end/js/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/jquery-migrate-3.0.1.min.js"></script>
@@ -174,6 +188,24 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/google-map.js"></script>
   <script src="<%=request.getContextPath()%>/front-end/js/main.js"></script>
+  
+  	<script>
+	$(document).ready(function(){
+		$('#pingWei').click(function(){
+			$('#memAcc').val('motor927');
+			$('#memPsw').val('motor123');
+		});
+		$('#bigWu').click(function(){
+			$('#memAcc').val('peter1');
+			$('#memPsw').val('abc123');
+		});
+		$('#seafood').click(function(){
+			$('#memAcc').val('DAVID123');
+			$('#memPsw').val('123456');
+		});
+	});
+	</script>
+  
   
 </body>
 	
