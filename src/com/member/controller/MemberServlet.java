@@ -513,7 +513,7 @@ public class MemberServlet extends HttpServlet {
 				String to = memEmail;
 
 				String subject = "翔太山莊會員認證信";
-				String url1 = "http://localhost:8081/CA105G4/Mail.do?memAcc=" + memAcc + "&memPsw=" + memPsw;
+				String url1 = "http://www.xiangtai.changeip.com:8081/CA105G4/Mail.do?memAcc=" + memAcc + "&memPsw=" + memPsw;
 				String messageText = memName + "請點擊下列網址以完成認證" + "\n" + url1;
 
 				EmailService mailService = new EmailService();
