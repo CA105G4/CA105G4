@@ -249,10 +249,10 @@ public class WorkExchangeServlet extends HttpServlet {
 			String memEmail = memberVO.getMemEmail();
 			
 			MailService ms = new MailService();
-			String to = "superivanshang@gmail.com";
+			String to = memEmail;
 			String subject = "打工換宿邀請";
 			String messageText = "親愛的"+memName+"會員您好，目前有新的打工需求，剛好看到你有符合我們的需求，如有意願，我們都在這等您的到來^_^\n";
-			messageText = messageText + "http://www.xiangtai.changeip.com:8081/CA105G4/front-end/workExchange/listAllWE.jsp";
+			messageText = messageText + "http://www.xiangtai.changeip.com:8081/CA105G4/front-end/Login.jsp";
 			
 			ms.sendMail(to, subject, messageText);
 			JSONObject jobj = new JSONObject();
