@@ -128,7 +128,9 @@
     <!--這邊開始自由發揮-->
 <div class="container">
          	<div class="row">
-         		<div class="col-xs-12 col-sm-8">
+         		<div class="col-xs-12 col-sm-3">
+         		</div>
+         		<div class="col-xs-12 col-sm-9">
          			 <h1 >會員註冊</h1>
          			 <div class="container" style="background-color: #e3e3e3; text-align: center; font-weight: bold;">
 							<div class="row">
@@ -223,12 +225,13 @@
 						
 </table>
 <br>
-	<input type="hidden" name="action" value="register" >
-	<input type="submit" value="送出" >
+	<div align="center">
+	
+		<input type="hidden" name="action" value="register" >
+		<input type="submit" value="送出" class="btn btn-info">
+		<span class="btn" id="pingWei"><img src="<%=request.getContextPath()%>/front-end/member/images/regMember.png" style="width: 100px;height: 100px;"></span>
+	</div>
 <br>
-							<tr><th>	
-								<span class="btn" id="pingWei"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/tool.png" style="width: 30px;height: 30px;"></span>
-							</th></tr>
 </FORM>
 
         </div>
