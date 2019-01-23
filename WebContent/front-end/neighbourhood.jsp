@@ -211,7 +211,7 @@ request.setAttribute("memberVO", memberVO);
         if(${braSvc.getAll().size()} >= 3){
 	       	bra3M = new google.maps.Marker({ 
 	               map: map, 
-	               position: {lat:23.513967, lng:120.891145},
+	               position: {lat:22.654914, lng:120.304696},
 	               animation: google.maps.Animation.DROP,
 	               label: 'New'
 	              }); 
