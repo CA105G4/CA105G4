@@ -90,8 +90,8 @@
 									<table>
 										<tr>
 											<td>員工姓名:</td>
-											<td><input type="TEXT" name="empName" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "Tomdag" : employeeVO.getEmpName()%>" /></td>
+											<td><input type="TEXT" name="empName" id="empName" size="45" class="form-control"
+												value="<%=(employeeVO == null) ? "" : employeeVO.getEmpName()%>" /></td>
 										</tr>
 										<tr>
 											<td>分店名稱:</td>
@@ -118,18 +118,18 @@
 										</tr>
 										<tr>
 											<td>電話:</td>
-											<td><input type="TEXT" name="empTel" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "0978001235" : employeeVO.getEmpTel()%>" /></td>
+											<td><input type="TEXT" name="empTel" id="empTel"size="45" class="form-control"
+												value="<%=(employeeVO == null) ? "" : employeeVO.getEmpTel()%>" /></td>
 										</tr>
 										<tr>
 											<td>員工帳號:</td>
-											<td><input type="TEXT" name="empAcc" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "aaaaa" : employeeVO.getEmpAcc()%>" /></td>
+											<td><input type="TEXT" name="empAcc" id="empAcc" size="45" class="form-control"
+												value="<%=(employeeVO == null) ? "" : employeeVO.getEmpAcc()%>" /></td>
 										</tr>
 										<tr>
 											<td>員工密碼:</td>
-											<td><input type="password" name="empPsw" size="45" class="form-control"
-												value="<%=(employeeVO == null) ? "123456" : employeeVO.getEmpPsw()%>" /></td>
+											<td><input type="password" name="empPsw" id="empPsw" size="45" class="form-control"
+												value="<%=(employeeVO == null) ? "" : employeeVO.getEmpPsw()%>" /></td>
 										</tr>
 										<tr>
 											<td>員工頭貼:</td>
@@ -153,7 +153,9 @@
 										<input type="hidden" name="action" value="insert" >
 										<input type="submit" value="送出" class="btn btn-info">
 									</div> 
-										
+										<tr><th>	
+								<span class="btn" id="emp">0</span>
+										</th></tr>
 									</FORM>
 								</div>
 							<div class="col-xs-12 col-sm-3"></div>
@@ -207,6 +209,17 @@
 				reader.readAsDataURL(this.files[0]);
 			}
 		});
+	</script>
+	<script>
+	$(document).ready(function(){
+		$('#emp').click(function(){
+			$('#empName').val('Tomdag');
+			$('#empTel').val('0978001235');
+			$('#empAcc').val('fff');
+			$('#empPsw').val('fff');
+		});
+		
+	});
 	</script>
 </body>
 
