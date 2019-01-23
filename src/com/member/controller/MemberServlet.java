@@ -443,18 +443,18 @@ public class MemberServlet extends HttpServlet {
 
 				byte[] memPic = null;
 				Part part = req.getPart("memPic");
-//				if(part == null || part.getSubmittedFileName().length() == 0) {
+				if(part == null || part.getSubmittedFileName().length() == 0) {
 //					MemberService rtSvc = new MemberService();
 //					MemberVO rtvo = rtSvc.getOneMem(memID);
 //					memPic = rtvo.getMemPic();	
-//					
-//				}else {
-//					InputStream in =  part.getInputStream();
-//					memPic = new byte[in.available()];
-//					in.read(memPic);
-//					in.close();
-//				
-//				}
+					
+				}else {
+					InputStream in =  part.getInputStream();
+					memPic = new byte[in.available()];
+					in.read(memPic);
+					in.close();
+				
+				}
 
 				MemberService memSvc = new MemberService();
 				try {
