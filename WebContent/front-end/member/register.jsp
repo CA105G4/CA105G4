@@ -155,18 +155,18 @@
 <table>
 	<tr>
 		<td>會員姓名:</td>
-		<td><input type="TEXT" name="memName" size="45" 
-			 value="<%= (memberVO==null)? "Tomdag" : memberVO.getMemName()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memName" size="45" id='memName'
+			 value="<%= (memberVO==null)? "" : memberVO.getMemName()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>會員帳號:</td>
-		<td><input type="TEXT" name="memAcc" size="45" 
-			 value="<%= (memberVO==null)? "overtom" : memberVO.getMemAcc()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memAcc" size="45" id="memAcc"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemAcc()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>會員密碼:</td>
-		<td><input type="password" name="memPsw" size="45"
-			 value="<%= (memberVO==null)? "overdag" : memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="password" name="memPsw" size="45"id="memPsw"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemPsw()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>生日:</td>
@@ -175,36 +175,36 @@
 	</tr>
 	<tr>
 		<td>會員信箱:</td>
-		<td><input type="TEXT" name="memEmail" size="45"
-			 value="<%= (memberVO==null)? "tomdog@gmail.com" : memberVO.getMemEmail()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memEmail" size="45" id="memEmail"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemEmail()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>會員電話:</td>
-		<td><input type="TEXT" name="memTel" size="45"
-			 value="<%= (memberVO==null)? "0978534656" : memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memTel" size="45" id="memTel"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemTel()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>地址:</td>
-		<td><input type="TEXT" name="memAddr" size="45"
-			 value="<%= (memberVO==null)? "台北市永和區明樂街59號10樓" : memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memAddr" size="45" id="memAddr"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemAddr()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 	<tr>
 		<td>性別:</td>
 		<td>
-				<input type="radio" name="memSex" value="M" checked="true">男
+				<input type="radio" name="memSex" value="M" >男
 				<input type="radio" name="memSex" value="F">女<span style="color:red;">※ </span><br>
 		</td>
 	</tr>
 	
 	<tr>
 		<td>會員技能:</td>
-		<td><input type="TEXT" name="memSkill" size="45"
-			 value="<%= (memberVO==null)? "大胃王" : memberVO.getMemSkill()%>" /></td>
+		<td><input type="TEXT" name="memSkill" size="45" id="memSkill"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemSkill()%>" /></td>
 	</tr>
 	<tr>
 		<td>身分字號:</td>
-		<td><input type="TEXT" name="memIDcard" size="45"
-			 value="<%= (memberVO==null)? "T123456789" : memberVO.getMemIDcard()%>" /><span style="color:red;">※ </span></td>
+		<td><input type="TEXT" name="memIDcard" size="45" id="memIDcard"
+			 value="<%= (memberVO==null)? "" : memberVO.getMemIDcard()%>" /><span style="color:red;">※ </span></td>
 	</tr>
 <tr>
 		<td>會員頭貼:</td>
@@ -220,12 +220,17 @@
   				</td>
 	</tr>
 	
-
+						
 </table>
 <br>
-	<input type="hidden" name="action" value="register">
-	<input type="submit" value="送出">
+	<input type="hidden" name="action" value="register" >
+	<input type="submit" value="送出" >
+<br>
+							<tr><th>	
+								<span class="btn" id="pingWei"><img src="<%=request.getContextPath()%>/front-end/imagesCustom/tool.png" style="width: 30px;height: 30px;"></span>
+							</th></tr>
 </FORM>
+
         </div>
         <!-- /.container-fluid -->
 
@@ -371,7 +376,23 @@
            height: 151px;   /* height:  151px; */
   }
 </style>
-
+<script>
+	$(document).ready(function(){
+		$('#pingWei').click(function(){
+			$('#memName').val('湯姆狗');
+			$('#memAcc').val('aaaaa');
+			$('#memPsw').val('aaaaa');
+			$('#memEmail').val('4a337013@stust.edu.tw');
+			$('#memTel').val('0978534656');
+			$('#memAddr').val('台北市永和區明樂街59號10樓');
+			$('#memSkill').val('調酒師');
+			$('#memIDcard').val('F123456789');
+			
+		});
+		
+	});
+	</script>
+  
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
